@@ -1,8 +1,10 @@
 ﻿using CmlLib.Core;
+using MinecraftLauncher.Helpers;
 using MinecraftLauncher.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using Wpf.Ui.Contracts;
 
 namespace MinecraftLauncher
 {
@@ -22,14 +26,19 @@ namespace MinecraftLauncher
     /// </summary>
     public partial class MainWindow : Wpf.Ui.Controls.Window.FluentWindow
     {
+        private ISnackbarService _snackbarService;
         public MainWindow()
         {
             InitializeComponent();
-            Globals.Username = "Jurij15gq";
+            //Globals.Username = "Jurij15gq";
         }
 
         private void FluentWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            Settings.GetSettings();
+
+            Wpf.Ui.Appearance.Watcher.Watch(this);
+
             MainNavigation.IsPaneOpen = false;
             MainNavigation.Navigate(typeof(HomePage));
 
@@ -39,6 +48,20 @@ namespace MinecraftLauncher
             Globals.MainNavigation = MainNavigation;
             Globals.PlayMenuItem = PlayPageTitle;
             //test();
+
+            DispatcherTimer refreshtimer = new DispatcherTimer();
+            refreshtimer.Tick += Refreshtimer_Tick;
+            refreshtimer.Interval = TimeSpan.FromSeconds(1);
+            //refreshtimer.Start();
+
+            //MessageBox.Show(SnackbarPresenter.GetType().ToString());
+            //_snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+            //Globals.snackbarService = _snackbarService;
+        }
+
+        private void Refreshtimer_Tick(object? sender, EventArgs e)
+        {
+            MainNavigation.PaneTitle = Globals.Username;
         }
 
         async void test()

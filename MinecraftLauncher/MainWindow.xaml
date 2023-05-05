@@ -52,19 +52,19 @@
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem Content="About">
+                <ui:NavigationViewItem Content="About" TargetPageType="{x:Type pages:AboutPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Balloon24"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Content="Settings">
+                <ui:NavigationViewItem Content="Settings" TargetPageType="{x:Type pages:SettingsPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Settings24"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>
             <ui:NavigationView.ContentOverlay>
-                <ui:SnackbarPresenter x:Name="Presenter"/>
+                <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
             </ui:NavigationView.ContentOverlay>
         </ui:NavigationView>
     </Grid>

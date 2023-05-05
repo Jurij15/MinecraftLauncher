@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MinecraftLauncher.Helpers
 {
@@ -29,9 +30,16 @@ namespace MinecraftLauncher.Helpers
                 //ServerIp = "mc.hypixel.net"
             };
 
-            var process = await launcher.CreateProcessAsync(VersionName, launchOption);
+            try
+            {
+                var process = await launcher.CreateProcessAsync(VersionName, launchOption);
 
-            process.Start();
+                process.Start(); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error message: "+ ex.Message, "An error occured");
+            }
         }
     }
 }

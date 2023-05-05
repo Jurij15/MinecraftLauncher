@@ -35,12 +35,33 @@ namespace MinecraftLauncher.Pages
         {
             int memooryinmb = Convert.ToInt32(RamAmountBox.Value) * 1024;
 
+            LaunchingBar.Visibility = Visibility.Visible;
+
             await PlayHelper.Launch(Globals.CurrentBuild, memooryinmb);
+            LaunchingBar.Visibility = Visibility.Collapsed;
+            //Globals.snackbarService.Show("Minecraft Launched", "Version " + Globals.CurrentBuild + " was launched", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(2));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             VersionNameBlock.Text = "Minecraft " + Globals.CurrentBuild;
+            UsernameBoxPlayPage_TextChanged(sender, null);
+            LaunchingBar.Visibility = Visibility.Collapsed;
+
+            UsernameBoxPlayPage.Text  = Globals.Username;
+        }
+
+        private void UsernameBoxPlayPage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(UsernameBoxPlayPage.Text))
+            {
+                PlayButton.IsEnabled = false;
+            }
+            else
+            {
+                Globals.Username = UsernameBoxPlayPage.Text;
+                PlayButton.IsEnabled = true;
+            }
         }
     }
 }

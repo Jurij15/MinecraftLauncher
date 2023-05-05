@@ -21,8 +21,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ui:AutoSuggestBox x:Name="SearchBox" PlaceholderText="Search" Grid.Row="1" TextChanged="SearchBox_TextChanged"/>
-        <Grid Grid.Row="2" x:Name="SortPage" Margin="4,4,4,4">
+        <ui:AutoSuggestBox x:Name="SearchBox" PlaceholderText="Search" Grid.Row="1" TextChanged="SearchBox_TextChanged" Margin="0,0,0,4"/>
+        <ui:InfoBar Message="If there are no versions on the list, try checking your internet connection and restarting the app!" Title="Bug" IsOpen="True" Grid.Row="2" IsClosable="True"/>
+        <Grid Grid.Row="3" x:Name="SortPage" Margin="4,4,4,4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -31,8 +32,8 @@
             <Grid Grid.Row="0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Sort by:" FontSize="15" VerticalAlignment="Center"/>
-                    <RadioButton x:Name="InstalledSortRadio" Content="Installed" Margin="8,0,0,0"/>
-                    <RadioButton x:Name="AllSortRadio" Content="All" Margin="-18,0,8,0"/>
+                    <RadioButton x:Name="InstalledSortRadio" Content="Installed" Margin="8,0,0,0" Checked="InstalledSortRadio_Checked"/>
+                    <RadioButton x:Name="AllSortRadio" Content="All" Margin="-18,0,8,0" Checked="AllSortRadio_Checked"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <CheckBox x:Name="ReleasesOnly" Checked="ReleasesOnly_Checked" Unchecked="ReleasesOnly_Unchecked" Content="Releases Only"/>
@@ -42,7 +43,7 @@
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="LightGray" VerticalAlignment="Bottom"  Grid.Row="1"/>
         </Grid>
         <ui:DynamicScrollViewer Grid.Row="5">
-            <WrapPanel x:Name="ItemsPanel"/>
+            <WrapPanel x:Name="ItemsPanel" SizeChanged="ItemsPanel_SizeChanged"/>
         </ui:DynamicScrollViewer>
     </Grid>
 </Page>

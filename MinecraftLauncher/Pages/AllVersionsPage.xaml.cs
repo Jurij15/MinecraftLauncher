@@ -72,6 +72,13 @@ namespace MinecraftLauncher.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            RefreshDefault();
+            ReleasesOnly_Checked(sender, e);
+            ReleasesOnly.IsChecked = true;
+        }
+
+        void RefreshDefault()
+        {
             Globals.AllVersionsArray.Clear();
             ItemsPanel.Children.Clear();
             OnStart();
@@ -173,7 +180,7 @@ namespace MinecraftLauncher.Pages
 
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
         {
-            Page_Loaded(sender, e);
+            RefreshDefault();
         }
 
         private void OptiFineOnly_Checked(object sender, RoutedEventArgs e)
@@ -213,6 +220,90 @@ namespace MinecraftLauncher.Pages
         }
 
         private void OptiFineOnly_Unchecked(object sender, RoutedEventArgs e)
+        {
+            RefreshDefault();
+        }
+
+        private void ItemsPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Children.Count.ToString();
+            if (ItemsPanel.Children.Count < 1)
+            {
+                Wpf.Ui.Controls.Hyperlink link = new Wpf.Ui.Controls.Hyperlink();
+                link.Click += (s, e) =>
+                {
+                    Page_Loaded(null, null);
+                };
+                link.Content = "Refresh";
+                ItemsPanel.Children.Add(link);
+            }
+        }
+
+        private void InstalledSortRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ReleasesOnly.IsChecked == true)
+            {
+                ClearArrays();
+                foreach (var item in VersionsHelper.GetAllInstalledVersions())
+                {
+                    if (VersionsHelper.bIsReleaseVersion(item))
+                    {
+                        Globals.AllVersionsArray.Add(item);
+                    }
+                }
+
+                Array.Sort(Globals.AllVersionsArray.ToArray(), new Comparison<string>((x, y) =>
+                {
+                    // Split the strings into segments separated by decimal points
+                    string[] xSegments = x.Split('.');
+                    string[] ySegments = y.Split('.');
+
+                    // Skip the first segment and parse the remaining segments as decimals
+                    decimal xDecimal = decimal.Parse(string.Join("", xSegments.Skip(1)));
+                    decimal yDecimal = decimal.Parse(string.Join("", ySegments.Skip(1)));
+
+                    // Compare the two decimal values
+                    return yDecimal.CompareTo(xDecimal);
+                }));
+
+                foreach (var item in Globals.AllVersionsArray)
+                {
+                    CreateCard(item);
+                }
+            }
+            else
+            {
+                ClearArrays();
+                foreach (var item in VersionsHelper.GetAllInstalledVersions())
+                {
+                    if (VersionsHelper.bIsOptifine(item))
+                    {
+                        Globals.AllVersionsArray.Add(item);
+                    }
+                }
+
+                Array.Sort(Globals.AllVersionsArray.ToArray(), new Comparison<string>((x, y) =>
+                {
+                    // Split the strings into segments separated by decimal points
+                    string[] xSegments = x.Split('.');
+                    string[] ySegments = y.Split('.');
+
+                    // Skip the first segment and parse the remaining segments as decimals
+                    decimal xDecimal = decimal.Parse(string.Join("", xSegments.Skip(1)));
+                    decimal yDecimal = decimal.Parse(string.Join("", ySegments.Skip(1)));
+
+                    // Compare the two decimal values
+                    return yDecimal.CompareTo(xDecimal);
+                }));
+
+                foreach (var item in Globals.AllVersionsArray)
+                {
+                    CreateCard(item);
+                }
+            }
+        }
+
+        private void AllSortRadio_Checked(object sender, RoutedEventArgs e)
         {
             Page_Loaded(sender, e);
         }
