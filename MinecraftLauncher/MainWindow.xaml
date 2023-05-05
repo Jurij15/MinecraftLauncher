@@ -1,0 +1,71 @@
+﻿<ui:FluentWindow x:Class="MinecraftLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MinecraftLauncher"
+        xmlns:pages="clr-namespace:MinecraftLauncher.Pages"
+        mc:Ignorable="d"
+                xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                     ExtendsContentIntoTitleBar="True"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
+                 Loaded="FluentWindow_Loaded"
+    WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="690" Width="1236">
+    <Grid>
+        <ui:TitleBar Title="Minecraft Launcher" x:Name="TitleBar"/>
+        <ui:NavigationView 
+            x:Name="MainNavigation"
+            PaneDisplayMode="Left"
+            IsBackButtonVisible="Visible"
+            AlwaysShowHeader="True"
+            EnableDebugMessages="True"
+            
+            IsPaneToggleVisible="True"
+            TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
+            <ui:NavigationView.Header>
+                <ui:BreadcrumbBar
+                    Margin="42,32,0,0"
+                    FontSize="28"
+                    FontWeight="DemiBold" />
+            </ui:NavigationView.Header>
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem Content="Home" TargetPageType="{x:Type pages:HomePage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Home24"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItemSeparator/>
+                <ui:NavigationViewItem Content="Play" TargetPageType="{x:Type pages:PlayPage}" x:Name="PlayPageTitle" Visibility="Collapsed">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Play24"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="All Versions" TargetPageType="{x:Type pages:AllVersionsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="AppsAddIn24"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem Content="About">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Balloon24"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="Settings">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Settings24"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.FooterMenuItems>
+            <ui:NavigationView.ContentOverlay>
+                <ui:SnackbarPresenter x:Name="Presenter"/>
+            </ui:NavigationView.ContentOverlay>
+        </ui:NavigationView>
+    </Grid>
+</ui:FluentWindow>
