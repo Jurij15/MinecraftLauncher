@@ -17,13 +17,18 @@
     WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="690" Width="1236">
     <Grid>
-        <ui:TitleBar Title="Minecraft Launcher" x:Name="TitleBar"/>
+        <ui:TitleBar Title="Minecraft Launcher" x:Name="TitleBar">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="/minecraft-icon.jpg"/>
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
         <ui:NavigationView 
             x:Name="MainNavigation"
             PaneDisplayMode="Left"
             IsBackButtonVisible="Visible"
             AlwaysShowHeader="True"
             EnableDebugMessages="True"
+            OpenPaneLength="180"
             
             IsPaneToggleVisible="True"
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
@@ -50,6 +55,11 @@
                         <ui:SymbolIcon Symbol="AppsAddIn24"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="Specials" TargetPageType="{x:Type pages:SpecialsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="StackStar24"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem Content="About" TargetPageType="{x:Type pages:AboutPage}">
@@ -64,7 +74,8 @@
                 </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>
             <ui:NavigationView.ContentOverlay>
-                <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
+                <ui:SnackbarPresenter x:Name="SnackbarPresenter">
+                </ui:SnackbarPresenter>
             </ui:NavigationView.ContentOverlay>
         </ui:NavigationView>
     </Grid>

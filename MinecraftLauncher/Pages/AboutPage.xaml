@@ -24,8 +24,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ui:InfoBar IsOpen="True" IsClosable="False" Message="This is a WIP build. Issues are expected" Title="Development Build" Margin="0,0,0,8"/>
-        <TextBlock Text="Made by Jurij15, for personal use only" Grid.Row="4" FontSize="15"/>
+        <TextBlock Text="Made by Jurij15, for personal use only" Grid.Row="5" FontSize="15" Margin="0,0,0,8"/>
 
-        <TextBlock Text="Minecraft Launcher - NULL" x:Name="VersionBlock" Grid.Row="5" FontSize="15" Margin="0,32,0,0" FontWeight="Medium"/>
+        <TextBlock Text="Minecraft Launcher - NULL" x:Name="VersionBlock" FontSize="15" FontWeight="DemiBold" Grid.Row="4" Margin="0,0,0,8"/>
     </Grid>
 </Page>

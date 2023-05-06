@@ -37,9 +37,15 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid>
-                    <TextBlock Text="Minecraft " x:Name="VersionNameBlock" FontSize="24" HorizontalAlignment="Left"/>
-                    <ui:Button x:Name="PlayButton" Click="PlayButton_Click" Appearance="Primary" HorizontalAlignment="Right">
+                    <TextBlock Text="Minecraft " x:Name="VersionNameBlock" FontSize="24" HorizontalAlignment="Left" />
+                    <ui:Button x:Name="PlayButton" Click="PlayButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
                         <ui:SymbolIcon Symbol="Play24"/>
+                    </ui:Button>
+                    <ui:Button x:Name="DownloadButton" Click="DownloadButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
+                        <ui:SymbolIcon Symbol="ArrowDownload24"/>
+                    </ui:Button>
+                    <ui:Button x:Name="VersionNotDetected" Appearance="Danger" HorizontalAlignment="Right" ToolTip="This build is not recognised. Please choose a different one!" Visibility="Collapsed">
+                        <ui:SymbolIcon Symbol="ErrorCircle24"/>
                     </ui:Button>
                 </Grid>
                 <ProgressBar x:Name="LaunchingBar" IsIndeterminate="True" VerticalAlignment="Bottom" Grid.Row="2" Margin="2,4,2,4"/>
@@ -61,9 +67,10 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Settings" FontSize="12" FontWeight="Medium" Grid.Row="1"/>
                 <CheckBox x:Name="OfflineMode" Content="Offline mode" IsEnabled="False" IsChecked="True" Grid.Row="2" Margin="0,4,4,4"/>
+                <CheckBox x:Name="FullScreenMode" Content="Fullscreen" IsEnabled="True" IsChecked="True" Grid.Row="5" Margin="0,4,4,4"/>
 
-                <TextBlock Text="RAM Allocation (in GB)" FontSize="12" FontWeight="Medium" Grid.Row="3"/>
-                <ui:NumberBox MaxDecimalPlaces="0" Maximum="8" PlaceholderEnabled="False" IconPlacement="Right" Value="2" x:Name="RamAmountBox" Grid.Row="4" Margin="0,2,2,2"/>
+                <TextBlock Text="RAM Allocation (in GB)" FontSize="12" FontWeight="Medium" Grid.Row="6"/>
+                <ui:NumberBox MaxDecimalPlaces="0" Maximum="8" PlaceholderEnabled="False" IconPlacement="Right" Value="2" x:Name="RamAmountBox" Grid.Row="7" Margin="0,2,2,2"/>
             </Grid>
         </ui:Card>
         <ui:Card x:Name="PlayerCard" Grid.Row="3" Margin="0,4,0,0">

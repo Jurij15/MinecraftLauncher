@@ -118,5 +118,25 @@ namespace MinecraftLauncher.Helpers
 
             return RetVal.ToArray();
         }
+
+        public static bool bIsVersionInstalled(string VersionName)
+        {
+            bool ret = false;
+
+            List<string> Installedversions = GetAllInstalledVersions().ToList();
+
+            foreach (var version in Installedversions)
+            {
+                if (version == VersionName)
+                {
+                    ret = true;
+                    break;
+                }
+            }
+
+            Installedversions.Clear();
+
+            return ret;
+        }
     }
 }

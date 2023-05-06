@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Wpf.Ui.Contracts;
+using Wpf.Ui.Controls.SnackbarControl;
 
 namespace MinecraftLauncher
 {

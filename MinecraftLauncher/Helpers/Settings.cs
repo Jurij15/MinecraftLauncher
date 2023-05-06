@@ -32,7 +32,7 @@ namespace MinecraftLauncher.Helpers
 
             using (StreamWriter sw = File.CreateText(RecentBuilds))
             {
-                sw.Write("OptiFine 1.17.1");
+                //sw.Write("OptiFine 1.17.1");
                 sw.Close();
             }
         }
@@ -42,7 +42,6 @@ namespace MinecraftLauncher.Helpers
             if (!Directory.Exists(RootDir))
             {
                 CreateSettings();
-                return;
             }
 
             string theme = File.ReadAllText(ThemeConfig);

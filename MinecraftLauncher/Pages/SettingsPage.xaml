@@ -53,8 +53,8 @@
         <ui:CardControl x:Name="DwonloadRateLimitConfig" GiveFeedback="UsernameConfig_GiveFeedback" Grid.Row="3" Margin="0,4,0,0">
             <ui:CardControl.Header>
                 <StackPanel>
-                    <TextBlock Text="Username" FontSize="16"/>
-                    <TextBlock Text="Needed to launch the game" Foreground="LightGray"/>
+                    <TextBlock Text="Download rate limit" FontSize="16"/>
+                    <TextBlock Text="Control how many connections will be used to download Minecraft" Foreground="LightGray"/>
                 </StackPanel>
             </ui:CardControl.Header>
             <StackPanel>

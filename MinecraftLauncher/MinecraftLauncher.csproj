@@ -5,7 +5,21 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>minecraft-icon.ico</ApplicationIcon>
+    <PackageIcon>minecraft-icon.jpg</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="OptiFine\OptiFine.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="minecraft-icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="OptiFine\OptiFine.zip" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CmlLib.Core" Version="3.3.6" />
@@ -16,6 +30,17 @@
     <Reference Include="Wpf.Ui">
       <HintPath>lib\Wpf.Ui.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="minecraft-icon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="minecraft-icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

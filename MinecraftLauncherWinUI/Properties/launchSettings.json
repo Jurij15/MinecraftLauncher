@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MinecraftLauncherWinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MinecraftLauncherWinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

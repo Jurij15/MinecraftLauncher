@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Sort by:" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Sort by:" FontSize="14" VerticalAlignment="Center"/>
                     <RadioButton x:Name="InstalledSortRadio" Content="Installed" Margin="8,0,0,0" Checked="InstalledSortRadio_Checked"/>
                     <RadioButton x:Name="AllSortRadio" Content="All" Margin="-18,0,8,0" Checked="AllSortRadio_Checked"/>
                 </StackPanel>
