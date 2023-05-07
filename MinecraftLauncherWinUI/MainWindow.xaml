@@ -28,7 +28,8 @@
                         x:Name="MainNavigation"
                         AlwaysShowHeader="True"
                         SelectionFollowsFocus="Enabled" 
-                        ItemInvoked="MainNavigation_ItemInvoked">
+                        ItemInvoked="MainNavigation_ItemInvoked"
+                        IsTitleBarAutoPaddingEnabled="False">
             <NavigationView.MenuItems>
                 <NavigationViewItem Content="Home" Icon="Home" Tag="MinecraftLauncherWinUI.Pages.HomePage" x:Name="HomePage">
                     

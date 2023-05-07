@@ -7,6 +7,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>minecraft-icon.ico</ApplicationIcon>
     <PackageIcon>minecraft-icon.jpg</PackageIcon>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>

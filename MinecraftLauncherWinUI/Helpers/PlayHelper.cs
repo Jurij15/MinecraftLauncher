@@ -1,6 +1,5 @@
 ﻿using CmlLib.Core;
 using CmlLib.Core.Auth;
-using CmlLib.Core.Version;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace MinecraftLauncher.Helpers
             var launchOption = new MLaunchOption
             {
                 MaximumRamMb = MemoryAmountInMB,
-                Session = MSession.GetOfflineSession(Globals.Username),
+                //Session = MSession.GetOfflineSession(Globals.Username), // replace this with login session value. ex) Session = MSession.GetOfflineSession("hello")
                 FullScreen = bFullscreen
                 //ScreenWidth = 1600,
                 //ScreenHeight = 900,
@@ -39,7 +38,7 @@ namespace MinecraftLauncher.Helpers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error message: "+ ex.Message, "An error occured");
+                //MessageBox.Show("Error message: "+ ex.Message, "An error occured");
             }
         }
 
@@ -54,7 +53,7 @@ namespace MinecraftLauncher.Helpers
             var launchOption = new MLaunchOption
             {
                 MaximumRamMb = MemoryAmountInMB,
-                Session = MSession.GetOfflineSession(Globals.Username),
+                ///Session = MSession.GetOfflineSession(Globals.Username),
                 FullScreen = bFullscreen
             };
 
@@ -67,7 +66,7 @@ namespace MinecraftLauncher.Helpers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error message: " + ex.Message, "An error occured");
+                //MessageBox.Show("Error message: " + ex.Message, "An error occured");
             }
         }
     }

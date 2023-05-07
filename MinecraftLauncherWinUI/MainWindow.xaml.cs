@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
-
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -33,7 +30,7 @@ namespace MinecraftLauncherWinUI
         void SetTitleBar()
         {
             this.ExtendsContentIntoTitleBar = true;
-            this.IsTitleBarVisible = false;
+            ///this.IsTitleBarVisible = false;
             this.SetTitleBar(AppTitleBar);
         }
         public MainWindow()

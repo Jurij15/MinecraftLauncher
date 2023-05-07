@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Media3D;
 
 namespace MinecraftLauncher.Helpers
 {
@@ -20,7 +19,7 @@ namespace MinecraftLauncher.Helpers
 
             using (StreamWriter sw = File.CreateText(ThemeConfig))
             {
-                sw.Write(Wpf.Ui.Appearance.Theme.GetSystemTheme().ToString());
+                //sw.Write(Wpf.Ui.Appearance.Theme.GetSystemTheme().ToString());
                 sw.Close();
             }
 
@@ -47,25 +46,25 @@ namespace MinecraftLauncher.Helpers
             string theme = File.ReadAllText(ThemeConfig);
             if (theme.Contains("dark", StringComparison.OrdinalIgnoreCase))
             {
-                Globals.UserTheme = Wpf.Ui.Appearance.ThemeType.Dark;
+                //Globals.UserTheme = Wpf.Ui.Appearance.ThemeType.Dark;
             }
             else
             {
-                Globals.UserTheme = Wpf.Ui.Appearance.ThemeType.Light;
+                ///Globals.UserTheme = Wpf.Ui.Appearance.ThemeType.Light;
             }
 
             string Username = File.ReadAllText(UsernameConfig);
-            Globals.Username = Username;
+            //Globals.Username = Username;
 
             foreach (var line in File.ReadAllLines(RecentBuilds))
             {
-                Globals.Recents.Add(line);
+                //Globals.Recents.Add(line);
             }
         }    
 
         public static void ResetSettings()
         {
-            Directory.Delete(RootDir, true);
+
         }
 
         public static void SaveNewUsername()
@@ -73,7 +72,7 @@ namespace MinecraftLauncher.Helpers
             File.Delete(UsernameConfig);
             using (StreamWriter sw = File.CreateText(UsernameConfig))
             {
-                sw.Write(Globals.Username);
+                //sw.Write(Globals.Username);
                 sw.Close();
             }
         }
@@ -83,16 +82,7 @@ namespace MinecraftLauncher.Helpers
             File.Delete(ThemeConfig);
             using (StreamWriter sw = File.CreateText(ThemeConfig))
             {
-                sw.Write(Globals.UserTheme.ToString());
-                sw.Close();
-            }
-        }
-
-        public static void SaveRecentBuild(string BuildName)
-        {
-            using (StreamWriter sw = new StreamWriter(RecentBuilds))
-            {
-                sw.Write(BuildName);
+                //sw.Write(Globals.UserTheme.ToString());
                 sw.Close();
             }
         }

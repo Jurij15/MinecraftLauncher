@@ -12,7 +12,7 @@
     NavigationCacheMode="Required"
     Background="Transparent">
 
-    <Grid Margin="42">
+    <Grid Margin="42" x:Name="RootGRid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,11 +22,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <AutoSuggestBox Grid.Row="0" x:Name="SearchBOx" PlaceholderText="Search"/>
-        <StackPanel Grid.Row="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" Grid.RowSpan="5" CornerRadius="8" Padding="12" BorderThickness="1">
-            <Button Content="hi"/>
+        <StackPanel Visibility="Visible" Grid.Row="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" Grid.RowSpan="5" CornerRadius="8" Padding="12" BorderThickness="1">
+            <Button Content="hi" x:Name="testBtn" Click="testBtn_Click"/>
         </StackPanel>
+        <VariableSizedWrapGrid x:Name="ItemsPanel" Grid.Row="7">
+            
+        </VariableSizedWrapGrid>
     </Grid>
 </Page>

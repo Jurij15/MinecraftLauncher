@@ -62,5 +62,12 @@ namespace MinecraftLauncher.Pages
             Globals.Username = UsernameSettingsBox.Text;
             Settings.SaveNewUsername();
         }
+
+        private void ResetSettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetSettings();
+            System.Windows.Forms.Application.Restart();
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }
