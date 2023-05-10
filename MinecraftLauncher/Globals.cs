@@ -21,12 +21,12 @@ namespace MinecraftLauncher
 
         public static string CurrentBuild;
 
-        public static string VersionString = "0.1";
+        public static string VersionString = "1.0";
 
         //configs
         public static string Username { get; set; }
         public static int DownloadRateLimit = 1024;
         public static ThemeType UserTheme { get; set; }
-        public static List<string > Recents = new List<string>();
+        public static HashSet<string > Recents = new HashSet<string>();
     }
 }

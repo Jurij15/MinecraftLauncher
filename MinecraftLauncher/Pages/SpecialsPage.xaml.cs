@@ -62,10 +62,10 @@ namespace MinecraftLauncher.Pages
             }
 
             string zipPath = "Settings/OptiFine.zip";
-            string extractPath = MinecraftPath.GetOSDefaultPath()+"/versions/";
+            string extractPath = MinecraftPath.GetOSDefaultPath()+"/versions";
 
             //Directory.CreateDirectory(extractPath);
-
+            /*
             using (ZipArchive archive = ZipFile.OpenRead(zipPath))
             {
                 foreach (ZipArchiveEntry entry in archive.Entries)
@@ -73,12 +73,14 @@ namespace MinecraftLauncher.Pages
                     string filePath = Path.Combine(extractPath, entry.FullName);
 
                     // Create the directory for the file if it doesn't exist
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    //Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
                     // Extract the file
-                    entry.ExtractToFile(filePath, true);
+                    ZipFile.ExtractToDirectory(filePath, extractPath);
                 }
             }
+            */
+            ZipFile.ExtractToDirectory(zipPath, extractPath);
 
             DownloadOptiFine1_17_1.Visibility = Visibility.Collapsed;
             PlayOptiFine1_17_1.Visibility = Visibility.Visible;

@@ -31,7 +31,7 @@
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Theme" FontSize="14" FontWeight="Medium"/>
-                    <TextBlock Text="Control the app theme" Foreground="LightGray"/>
+                    <TextBlock Text="Control the app theme" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
                 </StackPanel>
             </ui:CardControl.Header>
             <StackPanel Orientation="Horizontal">
@@ -43,7 +43,7 @@
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Username" FontSize="14" FontWeight="Medium"/>
-                    <TextBlock Text="Needed to launch the game" Foreground="LightGray"/>
+                    <TextBlock Text="Needed to launch the game" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
                 </StackPanel>
             </ui:CardControl.Header>
             <StackPanel>
@@ -54,7 +54,7 @@
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Download rate limit" FontSize="14" FontWeight="Medium"/>
-                    <TextBlock Text="Control how many connections will be used to download Minecraft" Foreground="LightGray"/>
+                    <TextBlock Text="Control how many connections will be used to download Minecraft" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
                 </StackPanel>
             </ui:CardControl.Header>
             <StackPanel>
@@ -65,7 +65,7 @@
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Reset Settings" FontSize="14" FontWeight="Medium"/>
-                    <TextBlock Text="Reset settings and restart the app" Foreground="LightGray"/>
+                    <TextBlock Text="Reset settings and restart the app" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
                 </StackPanel>
             </ui:CardControl.Header>
             <StackPanel>

@@ -90,9 +90,9 @@ namespace MinecraftLauncher.Helpers
 
         public static void SaveRecentBuild(string BuildName)
         {
-            using (StreamWriter sw = new StreamWriter(RecentBuilds))
+            using (StreamWriter sw = File.AppendText(RecentBuilds))
             {
-                sw.Write(BuildName);
+                sw.WriteLine(BuildName);
                 sw.Close();
             }
         }

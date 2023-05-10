@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ui:AutoSuggestBox x:Name="SearchBox" PlaceholderText="Search" Grid.Row="1" TextChanged="SearchBox_TextChanged" Margin="0,0,0,4"/>
-        <ui:InfoBar Message="If there are no versions on the list, try checking your internet connection and restarting the app!" Title="Bug" IsOpen="True" Grid.Row="2" IsClosable="True"/>
+        <ui:InfoBar Message="If there are no versions on the list, try checking your internet connection and restarting the app!" Title="Bug" IsOpen="False" Grid.Row="2" IsClosable="True"/>
         <Grid Grid.Row="3" x:Name="SortPage" Margin="4,4,4,4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -40,7 +40,7 @@
                     <CheckBox x:Name="OptiFineOnly" Checked="OptiFineOnly_Checked" Unchecked="OptiFineOnly_Unchecked" Content="OptiFine Only"/>
                 </StackPanel>
             </Grid>
-            <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="LightGray" VerticalAlignment="Bottom"  Grid.Row="1"/>
+            <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>
         </Grid>
         <ui:DynamicScrollViewer Grid.Row="5">
             <WrapPanel x:Name="ItemsPanel" SizeChanged="ItemsPanel_SizeChanged"/>

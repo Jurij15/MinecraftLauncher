@@ -24,7 +24,7 @@ namespace MinecraftLauncher.Pages
         {
             InitializeComponent();
 
-            VersionBlock.Text = "Minecraft Launcher - " + Globals.VersionString;
+            VersionBlock.Text = "Version: " + Globals.VersionString;
         }
     }
 }

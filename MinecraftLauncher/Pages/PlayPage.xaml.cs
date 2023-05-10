@@ -36,9 +36,15 @@ namespace MinecraftLauncher.Pages
             int memooryinmb = Convert.ToInt32(RamAmountBox.Value) * 1024;
 
             LaunchingBar.Visibility = Visibility.Visible;
+            PlayButton.Visibility = Visibility.Collapsed;
+            VersionStatusBox.Text = "Launching...";
 
             await PlayHelper.Launch(Globals.CurrentBuild, memooryinmb, Convert.ToBoolean(FullScreenMode.IsChecked));
             LaunchingBar.Visibility = Visibility.Collapsed;
+            VersionStatusBox.Text = "Playing";
+
+            //by now, it has already been launched, now store the build in recents
+            Settings.SaveRecentBuild(Globals.CurrentBuild);
             //Globals.snackbarService.Show("Minecraft Launched", "Version " + Globals.CurrentBuild + " was launched", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(2));
         }
 
@@ -62,14 +68,17 @@ namespace MinecraftLauncher.Pages
             if (installed)
             {
                 PlayButton.Visibility = Visibility.Visible;
+                VersionStatusBox.Text = "Ready to Play";
             }
             else if (!installed)
             {
                 DownloadButton.Visibility = Visibility.Visible;
+                VersionStatusBox.Text = "Download required";
             }
             else
             {
                 VersionNotDetected.Visibility = Visibility.Visible;
+                VersionStatusBox.Text = "";
             }
         }
 
@@ -93,6 +102,7 @@ namespace MinecraftLauncher.Pages
 
         async void DownloadBefore()
         {
+            VersionStatusBox.Text = "Downloading...";
             int memooryinmb = Convert.ToInt32(RamAmountBox.Value) * 1024;
 
             LaunchingBar.Visibility = Visibility.Visible;
@@ -102,6 +112,7 @@ namespace MinecraftLauncher.Pages
             
             DownloadButton.Visibility = Visibility.Collapsed;
             PlayButton.Visibility = Visibility.Visible;
+            VersionStatusBox.Text = "Ready to Play";
         }
     }
 }

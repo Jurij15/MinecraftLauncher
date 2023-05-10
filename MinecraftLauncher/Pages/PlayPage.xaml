@@ -37,18 +37,21 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid>
-                    <TextBlock Text="Minecraft " x:Name="VersionNameBlock" FontSize="24" HorizontalAlignment="Left" />
-                    <ui:Button x:Name="PlayButton" Click="PlayButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
-                        <ui:SymbolIcon Symbol="Play24"/>
-                    </ui:Button>
-                    <ui:Button x:Name="DownloadButton" Click="DownloadButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
-                        <ui:SymbolIcon Symbol="ArrowDownload24"/>
-                    </ui:Button>
-                    <ui:Button x:Name="VersionNotDetected" Appearance="Danger" HorizontalAlignment="Right" ToolTip="This build is not recognised. Please choose a different one!" Visibility="Collapsed">
-                        <ui:SymbolIcon Symbol="ErrorCircle24"/>
-                    </ui:Button>
+                    <TextBlock Text="Minecraft " x:Name="VersionNameBlock" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="VersionStatusBlock" FontSize="12" VerticalAlignment="Center" x:Name="VersionStatusBox" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" Margin="12,0,12,0"/>
+                        <ui:Button x:Name="PlayButton" Click="PlayButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
+                            <ui:SymbolIcon Symbol="Play24"/>
+                        </ui:Button>
+                        <ui:Button x:Name="DownloadButton" Click="DownloadButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
+                            <ui:SymbolIcon Symbol="ArrowDownload24"/>
+                        </ui:Button>
+                        <ui:Button x:Name="VersionNotDetected" Appearance="Danger" HorizontalAlignment="Right" ToolTip="This build is not recognised. Please choose a different one!" Visibility="Collapsed">
+                            <ui:SymbolIcon Symbol="ErrorCircle24"/>
+                        </ui:Button>
+                    </StackPanel>
                 </Grid>
-                <ProgressBar x:Name="LaunchingBar" IsIndeterminate="True" VerticalAlignment="Bottom" Grid.Row="2" Margin="2,4,2,4"/>
+                <ProgressBar x:Name="LaunchingBar" IsIndeterminate="True" Visibility="Visible" Grid.Row="3" Margin="0,4,0,4"/>
             </Grid>
         </ui:Card>
         <ui:Card x:Name="SettingsCard" Grid.Row="2" Margin="0,4,0,0">
@@ -66,7 +69,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Settings" FontSize="12" FontWeight="Medium" Grid.Row="1"/>
-                <CheckBox x:Name="OfflineMode" Content="Offline mode" IsEnabled="False" IsChecked="True" Grid.Row="2" Margin="0,4,4,4"/>
+                <CheckBox x:Name="OfflineMode" Content="Offline mode" IsEnabled="False" IsChecked="True" Grid.Row="2" Margin="0,4,4,4" ToolTip="Only offline mode is currently supported!"/>
                 <CheckBox x:Name="FullScreenMode" Content="Fullscreen" IsEnabled="True" IsChecked="True" Grid.Row="5" Margin="0,4,4,4"/>
 
                 <TextBlock Text="RAM Allocation (in GB)" FontSize="12" FontWeight="Medium" Grid.Row="6"/>
@@ -86,7 +89,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Player Settings" FontSize="12" FontWeight="Medium" Grid.Row="1"/>
-                <CheckBox Content="Enable Skin" IsEnabled="False" Grid.Row="2"/>
+                <CheckBox Content="Enable Skin" IsEnabled="False" Grid.Row="2" ToolTip="Skins cannot be enabled at this time!"/>
                 <TextBlock Text="Username" FontSize="12" FontWeight="Medium" Grid.Row="3"/>
                 <ui:TextBox TextChanged="UsernameBoxPlayPage_TextChanged" PlaceholderText="Username" x:Name="UsernameBoxPlayPage" Grid.Row="4"/>
             </Grid>

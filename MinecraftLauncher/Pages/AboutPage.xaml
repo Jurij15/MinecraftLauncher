@@ -22,10 +22,31 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ui:InfoBar IsOpen="True" IsClosable="False" Message="This is a WIP build. Issues are expected" Title="Development Build" Margin="0,0,0,8"/>
-        <TextBlock Text="Made by Jurij15, for personal use only" Grid.Row="5" FontSize="15" Margin="0,0,0,8"/>
+        <ui:InfoBar IsOpen="False" IsClosable="False" Message="This is a WIP build. Issues are expected" Title="Development Build" Margin="0,0,0,8"/>
 
-        <TextBlock Text="Minecraft Launcher - NULL" x:Name="VersionBlock" FontSize="15" FontWeight="DemiBold" Grid.Row="4" Margin="0,0,0,8"/>
+        <ui:CardExpander Grid.Row="6" IsExpanded="True">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <ui:Image Source="../minecraft-icon.jpg" Width="47" Height="39"/>
+                    <StackPanel VerticalAlignment="Center" Margin="14,0,0,0">
+                        <TextBlock Text="Minecraft Launcher" FontSize="16" FontWeight="Medium" Grid.Row="4" Margin="0,0,0,2"/>
+                        <TextBlock Text="by Jurij15" Grid.Row="5" FontSize="12" Margin="0,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Header>
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="Version:" x:Name="VersionBlock" FontSize="16" Grid.Row="4" Margin="0,0,0,2"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right">
+                    <TextBlock Text="Open source libraries used:" FontSize="12" Grid.Row="4" Margin="4,0,4,0"/>
+                    <ui:Hyperlink NavigateUri="https://github.com/lepoco/wpfui" Content="WPF-UI" Margin="0,2,0,2"/>
+                    <ui:Hyperlink NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core" Margin="0,0,0,2"/>
+                </StackPanel>
+            </Grid>
+        </ui:CardExpander>
     </Grid>
 </Page>
