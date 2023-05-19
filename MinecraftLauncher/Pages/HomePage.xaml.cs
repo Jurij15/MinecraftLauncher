@@ -1,4 +1,6 @@
-﻿using MinecraftLauncher.Helpers;
+﻿using CmlLib.Core.Version;
+using CmlLib.Core.VersionLoader;
+using MinecraftLauncher.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +68,6 @@ namespace MinecraftLauncher.Pages
         public HomePage()
         {
             InitializeComponent();
-
             InitRecents();
         }
 
@@ -76,6 +77,33 @@ namespace MinecraftLauncher.Pages
             {
                 CreateCard(version);
             }
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigationBreadcrumb.Visibility = Visibility.Visible;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigationBreadcrumb.Visibility = Visibility.Collapsed;
+
+
+        }
+
+        private void LaunchOptifineSpecial_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "OptiFine 1.17.1";
+            Globals.CurrentBuild = name;
+
+            Globals.PlayMenuItem.Content = "Play " + name;
+
+            Globals.MainNavigation.NavigateWithHierarchy(typeof(PlayPage));
+        }
+
+        private void PlayLatest_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

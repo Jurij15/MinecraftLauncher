@@ -40,7 +40,7 @@ namespace MinecraftLauncher
 
             Wpf.Ui.Appearance.Watcher.Watch(this);
 
-            MainNavigation.IsPaneOpen = false;
+           // MainNavigation.IsPaneOpen = false;
             MainNavigation.Navigate(typeof(HomePage));
 
             MainNavigation.PaneTitle = Globals.Username;
@@ -48,6 +48,7 @@ namespace MinecraftLauncher
             Globals.MainWindow = this;
             Globals.MainNavigation = MainNavigation;
             Globals.PlayMenuItem = PlayPageTitle;
+            Globals.MainNavigationBreadcrumb = MainNavigationBreadcrumb;
             //test();
 
             DispatcherTimer refreshtimer = new DispatcherTimer();
@@ -58,6 +59,8 @@ namespace MinecraftLauncher
             //MessageBox.Show(SnackbarPresenter.GetType().ToString());
             //_snackbarService.SetSnackbarPresenter(SnackbarPresenter);
             //Globals.snackbarService = _snackbarService;
+
+            MainNavigationBreadcrumb.Visibility = Visibility.Collapsed;
         }
 
         private void Refreshtimer_Tick(object? sender, EventArgs e)
@@ -91,6 +94,24 @@ namespace MinecraftLauncher
                 // show all version names
                 // use this version name in CreateProcessAsync method.
                 MessageBox.Show(item.Name);
+            }
+        }
+
+        private void MainNavigation_Navigating(Wpf.Ui.Controls.Navigation.NavigationView sender, Wpf.Ui.Controls.Navigation.NavigatingCancelEventArgs args)
+        {
+            if (!sender.IsInitialized)
+            {
+                return;
+            }
+
+            MainNavigationBreadcrumb.Visibility = Visibility.Visible;
+            if (sender.SelectedItem.Content.ToString() == "Home")
+            {
+                MainNavigationBreadcrumb.Visibility = Visibility.Collapsed;
+            }
+            else 
+            {
+                MainNavigationBreadcrumb.Visibility = Visibility.Visible;
             }
         }
     }

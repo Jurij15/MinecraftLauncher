@@ -12,6 +12,18 @@
 
   <ItemGroup>
     <None Remove="OptiFine\OptiFine.zip" />
+    <None Remove="Pages\1.17.1-banner.jpg" />
+    <None Remove="Pages\banner-2.jpg" />
+    <None Remove="Pages\banner-3.jpg" />
+    <None Remove="Pages\banner-4.jpg" />
+    <None Remove="Pages\banner-5.jpg" />
+    <None Remove="Pages\banner-img1.jpg" />
+    <None Remove="Pages\demo-1.0.png" />
+    <None Remove="Pages\playBanner.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pages\banner-3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +47,13 @@
 
   <ItemGroup>
     <Resource Include="minecraft-icon.jpg" />
+    <Resource Include="Pages\1.17.1-banner.jpg" />
+    <Resource Include="Pages\banner-2.jpg" />
+    <Resource Include="Pages\banner-4.jpg" />
+    <Resource Include="Pages\banner-5.jpg" />
+    <Resource Include="Pages\banner-img1.jpg" />
+    <Resource Include="Pages\demo-1.0.png" />
+    <Resource Include="Pages\playBanner.jpg" />
   </ItemGroup>
 
   <ItemGroup>

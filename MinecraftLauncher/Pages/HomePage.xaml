@@ -5,30 +5,90 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MinecraftLauncher.Pages"
       mc:Ignorable="d" 
+      Loaded="Page_Loaded"
             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
           ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignHeight="450" d:DesignWidth="800"
+      Unloaded="Page_Unloaded"
       Title="HomePage">
 
-    <Grid Margin="42">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="Recently Launched" Grid.Row="1" FontWeight="Medium" FontSize="13"/>
-        <ui:DynamicScrollViewer Grid.Row="2" Margin="0,2,0,0">
-            <StackPanel x:Name="ItemsPanel" Orientation="Horizontal"/>
-        </ui:DynamicScrollViewer>
-    </Grid>
+    <ui:DynamicScrollViewer>
+        <Grid Margin="42">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border CornerRadius="8" Grid.Row="0" x:Name="ImageBorder">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Pages/banner-5.jpg"  x:Name="BorderImageSource"
+                                    RenderOptions.BitmapScalingMode="Fant"
+                    Stretch="UniformToFill" TileMode="None"/>
+                </Border.Background>
+                <Border CornerRadius="8">
+                    <Border.Background>
+                        <RadialGradientBrush>
+                            <GradientStop Offset="0" Color="#1F000000" />
+                            <GradientStop Offset="1" Color="#4F000000" />
+                        </RadialGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Minecraft Launcher" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                            <TextBlock Text="Unique. Modern. Simple." FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Border>
+            <StackPanel Margin="0,4,0,4" Grid.Row="1">
+                <TextBlock Text="Popular" FontWeight="Medium" FontSize="13" Margin="2,4,0,4"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:Card x:Name="PopularOptifineCard" Grid.Column="0" Margin="2,2,2,2">
+                        <Image Source="/Pages/1.17.1-banner.jpg" Height="176" Stretch="Uniform"/>
+                        <ui:Card.Footer>
+                            <Grid>
+                                <TextBlock Text="OptiFine 1.17.1" VerticalAlignment="Center"/>
+                                <ui:Button Appearance="Primary" x:Name="LaunchOptifineSpecial" HorizontalAlignment="Right" Click="LaunchOptifineSpecial_Click" VerticalAlignment="Center">
+                                    <ui:Button.Icon>
+                                        <ui:SymbolIcon Symbol="Play24"/>
+                                    </ui:Button.Icon>
+                                </ui:Button>
+                            </Grid>
+                        </ui:Card.Footer>
+                    </ui:Card>
+                    <ui:Card x:Name="LatestVersionCard" Grid.Column="1" Margin="2,2,2,2">
+                        <Image Source="/Pages/banner-2.jpg" Height="176" Width="312.888888888889" Stretch="Uniform"/>
+                        <ui:Card.Footer>
+                            <Grid>
+                                <TextBlock Text="Latest" VerticalAlignment="Center"/>
+                                <ui:Button Appearance="Primary" x:Name="PlayLatestBtn" HorizontalAlignment="Right" Click="PlayLatest_Click" VerticalAlignment="Center">
+                                    <ui:Button.Icon>
+                                        <ui:SymbolIcon Symbol="Play24"/>
+                                    </ui:Button.Icon>
+                                </ui:Button>
+                            </Grid>
+                        </ui:Card.Footer>
+                    </ui:Card>
+                </Grid>
+            </StackPanel>
+            <TextBlock Text="Recently Launched" Grid.Row="8" FontWeight="Medium" FontSize="13" Margin="2,4,0,0"/>
+            <ui:DynamicScrollViewer Grid.Row="9" Margin="0,2,0,0">
+                <StackPanel x:Name="ItemsPanel" Orientation="Horizontal"/>
+            </ui:DynamicScrollViewer>
+        </Grid>
+    </ui:DynamicScrollViewer>
 </Page>

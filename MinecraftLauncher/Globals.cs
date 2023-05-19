@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Contracts;
+using Wpf.Ui.Controls.BreadcrumbControl;
 using Wpf.Ui.Controls.Navigation;
 using Wpf.Ui.Controls.Window;
 
@@ -18,6 +19,7 @@ namespace MinecraftLauncher
         public static FluentWindow MainWindow;
         public static NavigationView MainNavigation;
         public static NavigationViewItem PlayMenuItem;
+        public static BreadcrumbBar MainNavigationBreadcrumb;
 
         public static string CurrentBuild;
 

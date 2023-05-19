@@ -36,7 +36,7 @@
                 <ui:BreadcrumbBar
                     Margin="42,32,0,0"
                     FontSize="28"
-                    FontWeight="DemiBold" />
+                    FontWeight="DemiBold" x:Name="MainNavigationBreadcrumb"/>
             </ui:NavigationView.Header>
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Content="Home" TargetPageType="{x:Type pages:HomePage}">
@@ -55,7 +55,7 @@
                         <ui:SymbolIcon Symbol="AppsAddIn24"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Content="Specials" TargetPageType="{x:Type pages:SpecialsPage}">
+                <ui:NavigationViewItem Content="OptiFine" TargetPageType="{x:Type pages:SpecialsPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="StackStar24"/>
                     </ui:NavigationViewItem.Icon>

@@ -4,95 +4,120 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MinecraftLauncher.Pages"
-      mc:Ignorable="d"  Loaded="Page_Loaded"
+      mc:Ignorable="d"  Loaded="Page_Loaded" Unloaded="Page_Unloaded"
                   xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
           ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource ApplicationBackgroundBrush}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PlayPage">
+    <ui:DynamicScrollViewer>
+        <Grid>
+            <Border Grid.Row="0" x:Name="ImageBorder" Visibility="Collapsed">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Pages/banner-img1.jpg"  x:Name="BorderImageSource"
+                                    RenderOptions.BitmapScalingMode="Fant"
+                    Stretch="UniformToFill" />
+                </Border.Background>
+                <Border CornerRadius="8">
+                    <Border.Background>
+                        <RadialGradientBrush>
+                            <GradientStop Offset="0" Color="#8C000000" />
+                            <GradientStop Offset="1" Color="#D8000000" />
+                        </RadialGradientBrush>
+                    </Border.Background>
+                </Border>
+            </Border>
+            <Grid Margin="42">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ui:InfoBar x:Name="MinecraftLaunchedInfo" Title="Minecraft launched successfully" IsOpen="False" Grid.Row="0" Margin="0,4,0,4" Severity="Success" IsClosable="False">
+                    
+                </ui:InfoBar>
+                <ui:Card x:Name="BasicInfoCard" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <TextBlock Text="Minecraft " x:Name="VersionNameBlock" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="VersionStatusBlock" FontSize="12" VerticalAlignment="Center" x:Name="VersionStatusBox" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" Margin="12,0,12,0"/>
+                                <ui:Button x:Name="PlayButton" Click="PlayButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
+                                    <ui:SymbolIcon Symbol="Play24"/>
+                                </ui:Button>
+                                <ui:Button x:Name="DownloadButton" Click="DownloadButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
+                                    <ui:SymbolIcon Symbol="ArrowDownload24"/>
+                                </ui:Button>
+                                <ui:Button x:Name="VersionNotDetected" Appearance="Danger" HorizontalAlignment="Right" ToolTip="This build is not recognised. Please choose a different one!" Visibility="Collapsed">
+                                    <ui:SymbolIcon Symbol="ErrorCircle24"/>
+                                </ui:Button>
+                            </StackPanel>
+                        </Grid>
+                        <ProgressBar x:Name="LaunchingBar" IsIndeterminate="True" Visibility="Visible" Grid.Row="3" Margin="0,4,0,4"/>
+                    </Grid>
+                </ui:Card>
+                <ui:Card x:Name="SettingsCard" Grid.Row="4" Margin="0,4,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Settings" FontSize="12" FontWeight="Medium" Grid.Row="1"/>
+                        <CheckBox x:Name="OfflineMode" Content="Offline mode" IsEnabled="False" IsChecked="True" Grid.Row="2" Margin="0,4,4,4" ToolTip="Only offline mode is currently supported!"/>
+                        <CheckBox x:Name="FullScreenMode" Content="Fullscreen" IsEnabled="True" IsChecked="True" Grid.Row="5" Margin="0,4,4,4"/>
 
-    <Grid Margin="42">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <ui:Card x:Name="BasicInfoCard">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid>
-                    <TextBlock Text="Minecraft " x:Name="VersionNameBlock" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Text="VersionStatusBlock" FontSize="12" VerticalAlignment="Center" x:Name="VersionStatusBox" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" Margin="12,0,12,0"/>
-                        <ui:Button x:Name="PlayButton" Click="PlayButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
-                            <ui:SymbolIcon Symbol="Play24"/>
-                        </ui:Button>
-                        <ui:Button x:Name="DownloadButton" Click="DownloadButton_Click" Appearance="Primary" HorizontalAlignment="Right" Visibility="Collapsed">
-                            <ui:SymbolIcon Symbol="ArrowDownload24"/>
-                        </ui:Button>
-                        <ui:Button x:Name="VersionNotDetected" Appearance="Danger" HorizontalAlignment="Right" ToolTip="This build is not recognised. Please choose a different one!" Visibility="Collapsed">
-                            <ui:SymbolIcon Symbol="ErrorCircle24"/>
-                        </ui:Button>
-                    </StackPanel>
-                </Grid>
-                <ProgressBar x:Name="LaunchingBar" IsIndeterminate="True" Visibility="Visible" Grid.Row="3" Margin="0,4,0,4"/>
+                        <TextBlock Text="RAM Allocation (in GB)" FontSize="12" FontWeight="Medium" Grid.Row="6"/>
+                        <ui:NumberBox MaxDecimalPlaces="0" Maximum="8" PlaceholderEnabled="False" IconPlacement="Right" Value="2" x:Name="RamAmountBox" Grid.Row="7" Margin="0,2,2,2"/>
+                    </Grid>
+                </ui:Card>
+                <ui:Card x:Name="PlayerCard" Grid.Row="5" Margin="0,4,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Player Settings" FontSize="12" FontWeight="Medium" Grid.Row="1"/>
+                        <CheckBox Content="Enable Skin" IsEnabled="False" Grid.Row="2" ToolTip="Skins cannot be enabled at this time!"/>
+                        <TextBlock Text="Username" FontSize="12" FontWeight="Medium" Grid.Row="3"/>
+                        <ui:TextBox TextChanged="UsernameBoxPlayPage_TextChanged" PlaceholderText="Username" x:Name="UsernameBoxPlayPage" Grid.Row="4"/>
+                    </Grid>
+                </ui:Card>
             </Grid>
-        </ui:Card>
-        <ui:Card x:Name="SettingsCard" Grid.Row="2" Margin="0,4,0,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Settings" FontSize="12" FontWeight="Medium" Grid.Row="1"/>
-                <CheckBox x:Name="OfflineMode" Content="Offline mode" IsEnabled="False" IsChecked="True" Grid.Row="2" Margin="0,4,4,4" ToolTip="Only offline mode is currently supported!"/>
-                <CheckBox x:Name="FullScreenMode" Content="Fullscreen" IsEnabled="True" IsChecked="True" Grid.Row="5" Margin="0,4,4,4"/>
-
-                <TextBlock Text="RAM Allocation (in GB)" FontSize="12" FontWeight="Medium" Grid.Row="6"/>
-                <ui:NumberBox MaxDecimalPlaces="0" Maximum="8" PlaceholderEnabled="False" IconPlacement="Right" Value="2" x:Name="RamAmountBox" Grid.Row="7" Margin="0,2,2,2"/>
-            </Grid>
-        </ui:Card>
-        <ui:Card x:Name="PlayerCard" Grid.Row="3" Margin="0,4,0,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Player Settings" FontSize="12" FontWeight="Medium" Grid.Row="1"/>
-                <CheckBox Content="Enable Skin" IsEnabled="False" Grid.Row="2" ToolTip="Skins cannot be enabled at this time!"/>
-                <TextBlock Text="Username" FontSize="12" FontWeight="Medium" Grid.Row="3"/>
-                <ui:TextBox TextChanged="UsernameBoxPlayPage_TextChanged" PlaceholderText="Username" x:Name="UsernameBoxPlayPage" Grid.Row="4"/>
-            </Grid>
-        </ui:Card>
-    </Grid>
+        </Grid>
+    </ui:DynamicScrollViewer>
 </Page>
