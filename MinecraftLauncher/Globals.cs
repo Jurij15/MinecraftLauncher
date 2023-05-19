@@ -23,7 +23,7 @@ namespace MinecraftLauncher
 
         public static string CurrentBuild;
 
-        public static string VersionString = "1.0";
+        public static string VersionString = "1.1";
 
         //configs
         public static string Username { get; set; }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MinecraftLauncher.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +27,24 @@ namespace MinecraftLauncher.Pages
             InitializeComponent();
 
             VersionBlock.Text = "Version: " + Globals.VersionString;
+        }
+
+        private void CheckForUpdatesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool value = Updater.bIsUpToDate();
+            if (value)
+            {
+                StatusBox.Text = "Up to date";
+                GoodBadge.Visibility = Visibility.Visible;
+                AditionalStuffBox.Text = "No action required";
+            }
+            else if (!value)
+            {
+                StatusBox.Text = "Update Available";
+                BadBadge.Visibility = Visibility.Visible;
+                AditionalStuffBox.Text = "Please check GitHub for a new version!";
+            }
+            CheckUpdatesFlyout.IsOpen = true;
         }
     }
 }

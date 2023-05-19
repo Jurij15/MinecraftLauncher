@@ -101,9 +101,24 @@ namespace MinecraftLauncher.Pages
             Globals.MainNavigation.NavigateWithHierarchy(typeof(PlayPage));
         }
 
-        private void PlayLatest_Click(object sender, RoutedEventArgs e)
+        private void SeeAllBuildsAction_Click(object sender, RoutedEventArgs e)
         {
+            Globals.MainNavigation.Navigate(typeof(AllVersionsPage));
+        }
 
+        private void UseOptifineAction_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigation.Navigate(typeof(SpecialsPage));
+        }
+
+        private void ChangeUsernameAction_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigation.Navigate(typeof(SettingsPage));
+        }
+
+        private void CheckLatestNewsAction_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigation.Navigate(typeof(AboutPage));
         }
     }
 }

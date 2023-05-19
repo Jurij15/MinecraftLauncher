@@ -24,18 +24,25 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ui:InfoBar IsOpen="False" IsClosable="False" Message="This is a WIP build. Issues are expected" Title="Development Build" Margin="0,0,0,8"/>
 
         <ui:CardExpander Grid.Row="6" IsExpanded="True">
             <Expander.Header>
-                <StackPanel Orientation="Horizontal">
-                    <ui:Image Source="../minecraft-icon.jpg" Width="47" Height="39"/>
-                    <StackPanel VerticalAlignment="Center" Margin="14,0,0,0">
-                        <TextBlock Text="Minecraft Launcher" FontSize="16" FontWeight="Medium" Grid.Row="4" Margin="0,0,0,2"/>
-                        <TextBlock Text="by Jurij15" Grid.Row="5" FontSize="12" Margin="0,0,0,0"/>
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:Image Source="../minecraft-icon.jpg" Width="47" Height="39" HorizontalAlignment="Left"/>
+                        <StackPanel VerticalAlignment="Center" Margin="14,0,0,0" HorizontalAlignment="Left">
+                            <TextBlock Text="Minecraft Launcher" FontSize="16" FontWeight="Medium" Grid.Row="4" Margin="0,0,0,2"/>
+                            <TextBlock Text="by Jurij15" Grid.Row="5" FontSize="12" Margin="0,0,0,0"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <ui:Hyperlink NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub" Margin="0,2,0,2"/>
+                    </StackPanel>
+                </Grid>
             </Expander.Header>
             <Grid>
                 <StackPanel>
@@ -43,10 +50,74 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right">
                     <TextBlock Text="Open source libraries used:" FontSize="12" Grid.Row="4" Margin="4,0,4,0"/>
-                    <ui:Hyperlink NavigateUri="https://github.com/lepoco/wpfui" Content="WPF-UI" Margin="0,2,0,2"/>
-                    <ui:Hyperlink NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core" Margin="0,0,0,2"/>
+                    <ui:Hyperlink NavigateUri="https://github.com/lepoco/wpfui" Content="WPF-UI" Margin="0,2,0,2" Icon="{ui:SymbolIcon Link24}"/>
+                    <ui:Hyperlink NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core" Margin="0,0,0,2" Icon="{ui:SymbolIcon Link24}"/>
                 </StackPanel>
             </Grid>
         </ui:CardExpander>
+        <ui:CardExpander Grid.Row="7" Margin="0,4,0,0">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel VerticalAlignment="Center" Margin="14,0,0,0">
+                        <TextBlock Text="Patch Notes" FontSize="16" FontWeight="Medium" Grid.Row="4" Margin="0,0,0,2"/>
+                        <TextBlock Text="Version 1.1" Grid.Row="5" FontSize="12" Margin="0,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Header>
+            <ui:CardExpander.Icon>
+                <ui:SymbolIcon Symbol="TextLineSpacing24"/>
+            </ui:CardExpander.Icon>
+            <TextBlock TextWrapping="WrapWithOverflow" FontSize="16">
+                -Redesigned Home Page
+                <LineBreak/>
+                -Work-In progress updater
+                <LineBreak/>
+                -Many Quality of life improvements
+                <LineBreak/>
+                -Open Source
+            </TextBlock>
+        </ui:CardExpander>
+        <ui:CardControl Grid.Row="8" Margin="0,4,0,0">
+            <ui:CardControl.Header>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel VerticalAlignment="Center" Margin="14,0,0,0">
+                        <TextBlock Text="Updates" FontSize="16" FontWeight="Medium" Grid.Row="4" Margin="0,0,0,2"/>
+                        <TextBlock Text="Check for updates" Grid.Row="5" FontSize="12" Margin="0,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:CardControl.Icon>
+                <ui:SymbolIcon Symbol="PhoneUpdate24"/>
+            </ui:CardControl.Icon>
+            <StackPanel>
+                <ui:Flyout Placement="Top" x:Name="CheckUpdatesFlyout">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal"  Grid.Row="0">
+                                <TextBlock x:Name="StatusBox" Text="Cannot See Status" Grid.Column="0" VerticalAlignment="Center"/>
+                                <ui:Badge x:Name="GoodBadge" Appearance="Transparent" Grid.Column="1" Visibility="Collapsed" VerticalAlignment="Center">
+                                    <ui:SymbolIcon  Symbol="Checkmark24" Filled="True"/>
+                                </ui:Badge>
+                                <ui:Badge x:Name="BadBadge" Appearance="Transparent" Grid.Column="1" Visibility="Collapsed" VerticalAlignment="Center">
+                                    <ui:SymbolIcon  Symbol="ArrowSync24" Filled="True"/>
+                                </ui:Badge>
+                            </StackPanel>
+                            <TextBlock x:Name="AditionalStuffBox" FontSize="11" Grid.Row="1"/>
+                        </Grid>
+                    </StackPanel>
+                </ui:Flyout>
+                <ui:Button Appearance="Primary" Content="Check for updates" x:Name="CheckForUpdatesBtn" VerticalAlignment="Center" Click="CheckForUpdatesBtn_Click" Margin="0,-20,0,0">
+                    
+                </ui:Button>
+            </StackPanel>
+        </ui:CardControl>
     </Grid>
 </Page>
