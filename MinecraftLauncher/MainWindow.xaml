@@ -15,7 +15,7 @@
     WindowCornerPreference="Round"
                  Loaded="FluentWindow_Loaded"
     WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="690" Width="1236">
+        Title="Minecraft Launcher" Height="690" Width="1236">
     <Grid>
         <ui:TitleBar Title="Minecraft Launcher" x:Name="TitleBar">
             <ui:TitleBar.Icon>
