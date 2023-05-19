@@ -1,6 +1,8 @@
 # MinecraftLauncher
 A simple minecraft launcher made using [CmlLib](https://github.com/CmlLib/CmlLib.Core) and [WPF-UI](https://github.com/lepoco/wpfui) on .NET 7
 
+![heroImg](https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/images/demo-1.0.png?token=GHSAT0AAAAAABXIJ5TIY3UUVSXDPEJHJOSIZDHPF4A)
+
 Current Latest version: 1.0
 
 # How to use
