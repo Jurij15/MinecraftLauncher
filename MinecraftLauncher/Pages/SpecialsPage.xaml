@@ -24,9 +24,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ui:Card x:Name="Optifine1_17_1Card">
+        <TextBlock x:Name="OptiFineDesc" Grid.Row="1" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWithOverflow" Margin="0,0,0,6">
+            OptiFine is a highly popular Minecraft mod known for enhancing graphics and performance. With features like improved visuals, increased frame rates, and customization options, it optimizes the game for a smoother and more enjoyable experience. It is widely embraced by players seeking to enhance their Minecraft gameplay.
+        </TextBlock>
+        <ui:Card x:Name="Optifine1_17_1Card" Grid.Row="2">
             <Grid>
-                <TextBlock VerticalAlignment="Center" Text="OptiFine 1.17.1" FontSize="16" FontWeight="Medium" HorizontalAlignment="Left"/>
+                <StackPanel HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" Text="OptiFine" FontSize="16" FontWeight="Medium"/>
+                    <TextBlock VerticalAlignment="Center" Text="1.17.1" FontSize="13" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
                 <ui:Button x:Name="DownloadOptiFine1_17_1" Click="DownloadOptiFine1_17_1_Click" HorizontalAlignment="Right" Appearance="Primary" Width="60" Visibility="Collapsed">
                     <ui:SymbolIcon Symbol="ArrowDownload24"/>
                 </ui:Button>

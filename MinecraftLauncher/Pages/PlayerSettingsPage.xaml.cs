@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MinecraftLauncher
+namespace MinecraftLauncher.Pages
 {
     /// <summary>
-    /// Interaction logic for WelcomeWindow.xaml
+    /// Interaction logic for PlayerSettingsPage.xaml
     /// </summary>
-    public partial class WelcomeWindow : Wpf.Ui.Controls.Window.FluentWindow
+    public partial class PlayerSettingsPage : Page
     {
-        public WelcomeWindow()
+        public PlayerSettingsPage()
         {
             InitializeComponent();
         }

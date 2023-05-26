@@ -1,0 +1,49 @@
+﻿<Page x:Class="MinecraftLauncher.Pages.PlayerSettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MinecraftLauncher.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Foreground="{DynamicResource ApplicationBackgroundBrush}"
+      Title="PlayerSettingsPage">
+
+    <Grid Margin="42">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" x:Name="PlayerAbout" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Grid>
+                <Grid x:Name="PFP">
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="StevePfp.png" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+            </Grid>
+            <StackPanel Margin="8,0,0,0">
+                <TextBlock Text="{Binding ElementName=UsernameEditBox, Path=Text}" x:Name="UsernameBlock" FontSize="32" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
+                <TextBlock Text="A MinecraftLauncher User" FontSize="13" FontWeight="Light" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" x:Name="EditSettings">
+            <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="8,4,8,4"/>
+            <ui:TextBox PlaceholderText="Username" x:Name="UsernameEditBox" Text="Steve"/>
+        </StackPanel>
+    </Grid>
+</Page>

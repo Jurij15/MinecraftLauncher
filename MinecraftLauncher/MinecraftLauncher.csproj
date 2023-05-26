@@ -20,6 +20,8 @@
     <None Remove="Pages\banner-img1.jpg" />
     <None Remove="Pages\demo-1.0.png" />
     <None Remove="Pages\playBanner.jpg" />
+    <None Remove="Pages\StevePfp.png" />
+    <None Remove="StevePfp.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,11 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="minecraft-icon.ico" />
+    <Resource Include="minecraft-icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="OptiFine\OptiFine.zip" />
+    <Resource Include="Pages\StevePfp.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +57,7 @@
     <Resource Include="Pages\banner-img1.jpg" />
     <Resource Include="Pages\demo-1.0.png" />
     <Resource Include="Pages\playBanner.jpg" />
+    <Resource Include="StevePfp.png" />
   </ItemGroup>
 
   <ItemGroup>
