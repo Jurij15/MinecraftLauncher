@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0348F238-6432-4184-A7FB-62470EF4A01B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CmlLibUniversal</RootNamespace>
+    <AssemblyName>CmlLibUniversal</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+	<LangVersion>11</LangVersion>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.20348.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Core\Auth\Microsoft\AuthenticationResponse.cs" />
+    <Compile Include="Core\Auth\Microsoft\XboxMinecraftLogin.cs" />
+    <Compile Include="Core\Auth\MLogin.cs" />
+    <Compile Include="Core\Auth\MLoginResponse.cs" />
+    <Compile Include="Core\Auth\MSession.cs" />
+    <Compile Include="Core\CMLauncher.cs" />
+    <Compile Include="Core\Downloader\AsyncParallelDownloader.cs" />
+    <Compile Include="Core\Downloader\DownloadFile.cs" />
+    <Compile Include="Core\Downloader\DownloadFileChangedEventArgs.cs" />
+    <Compile Include="Core\Downloader\DownloadFileProgress.cs" />
+    <Compile Include="Core\Downloader\FileProgressChangedEventArgs.cs" />
+    <Compile Include="Core\Downloader\IDownloader.cs" />
+    <Compile Include="Core\Downloader\MDownloadFileException.cs" />
+    <Compile Include="Core\Downloader\SequenceDownloader.cs" />
+    <Compile Include="Core\Files\AssetChecker.cs" />
+    <Compile Include="Core\Files\ClientChecker.cs" />
+    <Compile Include="Core\Files\FileCheckerCollection.cs" />
+    <Compile Include="Core\Files\IFileChecker.cs" />
+    <Compile Include="Core\Files\JavaChecker.cs" />
+    <Compile Include="Core\Files\LibraryChecker.cs" />
+    <Compile Include="Core\Files\LogChecker.cs" />
+    <Compile Include="Core\Files\MLibrary.cs" />
+    <Compile Include="Core\Files\MLibraryParser.cs" />
+    <Compile Include="Core\Files\MLogConfiguration.cs" />
+    <Compile Include="Core\Files\ModChecker.cs" />
+    <Compile Include="Core\Files\ModFile.cs" />
+    <Compile Include="Core\Files\ModFileFactory.cs" />
+    <Compile Include="Core\Installer\FabricMC\FabricLoader.cs" />
+    <Compile Include="Core\Installer\FabricMC\FabricVersionLoader.cs" />
+    <Compile Include="Core\Installer\LiteLoader\LiteLoaderInstaller.cs" />
+    <Compile Include="Core\Installer\LiteLoader\LiteLoaderVersionLoader.cs" />
+    <Compile Include="Core\Installer\LiteLoader\LiteLoaderVersionMetadata.cs" />
+    <Compile Include="Core\Installer\MForge.cs" />
+    <Compile Include="Core\Installer\MJava.cs" />
+    <Compile Include="Core\Installer\QuiltMC\QuiltLoader.cs" />
+    <Compile Include="Core\Installer\QuiltMC\QuiltVersionLoader.cs" />
+    <Compile Include="Core\Java\IJavaPathResolver.cs" />
+    <Compile Include="Core\Java\MinecraftJavaPathResolver.cs" />
+    <Compile Include="Core\Launcher\MLaunch.cs" />
+    <Compile Include="Core\Launcher\MLaunchOption.cs" />
+    <Compile Include="Core\Launcher\MNative.cs" />
+    <Compile Include="Core\Mapper.cs" />
+    <Compile Include="Core\MinecraftPath.cs" />
+    <Compile Include="Core\MojangLauncher\MojangAccount.cs" />
+    <Compile Include="Core\MojangLauncher\MojangLauncherAccounts.cs" />
+    <Compile Include="Core\MojangLauncher\MojangLauncherProfile.cs" />
+    <Compile Include="Core\MojangServer.cs" />
+    <Compile Include="Core\Mojang\MojangAPI.cs" />
+    <Compile Include="Core\Mojang\MojangServerStatus.cs" />
+    <Compile Include="Core\Mojang\UserProfile.cs" />
+    <Compile Include="Core\MRule.cs" />
+    <Compile Include="Core\PackageName.cs" />
+    <Compile Include="Core\VersionLoader\DefaultVersionLoader.cs" />
+    <Compile Include="Core\VersionLoader\IVersionLoader.cs" />
+    <Compile Include="Core\VersionLoader\LocalVersionLoader.cs" />
+    <Compile Include="Core\VersionLoader\MojangVersionLoader.cs" />
+    <Compile Include="Core\VersionMetadata\LocalVersionMetadata.cs" />
+    <Compile Include="Core\VersionMetadata\MVersionMetadata.cs" />
+    <Compile Include="Core\VersionMetadata\StringVersionMetadata.cs" />
+    <Compile Include="Core\VersionMetadata\WebVersionMetadata.cs" />
+    <Compile Include="Core\Version\MVersion.cs" />
+    <Compile Include="Core\Version\MVersionCollection.cs" />
+    <Compile Include="Core\Version\MVersionParseException.cs" />
+    <Compile Include="Core\Version\MVersionParser.cs" />
+    <Compile Include="Core\Version\MVersionSort.cs" />
+    <Compile Include="Core\Version\MVersionType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Changelogs.cs" />
+    <Compile Include="Utils\GameOptionsFile.cs" />
+    <Compile Include="Utils\IOUtil.cs" />
+    <Compile Include="Utils\JarFile.cs" />
+    <Compile Include="Utils\NativeMethods.cs" />
+    <Compile Include="Utils\ProcessUtil.cs" />
+    <Compile Include="Utils\SemiVersion.cs" />
+    <Compile Include="Utils\SevenZipWrapper.cs" />
+    <Compile Include="Utils\SharpZip.cs" />
+    <Compile Include="Utils\WebDownload.cs" />
+    <EmbeddedResource Include="Properties\CmlLibUniversal.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ConfigureAwait.Fody">
+      <Version>3.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="Fody">
+      <Version>6.7.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="LZMA-SDK">
+      <Version>22.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="MethodTimer.Fody">
+      <Version>3.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="SharpZipLib">
+      <Version>1.4.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

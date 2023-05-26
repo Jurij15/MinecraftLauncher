@@ -175,9 +175,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="CmlLib">
-      <HintPath>lib\CmlLib.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\CmlLibUniversal\CmlLibUniversal.csproj">
+      <Project>{0348f238-6432-4184-a7fb-62470ef4a01b}</Project>
+      <Name>CmlLibUniversal</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
