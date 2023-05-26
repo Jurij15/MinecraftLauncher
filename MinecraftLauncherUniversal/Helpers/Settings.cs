@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 //using System.Windows.Media.Media3D;
 
-namespace MinecraftLauncher.Helpers
+namespace MinecraftLauncherUniversal.Helpers
 {
     public class Settings
     {
+        //THIS NEEDS A REWRITE FOR UWP
         public static string RootDir = "Settings/";
         public static string ThemeConfig = RootDir + "ThemeConfig";
         public static string UsernameConfig = RootDir + "UsernameConfig";
@@ -47,11 +48,11 @@ namespace MinecraftLauncher.Helpers
             string theme = File.ReadAllText(ThemeConfig);
             if (theme.Contains("dark", StringComparison.OrdinalIgnoreCase))
             {
-                //Globals.UserTheme = Wpf.Ui.Appearance.ThemeType.Dark;
+                Globals.Theme = 0;
             }
             else
             {
-                //Globals.UserTheme = Wpf.Ui.Appearance.ThemeType.Light;
+                Globals.Theme = 1;
             }
 
             string Username = File.ReadAllText(UsernameConfig);
@@ -83,7 +84,14 @@ namespace MinecraftLauncher.Helpers
             File.Delete(ThemeConfig);
             using (StreamWriter sw = File.CreateText(ThemeConfig))
             {
-                //sw.Write(Globals.UserTheme.ToString());
+                if (Globals.Theme == 0)
+                {
+                    sw.Write("Dark");
+                }
+                else if (Globals.Theme == 1)
+                {
+                    sw.Write("Light");
+                }
                 sw.Close();
             }
         }

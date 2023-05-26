@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using System.Windows.Media.Imaging;
 
-namespace MinecraftLauncher.Helpers
+namespace MinecraftLauncherUniversal.Helpers
 {
     public class VersionsHelper
     {

@@ -7,9 +7,93 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Page.Resources>
+        <Style x:Key="BreadcrumbBarItemStyle" TargetType="controls:BreadcrumbBarItem">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
 
+        <DataTemplate x:Key="BreadcrumbBarItemTemplate" 
+                      x:DataType="controls:BreadcrumbBarItem">
+            <controls:BreadcrumbBarItem Style="{StaticResource BreadcrumbBarItemStyle}"
+                                         Content="{Binding Content}"/>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="TitleBarGrid" Background="Transparent" Visibility="Visible" Margin="48,0,0,0" IsHitTestVisible="True" Canvas.ZIndex="1" Grid.Column="1">
+            <Grid.OpacityTransition>
+                <ScalarTransition Duration="0:0:0.083" />
+            </Grid.OpacityTransition>
+            <TextBlock
+        x:Name="WindowTitle"
+        Grid.Column="3"
+        Margin="20,1,0,0"
+        VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+        FontFamily="Segoe UI Variable Text"
+                Style="{StaticResource CaptionTextBlockStyle}"
+        FontSize="12"
+        Text="Minecraft Launcher" />
+        </Grid>
+        <controls:NavigationView Grid.Row="1" Canvas.ZIndex="0" Grid.Column="1"
+                                 x:Name="MainNavigation"
+                                 IsBackButtonVisible="Collapsed"
+                                 IsPaneOpen="True"
+                                 
+                                 AlwaysShowHeader="True"
+                                 ItemInvoked="MainNavigation_ItemInvoked"
+                                 OpenPaneLength="172"
+                                 PaneDisplayMode="Left"
+                                 
+                                 IsTabStop="False"
+                                 IsTitleBarAutoPaddingEnabled="False"
+                                 >
+            <controls:NavigationView.Header>
+                <controls:BreadcrumbBar x:Name="MainBreadcrumb" FontSize="48" FontWeight="Medium" ItemTemplate="{StaticResource BreadcrumbBarItemTemplate}"/>
+            </controls:NavigationView.Header>
+            <controls:NavigationView.MenuItems>
+                <controls:NavigationViewItem Content="Home" x:Name="HomeItem">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"/>
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                <controls:NavigationViewItemSeparator/>
+                <controls:NavigationViewItem Content="All Versions">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71D;"/>
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                <controls:NavigationViewItem Content="OptiFine">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xF4A5;"/>
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+            </controls:NavigationView.MenuItems>
+            <controls:NavigationView.FooterMenuItems>
+                <controls:NavigationViewItem Content="Player" x:Name="PlayerSettingsNavItem">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xEF58;"/>
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+            </controls:NavigationView.FooterMenuItems>
+            <Frame x:Name="RootFrame" Margin="0,0,0,0"
+                    >
+            </Frame>
+            <controls:NavigationView.ContentOverlay>
+                <StackPanel x:Name="MainNavigationContentOverlay"/>
+            </controls:NavigationView.ContentOverlay>
+        </controls:NavigationView>
     </Grid>
 </Page>

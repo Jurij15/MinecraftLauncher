@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="MinecraftLauncherUniversal.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Unloaded="Page_Unloaded"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    Background="Transparent">
+
+    <Grid Margin="58, 42, 58,58">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Personalization" FontSize="12" Grid.Row="0" Margin="0,2,0,4" FontWeight="SemiBold"/>
+        <Grid x:Name="ThemeCard"
+              Grid.Row="1"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefault}"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,0,0,4">
+            <StackPanel x:Name="CardDescriptionPanel" HorizontalAlignment="Left" Margin="20">
+                <TextBlock Text="Theme" FontSize="14" FontWeight="SemiBold"/>
+                <TextBlock Text="Control App Theme (BETA)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="13"/>
+            </StackPanel>
+
+            <StackPanel x:Name="CardContentPanel" HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                <ComboBox x:Name="ThemeComboBox" SelectionChanged="ThemeComboBox_SelectionChanged">
+                    <ComboBoxItem x:Name="DarkCombo" Content="Dark"/>
+                    <ComboBoxItem x:Name="LightCombo" Content="Light"/>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="SoundCard"
+              Grid.Row="2"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefault}"
+              BorderThickness="1"
+              CornerRadius="4">
+            <StackPanel HorizontalAlignment="Left" Margin="20">
+                <TextBlock Text="Sound" FontSize="14" FontWeight="SemiBold"/>
+                <TextBlock Text="Enable sound effects while using the app" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="13" />
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                <ToggleSwitch x:Name="SoundToggle" OnContent="Play sound effects" OffContent="Don't play sound effects" IsOn="True" Toggled="SoundToggle_Toggled"/>
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="Related" FontSize="12" Grid.Row="3" Margin="0,2,0,4" FontWeight="SemiBold"/>
+        <HyperlinkButton x:Name="PlayerSettings" Content="Player Settings" Click="PlayerSettings_Click" Grid.Row="4" Margin="0,2,0,4"/>
+    </Grid>
+</Page>

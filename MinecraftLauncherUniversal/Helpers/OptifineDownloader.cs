@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MinecraftLauncher.Helpers
+namespace MinecraftLauncherUniversal.Helpers
 {
     public class OptifineDownloader
     {
