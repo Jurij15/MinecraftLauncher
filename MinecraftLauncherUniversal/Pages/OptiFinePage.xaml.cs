@@ -37,7 +37,7 @@ namespace MinecraftLauncherUniversal.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //check if optifine 1.17.1 is installed
-            InstallBtn.Content = VersionsHelper.bIsVersionInstalled("OptiFine 1.17.1").ToString();
+            InstallBtn.Content = VersionsHelper.bIsVersionInstalled("OptiFine 1.17.1").ToString(); //this does not work due to "limitations": every uwp app is sandboxed and access to folders like .roaming is denied by default
         }
     }
 }
