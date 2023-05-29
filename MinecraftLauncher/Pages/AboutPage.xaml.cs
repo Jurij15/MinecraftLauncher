@@ -36,7 +36,7 @@ namespace MinecraftLauncher.Pages
             {
                 StatusBox.Text = "Up to date";
                 GoodBadge.Visibility = Visibility.Visible;
-                AditionalStuffBox.Text = "No action required";
+                AditionalStuffBox.Text = "No action needed";
             }
             else if (!value)
             {

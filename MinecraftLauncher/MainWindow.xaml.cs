@@ -40,7 +40,7 @@ namespace MinecraftLauncher
 
             Wpf.Ui.Appearance.Watcher.Watch(this);
 
-           // MainNavigation.IsPaneOpen = false;
+            //MainNavigation.IsPaneOpen = false;
             MainNavigation.Navigate(typeof(HomePage));
 
             MainNavigation.PaneTitle = Globals.Username;
@@ -61,6 +61,8 @@ namespace MinecraftLauncher
             //Globals.snackbarService = _snackbarService;
 
             MainNavigationBreadcrumb.Visibility = Visibility.Collapsed;
+
+            //Settings.GetSettings();
         }
 
         private void Refreshtimer_Tick(object? sender, EventArgs e)
@@ -113,6 +115,8 @@ namespace MinecraftLauncher
             {
                 MainNavigationBreadcrumb.Visibility = Visibility.Visible;
             }
+
+            MainNavigation.PaneTitle = Globals.Username;
         }
     }
 }

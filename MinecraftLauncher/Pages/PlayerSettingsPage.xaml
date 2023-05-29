@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MinecraftLauncher.Pages"
       mc:Ignorable="d" 
+      Unloaded="Page_Unloaded"
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -25,7 +26,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" x:Name="PlayerAbout" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" x:Name="PlayerAbout" HorizontalAlignment="Left" Orientation="Horizontal">
             <Grid>
                 <Grid x:Name="PFP">
                     <Ellipse Width="80" Height="80">
@@ -36,14 +37,24 @@
                 </Grid>
             </Grid>
             <StackPanel Margin="8,0,0,0">
-                <TextBlock Text="{Binding ElementName=UsernameEditBox, Path=Text}" x:Name="UsernameBlock" FontSize="32" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
-                <TextBlock Text="A MinecraftLauncher User" FontSize="13" FontWeight="Light" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="{Binding ElementName=UsernameSettingsBox, Path=Text}" x:Name="UsernameBlock" FontSize="32" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
+                <TextBlock Text="{Binding ElementName=SubText, Path=Text}" FontSize="13" FontWeight="Light" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="2" x:Name="EditSettings">
-            <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="8,4,8,4"/>
-            <ui:TextBox PlaceholderText="Username" x:Name="UsernameEditBox" Text="Steve"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="1,4,8,4"/>
+            </StackPanel>
+            <ui:TextBox PlaceholderText="Username" x:Name="UsernameSettingsBox" TextChanged="UsernameSettingsBox_TextChanged"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" x:Name="EditSettingsUseless" Margin="0,0,0,4">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="1,4,8,4"/>
+                <ui:SymbolIcon ToolTipService.ToolTip="Fun Fact: This does not mean anything" Symbol="Info24" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+            <ui:TextBox PlaceholderText="SubText" x:Name="SubText" Text="A MinecraftLauncher User"/>
         </StackPanel>
     </Grid>
 </Page>

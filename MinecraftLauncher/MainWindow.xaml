@@ -16,6 +16,9 @@
                  Loaded="FluentWindow_Loaded"
     WindowStartupLocation="CenterScreen"
         Title="Minecraft Launcher" Height="690" Width="1236">
+    <Window.Resources>
+        <local:Globals x:Key="GlobalsClass" />
+    </Window.Resources>
     <Grid>
         <ui:TitleBar Title="Minecraft Launcher" x:Name="TitleBar">
             <ui:TitleBar.Icon>
@@ -29,6 +32,8 @@
             AlwaysShowHeader="True"
             EnableDebugMessages="True"
             OpenPaneLength="180"
+            
+            PaneTitle="{Binding Username, Source={StaticResource GlobalsClass}, Mode=TwoWay}"
             
             IsPaneToggleVisible="True"
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
@@ -67,9 +72,9 @@
                         <ui:SymbolIcon Symbol="Balloon24"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Content="Player" TargetPageType="{x:Type pages:PlayerSettingsPage}">
+                <ui:NavigationViewItem Content="Player Settings" TargetPageType="{x:Type pages:PlayerSettingsPage}" Visibility="Collapsed">
                     <ui:NavigationViewItem.Icon>
-                        <ui:FontIcon Glyph="&#xEF58;"/>
+                        <ui:SymbolIcon Symbol="Person24"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem Content="Settings" TargetPageType="{x:Type pages:SettingsPage}">

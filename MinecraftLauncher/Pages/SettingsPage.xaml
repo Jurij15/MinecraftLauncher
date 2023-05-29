@@ -26,8 +26,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ui:CardControl x:Name="ThemeSettingCard">
+        <TextBlock Text="Personalization" FontSize="12" Grid.Row="0" Margin="0,4,0,4" FontWeight="Medium"/>
+        <ui:CardControl x:Name="ThemeSettingCard" Grid.Row="1">
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Theme" FontSize="14" FontWeight="Medium"/>
@@ -39,7 +43,21 @@
                 <RadioButton x:Name="LightRadio" Checked="LightRadio_Checked" Content="Light"/>
             </StackPanel>
         </ui:CardControl>
-        <ui:CardControl x:Name="UsernameConfig" GiveFeedback="UsernameConfig_GiveFeedback" Grid.Row="2" Margin="0,4,0,0">
+        <ui:CardControl x:Name="BackDropSettingCard" Grid.Row="2" Margin="0,4,0,0" >
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="Backdrop" FontSize="14" FontWeight="Medium"/>
+                    <TextBlock Text="Control the app window backdrop (BETA)" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox x:Name="BackDropCombo" SelectionChanged="BackDropCombo_SelectionChanged">
+                    <ComboBoxItem x:Name="MicaBackdrop" Content="Mica"/>
+                    <ComboBoxItem x:Name="MicaAltBackdrop" Content="MicaAlt"/>
+                </ComboBox>
+            </StackPanel>
+        </ui:CardControl>
+        <ui:CardControl x:Name="UsernameConfig" Grid.Row="6" Margin="0,4,0,0" Visibility="Collapsed">
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Username" FontSize="14" FontWeight="Medium"/>
@@ -50,7 +68,8 @@
                 <ui:TextBox PlaceholderText="Player" x:Name="UsernameSettingsBox" TextChanged="UsernameSettingsBox_TextChanged" MinWidth="250" MaxWidth="250"/>
             </StackPanel>
         </ui:CardControl>
-        <ui:CardControl x:Name="DwonloadRateLimitConfig" GiveFeedback="UsernameConfig_GiveFeedback" Grid.Row="3" Margin="0,4,0,0">
+        <TextBlock Text="Other Settings" FontSize="12" Grid.Row="7" Margin="0,4,0,4" FontWeight="DemiBold"/>
+        <ui:CardControl x:Name="DwonloadRateLimitConfig" Grid.Row="8" Margin="0,4,0,0">
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Download rate limit" FontSize="14" FontWeight="Medium"/>
@@ -61,7 +80,7 @@
                 <ui:NumberBox PlaceholderText="Rate limit" x:Name="RateLimitBox" Value="1024"/>
             </StackPanel>
         </ui:CardControl>
-        <ui:CardControl x:Name="ResetSettings" GiveFeedback="UsernameConfig_GiveFeedback" Grid.Row="4" Margin="0,4,0,0">
+        <ui:CardControl x:Name="ResetSettings" Grid.Row="10" Margin="0,4,0,0">
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="Reset Settings" FontSize="14" FontWeight="Medium"/>
@@ -72,5 +91,12 @@
                 <ui:Button Appearance="Danger" x:Name="ResetSettingsBtn" Click="ResetSettingsBtn_Click" Content="Reset"/>
             </StackPanel>
         </ui:CardControl>
+        <TextBlock Text="Related" FontSize="12" Grid.Row="11" Margin="0,4,0,4" FontWeight="Medium"/>
+        <ui:CardAction x:Name="PlayerSettingsAction" Grid.Row="12" Click="PlayerSettingsAction_Click">
+            <StackPanel>
+                <TextBlock Text="Player Settings" FontSize="14" FontWeight="Medium"/>
+                <TextBlock Text="Username, skins, profile" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+        </ui:CardAction>
     </Grid>
 </Page>

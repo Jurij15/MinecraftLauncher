@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -33,6 +34,15 @@ namespace MinecraftLauncher.Pages
             else {
                 DarkRadio.IsChecked = true;
             }
+
+            if (Globals.MainWindow.WindowBackdropType == Wpf.Ui.Controls.Window.WindowBackdropType.Mica)
+            {
+                BackDropCombo.SelectedItem = MicaBackdrop;
+            }
+            else 
+            {
+                BackDropCombo.SelectedItem = MicaAltBackdrop;
+            }
         }
 
         private void DarkRadio_Checked(object sender, RoutedEventArgs e)
@@ -45,11 +55,6 @@ namespace MinecraftLauncher.Pages
         {
             Globals.UserTheme = Wpf.Ui.Appearance.ThemeType.Light;
             Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Light);
-        }
-
-        private void UsernameConfig_GiveFeedback(object sender, GiveFeedbackEventArgs e)
-        {
-            
         }
 
         private void UsernameSettingsBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -68,6 +73,23 @@ namespace MinecraftLauncher.Pages
             Settings.ResetSettings();
             System.Windows.Forms.Application.Restart();
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void BackDropCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BackDropCombo.SelectedItem == MicaBackdrop)
+            {
+                Globals.MainWindow.WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.Mica;
+            }
+            else
+            {
+                Globals.MainWindow.WindowBackdropType = Wpf.Ui.Controls.Window.WindowBackdropType.Tabbed;
+            }
+        }
+
+        private void PlayerSettingsAction_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigation.NavigateWithHierarchy(typeof(PlayerSettingsPage));
         }
     }
 }

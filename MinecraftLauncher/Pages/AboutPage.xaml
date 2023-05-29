@@ -115,7 +115,6 @@
                     </StackPanel>
                 </ui:Flyout>
                 <ui:Button Appearance="Primary" Content="Check for updates" x:Name="CheckForUpdatesBtn" VerticalAlignment="Center" Click="CheckForUpdatesBtn_Click" Margin="0,-20,0,0">
-                    
                 </ui:Button>
             </StackPanel>
         </ui:CardControl>
