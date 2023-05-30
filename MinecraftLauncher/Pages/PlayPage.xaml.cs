@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wpf.Ui.Contracts;
+using Wpf.Ui.Controls.ContentDialogControl;
 
 namespace MinecraftLauncher.Pages
 {
@@ -43,12 +46,14 @@ namespace MinecraftLauncher.Pages
             LaunchingBar.Visibility = Visibility.Collapsed;
             VersionStatusBox.Text = "Playing";
 
-            MinecraftLaunchedInfo.IsOpen = true;
+            //MinecraftLaunchedInfo.IsOpen = true;
 
             //by now, it has already been launched, now store the build in recents
             Settings.SaveRecentBuild(Globals.CurrentBuild);
             PlayButton.Visibility = Visibility.Visible;
             //Globals.snackbarService.Show("Minecraft Launched", "Version " + Globals.CurrentBuild + " was launched", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(2));
+
+            Globals.MainSnackbarService.Show("Minecraft Launched", "Version " + Globals.CurrentBuild + " was launched", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(2));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

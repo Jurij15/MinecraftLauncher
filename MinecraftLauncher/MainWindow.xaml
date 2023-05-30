@@ -83,6 +83,13 @@
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>
+
+            <ui:NavigationView.ContentOverlay>
+                <ui:SnackbarPresenter x:Name="RootSnackbarPresenter"/>
+            </ui:NavigationView.ContentOverlay>
+            
         </ui:NavigationView>
+
+        <ContentPresenter x:Name="BaseDialog"/>
     </Grid>
 </ui:FluentWindow>

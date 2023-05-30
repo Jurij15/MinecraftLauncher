@@ -42,19 +42,24 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" x:Name="EditSettings" Margin="0,12,0,0">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="1,4,8,4"/>
-            </StackPanel>
-            <ui:TextBox PlaceholderText="Username" x:Name="UsernameSettingsBox" TextChanged="UsernameSettingsBox_TextChanged"/>
-        </StackPanel>
+        <ui:Card Grid.Row="2" Margin="0,24,0,0">
+            <StackPanel>
+                <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="13" Margin="1,4,8,4" FontWeight="DemiBold"/>
+                <StackPanel Grid.Row="2" x:Name="EditSettings" Margin="0,12,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Profile Username" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="1,4,8,4" FontWeight="Medium"/>
+                    </StackPanel>
+                    <ui:TextBox PlaceholderText="Username" x:Name="UsernameSettingsBox" TextChanged="UsernameSettingsBox_TextChanged"/>
+                </StackPanel>
 
-        <StackPanel Grid.Row="3" x:Name="EditSettingsUseless" Margin="0,0,0,4">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="1,4,8,4"/>
-                <ui:SymbolIcon ToolTipService.ToolTip="Fun Fact: This does not mean anything" Symbol="Info24" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                <StackPanel Grid.Row="3" x:Name="EditSettingsUseless" Margin="0,0,0,4">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Profile Subtext" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="1,4,8,4" FontWeight="Medium"/>
+                        <ui:SymbolIcon ToolTipService.ToolTip="Fun Fact: This does not mean anything" Symbol="Info24" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                    <ui:TextBox PlaceholderText="SubText" x:Name="SubText" Text="A MinecraftLauncher User"/>
+                </StackPanel>
             </StackPanel>
-            <ui:TextBox PlaceholderText="SubText" x:Name="SubText" Text="A MinecraftLauncher User"/>
-        </StackPanel>
+        </ui:Card>
     </Grid>
 </Page>

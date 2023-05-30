@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Contracts;
 using Wpf.Ui.Controls.BreadcrumbControl;
+using Wpf.Ui.Controls.ContentDialogControl;
 using Wpf.Ui.Controls.Navigation;
+using Wpf.Ui.Controls.SnackbarControl;
 using Wpf.Ui.Controls.Window;
+using Wpf.Ui.Services;
 
 namespace MinecraftLauncher
 {
@@ -21,6 +25,12 @@ namespace MinecraftLauncher
         public static NavigationView MainNavigation;
         public static NavigationViewItem PlayMenuItem;
         public static BreadcrumbBar MainNavigationBreadcrumb;
+
+        public static ContentPresenter MainContentPresenter;
+        public static SnackbarPresenter MainSnackbarPresenter;
+
+        public static ContentDialogService MainContentDialogService;
+        public static SnackbarService MainSnackbarService;
 
         public static string CurrentBuild;
 

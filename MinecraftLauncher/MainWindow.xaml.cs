@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Wpf.Ui.Contracts;
+using Wpf.Ui.Controls.ContentDialogControl;
 using Wpf.Ui.Controls.SnackbarControl;
 
 namespace MinecraftLauncher
@@ -28,6 +29,7 @@ namespace MinecraftLauncher
     public partial class MainWindow : Wpf.Ui.Controls.Window.FluentWindow
     {
         private ISnackbarService _snackbarService;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +51,14 @@ namespace MinecraftLauncher
             Globals.MainNavigation = MainNavigation;
             Globals.PlayMenuItem = PlayPageTitle;
             Globals.MainNavigationBreadcrumb = MainNavigationBreadcrumb;
-            //test();
+
+            Globals.MainSnackbarPresenter = RootSnackbarPresenter;
+            Globals.MainSnackbarService = new Wpf.Ui.Services.SnackbarService();
+            Globals.MainSnackbarService.SetSnackbarPresenter(Globals.MainSnackbarPresenter);
+
+            Globals.MainContentDialogService = new Wpf.Ui.Services.ContentDialogService();
+            Globals.MainContentPresenter = BaseDialog;
+            Globals.MainContentDialogService.SetContentPresenter(Globals.MainContentPresenter);
 
             DispatcherTimer refreshtimer = new DispatcherTimer();
             refreshtimer.Tick += Refreshtimer_Tick;
@@ -63,6 +72,7 @@ namespace MinecraftLauncher
             MainNavigationBreadcrumb.Visibility = Visibility.Collapsed;
 
             //Settings.GetSettings();
+            //dialog.ShowAsync();
         }
 
         private void Refreshtimer_Tick(object? sender, EventArgs e)
