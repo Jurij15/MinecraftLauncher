@@ -27,6 +27,7 @@ namespace MinecraftLauncher.Pages
             StackPanel panel = new StackPanel();
 
             TextBlock name = new TextBlock();
+            TextBlock title = new TextBlock();
 
             string CorrectVersionName = StringHelper.ReplaceDisallowedChars(VersionName);
 
@@ -34,6 +35,11 @@ namespace MinecraftLauncher.Pages
             name.TextWrapping = TextWrapping.NoWrap;
             name.TextTrimming = TextTrimming.CharacterEllipsis;
 
+            title.Text = "Minecraft";
+            title.FontWeight = FontWeights.Medium;
+            title.VerticalAlignment = VerticalAlignment.Center;
+
+            panel.Children.Add(title);
             panel.Children.Add(name);
 
             newCard.ToolTip = VersionName;
@@ -42,7 +48,16 @@ namespace MinecraftLauncher.Pages
 
             newCard.Name = CorrectVersionName;
 
-            newCard.Width = 132;
+            if (Globals.CurrentView == Enums.AllVersionsView.VersionsOnly)
+            {
+                newCard.Width = 132;
+                title.Visibility = Visibility.Collapsed;
+            }
+            else if (Globals.CurrentView == Enums.AllVersionsView.Standard)
+            {
+                newCard.HorizontalAlignment = HorizontalAlignment.Stretch;
+                newCard.Width = ItemsPanel.ActualWidth;
+            }
 
             newCard.Margin = new Thickness(2);
 
@@ -72,6 +87,8 @@ namespace MinecraftLauncher.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            ViewCombo.SelectedIndex = 0;
+
             RefreshDefault();
             ReleasesOnly_Checked(sender, e);
             ReleasesOnly.IsChecked = true;
@@ -306,6 +323,22 @@ namespace MinecraftLauncher.Pages
         private void AllSortRadio_Checked(object sender, RoutedEventArgs e)
         {
             Page_Loaded(sender, e);
+        }
+
+        private void ViewCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewCombo.SelectedIndex == 0)
+            {
+                Globals.CurrentView = Enums.AllVersionsView.VersionsOnly;
+            }
+            else if (ViewCombo.SelectedIndex == 1)
+            {
+                Globals.CurrentView = Enums.AllVersionsView.Standard;
+            }
+
+            RefreshDefault();
+            ReleasesOnly_Checked(sender, e);
+            ReleasesOnly.IsChecked = true;
         }
     }
 }

@@ -93,12 +93,16 @@ namespace MinecraftLauncher.Pages
 
         private void LaunchOptifineSpecial_Click(object sender, RoutedEventArgs e)
         {
+            /*
             string name = "OptiFine 1.17.1";
             Globals.CurrentBuild = name;
 
             Globals.PlayMenuItem.Content = "Play " + name;
 
             Globals.MainNavigation.NavigateWithHierarchy(typeof(PlayPage));
+            */
+
+            Globals.MainNavigation.NavigateWithHierarchy(typeof(SpecialsPage));
         }
 
         private void SeeAllBuildsAction_Click(object sender, RoutedEventArgs e)
@@ -113,7 +117,7 @@ namespace MinecraftLauncher.Pages
 
         private void ChangeUsernameAction_Click(object sender, RoutedEventArgs e)
         {
-            Globals.MainNavigation.Navigate(typeof(SettingsPage));
+            Globals.MainNavigation.NavigateWithHierarchy(typeof(PlayerSettingsPage));
         }
 
         private void CheckLatestNewsAction_Click(object sender, RoutedEventArgs e)

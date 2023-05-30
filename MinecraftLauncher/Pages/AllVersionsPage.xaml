@@ -38,7 +38,11 @@
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <CheckBox x:Name="ReleasesOnly" Checked="ReleasesOnly_Checked" Unchecked="ReleasesOnly_Unchecked" Content="Releases Only"/>
                     <CheckBox x:Name="OptiFineOnly" Checked="OptiFineOnly_Checked" Unchecked="OptiFineOnly_Unchecked" Content="OptiFine Only"/>
-                </StackPanel>
+                    <ComboBox x:Name="ViewCombo" Margin="8,0,0,0" SelectionChanged="ViewCombo_SelectionChanged">
+                        <ComboBoxItem Content="Version Only"/>
+                        <ComboBoxItem Content="Standard"/>
+                    </ComboBox>
+                </StackPanel>            
             </Grid>
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>
         </Grid>

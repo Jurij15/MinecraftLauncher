@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinecraftLauncher.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,5 +31,7 @@ namespace MinecraftLauncher
         public static int DownloadRateLimit = 1024;
         public static ThemeType UserTheme { get; set; }
         public static HashSet<string > Recents = new HashSet<string>();
+
+        public static AllVersionsView CurrentView;
     }
 }

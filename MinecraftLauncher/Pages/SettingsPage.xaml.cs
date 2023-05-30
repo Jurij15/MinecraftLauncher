@@ -43,6 +43,15 @@ namespace MinecraftLauncher.Pages
             {
                 BackDropCombo.SelectedItem = MicaAltBackdrop;
             }
+
+            if (Environment.OSVersion.Version.Build >= 22000)
+            {
+                ToolTipService.SetToolTip(BackDropCombo, "This feature is in beta");
+            }
+            else
+            {
+                BackDropCombo.IsEnabled = false;
+            }
         }
 
         private void DarkRadio_Checked(object sender, RoutedEventArgs e)

@@ -51,7 +51,7 @@
                 </StackPanel>
             </ui:CardControl.Header>
             <StackPanel Orientation="Horizontal">
-                <ComboBox x:Name="BackDropCombo" SelectionChanged="BackDropCombo_SelectionChanged">
+                <ComboBox x:Name="BackDropCombo" SelectionChanged="BackDropCombo_SelectionChanged" ToolTipService.ToolTip="This is only supported on Windows 11 build 22000 or higher!">
                     <ComboBoxItem x:Name="MicaBackdrop" Content="Mica"/>
                     <ComboBoxItem x:Name="MicaAltBackdrop" Content="MicaAlt"/>
                 </ComboBox>

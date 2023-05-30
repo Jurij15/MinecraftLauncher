@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" x:Name="PlayerAbout" HorizontalAlignment="Left" Orientation="Horizontal">
             <Grid>
-                <Grid x:Name="PFP">
+                <Grid x:Name="PFP" VerticalAlignment="Center">
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="StevePfp.png" />
@@ -36,13 +36,13 @@
                     </Ellipse>
                 </Grid>
             </Grid>
-            <StackPanel Margin="8,0,0,0">
+            <StackPanel Margin="8,0,0,0" VerticalAlignment="Center">
                 <TextBlock Text="{Binding ElementName=UsernameSettingsBox, Path=Text}" x:Name="UsernameBlock" FontSize="32" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
                 <TextBlock Text="{Binding ElementName=SubText, Path=Text}" FontSize="13" FontWeight="Light" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" x:Name="EditSettings">
+        <StackPanel Grid.Row="2" x:Name="EditSettings" Margin="0,12,0,0">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Edit Profile" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="12" Margin="1,4,8,4"/>
             </StackPanel>
