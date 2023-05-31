@@ -42,6 +42,7 @@ namespace MinecraftLauncher.Helpers
             if (!Directory.Exists(RootDir))
             {
                 CreateSettings();
+                Globals.bIsFirstTimeStartup = true;
             }
 
             string theme = File.ReadAllText(ThemeConfig);

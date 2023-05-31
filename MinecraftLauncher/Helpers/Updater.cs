@@ -39,5 +39,16 @@ namespace MinecraftLauncher.Helpers
 
             return retVal;
         }
+
+        public static bool bIsPrerelease()
+        {
+            bool retVal = false;
+            if (Globals.VersionString.Contains("PR"))
+            {
+                retVal = true;
+            }
+
+            return retVal;
+        }
     }
 }

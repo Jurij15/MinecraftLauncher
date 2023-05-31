@@ -34,7 +34,7 @@ namespace MinecraftLauncher
 
         public static string CurrentBuild;
 
-        public static string VersionString = "1.1";
+        public static string VersionString = "1.1.1-PR";
 
         //configs
         public static string Username { get; set; }
@@ -43,5 +43,7 @@ namespace MinecraftLauncher
         public static HashSet<string > Recents = new HashSet<string>();
 
         public static AllVersionsView CurrentView;
+
+        public static bool bIsFirstTimeStartup = false;
     }
 }

@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ui:InfoBar IsOpen="False" IsClosable="False" Message="This is a WIP build. Issues are expected" Title="Development Build" Margin="0,0,0,8"/>
+        <ui:InfoBar IsOpen="True" IsClosable="False" Message="This is a pre-release build and was not extensively tested. Issues are expected" Title="Pre-Release Build" Margin="0,0,0,8"/>
 
         <ui:CardExpander Grid.Row="6" IsExpanded="True">
             <Expander.Header>

@@ -1,4 +1,5 @@
 ﻿using CmlLib.Core;
+using MinecraftLauncher.Dialogs;
 using MinecraftLauncher.Helpers;
 using MinecraftLauncher.Pages;
 using System;
@@ -71,13 +72,21 @@ namespace MinecraftLauncher
 
             MainNavigationBreadcrumb.Visibility = Visibility.Collapsed;
 
-            //Settings.GetSettings();
-            //dialog.ShowAsync();
+            if (Globals.bIsFirstTimeStartup)
+            {
+                ShowFirstTimeDialog();
+            }
         }
 
         private void Refreshtimer_Tick(object? sender, EventArgs e)
         {
             MainNavigation.PaneTitle = Globals.Username;
+        }
+
+        async void ShowFirstTimeDialog()
+        {
+            var dialog = new FirstTimeSetupDialog(BaseDialog);
+            await dialog.ShowAsync();
         }
 
         async void test()

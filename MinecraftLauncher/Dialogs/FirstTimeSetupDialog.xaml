@@ -1,0 +1,51 @@
+﻿<ui:ContentDialog x:Class="MinecraftLauncher.Dialogs.FirstTimeSetupDialog"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MinecraftLauncher.Dialogs"
+      mc:Ignorable="d" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      d:DesignHeight="1000"
+      d:DesignWidth="750"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                  
+      CloseButtonText="Next"
+                  CloseButtonAppearance="Primary"
+                  
+                  Loaded="ContentDialog_Loaded">
+
+    <ui:ContentDialog.Resources>
+        <Style BasedOn="{StaticResource {x:Type ui:ContentDialog}}" TargetType="{x:Type local:FirstTimeSetupDialog}" />
+    </ui:ContentDialog.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="Tabs" Grid.Row="0" Background="Transparent"  BorderBrush="Transparent" Padding="0,0,0,0" SelectionChanged="Tabs_SelectionChanged">
+            <TabItem Header="TAb1" x:Name="Tab1" Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock Text="Welcome" FontWeight="Medium" FontSize="36" Margin="0,0,0,2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="This assistant will help you customize the basics of the Launcher." FontWeight="Normal" FontSize="16" Margin="0,2,8,8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Tab2" x:Name="Tab2" Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock Text="Set your Username" FontWeight="Normal" FontSize="16" Margin="0,2,8,8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"/>
+                    <ui:TextBox PlaceholderText="Username" x:Name="UsernameSettingsBox" TextChanged="UsernameSettingsBox_TextChanged"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Tab4" x:Name="Tab4" Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock Text="You're all set!" FontWeight="Medium" FontSize="36" Margin="0,0,0,2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="Enjoy!" FontWeight="Normal" FontSize="13" Margin="0,2,8,8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <TextBlock Text="CurrentTab" FontSize="9" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" x:Name="TabStatusBox" Grid.Row="1" Margin="2,4,0,0"/>
+    </Grid>
+</ui:ContentDialog>

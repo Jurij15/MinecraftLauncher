@@ -44,6 +44,12 @@ namespace MinecraftLauncher.Pages
                 BadBadge.Visibility = Visibility.Visible;
                 AditionalStuffBox.Text = "Please check GitHub for a new version!";
             }
+            else if (Updater.bIsPrerelease())
+            {
+                StatusBox.Text = "Pre-Release";
+                BadBadge.Visibility = Visibility.Visible;
+                AditionalStuffBox.Text = "Updates are disabled on pre-release!";
+            }
             CheckUpdatesFlyout.IsOpen = true;
         }
     }

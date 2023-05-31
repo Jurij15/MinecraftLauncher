@@ -46,12 +46,9 @@ namespace MinecraftLauncher.Pages
             LaunchingBar.Visibility = Visibility.Collapsed;
             VersionStatusBox.Text = "Playing";
 
-            //MinecraftLaunchedInfo.IsOpen = true;
-
             //by now, it has already been launched, now store the build in recents
             Settings.SaveRecentBuild(Globals.CurrentBuild);
             PlayButton.Visibility = Visibility.Visible;
-            //Globals.snackbarService.Show("Minecraft Launched", "Version " + Globals.CurrentBuild + " was launched", Wpf.Ui.Controls.ControlAppearance.Info, null, TimeSpan.FromSeconds(2));
 
             Globals.MainSnackbarService.Show("Minecraft Launched", "Version " + Globals.CurrentBuild + " was launched", Wpf.Ui.Controls.ControlAppearance.Success, null, TimeSpan.FromSeconds(2));
         }
