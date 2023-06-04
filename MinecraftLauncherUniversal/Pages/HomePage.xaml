@@ -6,10 +6,135 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    xmlns:controls="using:MinecraftLauncherUniversal.Controls"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="Transparent">
 
-    <Grid>
+    <Grid Margin="58, 42, 58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
+            <FlipView x:Name="Gallery" Height="270" SelectionChanged="Gallery_SelectionChanged">
+                <FlipView.Items>
+                    <FlipViewItem>
+                        <Border CornerRadius="8" Grid.Row="0">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/banner-5.jpg"
+                    Stretch="UniformToFill"/>
+                            </Border.Background>
+                            <Border CornerRadius="8">
+                                <Border.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#1F000000" />
+                                        <GradientStop Offset="1" Color="#4F000000" />
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                                <Grid>
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="Minecraft Launcher" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                                        <TextBlock Text="Unique. Modern. Simple." FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
+                                    </StackPanel>
+                                    <TextBlock Text="Made by Jurij15" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="2,2,2,2" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </FlipViewItem>
+                    <FlipViewItem>
+                        <Border CornerRadius="8" Grid.Row="0">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/1.17.1-banner.jpg"
+                    Stretch="UniformToFill"/>
+                            </Border.Background>
+                            <Border CornerRadius="8">
+                                <Border.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#1F000000" />
+                                        <GradientStop Offset="1" Color="#4F000000" />
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                                <Grid>
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="OptiFine 1.17.1" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                                        <TextBlock Text="Popular version" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,0" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
+                                        <Button Background="Transparent" x:Name="PlayOptifine" Click="PlayOptifine_Click" VerticalAlignment="Center" Margin="48,4,2,0" HorizontalAlignment="Left">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="2,2,2,2" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </FlipViewItem>
+                    <FlipViewItem>
+                        <Border CornerRadius="8" Grid.Row="0">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/thumb.png"
+                    Stretch="UniformToFill"/>
+                            </Border.Background>
+                            <Border CornerRadius="8">
+                                <Border.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#1F000000" />
+                                        <GradientStop Offset="1" Color="#4F000000" />
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                                <Grid>
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="V2" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                                        <TextBlock Text="Explore the Latest version of the Launcher!" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
+                                    </StackPanel>
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="2,2,2,2" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </FlipViewItem>
+                </FlipView.Items>
+            </FlipView>
 
+            <PipsPager x:Name="HomeHeader" SelectedIndexChanged="HomeHeader_SelectedIndexChanged"
+                               HorizontalAlignment="Center"
+        Margin="0, 12, 0, 0" ></PipsPager>
+        </StackPanel>
+        <GridView x:Name="ItemsPanel" Grid.Row="3" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
+            <GridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </GridView.ItemContainerTransitions>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="GridViewItem">
+                                <ListViewItemPresenter
+                SelectedBackground="Transparent"
+                SelectedPointerOverBackground="Transparent"
+                PressedBackground="Transparent"
+                SelectedPressedBackground="Transparent"
+                />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="132" Height="55">
+                        <controls:CardAction PointerPressed="CardAction_PointerPressed" Margin="-1,-1,-1,-1" PointerEntered="CardAction_PointerEntered" PointerExited="CardAction_PointerExited">
+                            <StackPanel Margin="8" VerticalAlignment="Center">
+                                <TextBlock
+                      FontSize="14"
+                      FontWeight="Normal"
+                      Text="{Binding}" />
+                            </StackPanel>
+                        </controls:CardAction>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>

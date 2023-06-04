@@ -9,7 +9,29 @@
     mc:Ignorable="d"
     Background="Transparent">
 
-    <Grid>
-
+    <Grid Margin="58, 42, 58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch">
+            <Expander.Header>
+                <StackPanel Margin="8" CornerRadius="8">
+                    <TextBlock Text="MinecraftLauncher" FontSize="15"/>
+                    <TextBlock Text="by Jurij15" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+            </Expander.Header>
+            <StackPanel>
+                <TextBlock FontWeight="Normal" FontSize="15" x:Name="VersionBox"/>
+            </StackPanel>
+        </Expander>
     </Grid>
 </Page>

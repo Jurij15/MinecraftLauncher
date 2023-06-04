@@ -32,7 +32,6 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <CheckBox x:Name="ReleasesOnly" Content="Releases Only" Unchecked="ReleasesOnly_Unchecked" Checked="ReleasesOnly_Checked"/>
-                    <CheckBox x:Name="OptiFineOnly" Content="OptiFine Only" Unchecked="OptiFineOnly_Unchecked" Checked="OptiFineOnly_Checked"/>
                 </StackPanel>
             </Grid>
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>

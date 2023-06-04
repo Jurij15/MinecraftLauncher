@@ -20,7 +20,7 @@ namespace MinecraftLauncherUniversal.Helpers
 
             using (StreamWriter sw = File.CreateText(ThemeConfig))
             {
-                //sw.Write(Wpf.Ui.Appearance.Theme.GetSystemTheme().ToString());
+                sw.Write(1);
                 sw.Close();
             }
 
@@ -45,8 +45,16 @@ namespace MinecraftLauncherUniversal.Helpers
                 Globals.bIsFirstTimeRun = true;
             }
 
+            string theme = File.ReadAllText(ThemeConfig);
+            Globals.Theme = Convert.ToInt32(theme);
+
             string Username = File.ReadAllText(UsernameConfig);
             Globals.Username = Username;
+
+            foreach (var item in File.ReadAllLines(RecentBuilds))
+            {
+                Globals.Recents.Add(item);
+            }
         }    
 
         public static void ResetSettings()
@@ -69,7 +77,7 @@ namespace MinecraftLauncherUniversal.Helpers
             File.Delete(ThemeConfig);
             using (StreamWriter sw = File.CreateText(ThemeConfig))
             {
-                //sw.Write(Globals.UserTheme.ToString());
+                sw.Write(Globals.Theme.ToString());
                 sw.Close();
             }
         }

@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,6 +28,64 @@ namespace MinecraftLauncherUniversal.Pages
         public SettingsPage()
         {
             this.InitializeComponent();
+            if (Globals.SoundPlayerState == ElementSoundPlayerState.On)
+            {
+                SoundToggle.IsOn = true;
+            }
+            else
+            {
+                SoundToggle.IsOn = false;
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void TempWarning_Toggled(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TempTestStop_Toggled(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SoundToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            bool state = ((ToggleSwitch)sender).IsOn;
+            if (state == true)
+            {
+                ElementSoundPlayer.State = ElementSoundPlayerState.On;
+                Globals.SoundPlayerState = ElementSoundPlayerState.On;
+            }
+            else
+            {
+                ElementSoundPlayer.State = ElementSoundPlayerState.Off;
+                Globals.SoundPlayerState = ElementSoundPlayerState.Off;
+            }
+        }
+
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            // Save theme choice to LocalSettings. 
+            // ApplicationTheme enum values: 0 = Light, 1 = Dark
+            bool toggleswitchstate = ((ToggleSwitch)sender).IsOn;
+
+            Globals.Theme = Convert.ToInt32(toggleswitchstate);
+
+            Helpers.Settings.SaveNewTheme();
+        }
+
+        private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ToggleSwitch)sender).IsOn = App.Current.RequestedTheme == ApplicationTheme.Light;
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
         }
     }
 }

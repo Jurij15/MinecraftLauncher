@@ -28,6 +28,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <InfoBar Title="Minecraft Launched" Message="Minecraft launched successfully!" Severity="Success" IsOpen="False" Grid.Row="0" Margin="2,2,2,2" x:Name="MinecraftLaunchedInfo" Grid.ColumnSpan="2"/>
         <RelativePanel x:Name="InfoGrid" Grid.Row="1" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Height="358" Width="242" HorizontalAlignment="Left" CornerRadius="8">
@@ -92,6 +93,8 @@
                 <StackPanel>
                     <CheckBox Content="Show Skin" IsChecked="False" IsEnabled="False"/>
                     <TextBox Header="Username" PlaceholderText="Username" x:Name="UsernameBox" Margin="0,4,0,0"/>
+                    <TeachingTip  Title="Change Your Username" x:Name="UsernameTip" CloseButtonClick="UsernameTip_CloseButtonClick"
+                                                                    Subtitle="Don't forget to change your username before entering the game!"/>
                 </StackPanel>
             </Expander>
         </Grid>

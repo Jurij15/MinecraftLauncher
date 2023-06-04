@@ -7,9 +7,43 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Unloaded="Page_Unloaded"
     Background="Transparent">
 
-    <Grid>
+    <Grid Margin="58, 42, 58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" x:Name="PlayerAbout" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Grid>
+                <Grid x:Name="PFP" VerticalAlignment="Center">
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Assets/StevePfp.png" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+            </Grid>
+            <StackPanel Margin="8,0,0,0" VerticalAlignment="Center">
+                <TextBlock Text="{Binding ElementName=UsernameSettingsBox, Path=Text}" x:Name="UsernameBlock" FontSize="32" Foreground="{ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
+                <TextBlock Text="{Binding ElementName=SubText, Path=Text}" FontSize="13" FontWeight="Light" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+        </StackPanel>
 
+        <Grid Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Stretch">
+            <StackPanel>
+                <TextBox Header="Username" x:Name="UsernameSettingsBox" PlaceholderText="Username" TextChanged="UsernameSettingsBox_TextChanged" Margin="0,2,0,2"/>
+                <TextBox Header="Profile SubText" x:Name="SubText" Text="A MinecraftLauncher User" PlaceholderText="SubText" Margin="0,2,0,2"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

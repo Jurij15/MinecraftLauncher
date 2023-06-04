@@ -9,7 +9,53 @@
     mc:Ignorable="d"
     Background="Transparent">
 
-    <Grid>
+    <Grid Margin="58, 42, 58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Personalization" FontSize="12" Grid.Row="0" Margin="0,2,0,4" FontWeight="SemiBold"/>
+        <Grid x:Name="ThemeCard" Visibility="Collapsed"
+              Grid.Row="1"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefault}"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,0,0,4">
+            <StackPanel x:Name="CardDescriptionPanel" HorizontalAlignment="Left" Margin="20">
+                <TextBlock Text="Theme" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="Control App Theme (BETA)" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
 
+            <StackPanel x:Name="CardContentPanel" HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                <ToggleSwitch OnContent="Light" OffContent="Dark"
+              Toggled="ToggleSwitch_Toggled" Loaded="ToggleSwitch_Loaded"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="SoundCard"
+              Grid.Row="2"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefault}"
+              BorderThickness="1"
+              CornerRadius="4">
+            <StackPanel HorizontalAlignment="Left" Margin="20">
+                <TextBlock Text="Sound" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="Enable sound effects while using the app" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                <ToggleSwitch x:Name="SoundToggle" OnContent="Play sound effects" OffContent="Don't play sound effects" IsOn="False" Toggled="SoundToggle_Toggled" IsEnabled="True"/>
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="Related" FontSize="12" Grid.Row="3" Margin="0,2,0,4" FontWeight="SemiBold"/>
+        <HyperlinkButton Content="Player Settings" Click="HyperlinkButton_Click" Grid.Row="4"/>
     </Grid>
 </Page>

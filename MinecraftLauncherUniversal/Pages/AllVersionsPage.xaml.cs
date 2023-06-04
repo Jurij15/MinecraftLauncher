@@ -51,11 +51,8 @@ namespace MinecraftLauncherUniversal.Pages
             ItemsPanel.ItemsSource = items;
         }
 
-        public AllVersionsPage()
+        void LoadAllReleasesOnly()
         {
-            this.InitializeComponent();
-
-
             List<string> items = new List<string>();
             foreach (var item in VersionsHelper.GetAllVersions())
             {
@@ -77,6 +74,62 @@ namespace MinecraftLauncherUniversal.Pages
 
             AllSortRadio.IsChecked = true;
             ReleasesOnly.IsChecked = true;
+        }
+
+        void LoadInstalledReleasesOnly()
+        {
+            List<string> items = new List<string>();
+            foreach (var item in VersionsHelper.GetAllVersions())
+            {
+                items.Add(item);
+            }
+            if (items.Count == 0)
+            {
+                HyperlinkButton refreshbtn = new HyperlinkButton();
+                refreshbtn.Click += Refreshbtn_Click;
+                ItemsPanel.Items.Add(refreshbtn);
+            }
+            foreach (var item in VersionsHelper.GetAllVersions())
+            {
+                if (VersionsHelper.bIsReleaseVersion(item))
+                {
+                    if (VersionsHelper.bIsVersionInstalled(item))
+                    {
+                        CreateCard(item);
+                    }
+                }
+            }
+
+            AllSortRadio.IsChecked = false;
+            ReleasesOnly.IsChecked = true;
+        }
+
+        void LoadAll()
+        {
+            List<string> items = new List<string>();
+            foreach (var item in VersionsHelper.GetAllVersions())
+            {
+                items.Add(item);
+            }
+            if (items.Count == 0)
+            {
+                HyperlinkButton refreshbtn = new HyperlinkButton();
+                refreshbtn.Click += Refreshbtn_Click;
+                ItemsPanel.Items.Add(refreshbtn);
+            }
+            foreach (var item in VersionsHelper.GetAllVersions())
+            {
+                CreateCard(item);
+            }
+
+            AllSortRadio.IsChecked = true;
+            ReleasesOnly.IsChecked = false;
+        }
+
+        public AllVersionsPage()
+        {
+            this.InitializeComponent();
+            LoadAllReleasesOnly();
         }
 
         private void Refreshbtn_Click(object sender, RoutedEventArgs e)
@@ -128,29 +181,14 @@ namespace MinecraftLauncherUniversal.Pages
             NavigationService.NavigateHiearchical(typeof(SelectedVersionPage),"Play "+version, false);
         }
 
-        private void ViewCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            LoadAll();
         }
 
         private void ReleasesOnly_Checked(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void OptiFineOnly_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OptiFineOnly_Checked(object sender, RoutedEventArgs e)
-        {
-
+            LoadInstalledReleasesOnly();
         }
 
         private void ItemsPanel_SizeChanged(object sender, SizeChangedEventArgs e)

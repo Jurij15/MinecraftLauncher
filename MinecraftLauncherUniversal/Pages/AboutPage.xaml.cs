@@ -26,6 +26,8 @@ namespace MinecraftLauncherUniversal.Pages
         public AboutPage()
         {
             this.InitializeComponent();
+
+            VersionBox.Text = "Version " + Globals.VersionString;
         }
     }
 }

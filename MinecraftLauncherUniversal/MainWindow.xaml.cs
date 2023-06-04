@@ -53,6 +53,7 @@ namespace MinecraftLauncherUniversal
             MainNavigation.SelectedItem = HomeItem;
             RootFrame.Navigate(typeof(HomePage));
             NavigationService.UpdateBreadcrumb("Home", true);
+            MainNavigation.PaneTitle = Globals.Username;
         }
 
         private void MainNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -83,6 +84,8 @@ namespace MinecraftLauncherUniversal
                 RootFrame.Navigate(typeof(AboutPage));
                 NavigationService.UpdateBreadcrumb("About", true);
             }
+
+            sender.PaneTitle = Globals.Username;
         }
 
         private void MainBreadcrumb_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)

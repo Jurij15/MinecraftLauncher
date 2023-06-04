@@ -29,6 +29,9 @@ namespace MinecraftLauncherUniversal.Pages
         {
             this.InitializeComponent();
             UsernameBox.Text = Globals.Username;
+
+            UsernameTip.Target = UsernameBox;
+            UsernameTip.IsOpen = true;
         }
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
@@ -95,8 +98,14 @@ namespace MinecraftLauncherUniversal.Pages
             StatusBox.Text = "Playing";
 
             //by now, it has already been launched, now store the build in recents
-            //Settings.SaveRecentBuild(Globals.CurrentBuild);
+            Settings.SaveRecentBuild(Globals.CurrentVersion);
+            MinecraftLaunchedInfo.IsOpen = true;
             PlayButton.Visibility = Visibility.Visible;
+        }
+
+        private void UsernameTip_CloseButtonClick(TeachingTip sender, object args)
+        {
+            sender.IsOpen = false;
         }
     }
 }
