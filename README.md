@@ -8,6 +8,9 @@ Current Latest version: 1.0
 # How to use
 Download the portable executable in the Releases section and extract the ZIP
 
+# Work in progress
+- Moving to WinUI3
+
 # Plans and ToDo
 - Implement skins
 - Switch to WinUi 3
