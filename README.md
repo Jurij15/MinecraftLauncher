@@ -10,4 +10,4 @@ Download the portable executable in the Releases section and extract the ZIP
 
 # Plans and ToDo
 - Implement skins
-- Switch to UWP
+- Switch to WinUi 3
