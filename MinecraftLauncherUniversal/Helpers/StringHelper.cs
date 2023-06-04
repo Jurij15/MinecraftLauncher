@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MinecraftLauncher.Helpers
+namespace MinecraftLauncherUniversal.Helpers
 {
     public class StringHelper
     {

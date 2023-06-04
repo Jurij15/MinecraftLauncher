@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MinecraftLauncherUniversal (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MinecraftLauncherUniversal (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

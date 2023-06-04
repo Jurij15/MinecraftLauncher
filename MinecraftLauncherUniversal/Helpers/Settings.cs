@@ -1,16 +1,15 @@
-﻿using System;
+﻿using MinecraftLauncherUniversal;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using System.Windows.Media.Media3D;
 
 namespace MinecraftLauncherUniversal.Helpers
 {
     public class Settings
     {
-        //THIS NEEDS A REWRITE FOR UWP
         public static string RootDir = "Settings/";
         public static string ThemeConfig = RootDir + "ThemeConfig";
         public static string UsernameConfig = RootDir + "UsernameConfig";
@@ -43,25 +42,11 @@ namespace MinecraftLauncherUniversal.Helpers
             if (!Directory.Exists(RootDir))
             {
                 CreateSettings();
-            }
-
-            string theme = File.ReadAllText(ThemeConfig);
-            if (theme.Contains("dark", StringComparison.OrdinalIgnoreCase))
-            {
-                Globals.Theme = 0;
-            }
-            else
-            {
-                Globals.Theme = 1;
+                Globals.bIsFirstTimeRun = true;
             }
 
             string Username = File.ReadAllText(UsernameConfig);
             Globals.Username = Username;
-
-            foreach (var line in File.ReadAllLines(RecentBuilds))
-            {
-                Globals.Recents.Add(line);
-            }
         }    
 
         public static void ResetSettings()
@@ -84,14 +69,7 @@ namespace MinecraftLauncherUniversal.Helpers
             File.Delete(ThemeConfig);
             using (StreamWriter sw = File.CreateText(ThemeConfig))
             {
-                if (Globals.Theme == 0)
-                {
-                    sw.Write("Dark");
-                }
-                else if (Globals.Theme == 1)
-                {
-                    sw.Write("Light");
-                }
+                //sw.Write(Globals.UserTheme.ToString());
                 sw.Close();
             }
         }

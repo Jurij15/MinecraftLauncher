@@ -1,15 +1,78 @@
-﻿<Page
+<?xml version="1.0" encoding="utf-8"?>
+<Page
     x:Class="MinecraftLauncherUniversal.Pages.AllVersionsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:MinecraftLauncherUniversal.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Unloaded="Page_Unloaded"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="Transparent">
 
-    <Grid>
-
+    <Grid Margin="58, 42, 58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <AutoSuggestBox x:Name="SearchBox" PlaceholderText="Search" QueryIcon="Find" Grid.Row="1"/>
+        <Grid x:Name="ViewsPanel" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Sort by:" FontSize="14" VerticalAlignment="Center"/>
+                    <RadioButton x:Name="InstalledSortRadio" Content="Installed" Margin="8,0,0,0" />
+                    <RadioButton x:Name="AllSortRadio" Content="All" Margin="-18,0,8,0"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <CheckBox x:Name="ReleasesOnly" Content="Releases Only" Unchecked="ReleasesOnly_Unchecked" Checked="ReleasesOnly_Checked"/>
+                    <CheckBox x:Name="OptiFineOnly" Content="OptiFine Only" Unchecked="OptiFineOnly_Unchecked" Checked="OptiFineOnly_Checked"/>
+                </StackPanel>
+            </Grid>
+            <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>
+        </Grid>
+        <GridView x:Name="ItemsPanel" Grid.Row="3" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
+            <GridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </GridView.ItemContainerTransitions>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="GridViewItem">
+                                <ListViewItemPresenter
+                SelectedBackground="Transparent"
+                SelectedPointerOverBackground="Transparent"
+                PressedBackground="Transparent"
+                SelectedPressedBackground="Transparent"
+                />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="132" Height="55">
+                        <controls:CardAction PointerPressed="CardAction_PointerPressed" Margin="-1,-1,-1,-1" PointerEntered="CardAction_PointerEntered" PointerExited="CardAction_PointerExited">
+                            <StackPanel Margin="8" VerticalAlignment="Center">
+                                <TextBlock
+                      FontSize="14"
+                      FontWeight="Normal"
+                      Text="{Binding}" />
+                            </StackPanel>
+                        </controls:CardAction>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>

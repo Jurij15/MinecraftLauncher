@@ -1,4 +1,5 @@
-﻿<Page
+<?xml version="1.0" encoding="utf-8"?>
+<Page
     x:Class="MinecraftLauncherUniversal.Pages.PlayerSettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,42 +7,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Unloaded="Page_Unloaded"
-    Loaded="Page_Loaded"
     Background="Transparent">
 
-    <Grid Margin="58, 42, 58,58">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid x:Name="AboutInfoPanel" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <PersonPicture x:Name="PFP" ProfilePicture="StevePfp.png" Margin="16" HorizontalAlignment="Left" Grid.Column="0"/>
+    <Grid>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,16,4,4">
-                <TextBlock Text="{Binding ElementName=UsernameEditBox, Path=Text}" x:Name="UsernameBlock" FontSize="24" FontWeight="SemiBold" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
-                <TextBlock Text="Minecraft Launcher User" FontSize="14" FontWeight="Normal" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-            </StackPanel>
-        </Grid>
-        <StackPanel x:Name="EditProfilePanel" Grid.Row="2" Margin="0,12,0,0">
-            <TextBlock Text="Edit Profile" FontSize="13" Margin="16,0,8,8" FontWeight="Medium"/>
-            <TextBlock Text="Username" FontSize="11" Margin="16,0,8,8" FontWeight="Medium"/>
-            <TextBox x:Name="UsernameEditBox" PlaceholderText="Username" Text="Steve" Margin="16,0,8,8" TextChanged="UsernameEditBox_TextChanged"/>
-        </StackPanel>
     </Grid>
 </Page>

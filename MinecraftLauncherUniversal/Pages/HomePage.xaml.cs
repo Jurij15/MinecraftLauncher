@@ -1,19 +1,20 @@
-﻿using System;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace MinecraftLauncherUniversal.Pages
 {
@@ -25,12 +26,6 @@ namespace MinecraftLauncherUniversal.Pages
         public HomePage()
         {
             this.InitializeComponent();
-        }
-
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Globals.CurrentMainBreadcrumbDisplay.Remove("Home");
-            Globals.UpdateBreadcrumb();
         }
     }
 }

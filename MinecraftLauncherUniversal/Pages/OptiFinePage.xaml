@@ -1,16 +1,16 @@
-﻿<Page
+<?xml version="1.0" encoding="utf-8"?>
+<Page
     x:Class="MinecraftLauncherUniversal.Pages.OptiFinePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Unloaded="Page_Unloaded"
     Loaded="Page_Loaded"
+    mc:Ignorable="d"
     Background="Transparent">
 
-    <Grid Margin="58, 42, 58,58">
+    <Grid Margin="58, 42, 58,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <RichTextBlock x:Name="OptiFineExplanation" Grid.Row="1">
+        <RichTextBlock x:Name="OptiFineExplanation" Grid.Row="1" FontSize="13">
             <Paragraph>
                 OptiFine is a highly popular Minecraft mod known for enhancing graphics and performance. With features like improved visuals, increased frame rates, and customization options, it optimizes the game for a smoother and more enjoyable experience. It is widely embraced by players seeking to enhance their Minecraft gameplay.
             </Paragraph>
@@ -40,10 +40,10 @@
             </StackPanel>
 
             <StackPanel x:Name="CardContentPanel" HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
-                <Button x:Name="InstallBtn" Background="{ThemeResource SystemFillColorAttentionBrush}" Visibility="Collapsed">
+                <Button x:Name="InstallBtn" Background="{ThemeResource SystemFillColorAttentionBrush}" Visibility="Collapsed" Click="InstallBtn_Click">
                     <FontIcon Glyph="&#xE896;" Foreground="Black"/>
                 </Button>
-                <Button x:Name="Play" Background="{ThemeResource SystemFillColorAttentionBrush}" Visibility="Collapsed">
+                <Button x:Name="Play" Background="{ThemeResource SystemFillColorAttentionBrush}" Visibility="Collapsed" Click="Play_Click">
                     <FontIcon Glyph="&#xE768;" Foreground="Black"/>
                 </Button>
             </StackPanel>
