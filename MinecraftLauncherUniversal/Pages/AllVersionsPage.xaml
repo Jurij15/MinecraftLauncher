@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <AutoSuggestBox x:Name="SearchBox" PlaceholderText="Search" QueryIcon="Find" Grid.Row="1"/>
+        <AutoSuggestBox x:Name="SearchBox" PlaceholderText="Search" QueryIcon="Find" Grid.Row="1" TextChanged="SearchBox_TextChanged" SuggestionChosen="SearchBox_SuggestionChosen"/>
         <Grid x:Name="ViewsPanel" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -25,12 +25,12 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Visibility="Collapsed">
                     <TextBlock Text="Sort by:" FontSize="14" VerticalAlignment="Center"/>
                     <RadioButton x:Name="InstalledSortRadio" Content="Installed" Margin="8,0,0,0" />
                     <RadioButton x:Name="AllSortRadio" Content="All" Margin="-18,0,8,0"/>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                     <CheckBox x:Name="ReleasesOnly" Content="Releases Only" Unchecked="ReleasesOnly_Unchecked" Checked="ReleasesOnly_Checked"/>
                 </StackPanel>
             </Grid>
@@ -61,7 +61,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="132" Height="55">
-                        <controls:CardAction PointerPressed="CardAction_PointerPressed" Margin="-1,-1,-1,-1" PointerEntered="CardAction_PointerEntered" PointerExited="CardAction_PointerExited">
+                        <controls:CardAction PointerPressed="CardAction_PointerPressed" Margin="-1,-1,-1,-1">
                             <StackPanel Margin="8" VerticalAlignment="Center">
                                 <TextBlock
                       FontSize="14"

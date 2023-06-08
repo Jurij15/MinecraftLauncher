@@ -14,6 +14,8 @@ using System.Runtime.Versioning;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using MinecraftLauncherUniversal.Helpers;
+using static CommunityToolkit.WinUI.UI.Animations.Expressions.ExpressionValues;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,8 +31,15 @@ namespace MinecraftLauncherUniversal.Pages
         {
             this.InitializeComponent();
             UsernameBox.Text = Globals.Username;
+            OpenUsernameTip();
+        }
 
+        async void OpenUsernameTip()
+        {
             UsernameTip.Target = UsernameBox;
+            // bugbug: without this delay, the tip opens, but won't close
+            await Task.Delay(100);
+
             UsernameTip.IsOpen = true;
         }
 
@@ -106,6 +115,16 @@ namespace MinecraftLauncherUniversal.Pages
         private void UsernameTip_CloseButtonClick(TeachingTip sender, object args)
         {
             sender.IsOpen = false;
+        }
+
+        private void UsernameTip_Closing(TeachingTip sender, TeachingTipClosingEventArgs args)
+        {
+            UsernameTip.Content = "null";
+        }
+
+        private void QuickPlayerSettingsExpander_Collapsed(Expander sender, ExpanderCollapsedEventArgs args)
+        {
+            UsernameTip.IsOpen = false;
         }
     }
 }

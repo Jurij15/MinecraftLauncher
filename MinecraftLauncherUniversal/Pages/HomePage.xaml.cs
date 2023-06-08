@@ -67,7 +67,16 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Gallery_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //HomeHeader.SelectedPageIndex = Gallery.SelectedIndex;
+            /*
+            if (HomeHeader.IsLoaded)
+            {
+                return;
+            }
+            else
+            {
+                HomeHeader.SelectedPageIndex = Gallery.SelectedIndex;
+            }
+            */
         }
 
         private void ItemsPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -77,18 +86,10 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void CardAction_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            CreateOrUpdateSpringAnimation(1.2f);
-
-            (sender as UIElement).StartAnimation(_springAnimation);
-
         }
 
         private void CardAction_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            // Scale back down to 1.0
-            CreateOrUpdateSpringAnimation(1.0f);
-
-            (sender as UIElement).StartAnimation(_springAnimation);
         }
 
         private void CardAction_PointerPressed(object sender, PointerRoutedEventArgs e) //when the version card is pressed
@@ -114,6 +115,11 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[3];
             Globals.MainFrame.Navigate(typeof(OptiFinePage));
             NavigationService.UpdateBreadcrumb("OptiFine", true);
+        }
+
+        private void HomeHeader_Loaded(object sender, RoutedEventArgs e)
+        {
+            HomeHeader.SelectedPageIndex = Gallery.SelectedIndex;
         }
     }
 }

@@ -25,24 +25,9 @@ using Windows.UI.Composition;
 
 namespace MinecraftLauncherUniversal.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    //This page is a bit of a mess, needs organization
     public sealed partial class AllVersionsPage : Page
     {
-        Microsoft.UI.Composition.Compositor _compositor = Microsoft.UI.Xaml.Media.CompositionTarget.GetCompositorForCurrentThread();
-        Microsoft.UI.Composition.SpringVector3NaturalMotionAnimation _springAnimation;
-
-        private void CreateOrUpdateSpringAnimation(float finalValue)
-        {
-            if (_springAnimation == null)
-            {
-                _springAnimation = _compositor.CreateSpringVector3Animation();
-                _springAnimation.Target = "Scale";
-            }
-
-            _springAnimation.FinalValue = new Vector3(finalValue);
-        }
         List<string> items = new List<string>();
         public void CreateCard(string VersionName)
         {
@@ -51,85 +36,55 @@ namespace MinecraftLauncherUniversal.Pages
             ItemsPanel.ItemsSource = items;
         }
 
-        void LoadAllReleasesOnly()
+        void LoadVersions(bool bOnlyReleases)
         {
-            List<string> items = new List<string>();
-            foreach (var item in VersionsHelper.GetAllVersions())
-            {
-                items.Add(item);
-            }
-            if (items.Count == 0)
-            {
-                HyperlinkButton refreshbtn = new HyperlinkButton();
-                refreshbtn.Click += Refreshbtn_Click;
-                ItemsPanel.Items.Add(refreshbtn);
-            }
-            foreach (var item in VersionsHelper.GetAllVersions())
-            {
-                if (VersionsHelper.bIsReleaseVersion(item))
-                {
-                    CreateCard(item);
-                }
-            }
 
-            AllSortRadio.IsChecked = true;
-            ReleasesOnly.IsChecked = true;
-        }
+            List<string> versions = new List<string>();
 
-        void LoadInstalledReleasesOnly()
-        {
-            List<string> items = new List<string>();
             foreach (var item in VersionsHelper.GetAllVersions())
             {
-                items.Add(item);
-            }
-            if (items.Count == 0)
-            {
-                HyperlinkButton refreshbtn = new HyperlinkButton();
-                refreshbtn.Click += Refreshbtn_Click;
-                ItemsPanel.Items.Add(refreshbtn);
-            }
-            foreach (var item in VersionsHelper.GetAllVersions())
-            {
-                if (VersionsHelper.bIsReleaseVersion(item))
+                if (bOnlyReleases)
                 {
-                    if (VersionsHelper.bIsVersionInstalled(item))
+                    if (VersionsHelper.bIsReleaseVersion(item))
                     {
-                        CreateCard(item);
+                        versions.Add(item);
                     }
                 }
+                else if (!bOnlyReleases)
+                {
+                    versions.Add(item);
+                }
             }
 
-            AllSortRadio.IsChecked = false;
-            ReleasesOnly.IsChecked = true;
-        }
+            //sort the array, but only of releases, no snapshots
+            if (bOnlyReleases)
+            {
+                Array.Sort(versions.ToArray(), new Comparison<string>((x, y) =>
+                {
+                    // Split the strings into segments separated by decimal points
+                    string[] xSegments = x.Split('.');
+                    string[] ySegments = y.Split('.');
 
-        void LoadAll()
-        {
-            List<string> items = new List<string>();
-            foreach (var item in VersionsHelper.GetAllVersions())
-            {
-                items.Add(item);
+                    // Skip the first segment and parse the remaining segments as decimals
+                    decimal xDecimal = decimal.Parse(string.Join("", xSegments.Skip(1)));
+                    decimal yDecimal = decimal.Parse(string.Join("", ySegments.Skip(1)));
+
+                    // Compare the two decimal values
+                    return yDecimal.CompareTo(xDecimal);
+                }));
             }
-            if (items.Count == 0)
-            {
-                HyperlinkButton refreshbtn = new HyperlinkButton();
-                refreshbtn.Click += Refreshbtn_Click;
-                ItemsPanel.Items.Add(refreshbtn);
-            }
-            foreach (var item in VersionsHelper.GetAllVersions())
+
+            foreach (var item in versions)
             {
                 CreateCard(item);
             }
-
-            AllSortRadio.IsChecked = true;
-            ReleasesOnly.IsChecked = false;
         }
 
         public AllVersionsPage()
         {
             this.InitializeComponent();
-            LoadAllReleasesOnly();
+            LoadVersions(true);
+            ReleasesOnly.IsChecked = true;
         }
 
         private void Refreshbtn_Click(object sender, RoutedEventArgs e)
@@ -183,12 +138,16 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
         {
-            LoadAll();
+            var itemsSource = ItemsPanel.ItemsSource as System.Collections.IList;
+            itemsSource.Clear();
+            LoadVersions(false);
         }
 
         private void ReleasesOnly_Checked(object sender, RoutedEventArgs e)
         {
-            LoadInstalledReleasesOnly();
+            var itemsSource = ItemsPanel.ItemsSource as System.Collections.IList;
+            itemsSource.Clear();
+            LoadVersions(true);
         }
 
         private void ItemsPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -196,24 +155,43 @@ namespace MinecraftLauncherUniversal.Pages
             TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
         }
 
-        private void CardAction_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            CreateOrUpdateSpringAnimation(1.2f);
-
-            (sender as UIElement).StartAnimation(_springAnimation);
-
-        }
-
-        private void CardAction_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            // Scale back down to 1.0
-            CreateOrUpdateSpringAnimation(1.0f);
-
-            (sender as UIElement).StartAnimation(_springAnimation);
-        }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var suitableItems = new List<string>();
+                var splitText = sender.Text.ToLower().Split(" ");
+                foreach (var cat in VersionsHelper.GetAllVersions())
+                {
+                    var found = splitText.All((key) =>
+                    {
+                        return cat.ToLower().Contains(key);
+                    });
+                    if (found)
+                    {
+                        suitableItems.Add(cat);
+                    }
+                }
+                if (suitableItems.Count == 0)
+                {
+                    suitableItems.Add("No results found");
+                }
+                sender.ItemsSource = suitableItems;
+
+            }
+        }
+
+        private void SearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            string version = args.SelectedItem.ToString();
+
+            Globals.CurrentVersion = version;
+
+            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
         }
     }
 }

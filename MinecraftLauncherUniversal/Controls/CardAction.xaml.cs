@@ -34,6 +34,7 @@ namespace MinecraftLauncherUniversal.Controls
 
 
             //animations stuff
+            /*
             var expressionAnim = _compositor.CreateExpressionAnimation();
 
             // The ellipse's scale is inversely proportional to the rectangle's scale
@@ -45,6 +46,7 @@ namespace MinecraftLauncherUniversal.Controls
 
             // Start the animation on the ellipse
             this.StartAnimation(expressionAnim);
+            */
         }
 
         public new UIElement Content

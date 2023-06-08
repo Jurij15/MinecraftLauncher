@@ -23,7 +23,7 @@ namespace MinecraftLauncherUniversal
 
         public static string Username {  get; set; }
 
-        public static string VersionString = "2.0 - DEV1";
+        public static string VersionString = "2.0 - DEV2";
 
         public static Window MainWindow;
         public static NavigationView MainNavigation;

@@ -35,6 +35,8 @@ namespace MinecraftLauncherUniversal.Services
             SlideNavigationTransitionInfo info = new SlideNavigationTransitionInfo();
             info.Effect = SlideNavigationTransitionEffect.FromRight;
             Globals.MainFrame.Navigate(TargetPageType, null, info);
+
+            ShowBreadcrumb();
         }
 
         public static bool CanGoBack()
@@ -50,6 +52,17 @@ namespace MinecraftLauncherUniversal.Services
             }
             Globals.UpdateBreadcrumb();
             Globals.MainFrame.GoBack();
+        }
+
+        public static void HideBreadcrumb()
+        {
+            Globals.MainNavigationBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+            Globals.MainNavigation.AlwaysShowHeader = false;
+        }
+        public static void ShowBreadcrumb()
+        {
+            Globals.MainNavigationBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+            Globals.MainNavigation.AlwaysShowHeader = true;
         }
     }
 }

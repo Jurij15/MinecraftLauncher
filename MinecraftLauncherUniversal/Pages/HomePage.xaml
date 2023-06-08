@@ -84,8 +84,8 @@
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <TextBlock Text="V2" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                        <TextBlock Text="Explore the Latest version of the Launcher!" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
+                                        <TextBlock Text="V2 Development" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                                        <TextBlock Text="Explore the development of the Launcher!" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
                                     </StackPanel>
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="2,2,2,2" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
                                 </Grid>
@@ -95,7 +95,7 @@
                 </FlipView.Items>
             </FlipView>
 
-            <PipsPager x:Name="HomeHeader" SelectedIndexChanged="HomeHeader_SelectedIndexChanged"
+            <PipsPager x:Name="HomeHeader" SelectedIndexChanged="HomeHeader_SelectedIndexChanged" Loaded="HomeHeader_Loaded"
                                HorizontalAlignment="Center"
         Margin="0, 12, 0, 0" ></PipsPager>
         </StackPanel>

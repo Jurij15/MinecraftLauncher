@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Background="Transparent">
 
-    <Grid Margin="58, 42, 58,0">
+    <Grid Margin="58, 42, 58,0" CanBeScrollAnchor="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,16 +22,72 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch">
+        <Expander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True" Margin="0,2,0,0">
             <Expander.Header>
-                <StackPanel Margin="8" CornerRadius="8">
-                    <TextBlock Text="MinecraftLauncher" FontSize="15"/>
-                    <TextBlock Text="by Jurij15" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                </StackPanel>
+                <Grid Margin="8" CornerRadius="8"  Padding="8">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="30" Width="30" Margin="0,0,8,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="MinecraftLauncher" FontSize="15"/>
+                            <TextBlock Text="by Jurij15" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock FontWeight="Normal" FontSize="13" x:Name="VersionBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Grid>
             </Expander.Header>
             <StackPanel>
-                <TextBlock FontWeight="Normal" FontSize="15" x:Name="VersionBox"/>
+                
             </StackPanel>
         </Expander>
+        <Expander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" Margin="0,2,0,0">
+            <Expander.Header>
+                <Grid Margin="0" CornerRadius="8"  Padding="8">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Patch Notes" FontSize="15"/>
+                            <TextBlock Text="{Binding ElementName=VersionBox, Path=Text}" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Expander.Header>
+            <StackPanel>
+                <TextBlock>
+                    This is the second version of the launcher, based on WinUI 3 and WindowsAppSDK
+                </TextBlock>
+            </StackPanel>
+        </Expander>
+        <Grid x:Name="SoundCard" Margin="0,2,0,0"
+              Grid.Row="3"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefault}"
+              BorderThickness="1"
+              CornerRadius="4">
+            <StackPanel HorizontalAlignment="Left" Margin="20">
+                <TextBlock Text="Updates" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="Check for updates" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                <Button Style="{ThemeResource AccentButtonStyle}" Content="Check For Updates" x:Name="CheckForUpdatesBtn" Click="CheckForUpdatesBtn_Click">
+                    <Button.Flyout>
+                        <Flyout x:Name="UpdateFlyout">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE777;" x:Name="UpdateIcon" Visibility="Collapsed"/>
+                                <FontIcon Glyph="&#xE8D8;" x:Name="CannotUpdateIcon" Visibility="Collapsed"/>
+                                <FontIcon Glyph="&#xE73E;" x:Name="NoUpdatesIcon" Visibility="Collapsed"/>
+                                <StackPanel Margin="4,0,0,0">
+                                    <TextBlock x:Name="StatusBox" Style="{ThemeResource BaseTextBlockStyle}"/>
+                                    <TextBlock x:Name="AditionalStuffBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

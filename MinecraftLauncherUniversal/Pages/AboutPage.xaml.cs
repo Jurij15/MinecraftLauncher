@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,8 +27,30 @@ namespace MinecraftLauncherUniversal.Pages
         public AboutPage()
         {
             this.InitializeComponent();
-
             VersionBox.Text = "Version " + Globals.VersionString;
+        }
+
+        private void CheckForUpdatesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool value = Updater.bIsUpToDate();
+            if (value)
+            {
+                StatusBox.Text = "Up to date";
+                NoUpdatesIcon.Visibility = Visibility.Visible;
+                AditionalStuffBox.Text = "No action needed";
+            }
+            else if (Updater.bIsPrerelease())
+            {
+                StatusBox.Text = "Pre-Release";
+                CannotUpdateIcon.Visibility = Visibility.Visible;
+                AditionalStuffBox.Text = "Updates are disabled on pre-release!";
+            }
+            else if (!value)
+            {
+                StatusBox.Text = "Update Available";
+                UpdateIcon.Visibility = Visibility.Visible;
+                AditionalStuffBox.Text = "Please check GitHub for a new version!";
+            }
         }
     }
 }

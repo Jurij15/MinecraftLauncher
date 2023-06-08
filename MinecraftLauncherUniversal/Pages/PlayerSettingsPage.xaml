@@ -39,11 +39,25 @@
             </StackPanel>
         </StackPanel>
 
+        <StackPanel x:Name="PlayerProfileSelector" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Grid.Row="1">
+            <ComboBox x:Name="ProfilesCombo" SelectedIndex="0">
+                <ComboBoxItem Content="UserName"/>
+                <ComboBoxItem Content="UserName"/>
+                <ComboBoxItem Content="UserName"/>
+                <ComboBoxItem Content="UserName"/>
+            </ComboBox>
+        </StackPanel>
+
         <Grid Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Stretch">
             <StackPanel>
                 <TextBox Header="Username" x:Name="UsernameSettingsBox" PlaceholderText="Username" TextChanged="UsernameSettingsBox_TextChanged" Margin="0,2,0,2"/>
                 <TextBox Header="Profile SubText" x:Name="SubText" Text="A MinecraftLauncher User" PlaceholderText="SubText" Margin="0,2,0,2"/>
             </StackPanel>
         </Grid>
+
+        <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Grid.Row="3">
+            <Button x:Name="NewProfileBtn" Style="{ThemeResource AccentButtonStyle}" Content="New Profile" Margin="2,0,2,0"/>
+            <Button x:Name="DeleteProfileBtn" Style="{ThemeResource ButtonRevealStyle}" Content="Delete Profile"/>
+        </StackPanel>
     </Grid>
 </Page>

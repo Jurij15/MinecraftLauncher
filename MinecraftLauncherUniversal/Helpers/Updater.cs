@@ -43,7 +43,7 @@ namespace MinecraftLauncherUniversal.Helpers
         public static bool bIsPrerelease()
         {
             bool retVal = false;
-            if (Globals.VersionString.Contains("PR"))
+            if (Globals.VersionString.Contains("PR") || Globals.VersionString.Contains("DEV") || Globals.VersionString.Contains("Beta", StringComparison.OrdinalIgnoreCase))
             {
                 retVal = true;
             }

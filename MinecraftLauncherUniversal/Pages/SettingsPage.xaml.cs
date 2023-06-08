@@ -76,16 +76,28 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.Theme = Convert.ToInt32(toggleswitchstate);
 
             Helpers.Settings.SaveNewTheme();
+
+            ThemeConfigAppRestartMessage.Visibility = Visibility.Visible;
         }
 
         private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ToggleSwitch)sender).IsOn = App.Current.RequestedTheme == ApplicationTheme.Light;
+            ((ToggleSwitch)sender).IsOn = Convert.ToBoolean(Globals.Theme);
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+        }
+
+        private void DownloadConnectionLimitBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            Globals.DownloadRateLimit = Convert.ToInt32(args.NewValue);
+        }
+
+        private void DownloadRateLimitCard_Loaded(object sender, RoutedEventArgs e)
+        {
+            DownloadConnectionLimitBox.Value = Globals.DownloadRateLimit;
         }
     }
 }

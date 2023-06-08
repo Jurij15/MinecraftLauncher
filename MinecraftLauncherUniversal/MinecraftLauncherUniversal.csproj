@@ -4,15 +4,18 @@
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>MinecraftLauncherUniversal</RootNamespace>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
 	<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	<PackageIcon>minecraft-icon.jpg</PackageIcon>
+	<ApplicationIcon>Assets\minecraft-icon.ico</ApplicationIcon>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\minecraft-icon.ico" />
     <None Remove="Controls\CardAction.xaml" />
     <None Remove="OptiFine\OptiFine.zip" />
     <None Remove="Pages\AboutPage.xaml" />
@@ -41,6 +44,12 @@
 
   <ItemGroup>
     <PackageReference Include="CmlLib.Core" Version="3.3.6" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Behaviors" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Media" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Media" Version="7.1.2" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230502000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="WinUIEx" Version="2.2.0" />
@@ -54,6 +63,9 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\minecraft-icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\1.17.1-banner.jpg">
@@ -77,6 +89,9 @@
     <Content Update="Assets\demo-1.0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\minecraft-icon.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\playBanner.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -86,6 +101,12 @@
     <Content Update="Assets\thumb.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Assets\minecraft-icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\SelectedVersionPage.xaml">
