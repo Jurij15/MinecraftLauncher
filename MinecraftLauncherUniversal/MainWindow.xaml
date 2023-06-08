@@ -84,7 +84,7 @@
                 </ResourceDictionary>
             </NavigationView.Resources>
             -->
-            <NavigationView.PaneCustomContent>
+            <NavigationView.PaneHeader>
                 <Button x:Name="PlayerPaneContent" Padding="6" Background="Transparent" BorderThickness="1" Click="PlayerPaneContent_Click" VerticalContentAlignment="Center" BorderBrush="Transparent" Margin="4,2,4,2" HorizontalAlignment="Stretch" ToolTipService.ToolTip="{Binding ElementName=UsernameBlock, Path=Text}" HorizontalContentAlignment="Left">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Grid HorizontalAlignment="Left">
@@ -102,8 +102,10 @@
                         </StackPanel>
                     </StackPanel>
                 </Button>
-
-            </NavigationView.PaneCustomContent>
+            </NavigationView.PaneHeader>
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox x:Name="NavigationSearchBox" PlaceholderText="Search for Version" QueryIcon="Find" Margin="-8,0,-8,0"/>
+            </NavigationView.AutoSuggestBox>
             <NavigationView.Header>
                 <BreadcrumbBar x:Name="MainBreadcrumb" FontSize="48" FontWeight="Medium" ItemClicked="MainBreadcrumb_ItemClicked">
                     <BreadcrumbBar.Resources>
@@ -128,7 +130,7 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItemSeparator/>
+                <!--<NavigationViewItemSeparator/>-->
                 <NavigationViewItem Content="All Versions">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71D;"/>
