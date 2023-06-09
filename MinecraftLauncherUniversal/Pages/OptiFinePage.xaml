@@ -33,17 +33,38 @@
               BorderBrush="{ThemeResource CardStrokeColorDefault}"
               BorderThickness="1"
               CornerRadius="4"
-              Margin="0,0,0,4">
+              Margin="0,4,0,0">
             <StackPanel x:Name="CardDescriptionPanel" HorizontalAlignment="Left" Margin="20">
                 <TextBlock Text="OptiFine" FontSize="14" FontWeight="SemiBold"/>
                 <TextBlock Text="1.17.1" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="13"/>
             </StackPanel>
 
             <StackPanel x:Name="CardContentPanel" HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
-                <Button x:Name="InstallBtn" Background="{ThemeResource SystemFillColorAttentionBrush}" Visibility="Collapsed" Click="InstallBtn_Click">
+                <Button x:Name="InstallBtn" Style="{ThemeResource AccentButtonStyle}" Visibility="Collapsed" Click="InstallBtn_Click">
                     <FontIcon Glyph="&#xE896;" Foreground="Black"/>
                 </Button>
-                <Button x:Name="Play" Background="{ThemeResource SystemFillColorAttentionBrush}" Visibility="Collapsed" Click="Play_Click">
+                <Button x:Name="Play" Style="{ThemeResource AccentButtonStyle}" Visibility="Collapsed" Click="Play_Click">
+                    <FontIcon Glyph="&#xE768;" Foreground="Black"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ForgeOptifinePreinstalledCard"
+              Grid.Row="3"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefault}"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,4,0,0">
+            <StackPanel HorizontalAlignment="Left" Margin="20">
+                <TextBlock Text="ForgeOptiFine" FontSize="14" FontWeight="SemiBold"/>
+                <TextBlock Text="1.17.1 - Now with Skins Support!" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="13"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                <Button x:Name="InstallBtnForgeOptifine" Style="{ThemeResource AccentButtonStyle}" Visibility="Collapsed" Click="InstallBtnForgeOptifine_Click">
+                    <FontIcon Glyph="&#xE896;" Foreground="Black"/>
+                </Button>
+                <Button x:Name="PlayForgeOptifine" Style="{ThemeResource AccentButtonStyle}" Visibility="Collapsed" Click="PlayForgeOptifine_Click">
                     <FontIcon Glyph="&#xE768;" Foreground="Black"/>
                 </Button>
             </StackPanel>

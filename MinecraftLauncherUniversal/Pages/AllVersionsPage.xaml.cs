@@ -78,6 +78,8 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 CreateCard(item);
             }
+
+            versions.Clear();
         }
 
         public AllVersionsPage()
@@ -85,28 +87,6 @@ namespace MinecraftLauncherUniversal.Pages
             this.InitializeComponent();
             LoadVersions(true);
             ReleasesOnly.IsChecked = true;
-        }
-
-        private void Refreshbtn_Click(object sender, RoutedEventArgs e)
-        {
-            List<string> items = new List<string>();
-            foreach (var item in VersionsHelper.GetAllVersions())
-            {
-                items.Add(item);
-            }
-            if (items.Count == 0)
-            {
-                HyperlinkButton refreshbtn = new HyperlinkButton();
-                refreshbtn.Click += Refreshbtn_Click;
-                ItemsPanel.Items.Add(refreshbtn);
-            }
-            foreach (var item in VersionsHelper.GetAllVersions())
-            {
-                if (VersionsHelper.bIsReleaseVersion(item))
-                {
-                    CreateCard(item);
-                }
-            }
         }
 
         void CreateCardsForSpecifiedArray(List<string> items)
@@ -192,6 +172,11 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.CurrentVersion = version;
 
             NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

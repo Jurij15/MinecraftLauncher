@@ -22,9 +22,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Expander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True" Margin="0,2,0,0">
+        <Expander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True" Margin="0,4,0,0">
             <Expander.Header>
-                <Grid Margin="8" CornerRadius="8"  Padding="8">
+                <Grid Margin="8" CornerRadius="8"  Padding="8" x:Name="AboutAppGrid">
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
                             <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="30" Width="30" Margin="0,0,8,0"/>
@@ -43,9 +43,9 @@
                 
             </StackPanel>
         </Expander>
-        <Expander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" Margin="0,2,0,0">
+        <Expander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" Margin="0,4,0,0" Visibility="Collapsed">
             <Expander.Header>
-                <Grid Margin="0" CornerRadius="8"  Padding="8">
+                <Grid Margin="0" CornerRadius="8"  Padding="8" Height="{Binding ElementName=AboutAppGrid, Path=ActualHeight}" Width="{Binding ElementName=AboutAppGrid, Path=ActualWidth}">
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Patch Notes" FontSize="15"/>
@@ -60,7 +60,7 @@
                 </TextBlock>
             </StackPanel>
         </Expander>
-        <Grid x:Name="SoundCard" Margin="0,2,0,0"
+        <Grid Margin="0,4,0,0"
               Grid.Row="3"
               Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
               BorderBrush="{ThemeResource CardStrokeColorDefault}"

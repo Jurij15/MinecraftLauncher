@@ -63,6 +63,7 @@ namespace MinecraftLauncherUniversal
 
             //MainNavigation.PaneTitle = Globals.Username;
             UsernameBlock.Text = Globals.Username;
+            ProfileSubtext.Text = Globals.SubText;
         }
 
         private void MainNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -101,6 +102,7 @@ namespace MinecraftLauncherUniversal
 
             //MainNavigation.PaneTitle = Globals.Username;
             UsernameBlock.Text = Globals.Username;
+            ProfileSubtext.Text = Globals.SubText;
         }
 
         private void MainBreadcrumb_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
@@ -126,6 +128,9 @@ namespace MinecraftLauncherUniversal
             RootFrame.Navigate(typeof(SettingsPage));
 
             NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+
+            UsernameBlock.Text = Globals.Username;
+            ProfileSubtext.Text = Globals.SubText;
         }
 
         private void AppTitlePaneOpenButton_Click(object sender, RoutedEventArgs e)
@@ -138,6 +143,46 @@ namespace MinecraftLauncherUniversal
             {
                 MainNavigation.IsPaneOpen = true;
             }
+        }
+
+        private void NavigationSearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var suitableItems = new List<string>();
+                var splitText = sender.Text.ToLower().Split(" ");
+                foreach (var cat in VersionsHelper.GetAllVersions())
+                {
+                    var found = splitText.All((key) =>
+                    {
+                        return cat.ToLower().Contains(key);
+                    });
+                    if (found)
+                    {
+                        suitableItems.Add(cat);
+                    }
+                }
+                if (suitableItems.Count == 0)
+                {
+                    suitableItems.Add("No results found");
+                }
+                sender.ItemsSource = suitableItems;
+
+            }
+        }
+
+        private void NavigationSearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            Globals.MainNavigation.SelectedItem = AllVersionsPage;
+            NavigationService.UpdateBreadcrumb("All Versions", true);
+            NavigationService.ShowBreadcrumb();
+            RootFrame.Navigate(typeof(AllVersionsPage));
+
+            string version = args.SelectedItem.ToString();
+
+            Globals.CurrentVersion = version;
+
+            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
         }
     }
 }

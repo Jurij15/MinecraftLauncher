@@ -31,7 +31,10 @@ namespace MinecraftLauncherUniversal.Pages
         {
             this.InitializeComponent();
             UsernameBox.Text = Globals.Username;
-            OpenUsernameTip();
+            if (Globals.bIsFirstTimeRun)
+            {
+                OpenUsernameTip();
+            }
         }
 
         async void OpenUsernameTip()
@@ -76,6 +79,11 @@ namespace MinecraftLauncherUniversal.Pages
                 DownloadButton.Visibility = Visibility.Visible;
                 PlayButton.Visibility = Visibility.Collapsed;
                 StatusBox.Text = "Download Required";
+            }
+
+            if (VersionsHelper.bVersionSupportsSkins(Globals.CurrentVersion))
+            {
+                ShowSkinCheck.IsChecked = true;
             }
         }
 
@@ -125,6 +133,11 @@ namespace MinecraftLauncherUniversal.Pages
         private void QuickPlayerSettingsExpander_Collapsed(Expander sender, ExpanderCollapsedEventArgs args)
         {
             UsernameTip.IsOpen = false;
+        }
+
+        private void ShowSkinCheck_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

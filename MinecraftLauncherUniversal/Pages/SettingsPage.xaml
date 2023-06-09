@@ -33,8 +33,8 @@
             <StackPanel x:Name="CardDescriptionPanel" HorizontalAlignment="Left" Margin="20">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
-                        <TextBlock Text="Theme" FontSize="16" FontWeight="SemiBold"/>
-                        <TextBlock Text="Control App Theme (BETA)" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock Text="Theme" FontSize="15"/>
+                        <TextBlock Text="Control App Theme (BETA)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -56,8 +56,8 @@
               CornerRadius="4"
               Margin="0,0,0,4">
             <StackPanel HorizontalAlignment="Left" Margin="20">
-                <TextBlock Text="Sound" FontSize="16" FontWeight="SemiBold"/>
-                <TextBlock Text="Enable sound effects while using the app" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="Sound" FontSize="15"/>
+                <TextBlock Text="Enable sound effects while using the app" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
@@ -73,8 +73,8 @@
               CornerRadius="4"
               Margin="0,0,0,4">
             <StackPanel HorizontalAlignment="Left" Margin="20">
-                <TextBlock Text="Download Rate Limit" FontSize="16" FontWeight="SemiBold"/>
-                <TextBlock Text="Change how many connections will be used to download Minecraft" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="Download Rate Limit" FontSize="15"/>
+                <TextBlock Text="Change how many connections will be used to download Minecraft" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">

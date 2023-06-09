@@ -137,5 +137,16 @@ namespace MinecraftLauncherUniversal.Helpers
 
             return ret;
         }
+
+        public static bool bVersionSupportsSkins(string VersionName)
+        {
+            bool ret = false;
+            if (VersionName.Contains("ForgeOptiFine 1.17.1"))
+            {
+                ret = true;
+            }
+
+            return ret;
+        }
     }
 }

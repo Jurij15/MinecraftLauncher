@@ -90,7 +90,7 @@
                     </StackPanel>
                 </Expander.Header>
                 <StackPanel>
-                    <CheckBox Content="Show Skin" IsChecked="False" IsEnabled="False"/>
+                    <CheckBox Content="Show Skin" IsChecked="False" IsEnabled="False" x:Name="ShowSkinCheck" Checked="ShowSkinCheck_Checked"/>
                     <TextBox Header="Username" PlaceholderText="Username" x:Name="UsernameBox" Margin="0,4,0,0"/>
                     <TeachingTip  Title="Change Your Username" x:Name="UsernameTip" Closing="UsernameTip_Closing" Target="{x:Bind UsernameBox}" CloseButtonClick="UsernameTip_CloseButtonClick"
                                   

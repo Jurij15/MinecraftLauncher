@@ -48,6 +48,18 @@ namespace MinecraftLauncherUniversal.Pages
                 Play.Visibility = Visibility.Collapsed;
                 InstallBtn.Visibility = Visibility.Visible;
             }
+
+            if (VersionsHelper.bIsVersionInstalled("ForgeOptiFine 1.17.1"))
+            {
+                //version is installed
+                PlayForgeOptifine.Visibility = Visibility.Visible;
+                InstallBtnForgeOptifine.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                PlayForgeOptifine.Visibility = Visibility.Collapsed;
+                InstallBtnForgeOptifine.Visibility = Visibility.Visible;
+            }
         }
 
         private void InstallBtn_Click(object sender, RoutedEventArgs e)
@@ -117,6 +129,64 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.CurrentVersion = version;
 
             NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+        }
+
+        private void PlayForgeOptifine_Click(object sender, RoutedEventArgs e)
+        {
+            string version = "ForgeOptiFine 1.17.1";
+            Globals.CurrentVersion = version;
+
+            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+        }
+
+        private void InstallBtnForgeOptifine_Click(object sender, RoutedEventArgs e)
+        {
+            InstallForgeOptifine();
+        }
+
+        async void InstallForgeOptifine()
+        {
+            string resName = "MinecraftLauncherUniversal.OptiFine.ForgeOptiFine.zip";
+
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resName))
+            {
+                if (stream == null)
+                {
+                    //MessageBox.Show("Failed to load resource: " + resName);
+                    var messagedialog = new MessageDialog("Failed to load resource: " + resName);
+                    await messagedialog.ShowAsync();
+                    return;
+                }
+
+                // Copy the stream to a file
+                using (FileStream file = new FileStream("Settings/ForgeOptiFine.zip", FileMode.Create, FileAccess.Write))
+                {
+                    byte[] buffer = new byte[stream.Length];
+                    stream.Read(buffer, 0, buffer.Length);
+                    file.Write(buffer, 0, buffer.Length);
+                }
+            }
+
+            string zipPath = "Settings/ForgeOptiFine.zip";
+            string extractPath = MinecraftPath.GetOSDefaultPath() + "/versions";
+
+            //Directory.CreateDirectory(extractPath);
+            /*
+            using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+            {
+                foreach (ZipArchiveEntry entry in archive.Entries)
+                {
+                    string filePath = Path.Combine(extractPath, entry.FullName);
+
+                    // Create the directory for the file if it doesn't exist
+                    //Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                    // Extract the file
+                    ZipFile.ExtractToDirectory(filePath, extractPath);
+                }
+            }
+            */
+            ZipFile.ExtractToDirectory(zipPath, extractPath);
         }
     }
 }

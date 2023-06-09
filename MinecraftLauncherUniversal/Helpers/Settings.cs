@@ -12,11 +12,15 @@ namespace MinecraftLauncherUniversal.Helpers
     {
         public static string RootDir = "Settings/";
         public static string ThemeConfig = RootDir + "ThemeConfig";
-        public static string UsernameConfig = RootDir + "UsernameConfig";
         public static string RecentBuilds = RootDir + "RecentsConfig";
+
+        public static string ProfileDir = RootDir + "Profile/";
+        public static string UsernameConfig = ProfileDir + "UsernameConfig";
+        public static string SubTextConfig = ProfileDir + "SubText";
         public static void CreateSettings()
         {
             Directory.CreateDirectory(RootDir);
+            Directory.CreateDirectory(ProfileDir);
 
             using (StreamWriter sw = File.CreateText(ThemeConfig))
             {
@@ -27,6 +31,12 @@ namespace MinecraftLauncherUniversal.Helpers
             using (StreamWriter sw = File.CreateText(UsernameConfig))
             {
                 sw.Write("Player");
+                sw.Close();
+            }
+
+            using (StreamWriter sw = File.CreateText(SubTextConfig))
+            {
+                sw.Write("Minecraft Player");
                 sw.Close();
             }
 
@@ -51,6 +61,9 @@ namespace MinecraftLauncherUniversal.Helpers
             string Username = File.ReadAllText(UsernameConfig);
             Globals.Username = Username;
 
+            string SubText = File.ReadAllText(SubTextConfig);
+            Globals.SubText = SubText;
+
             foreach (var item in File.ReadAllLines(RecentBuilds))
             {
                 Globals.Recents.Add(item);
@@ -68,6 +81,16 @@ namespace MinecraftLauncherUniversal.Helpers
             using (StreamWriter sw = File.CreateText(UsernameConfig))
             {
                 sw.Write(Globals.Username);
+                sw.Close();
+            }
+        }
+
+        public static void SaveNewSubText()
+        {
+            File.Delete(SubTextConfig);
+            using (StreamWriter sw = File.CreateText(SubTextConfig))
+            {
+                sw.Write(Globals.SubText);
                 sw.Close();
             }
         }

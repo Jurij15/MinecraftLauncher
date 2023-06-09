@@ -46,7 +46,7 @@ namespace MinecraftLauncherUniversal.Services
         
         public static void FrameGoBack()
         {
-            if (Globals.Breadcrumbs.Count != 0)
+            if (Globals.Breadcrumbs.Count  > 1)
             {
                 Globals.Breadcrumbs.Remove(Globals.Breadcrumbs[1]);
             }

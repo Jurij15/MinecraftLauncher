@@ -26,19 +26,6 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class HomePage : Page
     {
-        Microsoft.UI.Composition.Compositor _compositor = Microsoft.UI.Xaml.Media.CompositionTarget.GetCompositorForCurrentThread();
-        Microsoft.UI.Composition.SpringVector3NaturalMotionAnimation _springAnimation;
-
-        private void CreateOrUpdateSpringAnimation(float finalValue)
-        {
-            if (_springAnimation == null)
-            {
-                _springAnimation = _compositor.CreateSpringVector3Animation();
-                _springAnimation.Target = "Scale";
-            }
-
-            _springAnimation.FinalValue = new Vector3(finalValue);
-        }
         List<string> items = new List<string>();
         public HomePage()
         {

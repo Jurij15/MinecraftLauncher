@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="using:MinecraftLauncherUniversal.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded"
+    mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded"
     Background="Transparent">
 
     <Grid Margin="58, 42, 58,0">

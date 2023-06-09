@@ -15,6 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
@@ -99,7 +100,14 @@
                                HorizontalAlignment="Center"
         Margin="0, 12, 0, 0" ></PipsPager>
         </StackPanel>
-        <GridView x:Name="ItemsPanel" Grid.Row="3" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
+        <Grid x:Name="HomeContent" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+        </Grid>
+        <GridView x:Name="ItemsPanel" Grid.Row="4" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False" Header="Recently Played">
             <GridView.ItemContainerTransitions>
                 <TransitionCollection>
                     <ContentThemeTransition />

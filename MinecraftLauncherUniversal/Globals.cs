@@ -15,13 +15,14 @@ namespace MinecraftLauncherUniversal
         public static int Theme = 1;
         public static int DownloadRateLimit = 1024;
         public static bool bIsFirstTimeRun = false;
-        public static List<string> Recents = new List<string>();
+        public static HashSet<string> Recents = new HashSet<string>();
 
         public static ElementSoundPlayerState SoundPlayerState;
 
         public static string CurrentVersion {  get; set; }  
 
         public static string Username {  get; set; }
+        public static string SubText { get; set; }
 
         public static string VersionString = "2.0 - DEV2";
 
