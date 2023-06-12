@@ -10,9 +10,9 @@
     xmlns:styles="using:MinecraftLauncherUniversal"
     xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
     mc:Ignorable="d">
-    <windowex:WindowEx.Backdrop>
-        <windowex:MicaSystemBackdrop Kind="Base"/>
-    </windowex:WindowEx.Backdrop>
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="BaseAlt"/>
+    </Window.SystemBackdrop>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>

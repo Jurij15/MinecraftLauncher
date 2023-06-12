@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MinecraftLauncherUniversal.Core
+namespace MinecraftLauncherUniversal.Managers
 {
     public class ProfileManager
     {
@@ -19,7 +19,7 @@ namespace MinecraftLauncherUniversal.Core
             }
             else
             {
-                RetVal= false;
+                RetVal = false;
             }
 
             return RetVal;
