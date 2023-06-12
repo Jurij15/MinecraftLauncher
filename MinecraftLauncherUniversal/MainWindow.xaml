@@ -11,9 +11,9 @@
     xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
     mc:Ignorable="d">
     <Window.SystemBackdrop>
-        <MicaBackdrop Kind="BaseAlt"/>
+        <MicaBackdrop Kind="Base" x:Name="RootMicaKind"/>
     </Window.SystemBackdrop>
-    <Grid>
+    <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>

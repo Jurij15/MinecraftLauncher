@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -98,6 +99,20 @@ namespace MinecraftLauncherUniversal.Pages
         private void DownloadRateLimitCard_Loaded(object sender, RoutedEventArgs e)
         {
             DownloadConnectionLimitBox.Value = Globals.DownloadRateLimit;
+        }
+
+        private void BackdropCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BackdropManager manager = new BackdropManager();
+            string content = ((ComboBoxItem)sender).Content.ToString();
+            if (content == "Mica")
+            {
+                manager.ApplyMicaKind(Microsoft.UI.Composition.SystemBackdrops.MicaKind.Base);
+            }
+            else if(content == "MicaAlt")
+            {
+                manager.ApplyMicaKind(Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt);
+            }
         }
     }
 }

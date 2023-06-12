@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Pages;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -47,6 +48,8 @@ namespace MinecraftLauncherUniversal
             Globals.MainFrame = RootFrame;
             Globals.MainNavigationBreadcrumb = MainBreadcrumb;
             Globals.MainNavigation = MainNavigation;
+            Globals.MainGrid = RootGrid;
+            Globals.MainMicaBackdrop = RootMicaKind;
         }
         public MainWindow()
         {
@@ -134,8 +137,6 @@ namespace MinecraftLauncherUniversal
 
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
-
-            //BackdropService.ApplyBackdrop(Services.Backdrop.Acrylic);
         }
 
         private void AppTitlePaneOpenButton_Click(object sender, RoutedEventArgs e)

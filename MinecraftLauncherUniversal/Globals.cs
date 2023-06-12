@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,6 +31,8 @@ namespace MinecraftLauncherUniversal
         public static NavigationView MainNavigation;
         public static BreadcrumbBar MainNavigationBreadcrumb;
         public static Frame MainFrame;
+        public static Grid MainGrid;
+        public static MicaBackdrop MainMicaBackdrop;
 
         //i should use binding for this, instead of just constantly updating it
         public static ObservableCollection<string> Breadcrumbs = new ObservableCollection<string>();

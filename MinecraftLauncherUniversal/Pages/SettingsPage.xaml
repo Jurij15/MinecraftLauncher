@@ -48,8 +48,26 @@
               Toggled="ToggleSwitch_Toggled" Loaded="ToggleSwitch_Loaded"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="SoundCard"
+        <Grid Margin="0,0,0,4"
               Grid.Row="2"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefault}"
+              BorderThickness="1"
+              CornerRadius="4">
+            <StackPanel HorizontalAlignment="Left" Margin="20">
+                <TextBlock Text="Backdrop" FontSize="15"/>
+                <TextBlock Text="Change the window backdrop (BETA)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                <ComboBox x:Name="BackdropCombo" SelectionChanged="BackdropCombo_SelectionChanged">
+                    <ComboBoxItem Content="Mica"/>
+                    <ComboBoxItem Content="MicaAlt"/>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="SoundCard"
+              Grid.Row="3"
               Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
               BorderBrush="{ThemeResource CardStrokeColorDefault}"
               BorderThickness="1"
@@ -65,7 +83,7 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="DownloadRateLimitCard"
-              Grid.Row="3"
+              Grid.Row="4"
               Loaded="DownloadRateLimitCard_Loaded"
               Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
               BorderBrush="{ThemeResource CardStrokeColorDefault}"
