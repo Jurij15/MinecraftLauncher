@@ -11,7 +11,7 @@
     xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
     mc:Ignorable="d">
     <windowex:WindowEx.Backdrop>
-        <windowex:MicaSystemBackdrop/>
+        <windowex:MicaSystemBackdrop Kind="Base"/>
     </windowex:WindowEx.Backdrop>
     <Grid>
         <Grid.RowDefinitions>

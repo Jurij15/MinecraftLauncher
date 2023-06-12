@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;

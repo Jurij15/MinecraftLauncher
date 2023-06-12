@@ -35,7 +35,10 @@ namespace MinecraftLauncherUniversal
             this.CenterOnScreen();
             this.SetIsResizable(false);
 
-           // Title = "MinecraftLauncher";
+            // Title = "MinecraftLauncher";
+
+            //DesktopAcrylicBackdrop abackdrop = new DesktopAcrylicBackdrop();
+            //this.SystemBackdrop = abackdrop;
         }
 
         void SetGlobalObjects()
@@ -131,6 +134,8 @@ namespace MinecraftLauncherUniversal
 
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
+
+            //BackdropService.ApplyBackdrop(Services.Backdrop.Acrylic);
         }
 
         private void AppTitlePaneOpenButton_Click(object sender, RoutedEventArgs e)

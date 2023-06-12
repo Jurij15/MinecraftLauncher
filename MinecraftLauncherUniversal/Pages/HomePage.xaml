@@ -96,7 +96,7 @@
                 </FlipView.Items>
             </FlipView>
 
-            <PipsPager x:Name="HomeHeader" SelectedIndexChanged="HomeHeader_SelectedIndexChanged" Loaded="HomeHeader_Loaded"
+            <PipsPager x:Name="HomeHeader" SelectedIndexChanged="HomeHeader_SelectedIndexChanged" Loaded="HomeHeader_Loaded" SelectedPageIndex="{x:Bind Path=Gallery.SelectedIndex, Mode=TwoWay}" PreviousButtonVisibility="VisibleOnPointerOver" NextButtonVisibility="VisibleOnPointerOver"
                                HorizontalAlignment="Center"
         Margin="0, 12, 0, 0" ></PipsPager>
         </StackPanel>
