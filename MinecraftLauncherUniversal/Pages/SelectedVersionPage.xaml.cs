@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Services;
 using WinUIEx;
+using CmlLib.Utils;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -59,7 +60,7 @@ namespace MinecraftLauncherUniversal.Pages
             AsyncLaunch();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (Globals.CurrentVersion.Contains("OptiFine"))
             {
@@ -88,6 +89,10 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 ShowSkinCheck.IsChecked = true;
             }
+
+            Changelogs changelogs = await Changelogs.GetChangelogs();
+            await PatchNotesPresenter.EnsureCoreWebView2Async();
+            PatchNotesPresenter.NavigateToString(await changelogs.GetChangelogHtml(Globals.CurrentVersion));
         }
 
         async void DownloadBefore()

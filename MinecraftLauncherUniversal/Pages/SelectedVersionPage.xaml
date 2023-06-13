@@ -58,7 +58,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -101,6 +101,9 @@
                 </StackPanel>
             </Expander>
             <InfoBar Title="Minecraft Launched" Message="Minecraft launched successfully!" Severity="Success" IsOpen="False" Grid.Row="0" Margin="2,2,2,2" x:Name="MinecraftLaunchedInfo" Grid.ColumnSpan="2"/>
+            <StackPanel Margin="0,2,0,0" Grid.Row="4" CornerRadius="4">
+                <WebView2 x:Name="PatchNotesPresenter" Grid.Row="4" VerticalAlignment="Stretch" Margin="0,2,0,0"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

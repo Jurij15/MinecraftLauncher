@@ -129,10 +129,6 @@ namespace MinecraftLauncherUniversal.Pages
         private async void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             sender.Hide();
-
-            //await Task.Delay(500);
-
-            Globals.MainWindow.Minimize();
         }
 
         private void PlayOptifine_Click(object sender, RoutedEventArgs e)

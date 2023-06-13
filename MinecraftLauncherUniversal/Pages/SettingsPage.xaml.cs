@@ -41,6 +41,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            DownloadConnectionLimitBox.Value = Globals.DownloadRateLimit;
         }
 
         private void TempWarning_Toggled(object sender, RoutedEventArgs e)
@@ -113,6 +114,11 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 manager.ApplyMicaKind(Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt);
             }
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Globals.DownloadRateLimit = Convert.ToInt32(DownloadConnectionLimitBox.Value);
         }
     }
 }

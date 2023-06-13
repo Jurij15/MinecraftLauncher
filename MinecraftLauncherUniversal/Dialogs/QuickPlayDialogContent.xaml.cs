@@ -14,8 +14,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -64,6 +66,9 @@ namespace MinecraftLauncherUniversal.Dialogs
                 PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.CustomUUID, Globals.AccessToken);
                 bool result = await core.Launch();
                 dialog.Hide();
+                await Task.Delay(500);
+
+                Globals.MainWindow.Minimize();
                 if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); }
             }
         }
