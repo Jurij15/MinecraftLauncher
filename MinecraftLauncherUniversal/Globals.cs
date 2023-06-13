@@ -24,6 +24,8 @@ namespace MinecraftLauncherUniversal
 
         public static string Username {  get; set; }
         public static string SubText { get; set; }
+        public static string CustomUUID { get; set; }
+        public static string AccessToken { get; set; } //this will not save, for now
 
         public static string VersionString = "2.0 - DEV2";
 
@@ -33,6 +35,7 @@ namespace MinecraftLauncherUniversal
         public static Frame MainFrame;
         public static Grid MainGrid;
         public static MicaBackdrop MainMicaBackdrop;
+        public static XamlRoot MainGridXamlRoot;
 
         //i should use binding for this, instead of just constantly updating it
         public static ObservableCollection<string> Breadcrumbs = new ObservableCollection<string>();

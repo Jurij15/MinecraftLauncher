@@ -12,57 +12,6 @@ namespace MinecraftLauncherUniversal.Helpers
 {
     public class VersionsHelper
     {
-        public static async Task<string[]> GetAllVersionsAsync()
-        {
-            List<string > AllVersions = new List<string>(); 
-            System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
-
-            //var path = new MinecraftPath("game_directory_path");
-            var path = new MinecraftPath(); // use default directory
-
-            var launcher = new CMLauncher(path);
-
-            var versions = await launcher.GetAllVersionsAsync();
-            foreach (var item in versions)
-            {
-                // show all version names
-                // use this version name in CreateProcessAsync method.
-                AllVersions.Add(item.Name);
-            }
-
-            return AllVersions.ToArray();
-        }
-
-        public static string[] GetAllVersions()
-        {
-            List<string> AllVersions = new List<string>();
-
-            try
-            {
-                System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
-
-                //var path = new MinecraftPath("game_directory_path");
-                var path = new MinecraftPath(); // use default directory
-
-                var launcher = new CMLauncher(path);
-
-                var versions = launcher.GetAllVersions();
-                foreach (var item in versions)
-                {
-                    // show all version names
-                    // use this version name in CreateProcessAsync method.
-                    AllVersions.Add(item.Name);
-                }
-            }
-            catch (Exception ex)
-            {
-                return AllVersions.ToArray() ;
-                //throw;
-            }
-
-            return AllVersions.ToArray();
-        }
-
         public static bool bIsReleaseVersion(string Name)
         {
             bool RetVal = true;

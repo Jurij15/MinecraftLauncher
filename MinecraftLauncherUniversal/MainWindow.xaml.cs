@@ -157,7 +157,8 @@ namespace MinecraftLauncherUniversal
             {
                 var suitableItems = new List<string>();
                 var splitText = sender.Text.ToLower().Split(" ");
-                foreach (var cat in VersionsHelper.GetAllVersions())
+                VersionManager manager = new VersionManager();
+                foreach (var cat in manager.GetAllVersions())
                 {
                     var found = splitText.All((key) =>
                     {
@@ -189,6 +190,11 @@ namespace MinecraftLauncherUniversal
             Globals.CurrentVersion = version;
 
             NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+        }
+
+        private void RootGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            Globals.MainGridXamlRoot = this.Content.XamlRoot;
         }
     }
 }

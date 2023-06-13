@@ -17,6 +17,9 @@
   <ItemGroup>
     <None Remove="Assets\minecraft-icon.ico" />
     <None Remove="Controls\CardAction.xaml" />
+    <None Remove="Dialogs\AdvancedPlayerSettingsDialogContent.xaml" />
+    <None Remove="Dialogs\QuickPlayDialogContent.xaml" />
+    <None Remove="Dialogs\SimpleLoadingDialog.xaml" />
     <None Remove="OptiFine\ForgeOptiFine.zip" />
     <None Remove="OptiFine\OptiFine.zip" />
     <None Remove="Pages\AboutPage.xaml" />
@@ -109,6 +112,15 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Dialogs\SimpleLoadingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\QuickPlayDialogContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\AdvancedPlayerSettingsDialogContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\SelectedVersionPage.xaml">

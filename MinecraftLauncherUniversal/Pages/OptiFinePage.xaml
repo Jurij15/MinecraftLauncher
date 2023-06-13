@@ -6,7 +6,7 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Loaded="Page_Loaded"
+    Loaded="Page_Loaded" NavigationCacheMode="Disabled"
     mc:Ignorable="d"
     Background="Transparent">
 

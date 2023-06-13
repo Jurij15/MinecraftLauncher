@@ -44,6 +44,8 @@
                 <FontIcon Glyph="&#xE73E;" Foreground="Green" x:Name="SkinSet" VerticalAlignment="Center" Visibility="Collapsed"/>
                 <FontIcon Glyph="&#xE711;" Foreground="Red" x:Name="SkinNotSet" VerticalAlignment="Center" Visibility="Collapsed"/>
                 <TextBlock Text="SkinStatus" x:Name="SkinStatus" Margin="2,0,0,0" VerticalAlignment="Center" Visibility="Collapsed"/>
+
+                <Button Content="Advanced" x:Name="AdvancedDialogBtn" Click="AdvancedDialogBtn_Click"/>
             </StackPanel>
         </StackPanel>
 

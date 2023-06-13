@@ -5,62 +5,84 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml.Controls;
 
 namespace MinecraftLauncherUniversal.Core
 {
     public class PlayCore
     {
-        private string _version { get; set; }
-        private int _memoryMB { get; set; }
-        private bool _bfullscreen { get; set; }
+        private string _version;
+        private int _memoryMB;
+        private bool _bfullscreen;
+        private string _uuid;
+        private string _accessToken;
 
-        public PlayCore(string VersionName, int MemoryInMB, bool LaunchInFullscreen)
+        public PlayCore(string VersionName, int MemoryInMB, bool LaunchInFullscreen, string UUID, string AccessToken)
         {
             _version = VersionName;
             _memoryMB = MemoryInMB;
             _bfullscreen = LaunchInFullscreen;
+            _uuid = UUID;
+            _accessToken = AccessToken;
         }
 
-        public async Task Launch()
+        private string _errorDuringLaunch;
+        public string? GetLaunchErrors()
         {
-            // increase connection limit to fast download
-            System.Net.ServicePointManager.DefaultConnectionLimit = 512;
+            string RetVal = null;
+
+            RetVal = _errorDuringLaunch;
+
+            return RetVal;
+        }
+
+        public async Task<bool> Launch()
+        {
+            bool RetVal = false;
+            System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
 
             var path = new MinecraftPath(); // use default directory
 
             var launcher = new CMLauncher(path);
 
-            var launchOption = new MLaunchOption
+            var launchOption = new MLaunchOption();
+            launchOption.MaximumRamMb = _memoryMB;
+            launchOption.FullScreen = _bfullscreen;
+            launchOption.GameLauncherName = "Minecraft Launcher Universal";
+            if (!string.IsNullOrEmpty(_uuid) && !string.IsNullOrWhiteSpace(_uuid) && !string.IsNullOrEmpty(_accessToken) && !string.IsNullOrWhiteSpace(_accessToken))
             {
-                MaximumRamMb = _memoryMB,
-                Session = MSession.GetOfflineSession(Globals.Username),
-                FullScreen = _bfullscreen,
-                GameLauncherName = "MinecraftLauncher",
-                //ScreenWidth = 1600,
-                //ScreenHeight = 900,
-                //ServerIp = "mc.hypixel.net"
-            };
+                MSession session  = new MSession();
+                session.AccessToken = _accessToken;
+                session.UUID = _uuid;
+                session.Username = Globals.Username;
+                launchOption.Session = session;
+            }
+            else
+            {
+                launchOption.Session = MSession.GetOfflineSession(Globals.Username);
+            }
 
             try
             {
                 var process = await launcher.CreateProcessAsync(_version, launchOption);
 
                 process.Start();
+
+                RetVal = true; //launched no problem
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("Error message: "+ ex.Message, "An error occured");
+                RetVal = false;
+                _errorDuringLaunch = ex.Message;
             }
-        }
 
-        public async Task LaunchWithUUID()
-        {
-
+            return RetVal;
         }
 
         public async Task Download()
         {
-            System.Net.ServicePointManager.DefaultConnectionLimit = 512;
+            System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
 
             var path = new MinecraftPath();
 

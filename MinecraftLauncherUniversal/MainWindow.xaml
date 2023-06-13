@@ -13,7 +13,7 @@
     <Window.SystemBackdrop>
         <MicaBackdrop Kind="Base" x:Name="RootMicaKind"/>
     </Window.SystemBackdrop>
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>

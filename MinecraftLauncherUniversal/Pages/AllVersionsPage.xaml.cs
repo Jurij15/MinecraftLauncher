@@ -9,8 +9,10 @@ using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using MinecraftLauncherUniversal.Controls;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,10 +40,10 @@ namespace MinecraftLauncherUniversal.Pages
 
         void LoadVersions(bool bOnlyReleases)
         {
-
+            VersionManager manager = new VersionManager();
             List<string> versions = new List<string>();
 
-            foreach (var item in VersionsHelper.GetAllVersions())
+            foreach (var item in manager.GetAllVersions())
             {
                 if (bOnlyReleases)
                 {
@@ -119,14 +121,14 @@ namespace MinecraftLauncherUniversal.Pages
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
         {
             var itemsSource = ItemsPanel.ItemsSource as System.Collections.IList;
-            itemsSource.Clear();
+            itemsSource.Clear(); //THIS CAUSES A RARE CRASH, DEBUG ASAP
             LoadVersions(false);
         }
 
         private void ReleasesOnly_Checked(object sender, RoutedEventArgs e)
         {
             var itemsSource = ItemsPanel.ItemsSource as System.Collections.IList;
-            itemsSource.Clear();
+            itemsSource.Clear(); //SAME HERE, DEBUG ASAP
             LoadVersions(true);
         }
 
@@ -145,7 +147,8 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 var suitableItems = new List<string>();
                 var splitText = sender.Text.ToLower().Split(" ");
-                foreach (var cat in VersionsHelper.GetAllVersions())
+                VersionManager manager = new VersionManager();
+                foreach (var cat in manager.GetAllVersions())
                 {
                     var found = splitText.All((key) =>
                     {
@@ -176,7 +179,8 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-
+            var itemsSource = ItemsPanel.ItemsSource as IList ;
+            itemsSource.Clear();
         }
     }
 }

@@ -16,6 +16,9 @@ using Windows.Foundation.Collections;
 using MinecraftLauncherUniversal.Helpers;
 using static CommunityToolkit.WinUI.UI.Animations.Expressions.ExpressionValues;
 using System.Threading.Tasks;
+using MinecraftLauncherUniversal.Core;
+using MinecraftLauncherUniversal.Services;
+using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -110,7 +113,9 @@ namespace MinecraftLauncherUniversal.Pages
             PlayButton.Visibility = Visibility.Collapsed;
             StatusBox.Text = "Launching...";
 
-            await PlayHelper.Launch(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked));
+            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.CustomUUID, Globals.AccessToken);
+            bool result = await core.Launch();
+            if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); }
             LoadingRing.Visibility = Visibility.Collapsed;
             StatusBox.Text = "Playing";
 
@@ -118,6 +123,10 @@ namespace MinecraftLauncherUniversal.Pages
             Settings.SaveRecentBuild(Globals.CurrentVersion);
             MinecraftLaunchedInfo.IsOpen = true;
             PlayButton.Visibility = Visibility.Visible;
+
+            await Task.Delay(800);
+
+            Globals.MainWindow.Minimize();
         }
 
         private void UsernameTip_CloseButtonClick(TeachingTip sender, object args)
@@ -127,7 +136,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void UsernameTip_Closing(TeachingTip sender, TeachingTipClosingEventArgs args)
         {
-            UsernameTip.Content = "null";
+            //UsernameTip.Content = "null";
         }
 
         private void QuickPlayerSettingsExpander_Collapsed(Expander sender, ExpanderCollapsedEventArgs args)

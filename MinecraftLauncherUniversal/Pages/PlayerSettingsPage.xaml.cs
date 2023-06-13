@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Core;
+using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using System;
 using System.Collections.Generic;
@@ -96,6 +97,35 @@ namespace MinecraftLauncherUniversal.Pages
         private void NewSkinFilePath_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private async void AdvancedDialogBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.XamlRoot = Globals.MainGridXamlRoot;
+            dialog.Title = "Advanced Settings";
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Content = new AdvancedPlayerSettingsDialogContent();
+
+            dialog.CloseButtonText = "Exit";
+            dialog.CloseButtonClick += Dialog_CloseButtonClick;
+
+            dialog.PrimaryButtonText = "Save";
+            dialog.PrimaryButtonClick += Dialog_PrimaryButtonClick;
+
+            dialog.DefaultButton = ContentDialogButton.Close;
+
+            await dialog.ShowAsync();
+        }
+
+        private void Dialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            sender.Hide();
         }
     }
 }
