@@ -39,7 +39,8 @@ namespace MinecraftLauncherUniversal
             // Title = "MinecraftLauncher";
 
             //DesktopAcrylicBackdrop abackdrop = new DesktopAcrylicBackdrop();
-            //this.SystemBackdrop = abackdrop;
+            MicaBackdrop abackdrop = new MicaBackdrop();
+            this.SystemBackdrop = abackdrop;
         }
 
         void SetGlobalObjects()
@@ -49,7 +50,6 @@ namespace MinecraftLauncherUniversal
             Globals.MainNavigationBreadcrumb = MainBreadcrumb;
             Globals.MainNavigation = MainNavigation;
             Globals.MainGrid = RootGrid;
-            Globals.MainMicaBackdrop = RootMicaKind;
         }
         public MainWindow()
         {

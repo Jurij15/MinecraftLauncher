@@ -34,7 +34,6 @@ namespace MinecraftLauncherUniversal
         public static BreadcrumbBar MainNavigationBreadcrumb;
         public static Frame MainFrame;
         public static Grid MainGrid;
-        public static MicaBackdrop MainMicaBackdrop;
         public static XamlRoot MainGridXamlRoot;
 
         //i should use binding for this, instead of just constantly updating it

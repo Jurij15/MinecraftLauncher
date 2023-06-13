@@ -7,9 +7,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" NavigationCacheMode="Disabled"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     Background="Transparent">
 
-    <Grid Margin="58, 42, 58,0" CanBeScrollAnchor="True">
+    <Grid Margin="58, 42, 58,0" CanBeScrollAnchor="True" RowSpacing="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,9 +23,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Expander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True" Margin="0,4,0,0">
+        <Expander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True">
             <Expander.Header>
-                <Grid Margin="8" CornerRadius="8"  Padding="8" x:Name="AboutAppGrid">
+                <Grid Margin="8" x:Name="AboutAppGrid" Padding="16,16,4,16">
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
                             <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="30" Width="30" Margin="0,0,8,0"/>
@@ -39,9 +40,18 @@
                     </StackPanel>
                 </Grid>
             </Expander.Header>
-            <StackPanel>
-                
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Right">
+                    <TextBlock Text="Open source libraries used:" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
+                    <HyperlinkButton NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core"/>
+                </StackPanel>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Left">
+                    <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
+                </StackPanel>
+            </Grid>
         </Expander>
         <Expander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" Margin="0,4,0,0" Visibility="Collapsed">
             <Expander.Header>
@@ -60,18 +70,12 @@
                 </TextBlock>
             </StackPanel>
         </Expander>
-        <Grid Margin="0,4,0,0"
-              Grid.Row="3"
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefault}"
-              BorderThickness="1"
-              CornerRadius="4">
-            <StackPanel HorizontalAlignment="Left" Margin="20">
-                <TextBlock Text="Updates" FontSize="16" FontWeight="SemiBold"/>
-                <TextBlock Text="Check for updates" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-            </StackPanel>
-
-            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+        <labs:SettingsCard Header="Updates" Description="Check for updates" 
+              Grid.Row="3">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE777;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button Style="{ThemeResource AccentButtonStyle}" Content="Check For Updates" x:Name="CheckForUpdatesBtn" Click="CheckForUpdatesBtn_Click">
                     <Button.Flyout>
                         <Flyout x:Name="UpdateFlyout">
@@ -88,6 +92,6 @@
                     </Button.Flyout>
                 </Button>
             </StackPanel>
-        </Grid>
+        </labs:SettingsCard>
     </Grid>
 </Page>

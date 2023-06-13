@@ -6,10 +6,11 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d" Unloaded="Page_Unloaded"
     Background="Transparent">
 
-    <Grid Margin="58, 42, 58,0">
+    <Grid Margin="58, 42, 58,0" RowSpacing="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -23,83 +24,58 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Personalization" FontSize="12" Grid.Row="0" Margin="0,2,0,4" FontWeight="SemiBold"/>
-        <Grid x:Name="ThemeCard" Visibility="Visible"
-              Grid.Row="1"
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefault}"
-              BorderThickness="1"
-              CornerRadius="4"
-              Margin="0,0,0,4">
-            <StackPanel x:Name="CardDescriptionPanel" HorizontalAlignment="Left" Margin="20">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel>
-                        <TextBlock Text="Theme" FontSize="15"/>
-                        <TextBlock Text="Control App Theme (BETA)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Changes will be applied on app restart!" Foreground="Red" Visibility="Collapsed" x:Name="ThemeConfigAppRestartMessage"/>
-            </StackPanel>
-
-            <StackPanel x:Name="CardContentPanel" HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
-                <ToggleSwitch OnContent="Dark" OffContent="Light"
+        <labs:SettingsCard x:Name="ThemeCard" Header="Theme" Description="Change app theme (BETA)"
+              Grid.Row="1" >
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE790;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <Grid>
+                <StackPanel x:Name="CardContentPanel" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ToggleSwitch OnContent="Dark" OffContent="Light"
               Toggled="ToggleSwitch_Toggled" Loaded="ToggleSwitch_Loaded"/>
-            </StackPanel>
-        </Grid>
-        <Grid Margin="0,0,0,4"
-              Grid.Row="2"
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefault}"
-              BorderThickness="1"
-              CornerRadius="4">
-            <StackPanel HorizontalAlignment="Left" Margin="20">
-                <TextBlock Text="Backdrop" FontSize="15"/>
-                <TextBlock Text="Change the window backdrop (BETA)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
-            </StackPanel>
-
-            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+                </StackPanel>
+            </Grid>
+        </labs:SettingsCard>
+        <labs:SettingsCard
+              Grid.Row="4"
+              Header="Backdrop"
+              Description="Change the app backdrop (BETA)" Visibility="Collapsed"
+              >
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                 <ComboBox x:Name="BackdropCombo" SelectionChanged="BackdropCombo_SelectionChanged">
                     <ComboBoxItem Content="Mica"/>
                     <ComboBoxItem Content="MicaAlt"/>
                 </ComboBox>
             </StackPanel>
-        </Grid>
-        <Grid x:Name="SoundCard"
-              Grid.Row="3"
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefault}"
-              BorderThickness="1"
-              CornerRadius="4"
-              Margin="0,0,0,4">
-            <StackPanel HorizontalAlignment="Left" Margin="20">
-                <TextBlock Text="Sound" FontSize="15"/>
-                <TextBlock Text="Enable sound effects while using the app" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
-            </StackPanel>
-
-            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+        </labs:SettingsCard>
+        <labs:SettingsCard x:Name="SoundCard"
+              Grid.Row="2"
+              Header="Sound"
+              Description="Enable sound effects while using the app">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE8D6;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                 <ToggleSwitch x:Name="SoundToggle" OnContent="Play sound effects" OffContent="Don't play sound effects" IsOn="False" Toggled="SoundToggle_Toggled" IsEnabled="True"/>
             </StackPanel>
-        </Grid>
-        <Grid x:Name="DownloadRateLimitCard"
-              Grid.Row="4"
+        </labs:SettingsCard>
+        <labs:SettingsCard x:Name="DownloadRateLimitCard"
+              Grid.Row="3"
               Loaded="DownloadRateLimitCard_Loaded"
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefault}"
-              BorderThickness="1"
-              CornerRadius="4"
-              Margin="0,0,0,4">
-            <StackPanel HorizontalAlignment="Left" Margin="20">
-                <TextBlock Text="Download Rate Limit" FontSize="15"/>
-                <TextBlock Text="Change how many connections will be used to download Minecraft" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" />
-            </StackPanel>
-
-            <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
+              Header="Download Rate Limit"
+              Description="Change how many connections will be used to download Minecraft">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xEBD3;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                 <NumberBox SpinButtonPlacementMode="Hidden" x:Name="DownloadConnectionLimitBox" ValueChanged="DownloadConnectionLimitBox_ValueChanged"/>
             </StackPanel>
-        </Grid>
+        </labs:SettingsCard>
         <TextBlock Text="Related" FontSize="12" Grid.Row="8" Margin="0,2,0,4" FontWeight="SemiBold"/>
-        <HyperlinkButton Content="Player Settings" Click="HyperlinkButton_Click" Grid.Row="9"/>
+        <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username, SubText, Profiles" Click="HyperlinkButton_Click" Grid.Row="9">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xEF58;"/>
+            </labs:SettingsCard.HeaderIcon>
+        </labs:SettingsCard>
     </Grid>
 </Page>

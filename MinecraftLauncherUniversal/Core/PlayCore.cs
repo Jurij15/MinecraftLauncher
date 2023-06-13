@@ -37,6 +37,16 @@ namespace MinecraftLauncherUniversal.Core
             return RetVal;
         }
 
+        private string _errorDuringDownload;
+        public string? GetDwonloadErrors()
+        {
+            string RetVal = null;
+
+            RetVal = _errorDuringDownload;
+
+            return RetVal;
+        }
+
         public async Task<bool> Launch()
         {
             bool RetVal = false;
@@ -80,7 +90,7 @@ namespace MinecraftLauncherUniversal.Core
             return RetVal;
         }
 
-        public async Task Download()
+        public async Task Download(Action<int> ProgressChanged)
         {
             System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
 
@@ -93,6 +103,11 @@ namespace MinecraftLauncherUniversal.Core
                 MaximumRamMb = _memoryMB,
                 Session = MSession.GetOfflineSession(Globals.Username),
                 FullScreen = _bfullscreen
+            };
+
+            launcher.ProgressChanged += (s, e) =>
+            {
+                ProgressChanged(e.ProgressPercentage);
             };
 
             try

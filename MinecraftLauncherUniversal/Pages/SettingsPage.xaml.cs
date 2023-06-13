@@ -79,7 +79,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             Helpers.Settings.SaveNewTheme();
 
-            ThemeConfigAppRestartMessage.Visibility = Visibility.Visible;
+            //ThemeConfigAppRestartMessage.Visibility = Visibility.Visible;
         }
 
         private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)

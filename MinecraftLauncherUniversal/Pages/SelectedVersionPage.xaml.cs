@@ -103,15 +103,23 @@ namespace MinecraftLauncherUniversal.Pages
 
             LoadingRing.Visibility = Visibility.Visible;
 
-            await PlayHelper.Download(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked));
+            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.CustomUUID, Globals.AccessToken);
+            await core.Download(OnProgressChanged);
             LoadingRing.Visibility = Visibility.Collapsed;
             DownloadButton.Visibility = Visibility.Collapsed;
             PlayButton.Visibility = Visibility.Visible;
             StatusBox.Text = "Ready to Play";
         }
 
+        async void OnProgressChanged(int value)
+        {
+            LoadingRing.IsIndeterminate = false;
+            LoadingRing.Value = value;
+        }
+
         async void AsyncLaunch()
         {
+            bool bSucess = false;
             int memooryinmb = Convert.ToInt32(RamAmountBox.Value) * 1024;
 
             LoadingRing.Visibility = Visibility.Visible;
@@ -120,7 +128,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.CustomUUID, Globals.AccessToken);
             bool result = await core.Launch();
-            if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); }
+            if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }   
             LoadingRing.Visibility = Visibility.Collapsed;
             StatusBox.Text = "Playing";
 
@@ -129,9 +137,12 @@ namespace MinecraftLauncherUniversal.Pages
             MinecraftLaunchedInfo.IsOpen = true;
             PlayButton.Visibility = Visibility.Visible;
 
-            await Task.Delay(800);
+            if (bSucess)
+            {
+                await Task.Delay(800);
 
-            Globals.MainWindow.Minimize();
+                Globals.MainWindow.Minimize();
+            }
         }
 
         private void UsernameTip_CloseButtonClick(TeachingTip sender, object args)

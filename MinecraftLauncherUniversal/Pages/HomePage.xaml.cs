@@ -1,3 +1,7 @@
+using CmlLib.Core;
+using CmlLib.Core.Version;
+using CmlLib.Core.VersionLoader;
+using CmlLib.Utils;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -142,6 +146,15 @@ namespace MinecraftLauncherUniversal.Pages
         private void HomeHeader_Loaded(object sender, RoutedEventArgs e)
         {
             HomeHeader.SelectedPageIndex = Gallery.SelectedIndex;
+        }
+
+        private async void HomeContent_Loaded(object sender, RoutedEventArgs e)
+        {
+            var launcher = new CMLauncher(new MinecraftPath());
+            MVersionCollection version = await launcher.GetAllVersionsAsync();
+            Changelogs changelogs = await Changelogs.GetChangelogs();
+            await PatchNotesView.EnsureCoreWebView2Async();
+            PatchNotesView.NavigateToString(await changelogs.GetChangelogHtml(version.LatestReleaseVersion.ToString()));
         }
     }
 }

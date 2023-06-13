@@ -10,9 +10,6 @@
     xmlns:styles="using:MinecraftLauncherUniversal"
     xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
     mc:Ignorable="d">
-    <Window.SystemBackdrop>
-        <MicaBackdrop Kind="Base" x:Name="RootMicaKind"/>
-    </Window.SystemBackdrop>
     <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
@@ -84,24 +81,6 @@
                 </ResourceDictionary>
             </NavigationView.Resources>
             -->
-            <NavigationView.Resources>
-                <ResourceDictionary>
-                    <ResourceDictionary.ThemeDictionaries>
-                        <ResourceDictionary x:Key="Dark">
-                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                        </ResourceDictionary>
-                        <ResourceDictionary x:Key="Light">
-                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                        </ResourceDictionary>
-                        <ResourceDictionary x:Key="HighContrast">
-                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{ThemeResource SystemColorWindowColor}" />
-                        </ResourceDictionary>
-                    </ResourceDictionary.ThemeDictionaries>
-                </ResourceDictionary>
-            </NavigationView.Resources>
             <NavigationView.PaneHeader>
                 <Button x:Name="PlayerPaneContent" Padding="6" Background="Transparent" BorderThickness="1" Click="PlayerPaneContent_Click" VerticalContentAlignment="Center" BorderBrush="Transparent" Margin="4,2,4,2" HorizontalAlignment="Stretch" ToolTipService.ToolTip="{Binding ElementName=UsernameBlock, Path=Text}" HorizontalContentAlignment="Left">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">

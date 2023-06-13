@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WinUIEx;
 
 namespace MinecraftLauncherUniversal.Managers
 {
@@ -35,7 +34,10 @@ namespace MinecraftLauncherUniversal.Managers
 
         public void ApplyMicaKind(MicaKind Kind)
         {
-            Globals.MainMicaBackdrop.Kind = Kind;
+            //Globals.MainMicaBackdrop.Kind = Kind;
+            SystemBackdrop backdrop = Globals.MainWindow.SystemBackdrop;
+            MicaBackdrop mica = (MicaBackdrop)backdrop;
+            mica.Kind = Kind;
         }
     }
 }
