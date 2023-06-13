@@ -16,3 +16,4 @@ Download the portable executable in the [Releases](https://github.com/Jurij15/Mi
 - Optimize old code
 - Support custom uuids and access codes
 - Multiple profiles (maybe)
+- Move to [SettingsCards](https://toolkitlabs.dev/) instead of custom cards
