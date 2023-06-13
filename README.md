@@ -3,14 +3,16 @@ A simple minecraft launcher made using [CmlLib](https://github.com/CmlLib/CmlLib
 
 ![heroImg](https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/images/demo-1.1.png)
 
-Current Latest version: 1.0
+Current Latest version: 1.1
 
 # How to use
-Download the portable executable in the Releases section and extract the ZIP
+Download the portable executable in the [Releases](https://github.com/Jurij15/MinecraftLauncher/releases?latest) section and extract the ZIP
 
 # Work in progress
 - Moving to WinUI3
 
 # Plans and ToDo
 - Implement skins
-- Switch to WinUi 3
+- Optimize old code
+- Support custom uuids and access codes
+- Multiple profiles (maybe)
