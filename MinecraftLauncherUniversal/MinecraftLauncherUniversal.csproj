@@ -21,6 +21,7 @@
     <None Remove="Dialogs\QuickPlayDialogContent.xaml" />
     <None Remove="Dialogs\SimpleLoadingDialog.xaml" />
     <None Remove="OptiFine\ForgeOptiFine.zip" />
+    <None Remove="OptiFine\OfflineSkins.zip" />
     <None Remove="OptiFine\OptiFine.zip" />
     <None Remove="Pages\AboutPage.xaml" />
     <None Remove="Pages\AllVersionsPage.xaml" />
@@ -44,6 +45,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="OptiFine\ForgeOptiFine.zip" />
+    <EmbeddedResource Include="OptiFine\OfflineSkins.zip">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="OptiFine\OptiFine.zip" />
   </ItemGroup>
 

@@ -75,6 +75,15 @@ namespace MinecraftLauncherUniversal.Pages
             // ApplicationTheme enum values: 0 = Light, 1 = Dark
             bool toggleswitchstate = ((ToggleSwitch)sender).IsOn;
 
+            if (!toggleswitchstate)
+            {
+                ThemeService.SetTheme(ApplicationTheme.Light);
+            }
+            else
+            {
+                ThemeService.SetTheme(ApplicationTheme.Dark);
+            }
+
             Globals.Theme = Convert.ToInt32(toggleswitchstate);
 
             Helpers.Settings.SaveNewTheme();

@@ -8,8 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:MinecraftLauncherUniversal.Controls"
     mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Disabled"
-    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
-    Background="Transparent">
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI">
 
     <ScrollViewer>
         <Grid Margin="58, 42, 58,0">
@@ -78,7 +77,7 @@
                                     <ImageBrush ImageSource="/Assets/thumb.png"
                     Stretch="UniformToFill"/>
                                 </Border.Background>
-                                <Border CornerRadius="8">
+                                <Border CornerRadius="8" >
                                     <Border.Background>
                                         <RadialGradientBrush>
                                             <GradientStop Offset="0" Color="#1F000000" />
@@ -86,6 +85,9 @@
                                         </RadialGradientBrush>
                                     </Border.Background>
                                     <Grid>
+                                        <Grid.Background>
+                                            <AcrylicBrush TintOpacity="0" TintLuminosityOpacity="0" TintColor="Transparent"/>
+                                        </Grid.Background>
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                                             <TextBlock Text="V2 Development" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                                             <TextBlock Text="Explore the development of the Launcher!" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
@@ -107,8 +109,16 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Margin="2,2,2,2">
-                    <WebView2 x:Name="PatchNotesView"/>
+                <StackPanel Grid.Column="0" Margin="0,0,2,0">
+                    <TextBlock Text="Messages" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    <StackPanel Spacing="2">
+                        <InfoBar Title="GitHub" IsOpen="True" IsClosable="False">
+                            <InfoBar.ActionButton>
+                                <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="Click Here"/>
+                            </InfoBar.ActionButton>
+                        </InfoBar>
+                        <InfoBar x:Name="UpdatesInfoBar" IsClosable="False" IsOpen="True"/>
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Spacing="2">
                     <TextBlock Text="Actions" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12"/>

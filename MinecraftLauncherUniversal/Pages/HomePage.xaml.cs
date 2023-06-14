@@ -11,6 +11,8 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Controls;
 using MinecraftLauncherUniversal.Dialogs;
+using MinecraftLauncherUniversal.Enums;
+using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -150,11 +152,42 @@ namespace MinecraftLauncherUniversal.Pages
 
         private async void HomeContent_Loaded(object sender, RoutedEventArgs e)
         {
-            var launcher = new CMLauncher(new MinecraftPath());
-            MVersionCollection version = await launcher.GetAllVersionsAsync();
-            Changelogs changelogs = await Changelogs.GetChangelogs();
-            await PatchNotesView.EnsureCoreWebView2Async();
-            PatchNotesView.NavigateToString(await changelogs.GetChangelogHtml(version.LatestReleaseVersion.ToString()));
+            SetUpdateStatus();
+        }
+
+        void SetUpdateStatus()
+        {
+            switch ( Updater.GetUpdateStatus())
+            {
+                case UpdateStatus.Fail:
+                    UpdatesInfoBar.Title = "Checking Failed";
+                    UpdatesInfoBar.Message = "Please check your internet connection!";
+                    UpdatesInfoBar.Severity = InfoBarSeverity.Error;
+                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
+                    break;
+                case UpdateStatus.UpToDateWell:
+                    UpdatesInfoBar.Title = "Up to Date";
+                    UpdatesInfoBar.Message = "You are running the latest version of the launcher!";
+                    UpdatesInfoBar.Severity = InfoBarSeverity.Success;
+                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
+                    break;
+                case UpdateStatus.UpdateAvailable:
+                    UpdatesInfoBar.Title = "Update Available";
+                    UpdatesInfoBar.Message = "Check the GitHub page for updates!";
+                    UpdatesInfoBar.Severity = InfoBarSeverity.Warning;
+                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Visible;
+                    break;
+                case UpdateStatus.PreRelease:
+                    UpdatesInfoBar.Title = "PreRelease";
+                    UpdatesInfoBar.Message = "Updates are disabled on PreRelease!";
+                    UpdatesInfoBar.Severity = InfoBarSeverity.Informational;
+                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    break;
+            }
+
+            UpdatesInfoBar.IsOpen = true;
         }
     }
 }

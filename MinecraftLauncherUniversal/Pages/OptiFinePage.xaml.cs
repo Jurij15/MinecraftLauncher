@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.WindowsAppSDK.Runtime;
+using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -169,6 +170,59 @@ namespace MinecraftLauncherUniversal.Pages
 
             string zipPath = "Settings/ForgeOptiFine.zip";
             string extractPath = MinecraftPath.GetOSDefaultPath() + "/versions";
+
+            //Directory.CreateDirectory(extractPath);
+            /*
+            using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+            {
+                foreach (ZipArchiveEntry entry in archive.Entries)
+                {
+                    string filePath = Path.Combine(extractPath, entry.FullName);
+
+                    // Create the directory for the file if it doesn't exist
+                    //Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                    // Extract the file
+                    ZipFile.ExtractToDirectory(filePath, extractPath);
+                }
+            }
+            */
+            ZipFile.ExtractToDirectory(zipPath, extractPath);
+
+            Globals.MainFrame.Navigate(typeof(HomePage));
+            Globals.MainFrame.Navigate(typeof(OptiFinePage));
+
+            InstallOfflineSkinsMod();
+        }
+
+        void InstallOfflineSkinsMod()
+        {
+            string resName = "MinecraftLauncherUniversal.OptiFine.OfflineSkins.zip";
+
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resName))
+            {
+                if (stream == null)
+                {
+                    //MessageBox.Show("Failed to load resource: " + resName);
+                    DialogService.ShowSimpleDialog("Error", "Failed to load resource: " + resName);
+                    return;
+                }
+
+                // Copy the stream to a file
+                using (FileStream file = new FileStream("Settings/OfflineSkins.zip", FileMode.Create, FileAccess.Write))
+                {
+                    byte[] buffer = new byte[stream.Length];
+                    stream.Read(buffer, 0, buffer.Length);
+                    file.Write(buffer, 0, buffer.Length);
+                }
+            }
+
+            string zipPath = "Settings/OfflineSkins.zip";
+            if (!Directory.Exists(MinecraftPath.GetOSDefaultPath()+"/mods"))
+            {
+                Directory.CreateDirectory(MinecraftPath.GetOSDefaultPath() + "/mods");
+            }
+            string extractPath = MinecraftPath.GetOSDefaultPath() + "/mods";
 
             //Directory.CreateDirectory(extractPath);
             /*

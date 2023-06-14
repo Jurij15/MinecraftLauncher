@@ -1,6 +1,9 @@
 ﻿using CmlLib.Core.VersionMetadata;
+using Microsoft.UI.Xaml;
+using MinecraftLauncherUniversal.Enums;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,6 +11,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Windows.ApplicationModel.UserDataTasks;
+using UpdateStatus = MinecraftLauncherUniversal.Enums.UpdateStatus;
 
 namespace MinecraftLauncherUniversal.Helpers
 {
@@ -22,10 +27,12 @@ namespace MinecraftLauncherUniversal.Helpers
                 File.Delete("Settings/VersionTemp");
             }
 
-            WebClient wc = new WebClient();
-            wc.DownloadFile("https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestVersion.txt", "Settings/VersionTemp");
+            Uri uri = new Uri("https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestVersion.txt");
 
-            RetVal = File.ReadAllText("Settings/VersionTemp");
+            WebClient wc = new WebClient();
+            wc.DownloadFile(uri, "Settings/VersionTemp");
+
+        RetVal = File.ReadAllText("Settings/VersionTemp");
             return RetVal;
         }
 
@@ -49,6 +56,35 @@ namespace MinecraftLauncherUniversal.Helpers
             }
 
             return retVal;
+        }
+
+        public static UpdateStatus GetUpdateStatus()
+        {
+            UpdateStatus status = UpdateStatus.Fail;
+
+            try
+            {
+                bool value = Updater.bIsUpToDate();
+                if (value)
+                {
+                    status = UpdateStatus.UpToDateWell;
+                }
+                else if (Updater.bIsPrerelease())
+                {
+                    status = UpdateStatus.PreRelease;
+                }
+                else if (!value)
+                {
+                    status = UpdateStatus.UpdateAvailable;
+                }
+            }
+            catch (Exception ex)
+            {
+                status = UpdateStatus.Fail;
+                throw;
+            }
+
+            return status;
         }
     }
 }

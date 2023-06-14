@@ -27,7 +27,7 @@ namespace MinecraftLauncherUniversal
         public static string CustomUUID { get; set; }
         public static string AccessToken { get; set; } //this will not save, for now
 
-        public static string VersionString = "2.0 - DEV2";
+        public static string VersionString = "2.0 - BETA1";
 
         public static Window MainWindow;
         public static NavigationView MainNavigation;

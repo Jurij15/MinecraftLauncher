@@ -89,10 +89,6 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 ShowSkinCheck.IsChecked = true;
             }
-
-            Changelogs changelogs = await Changelogs.GetChangelogs();
-            await PatchNotesPresenter.EnsureCoreWebView2Async();
-            PatchNotesPresenter.NavigateToString(await changelogs.GetChangelogHtml(Globals.CurrentVersion));
         }
 
         async void DownloadBefore()
