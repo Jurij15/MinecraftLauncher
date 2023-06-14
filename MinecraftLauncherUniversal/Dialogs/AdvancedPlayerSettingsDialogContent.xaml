@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Unloaded="Page_Unloaded"
     mc:Ignorable="d">
-
     <Grid>
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <InfoBar Message="Only change these settings if you know what you are doing!" Severity="Warning" Margin="0,0,0,4" IsOpen="True" IsClosable="False"/>

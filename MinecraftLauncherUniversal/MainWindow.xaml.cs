@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Windows.AppNotifications;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Pages;
@@ -57,6 +58,8 @@ namespace MinecraftLauncherUniversal
             InitDesgin();
             SetGlobalObjects();
             Settings.GetSettings();
+
+            AppNotificationManager.Default.Register();
 
             this.Title = "Minecraft Launcher";
 

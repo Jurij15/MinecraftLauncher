@@ -1,4 +1,5 @@
 using CmlLib.Core;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -22,6 +23,7 @@ using Windows.Foundation.Collections;
 using Windows.Perception.Spatial.Preview;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -101,11 +103,14 @@ namespace MinecraftLauncherUniversal.Pages
 
         private async void AdvancedDialogBtn_Click(object sender, RoutedEventArgs e)
         {
+            SolidColorBrush transparentBrush = new SolidColorBrush(Colors.Transparent);
+
             ContentDialog dialog = new ContentDialog();
             dialog.XamlRoot = Globals.MainGridXamlRoot;
             dialog.Title = "Advanced Settings";
             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
             dialog.Content = new AdvancedPlayerSettingsDialogContent();
+            //dialog.Background = transparentBrush;
 
             dialog.CloseButtonText = "Exit";
             dialog.CloseButtonClick += Dialog_CloseButtonClick;
@@ -120,7 +125,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Dialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            throw new NotImplementedException();
+
         }
 
         private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

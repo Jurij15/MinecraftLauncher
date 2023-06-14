@@ -32,7 +32,6 @@ namespace MinecraftLauncherUniversal.Services
             var toast = new AppNotification(xmlPayload);
             toast.Expiration = DateTimeOffset.Now.AddSeconds(ExpirationTime);
 
-            AppNotificationManager.Default.Register();
             AppNotificationManager.Default.Show(toast);
         }
     }

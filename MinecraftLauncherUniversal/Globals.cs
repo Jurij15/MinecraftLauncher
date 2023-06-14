@@ -52,7 +52,7 @@ namespace MinecraftLauncherUniversal
         public static async void ResetApp(bool bSendNotification)
         {
             Directory.Delete(Settings.RootDir, true);
-            if (bSendNotification) { NotificationService.SendSimpleToast("MinecraftLauncher was reset", "Restart was required to complete", 3); }
+            if (bSendNotification) { NotificationService.SendSimpleToast("MinecraftLauncher was reset", "Restart was required to complete", 1.9); }
             //Microsoft.Windows.AppLifecycle.AppInstance.Restart(""); //crashes
             Process p = Process.Start("MinecraftLauncherUniversal.exe");
             Process.GetCurrentProcess().Kill();

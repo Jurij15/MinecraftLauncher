@@ -105,6 +105,8 @@ namespace MinecraftLauncherUniversal.Pages
             DownloadButton.Visibility = Visibility.Collapsed;
             PlayButton.Visibility = Visibility.Visible;
             StatusBox.Text = "Ready to Play";
+
+            NotificationService.SendSimpleToast("Download Complete", "Minecraft " + Globals.CurrentVersion + " is ready to play!", 1.5);
         }
 
         async void OnProgressChanged(int value)
@@ -138,6 +140,7 @@ namespace MinecraftLauncherUniversal.Pages
                 await Task.Delay(800);
 
                 Globals.MainWindow.Minimize();
+                NotificationService.SendSimpleToast("Launched", "Minecraft " + Globals.CurrentVersion + " launched successfully!", 1.5);
             }
         }
 

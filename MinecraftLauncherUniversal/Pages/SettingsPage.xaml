@@ -36,18 +36,6 @@
                 </StackPanel>
             </Grid>
         </labs:SettingsCard>
-        <labs:SettingsCard
-              Grid.Row="4"
-              Header="Backdrop"
-              Description="Change the app backdrop (BETA)" Visibility="Collapsed"
-              >
-            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                <ComboBox x:Name="BackdropCombo" SelectionChanged="BackdropCombo_SelectionChanged">
-                    <ComboBoxItem Content="Mica"/>
-                    <ComboBoxItem Content="MicaAlt"/>
-                </ComboBox>
-            </StackPanel>
-        </labs:SettingsCard>
         <labs:SettingsCard x:Name="SoundCard"
               Grid.Row="2"
               Header="Sound"
