@@ -129,5 +129,10 @@ namespace MinecraftLauncherUniversal.Pages
         {
             Globals.DownloadRateLimit = Convert.ToInt32(DownloadConnectionLimitBox.Value);
         }
+
+        private void ResetAppBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.ResetApp(true);
+        }
     }
 }

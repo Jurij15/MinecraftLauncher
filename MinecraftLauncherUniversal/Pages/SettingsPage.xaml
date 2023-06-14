@@ -71,6 +71,17 @@
                 <NumberBox SpinButtonPlacementMode="Hidden" x:Name="DownloadConnectionLimitBox" ValueChanged="DownloadConnectionLimitBox_ValueChanged"/>
             </StackPanel>
         </labs:SettingsCard>
+        <labs:SettingsCard x:Name="ResetAppCard"
+              Grid.Row="5"
+              Header="Reset App"
+              Description="This will require app restart!">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xED10;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button x:Name="ResetAppBtn" Click="ResetAppBtn_Click" Background="{ThemeResource SystemFillColorCriticalBrush}" Content="Reset"/>
+            </StackPanel>
+        </labs:SettingsCard>
         <TextBlock Text="Related" FontSize="12" Grid.Row="8" Margin="0,2,0,4" FontWeight="SemiBold"/>
         <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username, SubText, Profiles" Click="HyperlinkButton_Click" Grid.Row="9">
             <labs:SettingsCard.HeaderIcon>

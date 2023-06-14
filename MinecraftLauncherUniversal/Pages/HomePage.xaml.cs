@@ -181,7 +181,7 @@ namespace MinecraftLauncherUniversal.Pages
                     UpdatesInfoBar.Title = "PreRelease";
                     UpdatesInfoBar.Message = "Updates are disabled on PreRelease!";
                     UpdatesInfoBar.Severity = InfoBarSeverity.Informational;
-                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
+                    //UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
                     break;
                 default:
                     break;

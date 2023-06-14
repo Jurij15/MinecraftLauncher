@@ -1,12 +1,18 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.Windows.AppLifecycle;
+using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Management.Deployment;
 
 namespace MinecraftLauncherUniversal
@@ -41,6 +47,15 @@ namespace MinecraftLauncherUniversal
         public static void UpdateBreadcrumb()
         {
             MainNavigationBreadcrumb.ItemsSource = Breadcrumbs;
+        }
+
+        public static async void ResetApp(bool bSendNotification)
+        {
+            Directory.Delete(Settings.RootDir, true);
+            if (bSendNotification) { NotificationService.SendSimpleToast("MinecraftLauncher was reset", "Restart was required to complete", 3); }
+            //Microsoft.Windows.AppLifecycle.AppInstance.Restart(""); //crashes
+            Process p = Process.Start("MinecraftLauncherUniversal.exe");
+            Process.GetCurrentProcess().Kill();
         }
     }
 }
