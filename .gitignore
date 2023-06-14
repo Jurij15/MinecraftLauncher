@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/MinecraftLauncherUniversal/Releases/2.0-DEV1/MinecraftLauncher_2.0-DEV1.zip
+/MinecraftLauncherUniversal/Releases/2.0-DEV2/MinecraftLauncher_2.0-DEV2.zip
