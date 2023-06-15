@@ -41,6 +41,7 @@ namespace MinecraftLauncherUniversal
         public static Frame MainFrame;
         public static Grid MainGrid;
         public static XamlRoot MainGridXamlRoot;
+        public static InfoBadge AllVersionsNavigationViewItemInfoBadge;
 
         //i should use binding for this, instead of just constantly updating it
         public static ObservableCollection<string> Breadcrumbs = new ObservableCollection<string>();
@@ -54,6 +55,11 @@ namespace MinecraftLauncherUniversal
             Directory.Delete(Settings.RootDir, true);
             if (bSendNotification) { NotificationService.SendSimpleToast("MinecraftLauncher was reset", "Restart was required to complete", 1.9); }
             //Microsoft.Windows.AppLifecycle.AppInstance.Restart(""); //crashes
+            RestartApp();
+        }
+
+        public static void RestartApp()
+        {
             Process p = Process.Start("MinecraftLauncherUniversal.exe");
             Process.GetCurrentProcess().Kill();
         }

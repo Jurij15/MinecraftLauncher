@@ -1,3 +1,5 @@
+using CommunityToolkit.WinUI.UI.Helpers;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -18,6 +20,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinUIEx;
+using WinUIEx.Messaging;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,19 +32,67 @@ namespace MinecraftLauncherUniversal
     /// </summary>
     public sealed partial class MainWindow : WindowEx
     {
+        //from https://github.com/microsoft/microsoft-ui-xaml/issues/7009
+        void SetCapitionButtonColorForWin10()
+        {
+            var res = Microsoft.UI.Xaml.Application.Current.Resources;
+            Action<Windows.UI.Color> SetTitleBarButtonForegroundColor = (Windows.UI.Color color) => { res["WindowCaptionForeground"] = color; };
+            var currentTheme = ((FrameworkElement)Content).ActualTheme;
+            if (currentTheme == ElementTheme.Dark)
+            {
+                SetTitleBarButtonForegroundColor(Colors.White);
+            }
+            else if (currentTheme == ElementTheme.Light)
+            {
+                SetTitleBarButtonForegroundColor(Colors.Black);
+            }
+            else
+            {
+                if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                {
+                    SetTitleBarButtonForegroundColor(Colors.White);
+                }
+                else
+                {
+                    SetTitleBarButtonForegroundColor(Colors.Black);
+                }
+            }
+        }
+
         void InitDesgin() 
         {
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
 
+            ThemeListener listener = new ThemeListener();
+
+            var titlebar = AppWindow.TitleBar;
+
             this.CenterOnScreen();
             this.SetIsResizable(false);
 
             // Title = "MinecraftLauncher";
+            SetCapitionButtonColorForWin10();
+
+            //Application.Current.FocusVisualKind = FocusVisualKind.HighVisibility;
 
             //DesktopAcrylicBackdrop abackdrop = new DesktopAcrylicBackdrop();
             MicaBackdrop abackdrop = new MicaBackdrop();
+            if (Globals.Theme == 0)
+            {
+                //light
+                abackdrop.Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt; //idk if i should keep this in, it looks nice but idk
+            }
+            else
+            {
+                abackdrop.Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.Base;
+            }
             this.SystemBackdrop = abackdrop;
+
+            if (Environment.OSVersion.Version.Build <= 22000) //enable the normal look of navigationview on windows 10
+            {
+                MainNavigationDisableContentBackgroundDictionary.ThemeDictionaries.Clear();
+            }
         }
 
         void SetGlobalObjects()
@@ -51,6 +102,7 @@ namespace MinecraftLauncherUniversal
             Globals.MainNavigationBreadcrumb = MainBreadcrumb;
             Globals.MainNavigation = MainNavigation;
             Globals.MainGrid = RootGrid;
+            Globals.AllVersionsNavigationViewItemInfoBadge = AllVersionsInfoBadge;
         }
         public MainWindow()
         {
@@ -73,6 +125,54 @@ namespace MinecraftLauncherUniversal
             //MainNavigation.PaneTitle = Globals.Username;
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
+
+            PreloadArrays();
+
+            if (Globals.bIsFirstTimeRun)
+            {
+                UsernameTip.Target = (FrameworkElement)MainNavigation.PaneCustomContent;
+                //UsernameTip.IsOpen = true;
+            }
+        }
+
+        async void PreloadArrays()
+        {
+            VersionManager manager = new VersionManager();
+            await manager.PreloadVersionArrays();
+
+            //ShowMessageDialogAsync(VersionManager.AllVersionsGlobal.Count.ToString(), "test");
+
+            if (VersionManager.AllVersionsGlobal.Count <= 0)
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.XamlRoot = Globals.MainGridXamlRoot;
+                dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                dialog.Title = "Error";
+                dialog.Content = "An Error occured while searching for all available versions. Please restart the app";
+
+                dialog.CloseButtonText = "OK";
+                dialog.CloseButtonClick += Dialog_CloseButtonClick;
+
+                await dialog.ShowAsync();
+            }
+            else
+            {
+               await manager.PrefetchStats();
+               SetStats();
+            }
+        }
+
+        void SetStats()
+        {
+            TotalInstalledBlock.Text = "Total Installed " + VersionManager.PrefetchedStatistics.TotalInstalled;
+            TotalVersionsBlock.Text = "Total  " + VersionManager.PrefetchedStatistics.TotalAvailable;
+            TotalReleasesBlock.Text = "Total Releases " + VersionManager.PrefetchedStatistics.TotalReleases;
+            TotalOptiFineBlock.Text = "Total OptiFine " + VersionManager.PrefetchedStatistics.TotalOptiFine;
+        }
+
+        private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            Globals.RestartApp();
         }
 
         private void MainNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -84,25 +184,25 @@ namespace MinecraftLauncherUniversal
                 NavigationService.ShowBreadcrumb();
                 RootFrame.Navigate(typeof(SettingsPage));
             }
-            if (content == "Home")
+            if (args.InvokedItemContainer == HomeItem)
             {
                 RootFrame.Navigate(typeof(HomePage));
                 NavigationService.UpdateBreadcrumb("Home", true);
                 NavigationService.HideBreadcrumb();
             }
-            if (content == "All Versions")
+            if (args.InvokedItemContainer == AllVersionsPage)
             {
                 NavigationService.UpdateBreadcrumb("All Versions", true);
                 NavigationService.ShowBreadcrumb();
                 RootFrame.Navigate(typeof(AllVersionsPage));
             }
-            if (content == "OptiFine")
+            if (args.InvokedItemContainer == OptifineItem)
             {
                 NavigationService.UpdateBreadcrumb("OptiFine", true);
                 NavigationService.ShowBreadcrumb();
                 RootFrame.Navigate(typeof(OptiFinePage));
             }
-            if (content == "About")
+            if (args.InvokedItemContainer == AboutItem)
             {
                 NavigationService.UpdateBreadcrumb("About", true);
                 NavigationService.ShowBreadcrumb();
@@ -183,6 +283,11 @@ namespace MinecraftLauncherUniversal
 
         private void NavigationSearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
+            if (args.SelectedItem.ToString() == "No results found")
+            {
+                sender.Text = string.Empty;
+                return;
+            }
             Globals.MainNavigation.SelectedItem = AllVersionsPage;
             NavigationService.UpdateBreadcrumb("All Versions", true);
             NavigationService.ShowBreadcrumb();

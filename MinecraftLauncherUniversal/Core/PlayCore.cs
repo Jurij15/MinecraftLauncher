@@ -60,11 +60,18 @@ namespace MinecraftLauncherUniversal.Core
             launchOption.MaximumRamMb = _memoryMB;
             launchOption.FullScreen = _bfullscreen;
             launchOption.GameLauncherName = "Minecraft Launcher Universal";
-            if (!string.IsNullOrEmpty(_uuid) && !string.IsNullOrWhiteSpace(_uuid) && !string.IsNullOrEmpty(_accessToken) && !string.IsNullOrWhiteSpace(_accessToken))
+            if (!string.IsNullOrEmpty(_uuid) && !string.IsNullOrWhiteSpace(_uuid))
             {
                 MSession session  = new MSession();
                 session.AccessToken = _accessToken;
                 session.UUID = _uuid;
+                session.Username = Globals.Username;
+                launchOption.Session = session;
+            }
+            if (!string.IsNullOrEmpty(_accessToken) && !string.IsNullOrWhiteSpace(_accessToken))
+            {
+                MSession session = new MSession();
+                session.AccessToken = _accessToken;
                 session.Username = Globals.Username;
                 launchOption.Session = session;
             }

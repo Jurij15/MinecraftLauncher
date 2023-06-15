@@ -6,7 +6,7 @@
     xmlns:local="using:MinecraftLauncherUniversal.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Unloaded="Page_Unloaded"
-    mc:Ignorable="d" Loaded="Page_Loaded"> 
+    mc:Ignorable="d" Loaded="Page_Loaded" MinWidth="600" Width="600"> 
 
     <Grid>
         <Grid.RowDefinitions>
@@ -40,7 +40,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch">
+            <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="True">
                 <Expander.Header>
                     <StackPanel Margin="8" CornerRadius="8">
                         <TextBlock Text="Game Launch Settings" FontSize="15"/>
@@ -57,7 +57,7 @@
                     <NumberBox x:Name="RamAmountBox" SpinButtonPlacementMode="Hidden" AcceptsExpression="False" Value="2"/>
                 </StackPanel>
             </Expander>
-            <Expander HorizontalAlignment="Stretch" Grid.Row="2" x:Name="QuickPlayerSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="False">
+            <Expander HorizontalAlignment="Stretch" Grid.Row="2" x:Name="QuickPlayerSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="True">
                 <Expander.Header>
                     <StackPanel Margin="8" CornerRadius="8">
                         <TextBlock Text="Player Settings" FontSize="15"/>

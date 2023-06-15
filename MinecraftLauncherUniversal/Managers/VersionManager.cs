@@ -5,11 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MinecraftLauncherUniversal.Helpers;
+using Windows.Devices.WiFi;
 
 namespace MinecraftLauncherUniversal.Managers
 {
     public class VersionManager
     {
+        public class PrefetchedStatistics //like how many builds are installed, total available, optifine etc.
+        {
+            public static int TotalAvailable;
+            public static int TotalInstalled;
+            public static int TotalReleases;
+            public static int TotalOptiFine;
+        }
+        public static HashSet<string> AllVersionsGlobal = new HashSet<string>();
         public VersionManager() { }
 
         public async Task<string[]> GetAllVersionsAsync()
@@ -147,6 +157,38 @@ namespace MinecraftLauncherUniversal.Managers
             }
 
             return ret;
+        }
+
+        public async Task PreloadVersionArrays()
+        {
+            foreach (var item in await GetAllVersionsAsync())
+            {
+                AllVersionsGlobal.Add(item);
+            }
+        }
+
+        public async Task PrefetchStats()
+        {
+            PrefetchedStatistics.TotalAvailable = AllVersionsGlobal.Count;
+            foreach (var ver in AllVersionsGlobal)
+            {
+                if (bIsVersionInstalled(ver))
+                {
+                    PrefetchedStatistics.TotalInstalled++;
+                }
+                if (bIsOptifine(ver))
+                {
+                    PrefetchedStatistics.TotalOptiFine++;
+                }
+                if (bIsReleaseVersion(ver))
+                {
+                    PrefetchedStatistics.TotalReleases++;
+                }
+                if (bIsVersionInstalled(ver))
+                {
+                    PrefetchedStatistics.TotalInstalled++;
+                }
+            }
         }
     }
 }

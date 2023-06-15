@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>MinecraftLauncherUniversal</RootNamespace>
     <Platforms>x86;x64;ARM64</Platforms>
@@ -20,6 +20,7 @@
     <None Remove="Dialogs\AdvancedPlayerSettingsDialogContent.xaml" />
     <None Remove="Dialogs\QuickPlayDialogContent.xaml" />
     <None Remove="Dialogs\SimpleLoadingDialog.xaml" />
+    <None Remove="Dialogs\WelcomeSetupDialog.xaml" />
     <None Remove="OptiFine\ForgeOptiFine.zip" />
     <None Remove="OptiFine\OfflineSkins.zip" />
     <None Remove="OptiFine\OptiFine.zip" />
@@ -117,6 +118,9 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Dialogs\WelcomeSetupDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Dialogs\SimpleLoadingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

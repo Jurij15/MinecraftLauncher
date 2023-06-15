@@ -1,3 +1,4 @@
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -5,6 +6,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -130,7 +132,32 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.DownloadRateLimit = Convert.ToInt32(DownloadConnectionLimitBox.Value);
         }
 
-        private void ResetAppBtn_Click(object sender, RoutedEventArgs e)
+        private async void ResetAppBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.XamlRoot = Globals.MainGridXamlRoot;
+            dialog.Title = "Reset";
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Content = "Resetting will delete all saved configurations. A restart will be required.";
+            //dialog.Background = transparentBrush;
+
+            dialog.CloseButtonText = "Cancel";
+            dialog.CloseButtonClick += Dialog_CloseButtonClick; ;
+
+            dialog.PrimaryButtonText = "Reset and restart";
+            dialog.PrimaryButtonClick += Dialog_PrimaryButtonClick;
+
+            dialog.DefaultButton = ContentDialogButton.Close;
+
+            await dialog.ShowAsync();
+        }
+
+        private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            sender.Hide();
+        }
+
+        private void Dialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Globals.ResetApp(true);
         }

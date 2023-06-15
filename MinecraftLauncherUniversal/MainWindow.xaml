@@ -81,6 +81,24 @@
                 </ResourceDictionary>
             </NavigationView.Resources>
             -->
+            <NavigationView.Resources>
+                <ResourceDictionary x:Name="MainNavigationDisableContentBackgroundDictionary">
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="HighContrast">
+                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{ThemeResource SystemColorWindowColor}" />
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </NavigationView.Resources>
             <NavigationView.PaneHeader>
                 <Button x:Name="PlayerPaneContent" Padding="6" Background="Transparent" BorderThickness="1" Click="PlayerPaneContent_Click" VerticalContentAlignment="Center" BorderBrush="Transparent" Margin="4,2,4,2" HorizontalAlignment="Stretch" ToolTipService.ToolTip="{Binding ElementName=UsernameBlock, Path=Text}" HorizontalContentAlignment="Left">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -128,19 +146,31 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <!--<NavigationViewItemSeparator/>-->
-                <NavigationViewItem Content="All Versions" x:Name="AllVersionsPage"> 
+                <NavigationViewItem x:Name="AllVersionsPage">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71D;"/>
                     </NavigationViewItem.Icon>
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge Style="{StaticResource InformationalValueInfoBadgeStyle}" Value="0" x:Name="AllVersionsInfoBadge" Visibility="Collapsed"/>
+                    </NavigationViewItem.InfoBadge>
+                    <NavigationViewItem.Content>
+                        <StackPanel Spacing="1" Padding="6">
+                            <TextBlock Text="All Versions" Margin="-6,0,0,0"/>
+                            <TextBlock x:Name="TotalVersionsBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalReleasesBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalOptiFineBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalInstalledBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                        </StackPanel>
+                    </NavigationViewItem.Content>
                 </NavigationViewItem>
-                <NavigationViewItem Content="OptiFine">
+                <NavigationViewItem Content="OptiFine" x:Name="OptifineItem">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xF4A5;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="About">
+                <NavigationViewItem Content="About" x:Name="AboutItem">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xE779;"/>
                     </NavigationViewItem.Icon>
@@ -150,7 +180,7 @@
                     >
             </Frame>
             <NavigationView.ContentOverlay>
-                <StackPanel x:Name="MainNavigationContentOverlay"/>
+                <TeachingTip x:Name="UsernameTip" Title="Change your username" Subtitle="Click here" IsOpen="False"/>
             </NavigationView.ContentOverlay>
         </NavigationView>
     </Grid>

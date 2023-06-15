@@ -112,6 +112,8 @@ namespace MinecraftLauncherUniversal.Pages
             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
             dialog.Content = new QuickPlayDialogContent(dialog);
 
+            dialog.MinWidth = 600;
+
             dialog.CloseButtonText = "Close";
             dialog.CloseButtonClick += Dialog_CloseButtonClick;
 
@@ -153,6 +155,12 @@ namespace MinecraftLauncherUniversal.Pages
         private async void HomeContent_Loaded(object sender, RoutedEventArgs e)
         {
             SetUpdateStatus();
+
+
+            if (Globals.bIsFirstTimeRun)
+            {
+                //DialogService.ShowWelcomeSetupDialog();
+            }
         }
 
         void SetUpdateStatus()
