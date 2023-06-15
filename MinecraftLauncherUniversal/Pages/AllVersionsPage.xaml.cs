@@ -192,8 +192,7 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 var suitableItems = new List<string>();
                 var splitText = sender.Text.ToLower().Split(" ");
-                VersionManager manager = new VersionManager();
-                foreach (var cat in manager.GetAllVersions())
+                foreach (var cat in VersionManager.AllVersionsGlobal)
                 {
                     var found = splitText.All((key) =>
                     {
