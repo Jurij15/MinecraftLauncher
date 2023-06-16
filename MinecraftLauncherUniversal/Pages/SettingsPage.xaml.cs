@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -28,6 +29,7 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        int bInitialThemeValue;
         public SettingsPage()
         {
             this.InitializeComponent();
@@ -71,11 +73,26 @@ namespace MinecraftLauncherUniversal.Pages
             }
         }
 
-        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        private async void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             // Save theme choice to LocalSettings. 
             // ApplicationTheme enum values: 0 = Light, 1 = Dark
+
             bool toggleswitchstate = ((ToggleSwitch)sender).IsOn;
+
+            bInitialThemeValue = Convert.ToInt32(toggleswitchstate);
+
+            if (Convert.ToInt32(toggleswitchstate) != bInitialThemeValue)
+            {
+                TeachingTip tip = new TeachingTip();
+                tip.Target = ThemeSwitch;
+                tip.Title = "App Restart Required";
+                tip.Subtitle = "Restart to apply changes!";
+                await Task.Delay(100);
+                tip.IsOpen = true;
+
+                RGrid.Children.Add(tip);
+            }
 
             if (!toggleswitchstate)
             {
@@ -95,7 +112,8 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ToggleSwitch)sender).IsOn = Convert.ToBoolean(Globals.Theme);
+            ThemeSwitch.IsOn = Convert.ToBoolean(Globals.Theme);
+            bInitialThemeValue = Globals.Theme;
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)

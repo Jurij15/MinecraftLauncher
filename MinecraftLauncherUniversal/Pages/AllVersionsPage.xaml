@@ -31,8 +31,9 @@
                     <RadioButton x:Name="InstalledSortRadio" Content="Installed" Margin="8,0,0,0" />
                     <RadioButton x:Name="AllSortRadio" Content="All" Margin="-18,0,8,0"/>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Spacing="1">
                     <CheckBox x:Name="ReleasesOnly" Content="Releases Only" Unchecked="ReleasesOnly_Unchecked" Checked="ReleasesOnly_Checked"/>
+                    <CheckBox x:Name="ShowInstalledStatus" Content="Installed" Checked="ShowInstalledStatus_Checked" Unchecked="ShowInstalledStatus_Unchecked"/>
                 </StackPanel>
             </Grid>
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>

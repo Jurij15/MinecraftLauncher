@@ -20,6 +20,7 @@ using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Services;
 using WinUIEx;
 using CmlLib.Utils;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,6 +32,32 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class SelectedVersionPage : Page
     {
+        static int i;
+        void PickAndSetRandomImage()
+        {
+            //default is thumb.png, but this will make it nicer, as it will pick a random one
+            List<string> images = new List<string>();
+            foreach (var item in Directory.GetFiles("Assets\\PlayPage-Banners"))
+            {
+               images.Add(item);
+
+            }
+
+            Random rand = new Random();
+
+            i = rand.Next(images.Count);
+
+            string path = "ms-appx:///"+images[i];
+
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.UriSource = new Uri(path, UriKind.Absolute);
+            bitmapImage.DecodePixelWidth = 242;
+            bitmapImage.DecodePixelHeight = 358;
+
+            BannerImg.Source = bitmapImage;
+
+            images.Clear();
+        }
         public SelectedVersionPage()
         {
             this.InitializeComponent();
@@ -39,6 +66,8 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 OpenUsernameTip();
             }
+
+            //PickAndSetRandomImage();
         }
 
         async void OpenUsernameTip()
@@ -89,6 +118,8 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 ShowSkinCheck.IsChecked = true;
             }
+
+            PickAndSetRandomImage();
         }
 
         async void DownloadBefore()

@@ -156,10 +156,10 @@
                     <NavigationViewItem.Content>
                         <StackPanel Spacing="1" Padding="6">
                             <TextBlock Text="All Versions" Margin="-6,0,0,0"/>
-                            <TextBlock x:Name="TotalVersionsBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                            <TextBlock x:Name="TotalReleasesBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                            <TextBlock x:Name="TotalOptiFineBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                            <TextBlock x:Name="TotalInstalledBlock" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalVersionsBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalReleasesBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalOptiFineBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalInstalledBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
                         </StackPanel>
                     </NavigationViewItem.Content>
                 </NavigationViewItem>

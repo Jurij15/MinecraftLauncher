@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Windows.AppNotifications;
+using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Pages;
@@ -126,7 +127,7 @@ namespace MinecraftLauncherUniversal
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
 
-            PreloadArrays();
+            //PreloadArrays();
 
             if (Globals.bIsFirstTimeRun)
             {
@@ -137,6 +138,13 @@ namespace MinecraftLauncherUniversal
 
         async void PreloadArrays()
         {
+            ContentDialog loaddialog = new ContentDialog();
+            loaddialog.XamlRoot = this.Content.XamlRoot;
+            loaddialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            loaddialog.Content = new SimpleLoadingDialog("Preparing...");
+
+            loaddialog.ShowAsync();
+
             VersionManager manager = new VersionManager();
             await manager.PreloadVersionArrays();
 
@@ -145,7 +153,7 @@ namespace MinecraftLauncherUniversal
             if (VersionManager.AllVersionsGlobal.Count <= 0)
             {
                 ContentDialog dialog = new ContentDialog();
-                dialog.XamlRoot = Globals.MainGridXamlRoot;
+                dialog.XamlRoot = this.Content.XamlRoot;
                 dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
                 dialog.Title = "Error";
                 dialog.Content = "An Error occured while searching for all available versions. Please restart the app";
@@ -153,21 +161,25 @@ namespace MinecraftLauncherUniversal
                 dialog.CloseButtonText = "OK";
                 dialog.CloseButtonClick += Dialog_CloseButtonClick;
 
+                loaddialog.Hide();
                 await dialog.ShowAsync();
             }
             else
             {
-               await manager.PrefetchStats();
-               SetStats();
+                loaddialog.Content = new SimpleLoadingDialog("Done...");
+                await manager.PrefetchStats();
+                SetStats();
             }
+
+            loaddialog.Hide();
         }
 
         void SetStats()
         {
-            TotalInstalledBlock.Text = "Total Installed " + VersionManager.PrefetchedStatistics.TotalInstalled;
+            TotalInstalledBlock.Text = "Installed " + VersionManager.PrefetchedStatistics.TotalInstalled;
             TotalVersionsBlock.Text = "Total  " + VersionManager.PrefetchedStatistics.TotalAvailable;
-            TotalReleasesBlock.Text = "Total Releases " + VersionManager.PrefetchedStatistics.TotalReleases;
-            TotalOptiFineBlock.Text = "Total OptiFine " + VersionManager.PrefetchedStatistics.TotalOptiFine;
+            TotalReleasesBlock.Text = "Releases " + VersionManager.PrefetchedStatistics.TotalReleases;
+            TotalOptiFineBlock.Text = "OptiFine " + VersionManager.PrefetchedStatistics.TotalOptiFine;
         }
 
         private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -302,6 +314,7 @@ namespace MinecraftLauncherUniversal
         private void RootGrid_Loaded(object sender, RoutedEventArgs e)
         {
             Globals.MainGridXamlRoot = this.Content.XamlRoot;
+            PreloadArrays();
         }
     }
 }

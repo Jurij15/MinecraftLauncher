@@ -32,7 +32,7 @@
         <RelativePanel x:Name="InfoGrid" Grid.Row="1" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Height="358" Width="242" HorizontalAlignment="Left" CornerRadius="8">
-                    <Image HorizontalAlignment="Left" Source="/Assets/thumb.png"  Height="358" Width="242"/>
+                    <Image x:Name="BannerImg" HorizontalAlignment="Left"  Height="358" Width="242"/>
                 </StackPanel>
                 <StackPanel  Margin="8,0,0,0">
                     <TextBlock x:Name="MinecraftVersionBlock" Text="Minecraft" FontSize="36" FontWeight="Medium"/>

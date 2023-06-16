@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="1">
             <ProgressRing IsIndeterminate="True" Margin="2,2,2,2"/>
             <TextBlock Text="Loading..." VerticalAlignment="Center" x:Name="ContentBox" Margin="2,2,2,2"/>
         </StackPanel>

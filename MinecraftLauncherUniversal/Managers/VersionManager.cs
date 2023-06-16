@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MinecraftLauncherUniversal.Helpers;
 using Windows.Devices.WiFi;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
 
 namespace MinecraftLauncherUniversal.Managers
 {
@@ -25,22 +27,42 @@ namespace MinecraftLauncherUniversal.Managers
         public async Task<string[]> GetAllVersionsAsync()
         {
             List<string> AllVersions = new List<string>();
-            System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
-
-            //var path = new MinecraftPath("game_directory_path");
-            var path = new MinecraftPath(); // use default directory
-
-            var launcher = new CMLauncher(path);
-
-            var versions = await launcher.GetAllVersionsAsync();
-            foreach (var item in versions)
+            try
             {
-                // show all version names
-                // use this version name in CreateProcessAsync method.
-                AllVersions.Add(item.Name);
+                System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
+
+                //var path = new MinecraftPath("game_directory_path");
+                var path = new MinecraftPath(); // use default directory
+
+                var launcher = new CMLauncher(path);
+
+                var versions = await launcher.GetAllVersionsAsync();
+                foreach (var item in versions)
+                {
+                    // show all version names
+                    // use this version name in CreateProcessAsync method.
+                    AllVersions.Add(item.Name);
+                }
+            }
+            catch (Exception)
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.XamlRoot = Globals.MainGridXamlRoot;
+                dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                dialog.Title = "Error";
+                dialog.Content = "An Error occured while searching for all available versions. Please restart the app";
+
+                dialog.CloseButtonText = "OK";
+                dialog.CloseButtonClick += Dialog_CloseButtonClick;
+                throw;
             }
 
             return AllVersions.ToArray();
+        }
+
+        private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            Globals.RestartApp();
         }
 
         public string[] GetAllVersions()

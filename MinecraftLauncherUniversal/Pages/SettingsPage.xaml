@@ -10,7 +10,7 @@
     mc:Ignorable="d" Unloaded="Page_Unloaded"
     Background="Transparent">
 
-    <Grid Margin="58, 42, 58,0" RowSpacing="3">
+    <Grid Margin="58, 42, 58,0" RowSpacing="3" x:Name="RGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -31,7 +31,7 @@
             </labs:SettingsCard.HeaderIcon>
             <Grid>
                 <StackPanel x:Name="CardContentPanel" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <ToggleSwitch OnContent="Dark" OffContent="Light"
+                    <ToggleSwitch OnContent="Dark" OffContent="Light" x:Name="ThemeSwitch"
               Toggled="ToggleSwitch_Toggled" Loaded="ToggleSwitch_Loaded"/>
                 </StackPanel>
             </Grid>

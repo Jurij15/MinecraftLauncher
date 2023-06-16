@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Composition;
+using Windows.Web.Http.Diagnostics;
 using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -33,6 +34,14 @@ namespace MinecraftLauncherUniversal.Pages
     //This page is a bit of a mess, needs organization
     public sealed partial class AllVersionsPage : Page
     {
+        bool bInitFinished = false;
+        public enum PopInAnimationDuration
+        {
+            VeryShort,
+            Short,
+            Normal,
+            Long
+        }
         //weird fix for duplication
         async Task<bool> CheckIfCardAlreadyExists(string Header)
         {
@@ -48,7 +57,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             return RetVal;
         }
-        public async Task CreateCardAsync(string VersionName)
+        public async Task CreateCardAsync(string VersionName, PopInAnimationDuration AnimDuration, bool bCheckIfInstalled)
         {
             if (VersionManager.AllVersionsGlobal.Count <= 0)
             {
@@ -63,9 +72,7 @@ namespace MinecraftLauncherUniversal.Pages
 
                 await dialog.ShowAsync();
             }
-            //items.Add(VersionName);
 
-            //ItemsPanel.ItemsSource = items;
             SettingsCard NewCard = new SettingsCard();
             NewCard.Header = VersionName.ToString();
             NewCard.IsEnabled = true;
@@ -76,7 +83,36 @@ namespace MinecraftLauncherUniversal.Pages
             NewCard.IsClickEnabled = true;
             NewCard.Click += NewCard_Click;
 
-            await Task.Delay(7);
+            if (bCheckIfInstalled)
+            {
+                if (VersionsHelper.bIsVersionInstalled(VersionName))
+                {
+                    NewCard.Description = "Installed";
+                }
+                else
+                {
+                    NewCard.Description = "Not Installed";
+                }
+            }
+
+            switch (AnimDuration)
+            {
+                case PopInAnimationDuration.VeryShort:
+                    await Task.Delay(1);
+                    break;
+                case PopInAnimationDuration.Short:
+                    await Task.Delay(5);
+                    break;
+                case PopInAnimationDuration.Normal:
+                    await Task.Delay(7);
+                    break;
+                case PopInAnimationDuration.Long:
+                    await Task.Delay(9);
+                    break;
+                default:
+                    await Task.Delay(7);
+                    break;
+            }
 
             if (!await CheckIfCardAlreadyExists(VersionName))
             {
@@ -103,12 +139,13 @@ namespace MinecraftLauncherUniversal.Pages
 
             ItemsPanel.Items.Clear();
 
-            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play ", false);
+            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play "+version, false);
             //NavigationService.NavigateHiearchical(typeof(AboutPage), "test", false);
         }
 
         async void LoadVersions(bool bOnlyReleases)
         {
+            ReleasesOnly.IsEnabled = false;
             VersionManager manager = new VersionManager();
             HashSet<string> versions = new HashSet<string>();
 
@@ -147,10 +184,28 @@ namespace MinecraftLauncherUniversal.Pages
             
             foreach (var item in versions)
             {
-                await CreateCardAsync(item);
+                PopInAnimationDuration duration = PopInAnimationDuration.Normal;
+                if (versions.Count <= 10)
+                {
+                    duration = PopInAnimationDuration.Long;
+                }
+                if (versions.Count <= 30)
+                {
+                    duration = PopInAnimationDuration.Normal;
+                }
+                if (versions.Count <= 80)
+                {
+                    duration = PopInAnimationDuration.Short;
+                }
+                if (versions.Count > 120)
+                {
+                    duration = PopInAnimationDuration.VeryShort;
+                }
+                await CreateCardAsync(item, duration, Convert.ToBoolean(ShowInstalledStatus.IsChecked));
             }
 
             versions.Clear();
+            ReleasesOnly.IsEnabled = true;
         }
 
         public AllVersionsPage()
@@ -158,20 +213,20 @@ namespace MinecraftLauncherUniversal.Pages
             this.InitializeComponent();
             LoadVersions(true);
             ReleasesOnly.IsChecked = true;
+
+            //ShowInstalledStatus.IsChecked = true;
+
+            bInitFinished = true;
         }
 
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
         {
-            //var itemsSource = ItemsPanel.ItemsSource as System.Collections.IList;
-            //itemsSource.Clear(); //THIS CAUSES A RARE CRASH, DEBUG ASAP
             ItemsPanel.Items.Clear();
             LoadVersions(false);
         }
 
         private void ReleasesOnly_Checked(object sender, RoutedEventArgs e)
         {
-            //var itemsSource = ItemsPanel.ItemsSource as System.Collections.IList;
-            //itemsSource.Clear(); //SAME HERE, DEBUG ASAP
             ItemsPanel.Items.Clear();
             LoadVersions(true);
         }
@@ -230,6 +285,26 @@ namespace MinecraftLauncherUniversal.Pages
         {
             //var itemsSource = ItemsPanel.ItemsSource as IList ;
             ItemsPanel.Items.Clear();
+        }
+
+        private void ShowInstalledStatus_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!bInitFinished)
+            {
+                return;
+            }
+            ItemsPanel.Items.Clear();
+            LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
+        }
+
+        private void ShowInstalledStatus_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (!bInitFinished)
+            {
+                return;
+            }
+            ItemsPanel.Items.Clear();
+            LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
         }
     }
 }

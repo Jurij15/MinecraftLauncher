@@ -1,6 +1,7 @@
 ﻿using CmlLib.Core.VersionMetadata;
 using Microsoft.UI.Xaml;
 using MinecraftLauncherUniversal.Enums;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,11 +29,18 @@ namespace MinecraftLauncherUniversal.Helpers
             }
 
             Uri uri = new Uri("https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestVersion.txt");
-
             WebClient wc = new WebClient();
-            wc.DownloadFile(uri, "Settings/VersionTemp");
+            try
+            {
+                wc.DownloadFile(uri, "Settings/VersionTemp");
+            }
+            catch (WebException ex)
+            {
+                DialogService.ShowSimpleDialog("Error", "An error occured while checking for updates");
+                throw;
+            }
 
-        RetVal = File.ReadAllText("Settings/VersionTemp");
+            RetVal = File.ReadAllText("Settings/VersionTemp");
             return RetVal;
         }
 
