@@ -5,6 +5,7 @@ A simple minecraft launcher made using [CmlLib](https://github.com/CmlLib/CmlLib
 
 Current Latest version: 1.1
 
+*This project is not affiliated with Mojang*.
 # How to use
 Download the portable executable in the [Releases](https://github.com/Jurij15/MinecraftLauncher/releases?latest) section and extract the ZIP
 
