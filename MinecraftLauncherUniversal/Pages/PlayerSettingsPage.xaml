@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" x:Name="PlayerAbout" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Grid>
+            <Grid Visibility="Collapsed">
                 <Grid x:Name="PFP" VerticalAlignment="Center">
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
@@ -33,6 +33,7 @@
                     </Ellipse>
                 </Grid>
             </Grid>
+            <PersonPicture ProfilePicture="/Assets/StevePfp.png"/>
             <StackPanel Margin="8,0,0,0" VerticalAlignment="Center">
                 <TextBlock Text="{Binding ElementName=UsernameSettingsBox, Path=Text}" x:Name="UsernameBlock" FontSize="32" Foreground="{ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
                 <TextBlock Text="{Binding ElementName=SubText, Path=Text}" FontSize="13" FontWeight="Light" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
@@ -40,13 +41,9 @@
         </StackPanel>
 
         <StackPanel x:Name="PlayerProfileSelector" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
-                <FontIcon Glyph="&#xE73E;" Foreground="Green" x:Name="SkinSet" VerticalAlignment="Center" Visibility="Collapsed"/>
-                <FontIcon Glyph="&#xE711;" Foreground="Red" x:Name="SkinNotSet" VerticalAlignment="Center" Visibility="Collapsed"/>
-                <TextBlock Text="SkinStatus" x:Name="SkinStatus" Margin="2,0,0,0" VerticalAlignment="Center" Visibility="Collapsed"/>
-
-                <Button Content="Advanced" x:Name="AdvancedDialogBtn" Click="AdvancedDialogBtn_Click"/>
-            </StackPanel>
+            <ComboBox x:Name="ProfileSelector">
+                
+            </ComboBox>
         </StackPanel>
 
         <Grid Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Stretch">
@@ -91,6 +88,10 @@
                     </Flyout>
                 </Button.Flyout>
             </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right">
+            <Button Content="Advanced" x:Name="AdvancedDialogBtn" Click="AdvancedDialogBtn_Click" Margin="0,8,0,0"/>
         </StackPanel>
         <Grid x:Name="SkinFileCard"
               Grid.Row="4" Visibility="Collapsed"

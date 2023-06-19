@@ -20,12 +20,16 @@ namespace MinecraftLauncherUniversal
 {
     public class Globals
     {
+        public static string SQLiteConnectionPath = "Data Source=LauncherDatabase.db;Version=3;";
+
         public static int Theme = 1;
         public static int DownloadRateLimit = 1024;
         public static bool bIsFirstTimeRun = false;
         public static HashSet<string> Recents = new HashSet<string>();
 
         public static ElementSoundPlayerState SoundPlayerState;
+
+        public static string LastUsedProfileID { get; set; }
 
         public static string CurrentVersion {  get; set; }  
 
@@ -36,6 +40,7 @@ namespace MinecraftLauncherUniversal
 
         public static string VersionString = "2.0 - BETA1";
 
+        #region Objects
         public static Window MainWindow;
         public static NavigationView MainNavigation;
         public static BreadcrumbBar MainNavigationBreadcrumb;
@@ -43,6 +48,7 @@ namespace MinecraftLauncherUniversal
         public static Grid MainGrid;
         public static XamlRoot MainGridXamlRoot;
         public static InfoBadge AllVersionsNavigationViewItemInfoBadge;
+        #endregion
 
         //i should use binding for this, instead of just constantly updating it
         public static ObservableCollection<string> Breadcrumbs = new ObservableCollection<string>();

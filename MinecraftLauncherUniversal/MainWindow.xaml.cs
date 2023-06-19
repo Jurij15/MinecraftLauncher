@@ -143,6 +143,11 @@ namespace MinecraftLauncherUniversal
                 Logger.Log("Core", "Logger set up!");
                 Globals.CloseConsole();
             }
+
+            if (!Globals.bIsFirstTimeRun)
+            {
+                InfoDot.Visibility = Visibility.Collapsed;
+            }
         }
 
         async void PreloadArrays()
@@ -181,6 +186,8 @@ namespace MinecraftLauncherUniversal
             }
 
             loaddialog.Hide();
+
+            await DatabaseManager.ConnectToDB();
         }
 
         void SetStats()
@@ -233,6 +240,8 @@ namespace MinecraftLauncherUniversal
             //MainNavigation.PaneTitle = Globals.Username;
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
+
+            GC.Collect(); //idk, trying to lower ram usage
         }
 
         private void MainBreadcrumb_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
@@ -261,6 +270,8 @@ namespace MinecraftLauncherUniversal
 
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
+
+            InfoDot.Visibility = Visibility.Collapsed;
         }
 
         private void AppTitlePaneOpenButton_Click(object sender, RoutedEventArgs e)

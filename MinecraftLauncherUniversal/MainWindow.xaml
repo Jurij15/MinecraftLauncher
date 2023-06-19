@@ -101,21 +101,24 @@
             </NavigationView.Resources>
             <NavigationView.PaneHeader>
                 <Button x:Name="PlayerPaneContent" Padding="6" Background="Transparent" BorderThickness="1" Click="PlayerPaneContent_Click" VerticalContentAlignment="Center" BorderBrush="Transparent" Margin="4,2,4,2" HorizontalAlignment="Stretch" ToolTipService.ToolTip="{Binding ElementName=UsernameBlock, Path=Text}" HorizontalContentAlignment="Left">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Grid HorizontalAlignment="Left">
-                            <Grid x:Name="PFP" VerticalAlignment="Center">
-                                <Ellipse Width="50" Height="50">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Assets/StevePfp.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
+                    <Grid>
+                        <InfoBadge HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource AttentionDotInfoBadgeStyle}" x:Name="InfoDot"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Grid HorizontalAlignment="Left">
+                                <Grid x:Name="PFP" VerticalAlignment="Center">
+                                    <Ellipse Width="50" Height="50">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="/Assets/StevePfp.png" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <StackPanel Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <TextBlock x:Name="UsernameBlock" FontSize="15" Foreground="{ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
-                            <TextBlock x:Name="ProfileSubtext" FontSize="12" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <StackPanel Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock x:Name="UsernameBlock" FontSize="15" Foreground="{ThemeResource TextFillColorPrimaryBrush}" FontWeight="Medium"/>
+                                <TextBlock x:Name="ProfileSubtext" FontSize="12" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </Button>
             </NavigationView.PaneHeader>
             <NavigationView.AutoSuggestBox>

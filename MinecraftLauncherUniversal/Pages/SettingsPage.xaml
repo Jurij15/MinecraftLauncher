@@ -73,7 +73,7 @@
               Header="Debug Console"
               Description="Enable or disable a simple debug console">
             <labs:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xED10;"/>
+                <FontIcon Glyph="&#xEBE8;"/>
             </labs:SettingsCard.HeaderIcon>
             <ComboBox x:Name="ConsoleVisibilityCombo" SelectionChanged="ConsoleVisibilityCombo_SelectionChanged"> 
                 <ComboBoxItem Content="Show" x:Name="ShowConsole"/>

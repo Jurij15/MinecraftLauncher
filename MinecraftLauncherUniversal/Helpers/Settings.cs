@@ -17,6 +17,8 @@ namespace MinecraftLauncherUniversal.Helpers
         public static string ProfileDir = RootDir + "Profile/";
         public static string UsernameConfig = ProfileDir + "UsernameConfig";
         public static string SubTextConfig = ProfileDir + "SubText";
+
+        public static string LastSelectedProfileIDConfig = RootDir + "LastID";
         public static void CreateSettings()
         {
             Directory.CreateDirectory(RootDir);
@@ -45,6 +47,12 @@ namespace MinecraftLauncherUniversal.Helpers
                 //sw.Write("OptiFine 1.17.1");
                 sw.Close();
             }
+
+            using (StreamWriter sw = File.CreateText(LastSelectedProfileIDConfig))
+            {
+                sw.Write(0);
+                sw.Close();
+            }
         }
 
         public static void GetSettings() 
@@ -63,6 +71,9 @@ namespace MinecraftLauncherUniversal.Helpers
 
             string SubText = File.ReadAllText(SubTextConfig);
             Globals.SubText = SubText;
+
+            string Profile = File.ReadAllText(LastSelectedProfileIDConfig);
+            Globals.LastUsedProfileID = SubText;
 
             foreach (var item in File.ReadAllLines(RecentBuilds))
             {
@@ -110,6 +121,16 @@ namespace MinecraftLauncherUniversal.Helpers
             using (StreamWriter sw = File.AppendText(RecentBuilds))
             {
                 sw.WriteLine(BuildName);
+                sw.Close();
+            }
+        }
+
+        public static void SaveLastUsedProfile(string ProfileID)
+        {
+            File.Delete(LastSelectedProfileIDConfig);
+            using (StreamWriter sw = File.CreateText(LastSelectedProfileIDConfig))
+            {
+                sw.Write(Globals.LastUsedProfileID.ToString());
                 sw.Close();
             }
         }
