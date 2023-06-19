@@ -56,7 +56,7 @@
                                  
                                  AlwaysShowHeader="True"
                                  OpenPaneLength="200"
-                                 PaneDisplayMode="Auto"
+                                 PaneDisplayMode="Left"
                                  ItemInvoked="MainNavigation_ItemInvoked"
                                  IsTabStop="False"
                                  IsTitleBarAutoPaddingEnabled="False"

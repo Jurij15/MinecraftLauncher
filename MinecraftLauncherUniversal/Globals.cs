@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -63,5 +64,35 @@ namespace MinecraftLauncherUniversal
             Process p = Process.Start("MinecraftLauncherUniversal.exe");
             Process.GetCurrentProcess().Kill();
         }
+
+        #region Console
+        public static List<string> LoggerHistory = new List<string>();
+
+        public static bool bShowConsole = false;
+        private static bool _isConsoleVisible = false;
+
+        [DllImport("kernel32.dll", EntryPoint = "AllocConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern int AllocConsole();
+
+        public static void SetupConsole()
+        {
+            AllocConsole();
+            _isConsoleVisible = true;
+            foreach (var item in LoggerHistory)
+            {
+                Console.WriteLine(item);
+            }
+            Logger.Log("core", "Console Enabled!");
+            DialogService.ShowSimpleDialog("", "Console Enabled!");
+        }
+
+        [DllImport("kernel32.dll", EntryPoint = "FreeConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern int FreeConsole();
+
+        public static void CloseConsole()
+        {
+            FreeConsole();
+        }
+        #endregion
     }
 }

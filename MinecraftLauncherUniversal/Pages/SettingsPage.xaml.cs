@@ -29,7 +29,6 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
-        int bInitialThemeValue;
         public SettingsPage()
         {
             this.InitializeComponent();
@@ -40,6 +39,15 @@ namespace MinecraftLauncherUniversal.Pages
             else
             {
                 SoundToggle.IsOn = false;
+            }
+
+            if (Globals.bShowConsole)
+            {
+                ConsoleVisibilityCombo.SelectedItem = ShowConsole;
+            }
+            else
+            {
+                ConsoleVisibilityCombo.SelectedItem = HideConsole;
             }
         }
 
@@ -73,34 +81,19 @@ namespace MinecraftLauncherUniversal.Pages
             }
         }
 
-        private async void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             // Save theme choice to LocalSettings. 
             // ApplicationTheme enum values: 0 = Light, 1 = Dark
-
             bool toggleswitchstate = ((ToggleSwitch)sender).IsOn;
-
-            bInitialThemeValue = Convert.ToInt32(toggleswitchstate);
-
-            if (Convert.ToInt32(toggleswitchstate) != bInitialThemeValue)
-            {
-                TeachingTip tip = new TeachingTip();
-                tip.Target = ThemeSwitch;
-                tip.Title = "App Restart Required";
-                tip.Subtitle = "Restart to apply changes!";
-                await Task.Delay(100);
-                tip.IsOpen = true;
-
-                RGrid.Children.Add(tip);
-            }
 
             if (!toggleswitchstate)
             {
-                ThemeService.SetTheme(ApplicationTheme.Light);
+                //ThemeService.SetTheme(ApplicationTheme.Light);
             }
             else
             {
-                ThemeService.SetTheme(ApplicationTheme.Dark);
+                //ThemeService.SetTheme(ApplicationTheme.Dark);
             }
 
             Globals.Theme = Convert.ToInt32(toggleswitchstate);
@@ -112,8 +105,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)
         {
-            ThemeSwitch.IsOn = Convert.ToBoolean(Globals.Theme);
-            bInitialThemeValue = Globals.Theme;
+            ((ToggleSwitch)sender).IsOn = Convert.ToBoolean(Globals.Theme);
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
@@ -139,7 +131,7 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 manager.ApplyMicaKind(Microsoft.UI.Composition.SystemBackdrops.MicaKind.Base);
             }
-            else if(content == "MicaAlt")
+            else if (content == "MicaAlt")
             {
                 manager.ApplyMicaKind(Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt);
             }
@@ -178,6 +170,20 @@ namespace MinecraftLauncherUniversal.Pages
         private void Dialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Globals.ResetApp(true);
+        }
+
+        private void ConsoleVisibilityCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ConsoleVisibilityCombo.SelectedItem == ShowConsole)
+            {
+                Globals.bShowConsole = true;
+                Globals.SetupConsole();
+            }
+            if (ConsoleVisibilityCombo.SelectedItem == HideConsole)
+            {
+                Globals.bShowConsole = false;
+                Globals.CloseConsole();
+            }
         }
     }
 }

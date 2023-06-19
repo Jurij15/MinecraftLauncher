@@ -94,6 +94,8 @@ namespace MinecraftLauncherUniversal
             {
                 MainNavigationDisableContentBackgroundDictionary.ThemeDictionaries.Clear();
             }
+
+            //Application.Current.FocusVisualKind = FocusVisualKind.Reveal;
         }
 
         void SetGlobalObjects()
@@ -133,6 +135,13 @@ namespace MinecraftLauncherUniversal
             {
                 UsernameTip.Target = (FrameworkElement)MainNavigation.PaneCustomContent;
                 //UsernameTip.IsOpen = true;
+            }
+
+            if (Globals.bShowConsole)
+            {
+                Globals.SetupConsole();
+                Logger.Log("Core", "Logger set up!");
+                Globals.CloseConsole();
             }
         }
 
