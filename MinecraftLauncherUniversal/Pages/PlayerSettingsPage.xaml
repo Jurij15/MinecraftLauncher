@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded"
     Unloaded="Page_Unloaded"
-    Background="Transparent">
+    Background="Transparent"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI">
 
     <Grid Margin="58, 42, 58,0">
         <Grid.RowDefinitions>
@@ -41,7 +42,7 @@
         </StackPanel>
 
         <StackPanel x:Name="PlayerProfileSelector" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Grid.Row="1">
-            <ComboBox x:Name="ProfileSelector">
+            <ComboBox x:Name="ProfileSelector" SelectionChanged="ProfileSelector_SelectionChanged">
                 
             </ComboBox>
         </StackPanel>
@@ -108,5 +109,12 @@
             <StackPanel HorizontalAlignment="Right" Margin="20" VerticalAlignment="Center">
             </StackPanel>
         </Grid>
+        <labs:SettingsExpander HorizontalAlignment="Stretch" Grid.Row="4" HorizontalContentAlignment="Stretch" IsExpanded="True" Header="Profile Management"
+                               Description="add profile, remove profile" Margin="0,4,0,0">
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard Header="Add Profile" IsClickEnabled="True" IsActionIconVisible="True" x:Name="AddProfileCard" Click="AddProfileCard_Click"/>
+                <labs:SettingsCard Header="Remove Profile" IsClickEnabled="True" IsActionIconVisible="True" x:Name="RemoveProfileCard" Click="RemoveProfileCard_Click"/>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
     </Grid>
 </Page>

@@ -197,5 +197,25 @@ namespace MinecraftLauncherUniversal.Pages
 
             UpdatesInfoBar.IsOpen = true;
         }
+
+        private void PlayVersionCard_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[1];
+            Globals.MainFrame.Navigate(typeof(AllVersionsPage));
+        }
+
+        private void PlayOptifineCard_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2];
+            Globals.MainFrame.Navigate(typeof(OptiFinePage));
+        }
+
+        private void ChangeUsernameCard_Click(object sender, RoutedEventArgs e)
+        {
+            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.SettingsItem;
+            Globals.MainFrame.Navigate(typeof(SettingsPage));
+            NavigationService.UpdateBreadcrumb("Settings", true);
+            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+        }
     }
 }

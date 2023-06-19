@@ -101,6 +101,17 @@
                     </TeachingTip>
                 </StackPanel>
             </Expander>
+            <Expander HorizontalAlignment="Stretch" Grid.Row="3" x:Name="VersionSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="False">
+                <Expander.Header>
+                    <StackPanel Margin="8" CornerRadius="8">
+                        <TextBlock Text="Version Settings" FontSize="15"/>
+                        <TextBlock Text="Delete Version" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Expander.Header>
+                <StackPanel>
+                    <Button Background="Red" Content="Delete Build" x:Name="DeleteBuildBtn" Click="DeleteBuildBtn_Click"/>
+                </StackPanel>
+            </Expander>
             <InfoBar Title="Minecraft Launched" Message="Minecraft launched successfully!" Severity="Success" IsOpen="False" Grid.Row="0" Margin="2,2,2,2" x:Name="MinecraftLaunchedInfo" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>

@@ -1,5 +1,6 @@
 using CmlLib.Core;
 using Microsoft.UI;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -10,6 +11,8 @@ using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Managers;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +23,7 @@ using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.NetworkOperators;
 using Windows.Perception.Spatial.Preview;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -35,26 +39,16 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class PlayerSettingsPage : Page
     {
+        string GetCurrentID()
+        {
+            return ((ComboBoxItem)ProfileSelector.SelectedItem).Name;
+        }
         public PlayerSettingsPage()
         {
             this.InitializeComponent();
 
             UsernameSettingsBox.Text = Globals.Username;
             SubText.Text = Globals.SubText;
-            //new Thickness(Height, 0, 0, 0);
-
-            /*
-            if (ProfileManager.bIsSkinFilePresent())
-            {
-                SkinSet.Visibility = Visibility.Visible;
-                SkinStatus.Text = "Skin Set";
-            }
-            else
-            {
-                SkinNotSet.Visibility = Visibility.Visible;
-                SkinStatus.Text = "Skin Not Set";
-            }
-            */
         }
 
         private void UsernameSettingsBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -64,21 +58,52 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
+            Profile p = new Profile(GetCurrentID());
             if (!string.IsNullOrEmpty(UsernameSettingsBox.Text) || !string.IsNullOrWhiteSpace(UsernameSettingsBox.Text))
             {
                 Globals.Username = UsernameSettingsBox.Text;
                 Settings.SaveNewUsername();
+                p.Update(UsernameSettingsBox.Text);
             }
             if (!string.IsNullOrEmpty(SubText.Text) || !string.IsNullOrWhiteSpace(SubText.Text))
             {
                 Globals.SubText = SubText.Text;
                 Settings.SaveNewSubText();
+                p.Update(null, SubText.Text);
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            #region Init Profiles 
+            ProfileManager manager = new ProfileManager();
+            List<string> ids = await manager.GetAllIDS();
+            foreach (var id in ids)
+            {
+                Profile p = new Profile(id);
 
+                ComboBoxItem item = new ComboBoxItem();
+                StackPanel content = new StackPanel();
+
+                TextBlock username = new TextBlock();
+                TextBlock subText = new TextBlock();
+
+                username.Text = p.GetUsername();
+                subText.Text = p.GetSubtext();
+
+                username.FontSize = 16;
+                username.FontWeight = FontWeights.Medium;
+
+                item.Name = id;
+
+                content.Children.Add(username);
+                content.Children.Add(subText);
+
+                item.Content = content;
+
+                ProfileSelector.Items.Add(item);
+            }
+            #endregion
         }
 
         private async void ExploreBtn_Click(object sender, RoutedEventArgs e)
@@ -98,7 +123,6 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void NewSkinFilePath_TextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
 
         private async void AdvancedDialogBtn_Click(object sender, RoutedEventArgs e)
@@ -131,6 +155,24 @@ namespace MinecraftLauncherUniversal.Pages
         private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             sender.Hide();
+        }
+
+        private void ProfileSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private async void AddProfileCard_Click(object sender, RoutedEventArgs e)
+        {
+            ProfileManager manager = new ProfileManager();
+            await manager.AddNewUser("Player", "A Minecraft Player"); //default
+        }
+
+        private void RemoveProfileCard_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem item = ((ComboBoxItem)ProfileSelector.SelectedItem);
+            Profile p = new Profile(item.Name);
+            p.Delete();
         }
     }
 }

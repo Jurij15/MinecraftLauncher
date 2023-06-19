@@ -30,11 +30,11 @@ namespace MinecraftLauncherUniversal.Managers
 
             try
             {
-                string CreateTableSqlCommand = "CREATE TABLE IF NOT EXISTS Profile (ID STRING PRIMARY KEY AUTOINCREMENT, Username STRING, SubText STRING, ProfilePicture STRING)";
+                string CreateTableSqlCommand = "CREATE TABLE IF NOT EXISTS Profile (ID INTEGER PRIMARY KEY AUTOINCREMENT, Username STRING, SubText STRING, ProfilePicture STRING)";
                 SQLiteCommand CreateCommand = new SQLiteCommand(CreateTableSqlCommand, DatabaseConnection);
                 await CreateCommand.ExecuteNonQueryAsync();
 
-                string InsertSqlCommand = "INSERT INTO App (Username, SubText, ProfilePicture)" + " VALUES('" + username + "', '" + SubText + "', '" + "')";
+                string InsertSqlCommand = "INSERT INTO Profile (Username, SubText, ProfilePicture)" + " VALUES('" + username + "', '" + SubText + "', '" + "')";
                 SQLiteCommand InsertCommand = new SQLiteCommand(InsertSqlCommand, DatabaseConnection);
                 await InsertCommand.ExecuteNonQueryAsync();
 
@@ -78,22 +78,40 @@ namespace MinecraftLauncherUniversal.Managers
             return RetVal;
         }
 
-        public async Task UpdateProfile(string ID, string Username, string SubText)
+        public async Task UpdateProfileUsername(string ID, string Username)
         {
             //tried using chatgpt for this, its good
-            string command = "UPDATE Profile SET AppName = @Username, SubText = @SubText WHERE ID = @id";
+            string command = "UPDATE Profile SET Username = @Username WHERE ID = @id";
             using (var cmd = new SQLiteCommand(command, DatabaseConnection))
             {
                 cmd.Parameters.AddWithValue("@Username", Username);
+                cmd.Parameters.AddWithValue("@ID", ID);
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task UpdateProfileSubText(string ID, string SubText)
+        {
+            //tried using chatgpt for this, its good
+            string command = "UPDATE Profile SET SubText = @SubText WHERE ID = @id";
+            using (var cmd = new SQLiteCommand(command, DatabaseConnection))
+            {
                 cmd.Parameters.AddWithValue("@SubText", SubText);
                 cmd.Parameters.AddWithValue("@ID", ID);
                 await cmd.ExecuteNonQueryAsync();
             }
         }
 
-        public static async Task RemoveProfileFromDatabaseByIDAsync(string ID)
+        public async Task RemoveProfileFromDatabaseByIDAsync(string ID)
         {
             string Command = "Delete FROM Profile WHERE ID ==" + ID;
+            SQLiteCommand SelectCommand = new SQLiteCommand(Command, DatabaseConnection);
+            await SelectCommand.ExecuteNonQueryAsync();
+        }
+
+        public async Task ResetDB()
+        {
+            string Command = "Delete FROM Profile";
             SQLiteCommand SelectCommand = new SQLiteCommand(Command, DatabaseConnection);
             await SelectCommand.ExecuteNonQueryAsync();
         }

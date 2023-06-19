@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.Windows.AppLifecycle;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace MinecraftLauncherUniversal
 {
     public class Globals
     {
-        public static string SQLiteConnectionPath = "Data Source=LauncherDatabase.db;Version=3;";
+        public static string SQLiteConnectionPath = "Data Source=Profiles.db;Version=3;";
 
         public static int Theme = 1;
         public static int DownloadRateLimit = 1024;
@@ -65,8 +66,11 @@ namespace MinecraftLauncherUniversal
             RestartApp();
         }
 
-        public static void RestartApp()
+        public static async void RestartApp()
         {
+            DatabaseManager manager = new DatabaseManager();
+            await manager.ResetDB();
+
             Process p = Process.Start("MinecraftLauncherUniversal.exe");
             Process.GetCurrentProcess().Kill();
         }

@@ -135,9 +135,9 @@
                     </StackPanel.ChildrenTransitions>
                     <TextBlock Text="Actions" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12"/>
                     <StackPanel Grid.Column="1" Spacing="2">
-                        <labs:SettingsCard Header="Select a build" IsClickEnabled="True"/>
-                        <labs:SettingsCard Header="Play OptiFine" IsClickEnabled="True"/>
-                        <labs:SettingsCard Header="Change Your username" IsClickEnabled="True"/>
+                        <labs:SettingsCard Header="Select a Version" IsClickEnabled="True" x:Name="PlayVersionCard" Click="PlayVersionCard_Click"/>
+                        <labs:SettingsCard Header="Play OptiFine" IsClickEnabled="True" x:Name="PlayOptifineCard" Click="PlayOptifineCard_Click"/>
+                        <labs:SettingsCard Header="Change Your username" IsClickEnabled="True" x:Name="ChangeUsernameCard" Click="ChangeUsernameCard_Click"/>
                     </StackPanel>
                 </StackPanel>
 

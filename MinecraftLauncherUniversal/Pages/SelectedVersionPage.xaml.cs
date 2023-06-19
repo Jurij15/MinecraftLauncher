@@ -194,5 +194,10 @@ namespace MinecraftLauncherUniversal.Pages
         {
 
         }
+
+        private void DeleteBuildBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

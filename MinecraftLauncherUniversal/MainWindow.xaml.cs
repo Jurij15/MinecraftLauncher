@@ -60,7 +60,7 @@ namespace MinecraftLauncherUniversal
             }
         }
 
-        void InitDesgin() 
+        async void InitDesgin() 
         {
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
@@ -96,6 +96,8 @@ namespace MinecraftLauncherUniversal
             }
 
             //Application.Current.FocusVisualKind = FocusVisualKind.Reveal;
+
+            await DatabaseManager.ConnectToDB();
         }
 
         void SetGlobalObjects()
@@ -128,6 +130,7 @@ namespace MinecraftLauncherUniversal
             //MainNavigation.PaneTitle = Globals.Username;
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
+            ToolTipService.SetToolTip(PlayerPaneContent, "Edit Profile "+UsernameBlock.Text);
 
             //PreloadArrays();
 
@@ -137,17 +140,21 @@ namespace MinecraftLauncherUniversal
                 //UsernameTip.IsOpen = true;
             }
 
-            if (Globals.bShowConsole)
-            {
-                Globals.SetupConsole();
-                Logger.Log("Core", "Logger set up!");
-                Globals.CloseConsole();
-            }
-
             if (!Globals.bIsFirstTimeRun)
             {
                 InfoDot.Visibility = Visibility.Collapsed;
             }
+
+            if (Globals.bIsFirstTimeRun)
+            {
+                OnFirstTimeRun();
+            }
+        }
+
+        async void OnFirstTimeRun()
+        {
+            ProfileManager manager = new ProfileManager();
+            await manager.CreateDefaultPlayerProfile();
         }
 
         async void PreloadArrays()
