@@ -142,7 +142,7 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Update="Profiles.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <Page Update="Dialogs\WelcomeSetupDialog.xaml">
       <Generator>MSBuild:Compile</Generator>

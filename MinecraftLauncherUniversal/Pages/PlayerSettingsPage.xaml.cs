@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Networking.NetworkOperators;
@@ -57,28 +58,33 @@ namespace MinecraftLauncherUniversal.Pages
             
         }
 
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        private async void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            Profile p = new Profile(GetCurrentID());
+            await Task.Delay(2000);
             if (!string.IsNullOrEmpty(UsernameSettingsBox.Text) || !string.IsNullOrWhiteSpace(UsernameSettingsBox.Text))
             {
                 Globals.Username = UsernameSettingsBox.Text;
-                Settings.SaveNewUsername();
-                p.Update(UsernameSettingsBox.Text);
+                //Settings.SaveNewUsername();
+                Profile p = new Profile(GetCurrentID());
+                p.UpdateUsername(UsernameSettingsBox.Text);
             }
             if (!string.IsNullOrEmpty(SubText.Text) || !string.IsNullOrWhiteSpace(SubText.Text))
             {
                 Globals.SubText = SubText.Text;
-                Settings.SaveNewSubText();
-                p.Update(null, SubText.Text);
+                //Settings.SaveNewSubText();
+                Profile p = new Profile(GetCurrentID());
+                p.UpdateSubText(SubText.Text);
             }
+
+            Globals.LastUsedProfileID = GetCurrentID();
+            Settings.SaveLastUsedProfile(Globals.LastUsedProfileID);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             #region Init Profiles 
-            ProfileManager manager = new ProfileManager();
-            List<string> ids = await manager.GetAllIDS();
+            CustomProfileDataManager manager = new CustomProfileDataManager();
+            List<string> ids = manager.GetAllGuids();
             foreach (var id in ids)
             {
                 Profile p = new Profile(id);
@@ -104,6 +110,15 @@ namespace MinecraftLauncherUniversal.Pages
 
                 ProfileSelector.Items.Add(item);
             }
+
+            foreach (ComboBoxItem item in ProfileSelector.Items)
+            {
+                if (item.Name == Globals.LastUsedProfileID)
+                {
+                    ProfileSelector.SelectedItem = item;
+                    break;
+                }
+            } 
             #endregion
         }
 
@@ -163,17 +178,20 @@ namespace MinecraftLauncherUniversal.Pages
             _id = ((ComboBoxItem)ProfileSelector.SelectedItem).Name;
         }
 
-        private async void AddProfileCard_Click(object sender, RoutedEventArgs e)
+        private void AddProfileCard_Click(object sender, RoutedEventArgs e)
         {
-            ProfileManager manager = new ProfileManager();
-            await manager.AddNewUser("Player", "A Minecraft Player"); //default
+            CustomProfileDataManager manager = new CustomProfileDataManager();
+            manager.CreateNewProfile();
         }
 
         private void RemoveProfileCard_Click(object sender, RoutedEventArgs e)
         {
-            ComboBoxItem item = ((ComboBoxItem)ProfileSelector.SelectedItem);
-            Profile p = new Profile(item.Name);
-            p.Delete();
+            Globals.MainWindow.ShowMessageDialogAsync(GetCurrentID());
+            Profile p = new Profile(GetCurrentID());
+            //p.Delete();
+
+            NavigationService.FrameGoBack();
+            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
         }
     }
 }

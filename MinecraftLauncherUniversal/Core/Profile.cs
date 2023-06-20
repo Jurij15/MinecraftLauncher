@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MinecraftLauncherUniversal.Core
 {
-    public class Profile : ProfileManager
+    public class Profile : CustomProfileDataManager
     {
-        private string _id;
+        private string _id; //guid
         private string _Username;
         private string _Subtext;
 
@@ -25,8 +25,8 @@ namespace MinecraftLauncherUniversal.Core
 
         public async void Initialize(string ID)
         {
-            _Username = await GetProfileUsernameFromID(ID);
-            _Subtext = await GetProfileSubTextFromID(ID);
+            _Username = GetUsernameByGuid(ID);
+            _Subtext = GetSubTextByGuid(ID);
         }
 
         public string GetUsername()
@@ -39,21 +39,19 @@ namespace MinecraftLauncherUniversal.Core
             return _Subtext;
         }
 
-        public async void Delete()
+        public void Delete()
         {
-            await RemoveProfileFromDatabaseByIDAsync(_id);
+            DeleteProfile(_id);
         }
 
-        public async void Update(string Name = null, string SubText = "")
+        public void UpdateUsername(string Name)
         {
-            if (Name != null)
-            {
-                await UpdateProfileUsername(_id, Name);
-            }
-            if (SubText != null)
-            {
-                await UpdateProfileSubText(_id, SubText);
-            }
+            SaveNewUsernameConfigToGuid(_id);
+        }
+
+        public void UpdateSubText(string SubText)
+        {
+            SaveNewSubTextConfigToGuid(_id);
         }
     }
 }

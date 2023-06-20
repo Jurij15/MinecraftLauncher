@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Management.Deployment;
+using WinUIEx;
 
 namespace MinecraftLauncherUniversal
 {
@@ -42,7 +43,7 @@ namespace MinecraftLauncherUniversal
         public static string VersionString = "2.0 - BETA1";
 
         #region Objects
-        public static Window MainWindow;
+        public static WindowEx MainWindow;
         public static NavigationView MainNavigation;
         public static BreadcrumbBar MainNavigationBreadcrumb;
         public static Frame MainFrame;
@@ -62,15 +63,15 @@ namespace MinecraftLauncherUniversal
         {
             Directory.Delete(Settings.RootDir, true);
             if (bSendNotification) { NotificationService.SendSimpleToast("MinecraftLauncher was reset", "Restart was required to complete", 1.9); }
-            //Microsoft.Windows.AppLifecycle.AppInstance.Restart(""); //crashes
+
+            //CustomProfileDataManager manager = new CustomProfileDataManager();
+            //manager.DeleteProfile();
+
             RestartApp();
         }
 
         public static async void RestartApp()
         {
-            DatabaseManager manager = new DatabaseManager();
-            await manager.ResetDB();
-
             Process p = Process.Start("MinecraftLauncherUniversal.exe");
             Process.GetCurrentProcess().Kill();
         }

@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -96,8 +97,6 @@ namespace MinecraftLauncherUniversal
             }
 
             //Application.Current.FocusVisualKind = FocusVisualKind.Reveal;
-
-            await DatabaseManager.ConnectToDB();
         }
 
         void SetGlobalObjects()
@@ -124,6 +123,17 @@ namespace MinecraftLauncherUniversal
             AppNotificationManager.Default.Register();
             Settings.GetSettings();
 
+            if (Globals.bIsFirstTimeRun)
+            {
+                OnFirstTimeRun();
+            }
+            else
+            {
+                //init last used user profile
+                CustomProfileDataManager managet = new CustomProfileDataManager();
+                managet.GetLastUsedProfile();
+            }
+
             //MainNavigation.PaneTitle = Globals.Username;
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
@@ -145,17 +155,12 @@ namespace MinecraftLauncherUniversal
             {
                 InfoDot.Visibility = Visibility.Collapsed;
             }
-
-            if (Globals.bIsFirstTimeRun)
-            {
-                OnFirstTimeRun();
-            }
         }
 
-        async void OnFirstTimeRun()
+        void OnFirstTimeRun()
         {
-            ProfileManager manager = new ProfileManager();
-            await manager.CreateDefaultPlayerProfile();
+            CustomProfileDataManager manager = new CustomProfileDataManager();
+            manager.InitProfiles();
         }
 
         async void PreloadArrays()
@@ -194,8 +199,6 @@ namespace MinecraftLauncherUniversal
             }
 
             loaddialog.Hide();
-
-            await DatabaseManager.ConnectToDB();
         }
 
         void SetStats()

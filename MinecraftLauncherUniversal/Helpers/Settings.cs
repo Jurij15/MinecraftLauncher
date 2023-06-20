@@ -66,14 +66,15 @@ namespace MinecraftLauncherUniversal.Helpers
             string theme = File.ReadAllText(ThemeConfig);
             Globals.Theme = Convert.ToInt32(theme);
 
+            //for testing purposes, lets not do that
             string Username = File.ReadAllText(UsernameConfig);
-            Globals.Username = Username;
+            //Globals.Username = Username;
 
             string SubText = File.ReadAllText(SubTextConfig);
-            Globals.SubText = SubText;
+            //Globals.SubText = SubText;
 
             string Profile = File.ReadAllText(LastSelectedProfileIDConfig);
-            Globals.LastUsedProfileID = SubText;
+            Globals.LastUsedProfileID = Profile;
 
             foreach (var item in File.ReadAllLines(RecentBuilds))
             {
