@@ -49,6 +49,7 @@
                     <HyperlinkButton NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core"/>
                 </StackPanel>
                 <StackPanel Grid.Row="0" HorizontalAlignment="Left">
+                    <TextBlock Text="This project is not affiliated with Mojang or Microsoft in any way." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
                     <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
                 </StackPanel>
             </Grid>

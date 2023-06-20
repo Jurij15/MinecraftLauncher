@@ -39,9 +39,10 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class PlayerSettingsPage : Page
     {
+        string _id;
         string GetCurrentID()
         {
-            return ((ComboBoxItem)ProfileSelector.SelectedItem).Name;
+            return _id;
         }
         public PlayerSettingsPage()
         {
@@ -159,7 +160,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void ProfileSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            _id = ((ComboBoxItem)ProfileSelector.SelectedItem).Name;
         }
 
         private async void AddProfileCard_Click(object sender, RoutedEventArgs e)

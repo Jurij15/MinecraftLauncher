@@ -201,18 +201,21 @@ namespace MinecraftLauncherUniversal.Pages
         private void PlayVersionCard_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[1];
+            NavigationService.ShowBreadcrumb();
             Globals.MainFrame.Navigate(typeof(AllVersionsPage));
         }
 
         private void PlayOptifineCard_Click(object sender, RoutedEventArgs e)
         {
-            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2];
+            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2]; 
+            NavigationService.ShowBreadcrumb();
             Globals.MainFrame.Navigate(typeof(OptiFinePage));
         }
 
         private void ChangeUsernameCard_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.SettingsItem;
+            NavigationService.ShowBreadcrumb();
             Globals.MainFrame.Navigate(typeof(SettingsPage));
             NavigationService.UpdateBreadcrumb("Settings", true);
             NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);

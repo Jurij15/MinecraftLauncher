@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace MinecraftLauncherUniversal.Services
 {
+    public enum NavigatePage
+    {
+        Home,
+        AllVersions,
+        OptiFine,
+        About,
+        Settings,
+        SelectedVersionPage,
+        PlayerSettingsPage
+    }
     public class NavigationService
     {
         public static void UpdateBreadcrumb(string AddText, bool RemovePrevious)
@@ -63,6 +73,11 @@ namespace MinecraftLauncherUniversal.Services
         {
             Globals.MainNavigationBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
             Globals.MainNavigation.AlwaysShowHeader = true;
+        }
+
+        public static void Navigate(NavigatePage RequestedPage, string CustomBreadcrumbText)
+        {
+
         }
     }
 }

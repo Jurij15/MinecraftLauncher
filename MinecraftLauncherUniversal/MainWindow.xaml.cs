@@ -112,27 +112,28 @@ namespace MinecraftLauncherUniversal
         public MainWindow()
         {
             this.InitializeComponent();
+            this.Title = "Minecraft Launcher";
             InitDesgin();
             SetGlobalObjects();
+
+            OnMainWindowStartup();
+        }
+
+        void OnMainWindowStartup()
+        {
+            AppNotificationManager.Default.Register();
             Settings.GetSettings();
 
-            AppNotificationManager.Default.Register();
-
-            this.Title = "Minecraft Launcher";
+            //MainNavigation.PaneTitle = Globals.Username;
+            UsernameBlock.Text = Globals.Username;
+            ProfileSubtext.Text = Globals.SubText;
+            ToolTipService.SetToolTip(PlayerPaneContent, "Edit Profile " + UsernameBlock.Text);
 
             //navigate home
             MainNavigation.SelectedItem = HomeItem;
             RootFrame.Navigate(typeof(HomePage));
             NavigationService.UpdateBreadcrumb("Home", true);
             NavigationService.HideBreadcrumb();
-
-
-            //MainNavigation.PaneTitle = Globals.Username;
-            UsernameBlock.Text = Globals.Username;
-            ProfileSubtext.Text = Globals.SubText;
-            ToolTipService.SetToolTip(PlayerPaneContent, "Edit Profile "+UsernameBlock.Text);
-
-            //PreloadArrays();
 
             if (Globals.bIsFirstTimeRun)
             {
