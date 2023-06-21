@@ -57,7 +57,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void UsernameSettingsBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            //((HyperlinkButton)RefreshBtn).Visibility = Visibility.Visible;
         }
 
         private async void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -243,6 +243,51 @@ namespace MinecraftLauncherUniversal.Pages
                     bRestartingAfterAccDeleted = true;
                 }
             }
+
+            NavigationService.FrameGoBack();
+            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            #region Init Profiles 
+            CustomProfileDataManager manager = new CustomProfileDataManager();
+            List<string> ids = manager.GetAllGuids();
+            foreach (var id in ids)
+            {
+                Profile p = new Profile(id);
+
+                ComboBoxItem item = new ComboBoxItem();
+                StackPanel content = new StackPanel();
+
+                TextBlock username = new TextBlock();
+                TextBlock subText = new TextBlock();
+
+                username.Text = p.GetUsername();
+                subText.Text = p.GetSubtext();
+
+                username.FontSize = 16;
+                username.FontWeight = FontWeights.Medium;
+
+                item.Name = id;
+
+                content.Children.Add(username);
+                content.Children.Add(subText);
+
+                item.Content = content;
+
+                ProfileSelector.Items.Add(item);
+            }
+
+            foreach (ComboBoxItem item in ProfileSelector.Items)
+            {
+                if (item.Name == Globals.LastUsedProfileID)
+                {
+                    ProfileSelector.SelectedItem = item;
+                    break;
+                }
+            }
+            #endregion
 
             NavigationService.FrameGoBack();
             NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);

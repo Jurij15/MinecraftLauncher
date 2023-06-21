@@ -17,9 +17,6 @@
                 </StackPanel>
             </PivotItem>
             <PivotItem Header="Username">
-                
-            </PivotItem>
-            <PivotItem Header="Demo">
 
             </PivotItem>
             <PivotItem Header="Done">

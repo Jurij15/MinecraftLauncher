@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:MinecraftLauncherUniversal.Controls"
     mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Disabled"
-    xmlns:labs="using:CommunityToolkit.Labs.WinUI">
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:media="using:CommunityToolkit.WinUI.UI.Media">
 
     <ScrollViewer>
         <Grid Margin="58, 42, 58,0">
@@ -29,6 +30,14 @@
                     Stretch="UniformToFill"/>
                                 </Border.Background>
                                 <Border CornerRadius="8">
+                                    <!--
+                                         original brush                               <Border.Background>
+                                        <RadialGradientBrush>
+                                            <GradientStop Offset="0" Color="#1F000000" />
+                                            <GradientStop Offset="1" Color="#4F000000" />
+                                        </RadialGradientBrush>
+                                    </Border.Background>
+                                    -->
                                     <Border.Background>
                                         <RadialGradientBrush>
                                             <GradientStop Offset="0" Color="#1F000000" />
@@ -36,6 +45,9 @@
                                         </RadialGradientBrush>
                                     </Border.Background>
                                     <Grid>
+                                        <Grid.Background>
+                                            <media:BackdropBlurBrush Amount="1.50" IsEnabled="False"/>
+                                        </Grid.Background>
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                                             <TextBlock Text="Minecraft Launcher" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                                             <TextBlock Text="Unique. Modern. Simple." FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
@@ -59,6 +71,9 @@
                                         </RadialGradientBrush>
                                     </Border.Background>
                                     <Grid>
+                                        <Grid.Background>
+                                            <media:BackdropBlurBrush Amount="2.50"/>
+                                        </Grid.Background>
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                                             <TextBlock Text="OptiFine 1.17.1" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                                             <TextBlock Text="Popular version" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,0" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
@@ -86,7 +101,7 @@
                                     </Border.Background>
                                     <Grid>
                                         <Grid.Background>
-                                            <AcrylicBrush TintOpacity="0" TintLuminosityOpacity="0" TintColor="Transparent"/>
+                                            <media:BackdropBlurBrush Amount="5.60"/>
                                         </Grid.Background>
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                                             <TextBlock Text="V2 Development" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>

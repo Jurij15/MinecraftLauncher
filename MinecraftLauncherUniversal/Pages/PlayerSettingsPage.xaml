@@ -41,7 +41,8 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel x:Name="PlayerProfileSelector" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Grid.Row="1">
+        <StackPanel x:Name="PlayerProfileSelector" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Grid.Row="1" Spacing="1">
+            <HyperlinkButton Content="Refresh" Click="HyperlinkButton_Click" x:Name="RefreshBtn" Visibility="Collapsed"/>
             <ComboBox x:Name="ProfileSelector" SelectionChanged="ProfileSelector_SelectionChanged">
                 
             </ComboBox>
@@ -50,7 +51,7 @@
         <Grid Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Stretch">
             <StackPanel>
                 <TextBox Header="Username" x:Name="UsernameSettingsBox" PlaceholderText="Username" TextChanged="UsernameSettingsBox_TextChanged" Margin="0,2,0,2"/>
-                <TextBox Header="Profile SubText" x:Name="SubText" Text="A MinecraftLauncher User" PlaceholderText="SubText" Margin="0,2,0,2"/>
+                <TextBox Header="Profile SubText" x:Name="SubText" Text="A MinecraftLauncher User" TextChanged="UsernameSettingsBox_TextChanged" PlaceholderText="SubText" Margin="0,2,0,2"/>
             </StackPanel>
         </Grid>
 

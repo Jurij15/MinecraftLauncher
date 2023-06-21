@@ -19,6 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinUIEx;
@@ -163,7 +164,7 @@ namespace MinecraftLauncherUniversal
             manager.InitProfiles();
         }
 
-        async void PreloadArrays()
+        async Task PreloadArrays()
         {
             ContentDialog loaddialog = new ContentDialog();
             loaddialog.XamlRoot = this.Content.XamlRoot;
@@ -342,10 +343,30 @@ namespace MinecraftLauncherUniversal
             NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
         }
 
-        private void RootGrid_Loaded(object sender, RoutedEventArgs e)
+        private async void RootGrid_Loaded(object sender, RoutedEventArgs e)
         {
             Globals.MainGridXamlRoot = this.Content.XamlRoot;
-            PreloadArrays();
+            await PreloadArrays();
+
+            if (Globals.bIsFirstTimeRun)
+            {
+                ContentDialog loaddialog = new ContentDialog();
+                loaddialog.XamlRoot = this.Content.XamlRoot;
+                loaddialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                //loaddialog.Content = new SimpleLoadingDialog("Preparing...");
+                loaddialog.Title = "Welcome to MinecraftLauncher V2!";
+
+                loaddialog.ShowAsync();
+            }
+        }
+
+        private void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            //MainNavigation.PaneTitle = Globals.Username;
+            UsernameBlock.Text = Globals.Username;
+            ProfileSubtext.Text = Globals.SubText;
+
+            GC.Collect(); //idk, trying to lower ram usage
         }
     }
 }

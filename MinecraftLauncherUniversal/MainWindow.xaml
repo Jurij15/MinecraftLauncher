@@ -179,7 +179,7 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
-            <Frame x:Name="RootFrame" Margin="0,0,0,0"
+            <Frame x:Name="RootFrame" Margin="0,0,0,0" Navigated="RootFrame_Navigated"
                     >
             </Frame>
             <NavigationView.ContentOverlay>
