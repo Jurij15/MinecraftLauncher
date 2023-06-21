@@ -25,10 +25,10 @@
         </Grid.RowDefinitions>
         <Expander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True">
             <Expander.Header>
-                <Grid Margin="8" x:Name="AboutAppGrid" Padding="16,16,4,16">
+                <Grid Margin="8" x:Name="AboutAppGrid" Padding="14,14,4,14">
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
-                            <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="30" Width="30" Margin="0,0,8,0"/>
+                            <ImageIcon Source="/Assets/LogoNew.png" Height="40" Width="40" Margin="0,0,8,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="MinecraftLauncher" FontSize="15"/>
@@ -50,26 +50,35 @@
                 </StackPanel>
                 <StackPanel Grid.Row="0" HorizontalAlignment="Left">
                     <TextBlock Text="This project is not affiliated with Mojang or Microsoft in any way." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
+                    <TextBlock Text="Artwork copyright goes to its respective owners." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
                     <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
                 </StackPanel>
             </Grid>
         </Expander>
-        <Expander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" Margin="0,4,0,0" Visibility="Collapsed">
+        <Expander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" IsExpanded="False">
             <Expander.Header>
-                <Grid Margin="0" CornerRadius="8"  Padding="8" Height="{Binding ElementName=AboutAppGrid, Path=ActualHeight}" Width="{Binding ElementName=AboutAppGrid, Path=ActualWidth}">
+                <Grid Margin="8" Padding="14,14,4,14">
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="40" Width="40" Margin="0,0,8,0"/>
+                        </StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Patch Notes" FontSize="15"/>
-                            <TextBlock Text="{Binding ElementName=VersionBox, Path=Text}" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                            <TextBlock Text="Minecraft" FontSize="15"/>
+                            <TextBlock Text="by Mojang" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
             </Expander.Header>
-            <StackPanel>
-                <TextBlock>
-                    This is the second version of the launcher, based on WinUI 3 and WindowsAppSDK
-                </TextBlock>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <HyperlinkButton NavigateUri="https://www.minecraft.net/en-us" ToolTipService.ToolTip="Click To Visit!" Grid.Row="0" Height="80" Width="350">
+                    <HyperlinkButton.Background>
+                        <ImageBrush ImageSource="/Assets/MCSplashScreen.png" Stretch="UniformToFill"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+            </Grid>
         </Expander>
         <labs:SettingsCard Header="Updates" Description="Check for updates" 
               Grid.Row="3">

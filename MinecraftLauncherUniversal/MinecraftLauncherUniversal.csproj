@@ -10,10 +10,13 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
 	<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-	<PackageIcon>minecraft-icon.jpg</PackageIcon>
-	<ApplicationIcon>Assets\minecraft-icon.ico</ApplicationIcon>
+	<PackageIcon>LogoNew.png</PackageIcon>
+	<ApplicationIcon>Assets\LogoNew.ico</ApplicationIcon>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Assets\LogoNew.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\minecraft-icon.ico" />
     <None Remove="Controls\CardAction.xaml" />
@@ -79,6 +82,13 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LogoNew.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\LogoNew.ico" />
     <Resource Include="Assets\minecraft-icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +122,12 @@
     <Content Update="Assets\HomeBanners\HomeBanner3.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\MCLogoNew.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\MCSplashScreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\minecraft-icon.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -138,6 +154,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Update="Assets\LogoNew.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\minecraft-icon.jpg">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
