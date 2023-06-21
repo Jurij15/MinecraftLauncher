@@ -146,6 +146,7 @@ namespace MinecraftLauncherUniversal.Pages
         async void LoadVersions(bool bOnlyReleases)
         {
             ReleasesOnly.IsEnabled = false;
+            ShowInstalledStatus.IsEnabled = false;
             VersionManager manager = new VersionManager();
             HashSet<string> versions = new HashSet<string>();
 
@@ -206,6 +207,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             versions.Clear();
             ReleasesOnly.IsEnabled = true;
+            ShowInstalledStatus.IsEnabled = true;
         }
 
         public AllVersionsPage()

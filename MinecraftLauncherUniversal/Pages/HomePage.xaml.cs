@@ -204,6 +204,7 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[1];
             NavigationService.ShowBreadcrumb();
             Globals.MainFrame.Navigate(typeof(AllVersionsPage));
+            NavigationService.UpdateBreadcrumb("All Versions", true);
         }
 
         private void PlayOptifineCard_Click(object sender, RoutedEventArgs e)
@@ -211,6 +212,7 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2]; 
             NavigationService.ShowBreadcrumb();
             Globals.MainFrame.Navigate(typeof(OptiFinePage));
+            NavigationService.UpdateBreadcrumb("OptiFine", true);
         }
 
         private void ChangeUsernameCard_Click(object sender, RoutedEventArgs e)

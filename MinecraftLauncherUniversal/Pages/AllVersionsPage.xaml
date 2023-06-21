@@ -42,7 +42,7 @@
             <GridView.ItemContainerTransitions>
                 <TransitionCollection>
                     <ContentThemeTransition />
-                    <EntranceThemeTransition IsStaggeringEnabled="True" />
+                    <EntranceThemeTransition IsStaggeringEnabled="True"/>
                 </TransitionCollection>
 
             </GridView.ItemContainerTransitions>

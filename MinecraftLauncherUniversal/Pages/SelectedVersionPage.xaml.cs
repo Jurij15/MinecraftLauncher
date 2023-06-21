@@ -21,6 +21,7 @@ using MinecraftLauncherUniversal.Services;
 using WinUIEx;
 using CmlLib.Utils;
 using Microsoft.UI.Xaml.Media.Imaging;
+using CmlLib.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -197,7 +198,14 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void DeleteBuildBtn_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+        private void ConfirmDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Directory.Delete(MinecraftPath.WindowsDefaultPath + "\\" + "versions" + "\\" + Globals.CurrentVersion, true);
+
+            NavigationService.FrameGoBack();
         }
     }
 }

@@ -109,7 +109,17 @@
                     </StackPanel>
                 </Expander.Header>
                 <StackPanel>
-                    <Button Background="Red" Content="Delete Build" x:Name="DeleteBuildBtn" Click="DeleteBuildBtn_Click"/>
+                    <Button Background="Red" Content="Delete Version" x:Name="DeleteBuildBtn" Click="DeleteBuildBtn_Click">
+                        <Button.Flyout>
+                            <Flyout x:Name="DeleteVersionFlyout">
+                                <StackPanel Spacing="1">
+                                    <TextBlock Text="Are you sure?" FontWeight="Medium"/>
+                                    <TextBlock Text="You can download this build back later" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,12"/>
+                                    <Button x:Name="ConfirmDelete" Style="{ThemeResource AccentButtonStyle}" Content="Yes" Click="ConfirmDelete_Click"/>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
                 </StackPanel>
             </Expander>
             <InfoBar Title="Minecraft Launched" Message="Minecraft launched successfully!" Severity="Success" IsOpen="False" Grid.Row="0" Margin="2,2,2,2" x:Name="MinecraftLaunchedInfo" Grid.ColumnSpan="2"/>

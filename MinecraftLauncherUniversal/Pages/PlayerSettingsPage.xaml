@@ -41,12 +41,20 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel x:Name="PlayerProfileSelector" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Grid.Row="1" Spacing="1">
-            <HyperlinkButton Content="Refresh" Click="HyperlinkButton_Click" x:Name="RefreshBtn" Visibility="Collapsed"/>
-            <ComboBox x:Name="ProfileSelector" SelectionChanged="ProfileSelector_SelectionChanged">
-                
-            </ComboBox>
-        </StackPanel>
+        <Grid x:Name="PlayerProfileSelector" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Grid.Row="1" RowSpacing="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Reload the page to apply changes!" Foreground="Red" x:Name="RefreshBtn" Visibility="Collapsed"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <ComboBox x:Name="ProfileSelector" SelectionChanged="ProfileSelector_SelectionChanged">
+
+                </ComboBox>
+            </StackPanel>
+        </Grid>
 
         <Grid Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Stretch">
             <StackPanel>

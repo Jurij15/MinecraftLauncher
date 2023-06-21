@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Dialogs.WelcomeV2DialogContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="This is the first release of the new, redesigned launcher, made completely in WinUI3/Windows App SDK. Bugs are expected, especially around profiles!" FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>
+            <TextBlock TextWrapping="WrapWholeWords" Margin="0,12,0,0">
+                Here is a quick rundown of new things:
+                <LineBreak/>
+                    -Redesigned and updated UI, with nicer icons and smoother animations
+                <LineBreak/>
+                    -Improved version support and speed
+                <LineBreak/>
+                    -(BETA) Support for skins in OptiFine using OfflineSkins mod (BETA)
+                <LineBreak/>
+                    -Player Profiles
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

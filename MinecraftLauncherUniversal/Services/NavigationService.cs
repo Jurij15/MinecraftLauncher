@@ -54,11 +54,15 @@ namespace MinecraftLauncherUniversal.Services
             return Globals.MainFrame.CanGoBack;
         }
         
-        public static void FrameGoBack()
+        public static void FrameGoBack(bool bNavigatingHome = false)
         {
             if (Globals.Breadcrumbs.Count  > 1)
             {
                 Globals.Breadcrumbs.Remove(Globals.Breadcrumbs[1]);
+            }
+            if (bNavigatingHome)
+            {
+                Globals.MainNavigationBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
             }
             Globals.UpdateBreadcrumb();
             Globals.MainFrame.GoBack();

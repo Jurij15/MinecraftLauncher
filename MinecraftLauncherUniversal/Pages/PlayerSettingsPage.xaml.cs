@@ -57,7 +57,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void UsernameSettingsBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //((HyperlinkButton)RefreshBtn).Visibility = Visibility.Visible;
+            RefreshBtn.Visibility = Visibility.Visible;
         }
 
         private async void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -220,9 +220,28 @@ namespace MinecraftLauncherUniversal.Pages
             }
         }
 
-        private void RemoveProfileCard_Click(object sender, RoutedEventArgs e)
+        private async void RemoveProfileCard_Click(object sender, RoutedEventArgs e)
         {
-            //DialogService.ShowSimpleDialog("test", CustomProfileDataManager.RootProfilesDir + "\\" + GetCurrentID());
+            ContentDialog loaddialog = new ContentDialog();
+            loaddialog.XamlRoot = this.Content.XamlRoot;
+            loaddialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            loaddialog.Title = "Are you sure?";
+            loaddialog.Content = "You are about to delete a profile with name " + UsernameBlock.Text + ". \n This action canot be undone!";
+
+            loaddialog.CloseButtonText = "Cancel";
+            loaddialog.CloseButtonClick += Loaddialog_CloseButtonClick;
+
+            loaddialog.PrimaryButtonText = "Delete";
+            loaddialog.PrimaryButtonClick += Loaddialog_PrimaryButtonClick;
+
+            loaddialog.DefaultButton = ContentDialogButton.Close;
+
+            await loaddialog.ShowAsync();
+        }
+
+        private void Loaddialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            sender.Hide();
             if (ProfileSelector.Items.Count == 1)
             {
                 DialogService.ShowSimpleDialog("Error", "You cannot delete the only existing account");
@@ -248,49 +267,9 @@ namespace MinecraftLauncherUniversal.Pages
             NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
         }
 
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        private void Loaddialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            #region Init Profiles 
-            CustomProfileDataManager manager = new CustomProfileDataManager();
-            List<string> ids = manager.GetAllGuids();
-            foreach (var id in ids)
-            {
-                Profile p = new Profile(id);
-
-                ComboBoxItem item = new ComboBoxItem();
-                StackPanel content = new StackPanel();
-
-                TextBlock username = new TextBlock();
-                TextBlock subText = new TextBlock();
-
-                username.Text = p.GetUsername();
-                subText.Text = p.GetSubtext();
-
-                username.FontSize = 16;
-                username.FontWeight = FontWeights.Medium;
-
-                item.Name = id;
-
-                content.Children.Add(username);
-                content.Children.Add(subText);
-
-                item.Content = content;
-
-                ProfileSelector.Items.Add(item);
-            }
-
-            foreach (ComboBoxItem item in ProfileSelector.Items)
-            {
-                if (item.Name == Globals.LastUsedProfileID)
-                {
-                    ProfileSelector.SelectedItem = item;
-                    break;
-                }
-            }
-            #endregion
-
-            NavigationService.FrameGoBack();
-            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+            sender.Hide();
         }
     }
 }

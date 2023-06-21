@@ -21,6 +21,7 @@
     <None Remove="Dialogs\QuickPlayDialogContent.xaml" />
     <None Remove="Dialogs\SimpleLoadingDialog.xaml" />
     <None Remove="Dialogs\WelcomeSetupDialog.xaml" />
+    <None Remove="Dialogs\WelcomeV2DialogContent.xaml" />
     <None Remove="OptiFine\ForgeOptiFine.zip" />
     <None Remove="OptiFine\OfflineSkins.zip" />
     <None Remove="OptiFine\OptiFine.zip" />
@@ -141,6 +142,9 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Dialogs\WelcomeV2DialogContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Update="Profiles.db">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
