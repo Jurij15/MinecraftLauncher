@@ -68,6 +68,7 @@ namespace MinecraftLauncherUniversal
             //manager.DeleteProfile();
 
             RestartApp();
+            CustomProfileDataManager.ResetProfiles();
         }
 
         public static async void RestartApp()

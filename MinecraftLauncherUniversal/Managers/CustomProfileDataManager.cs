@@ -18,12 +18,12 @@ namespace MinecraftLauncherUniversal.Managers
 
         public static string GetUsernameConfig(string GUID)
         {
-            return RootProfilesDir + "/" + GUID + "/UsernameConfig";
+            return RootProfilesDir + "\\" + GUID + "\\UsernameConfig";
         }
 
         public static string GetSubTextConfig(string GUID)
         {
-            return RootProfilesDir + "/" + GUID + "/SubTextConfig";
+            return RootProfilesDir + "\\" + GUID + "\\SubTextConfig";
         }
 
         public void InitProfiles()
@@ -36,19 +36,20 @@ namespace MinecraftLauncherUniversal.Managers
 
             using (StreamWriter sw = File.CreateText(dir + "/UsernameConfig"))
             {
-                sw.WriteLine("Player");
+                sw.Write("Player");
                 sw.Close();
             }
 
             using (StreamWriter sw = File.CreateText(dir + "/SubTextConfig"))
             {
-                sw.WriteLine("A Minecraft Player");
+                sw.Write("A Minecraft Player");
                 sw.Close();
             }
 
             Globals.Username = "Player";
             Globals.SubText = "A Minecraft Player";
 
+            Globals.LastUsedProfileID = guid;
             Settings.SaveLastUsedProfile(guid);
         }
 
@@ -59,23 +60,44 @@ namespace MinecraftLauncherUniversal.Managers
 
             using (StreamWriter sw = File.CreateText(dir + "/UsernameConfig"))
             {
-                sw.WriteLine("Player");
+                sw.Write("Player");
                 sw.Close();
             }
 
             using (StreamWriter sw = File.CreateText(dir + "/SubTextConfig"))
             {
-                sw.WriteLine("A Minecraft Player");
+                sw.Write("A Minecraft Player");
                 sw.Close();
             }
+        }
+
+        public string CreateNewProfileAndGetGuid()
+        {
+            string guid = Guid.NewGuid().ToString();
+            string dir = RootProfilesDir + "/" + guid;
+            Directory.CreateDirectory(dir);
+
+            using (StreamWriter sw = File.CreateText(dir + "/UsernameConfig"))
+            {
+                sw.Write("Player");
+                sw.Close();
+            }
+
+            using (StreamWriter sw = File.CreateText(dir + "/SubTextConfig"))
+            {
+                sw.Write("A Minecraft Player");
+                sw.Close();
+            }
+
+            return guid;
         }
 
         public void GetLastUsedProfile()
         {
             string guid = File.ReadAllText(Settings.LastSelectedProfileIDConfig);
 
-            Globals.Username = File.ReadAllText(GetUsernameConfig(guid));
-            Globals.SubText = File.ReadAllText(GetSubTextConfig(guid));
+            Globals.Username = GetUsernameByGuid(guid);
+            Globals.SubText = GetSubTextByGuid(guid);
         }
 
         public void SaveNewUsernameConfigToGuid(string guid)
@@ -103,7 +125,7 @@ namespace MinecraftLauncherUniversal.Managers
             var list = new List<string>();
             foreach (var item in Directory.GetDirectories(RootProfilesDir))
             {
-                list.Add(item);
+                list.Add(Path.GetFileName(item));
             }
 
             return list;
@@ -116,12 +138,18 @@ namespace MinecraftLauncherUniversal.Managers
 
         public string GetSubTextByGuid(string Guid)
         {
-            return File.ReadAllText(GetSubTextByGuid(Guid));
+            return File.ReadAllText(GetSubTextConfig(Guid));
+        }
+
+        public static void ResetProfiles()
+        {
+            Directory.Delete(RootProfilesDir, true);
         }
 
         public void DeleteProfile(string guid)
         {
-            Directory.Delete(RootProfilesDir + "/" + guid, true);
+            string dir = RootProfilesDir + "\\" + guid;
+            Directory.Delete(dir, true);
         }
     }
 }

@@ -13,6 +13,7 @@ using MinecraftLauncherUniversal.Controls;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Enums;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;

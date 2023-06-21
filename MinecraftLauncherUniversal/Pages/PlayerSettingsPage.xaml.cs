@@ -41,6 +41,8 @@ namespace MinecraftLauncherUniversal.Pages
     public sealed partial class PlayerSettingsPage : Page
     {
         string _id;
+        bool bUnloading = false;
+        bool bRestartingAfterAccDeleted = false;
         string GetCurrentID()
         {
             return _id;
@@ -60,24 +62,30 @@ namespace MinecraftLauncherUniversal.Pages
 
         private async void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            await Task.Delay(2000);
+            if (bRestartingAfterAccDeleted)
+            {
+                return;
+            }
+            bool bUnloading = true;
             if (!string.IsNullOrEmpty(UsernameSettingsBox.Text) || !string.IsNullOrWhiteSpace(UsernameSettingsBox.Text))
             {
                 Globals.Username = UsernameSettingsBox.Text;
                 //Settings.SaveNewUsername();
-                Profile p = new Profile(GetCurrentID());
-                p.UpdateUsername(UsernameSettingsBox.Text);
+                CustomProfileDataManager p = new CustomProfileDataManager();
+                p.SaveNewUsernameConfigToGuid(GetCurrentID());
             }
             if (!string.IsNullOrEmpty(SubText.Text) || !string.IsNullOrWhiteSpace(SubText.Text))
             {
                 Globals.SubText = SubText.Text;
                 //Settings.SaveNewSubText();
-                Profile p = new Profile(GetCurrentID());
-                p.UpdateSubText(SubText.Text);
+                CustomProfileDataManager p = new CustomProfileDataManager();
+                p.SaveNewSubTextConfigToGuid(GetCurrentID());
             }
 
             Globals.LastUsedProfileID = GetCurrentID();
             Settings.SaveLastUsedProfile(Globals.LastUsedProfileID);
+
+            ProfileSelector.Items.Clear();
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -175,20 +183,66 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void ProfileSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (bUnloading)
+            {
+                return;
+            }
+            if (ProfileSelector.Items.Count <= 0)
+            {
+                return;
+            }
             _id = ((ComboBoxItem)ProfileSelector.SelectedItem).Name;
+
+            CustomProfileDataManager manager = new CustomProfileDataManager();
+            UsernameSettingsBox.Text = manager.GetUsernameByGuid(GetCurrentID());
+            SubText.Text = manager.GetSubTextByGuid(GetCurrentID());
+
+            //Settings.SaveLastUsedProfile(_id);
         }
 
         private void AddProfileCard_Click(object sender, RoutedEventArgs e)
         {
             CustomProfileDataManager manager = new CustomProfileDataManager();
-            manager.CreateNewProfile();
+            string guid = manager.CreateNewProfileAndGetGuid();
+
+
+
+            NavigationService.FrameGoBack();
+            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+
+            foreach (ComboBoxItem item in ProfileSelector.Items)
+            {
+                if (item.Name == guid)
+                {
+                    ProfileSelector.SelectedItem = item;
+                    break;
+                }
+            }
         }
 
         private void RemoveProfileCard_Click(object sender, RoutedEventArgs e)
         {
-            Globals.MainWindow.ShowMessageDialogAsync(GetCurrentID());
-            Profile p = new Profile(GetCurrentID());
-            //p.Delete();
+            //DialogService.ShowSimpleDialog("test", CustomProfileDataManager.RootProfilesDir + "\\" + GetCurrentID());
+            if (ProfileSelector.Items.Count == 1)
+            {
+                DialogService.ShowSimpleDialog("Error", "You cannot delete the only existing account");
+                return;
+            }
+
+            CustomProfileDataManager manager = new CustomProfileDataManager();
+            manager.DeleteProfile(GetCurrentID());
+
+            foreach (ComboBoxItem item in ProfileSelector.Items)
+            {
+                string guid = item.Name;
+                if (guid != GetCurrentID())
+                {
+                    Settings.SaveLastUsedProfile(guid);
+                    Globals.LastUsedProfileID = guid;
+
+                    bRestartingAfterAccDeleted = true;
+                }
+            }
 
             NavigationService.FrameGoBack();
             NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
