@@ -51,7 +51,10 @@
                 <StackPanel Grid.Row="0" HorizontalAlignment="Left">
                     <TextBlock Text="This project is not affiliated with Mojang or Microsoft in any way." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
                     <TextBlock Text="Artwork copyright goes to its respective owners." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
-                    <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
+                    <StackPanel Orientation="Horizontal">
+                        <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
+                        <HyperlinkButton x:Name="NewsLink" Click="NewsLink_Click" Content="Show News"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Expander>

@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,22 @@ namespace MinecraftLauncherUniversal.Pages
                 UpdateIcon.Visibility = Visibility.Visible;
                 AditionalStuffBox.Text = "Please check GitHub for a new version!";
             }
+        }
+
+        private void NewsLink_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog loaddialog = new ContentDialog();
+            loaddialog.XamlRoot = this.Content.XamlRoot;
+            loaddialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            loaddialog.Title = "Welcome to MinecraftLauncher V2!";
+            loaddialog.Content = new WelcomeV2DialogContent();
+
+            loaddialog.CloseButtonText = "OK";
+            loaddialog.CloseButtonClick += (sender, args) => { loaddialog.Hide(); };
+
+            loaddialog.DefaultButton = ContentDialogButton.Close;
+
+            loaddialog.ShowAsync();
         }
     }
 }

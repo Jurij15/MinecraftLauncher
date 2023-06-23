@@ -45,5 +45,16 @@ namespace MinecraftLauncherUniversal.Services
 
             await dialog.ShowAsync();
         }
+
+        public static ContentDialog CreateContentDialog(string Title, object Content)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.XamlRoot = Globals.MainGridXamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = Title;
+            dialog.Content = Content;
+
+            return dialog;
+        }
     }
 }

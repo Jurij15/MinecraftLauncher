@@ -356,6 +356,11 @@ namespace MinecraftLauncherUniversal
             Globals.MainGridXamlRoot = this.Content.XamlRoot;
             await PreloadArrays();
 
+            if (Globals.ToastFailedInit && !Globals.bIsFirstTimeRun)
+            {
+                DialogService.ShowSimpleDialog("Error", "Notifications failed to initialize and will be disabled during app runtime!");
+            }
+
             if (Globals.bIsFirstTimeRun)
             {
                 ContentDialog loaddialog = new ContentDialog();
@@ -370,11 +375,6 @@ namespace MinecraftLauncherUniversal
                 loaddialog.DefaultButton = ContentDialogButton.Close;
 
                 loaddialog.ShowAsync();
-            }
-
-            if (Globals.ToastFailedInit)
-            {
-                DialogService.ShowSimpleDialog("Error", "Notifications failed to initialize and will be disabled during app runtime!");
             }
         }
 
