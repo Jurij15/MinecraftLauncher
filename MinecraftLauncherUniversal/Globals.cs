@@ -42,6 +42,8 @@ namespace MinecraftLauncherUniversal
 
         public static string VersionString = "2.0 - BETA1";
 
+        public static bool ToastFailedInit = false;
+
         #region Objects
         public static WindowEx MainWindow;
         public static NavigationView MainNavigation;

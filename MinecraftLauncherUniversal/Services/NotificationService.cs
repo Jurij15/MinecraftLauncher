@@ -32,7 +32,22 @@ namespace MinecraftLauncherUniversal.Services
             var toast = new AppNotification(xmlPayload);
             toast.Expiration = DateTimeOffset.Now.AddSeconds(ExpirationTime);
 
-            AppNotificationManager.Default.Show(toast);
+            if (Globals.ToastFailedInit)
+            {
+                Logger.Log("NOTIFICATIONSERVICE", "Failed to show a notification with title " + title + " and message " + message + " that was set to expire in " + ExpirationTime.ToString());
+            }
+            else
+            {
+                try
+                {
+                    AppNotificationManager.Default.Show(toast);
+                }
+                catch (Exception)
+                {
+                    Logger.Log("NOTIFICATIONSERVICE", "Failed to show a notification with title " + title + " and message " + message + " that was set to expire in " + ExpirationTime.ToString());
+                    throw;
+                }
+            }
         }
     }
 }

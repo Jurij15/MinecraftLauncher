@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -121,7 +122,14 @@ namespace MinecraftLauncherUniversal
 
         void OnMainWindowStartup()
         {
-            AppNotificationManager.Default.Register();
+            try
+            {
+                AppNotificationManager.Default.Register();
+            }
+            catch (Exception ex)
+            {
+                Globals.ToastFailedInit = true;
+            }
             Settings.GetSettings();
 
             if (Globals.bIsFirstTimeRun)
@@ -363,6 +371,11 @@ namespace MinecraftLauncherUniversal
 
                 loaddialog.ShowAsync();
             }
+
+            if (Globals.ToastFailedInit)
+            {
+                DialogService.ShowSimpleDialog("Error", "Notifications failed to initialize and will be disabled during app runtime!");
+            }
         }
 
         private void RootFrame_Navigated(object sender, NavigationEventArgs e)
@@ -372,6 +385,11 @@ namespace MinecraftLauncherUniversal
             ProfileSubtext.Text = Globals.SubText;
 
             GC.Collect(); //idk, trying to lower ram usage
+        }
+
+        private void WindowEx_Closed(object sender, WindowEventArgs args)
+        {
+            Globals.CloseConsole();
         }
     }
 }
