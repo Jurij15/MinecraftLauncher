@@ -9,6 +9,12 @@
       Title="UpdaterPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0">
+        </TextBlock>
+        <ProgressBar IsIndeterminate="True" Grid.Row="1"/>
     </Grid>
 </Page>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MinecraftLauncherInstallerUpdater
 {
@@ -18,9 +19,11 @@ namespace MinecraftLauncherInstallerUpdater
 
             foreach (var arg in args)
             {
+                MessageBox.Show(arg);
                 if (arg.Contains("-Update") && !bIsInstalling)
                 {
-                    bIsUpdating = true;
+                    bIsInstalling = false;
+                    break;
                 }
                 else if (!bIsUpdating)
                 {

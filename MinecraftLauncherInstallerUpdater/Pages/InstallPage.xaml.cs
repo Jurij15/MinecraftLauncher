@@ -48,6 +48,9 @@ namespace MinecraftLauncherInstallerUpdater.Pages
 
         private void InstallBtn_Click(object sender, RoutedEventArgs e)
         {
+            rProgressBar.Visibility = Visibility.Visible;
+            rProgressBar.IsEnabled = true;
+            rProgressBar.IsIndeterminate = true;
             string DownloadLauncherPath = "https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestRelease.zip";
             string DownloadInstallerPath = "https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestInstaller.zip";
 

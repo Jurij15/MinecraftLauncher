@@ -40,14 +40,15 @@ namespace MinecraftLauncherInstallerUpdater
 
             VersionBlock.Text = "Version: "+ ArgumentsHelper.bVersion;
 
-            if (ArgumentsHelper.bIsInstalling)
+            if (ArgumentsHelper.bIsInstalling == true)
             {
                 RootFrame.Navigate(new InstallPage());
             }
-            else if (ArgumentsHelper.bIsUpdating)
+            if (!ArgumentsHelper.bIsInstalling)
             {
+                MessageBox.Show("updating");
                 AppTitleBar.Title = "Updater";
-
+                RootFrame.Navigate(new UpdaterPage());
             }
         }
     }

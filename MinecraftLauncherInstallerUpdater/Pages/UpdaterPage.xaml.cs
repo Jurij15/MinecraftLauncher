@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace MinecraftLauncherInstallerUpdater.Pages
         public UpdaterPage()
         {
             InitializeComponent();
+
+            if (Directory.Exists(Config.SettingsDirPath))
+            {
+                Directory.Move(Config.SettingsDirPath, Config.InstallPath);
+            }
         }
     }
 }

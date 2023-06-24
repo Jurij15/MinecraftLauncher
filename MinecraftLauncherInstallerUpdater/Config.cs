@@ -13,6 +13,8 @@ namespace MinecraftLauncherInstallerUpdater
         public static string LauncherPath = InstallPath + "\\Launcher";
         public static string UpdaterDirPath = InstallPath + "\\Updater";
 
+        public static string SettingsTempPath = InstallPath;
+
         public static string TempFIlePath = InstallPath + "Temp";
     }
 }
