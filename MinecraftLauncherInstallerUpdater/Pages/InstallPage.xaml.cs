@@ -75,7 +75,7 @@ namespace MinecraftLauncherInstallerUpdater.Pages
                 throw;
             }
 
-            ZipFile.ExtractToDirectory(Config.TempFIlePath, Config.LauncherPath);
+            ZipFile.ExtractToDirectory(Config.TempFIlePath, Config.LauncherPath, true);
             System.IO.File.Delete(Config.TempFIlePath);
 
             try
