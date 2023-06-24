@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Dialogs;
+using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -39,6 +40,12 @@ namespace MinecraftLauncherUniversal.Pages
             else
             {
                 SoundToggle.IsOn = false;
+            }
+
+            if (!Updater.bIsPrerelease())
+            {
+                ConsoleVisibilityCombo.IsEnabled = false;
+                ToolTipService.SetToolTip(ConsoleVisibilityCombo, "Not Available in Release!");
             }
 
             if (Globals.bShowConsole)

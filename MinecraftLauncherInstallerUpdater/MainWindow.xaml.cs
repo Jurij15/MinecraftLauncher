@@ -38,6 +38,8 @@ namespace MinecraftLauncherInstallerUpdater
             ArgumentsHelper.bVersion = Updater.GetLatestVersionStringFromGitHub();
             ArgumentsHelper.ParseLaunchArguments();
 
+            VersionBlock.Text = "Version: "+ ArgumentsHelper.bVersion;
+
             if (ArgumentsHelper.bIsInstalling)
             {
                 RootFrame.Navigate(new InstallPage());

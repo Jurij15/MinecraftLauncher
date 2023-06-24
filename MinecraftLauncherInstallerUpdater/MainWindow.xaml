@@ -32,6 +32,7 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="MinecraftLauncher" FontSize="20" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"/>
                     <TextBlock Text="by Jurij15" FontSize="14" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
+                    <TextBlock Text="Version: " x:Name="VersionBlock" FontSize="12" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right">
                     <ui:Image Source="/LogoNew.png" Height="60"/>

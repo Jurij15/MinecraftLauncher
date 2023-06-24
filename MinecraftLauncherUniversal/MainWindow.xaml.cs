@@ -262,6 +262,8 @@ namespace MinecraftLauncherUniversal
             ProfileSubtext.Text = Globals.SubText;
 
             GC.Collect(); //idk, trying to lower ram usage
+
+            Logger.Log("NAVIGATION", "Navigated!");
         }
 
         private void MainBreadcrumb_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)

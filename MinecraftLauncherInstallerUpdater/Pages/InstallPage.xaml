@@ -28,7 +28,7 @@ xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         <ui:TextBox x:Name="PathBox" IsEnabled="False" Grid.Row="1"/>
         <StackPanel Grid.Row="2" Margin="0,2,0,2">
             <CheckBox x:Name="PinToTaskbarCheck" Content="Pin To TaskBar" Checked='PinToTaskbarCheck_Checked' Unchecked="PinToTaskbarCheck_Unchecked"/>
-            <CheckBox x:Name="CreateDesktopShortcut" Content="Crate Desktop Shortcut" Checked="CreateDesktopShortcut_Checked" Unchecked="CreateDesktopShortcut_Unchecked"/>
+            <CheckBox x:Name="CreateDesktopShortcut" Content="Crate Desktop Shortcut" Checked="CreateDesktopShortcut_Checked" Unchecked="CreateDesktopShortcut_Unchecked" Visibility="Collapsed"/>
         </StackPanel>
         <StackPanel x:Name="InstallingPanel" Grid.Row="3" Margin="0,2,0,2" IsEnabled="False" VerticalAlignment="Bottom">
             <TextBlock Text="Waiting..." HorizontalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" x:Name="StatusBlock"/>
