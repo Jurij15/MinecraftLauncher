@@ -8,6 +8,11 @@ namespace MinecraftLauncherInstallerUpdater
 {
     public class Config
     {
-        public static string InstallPath = @"C:\\Program Files\\MinecraftLauncher";
+        public static string InstallPath = Environment.GetEnvironmentVariable("LocalAppData") + "\\MinecraftLauncher";
+        public static string SettingsDirPath = InstallPath + @"\\Launcher\\Settings";
+        public static string LauncherPath = InstallPath + "\\Launcher";
+        public static string UpdaterDirPath = InstallPath + "\\Updater";
+
+        public static string TempFIlePath = InstallPath + "Temp";
     }
 }
