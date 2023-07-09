@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" NavigationCacheMode="Disabled"
-    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+        xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
     Background="Transparent">
 
     <Grid Margin="58, 42, 58,0" CanBeScrollAnchor="True" RowSpacing="2">
@@ -23,66 +24,46 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Expander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True">
-            <Expander.Header>
-                <Grid Margin="8" x:Name="AboutAppGrid" Padding="14,14,4,14">
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <StackPanel Orientation="Horizontal">
-                            <ImageIcon Source="/Assets/LogoNew.png" Height="40" Width="40" Margin="0,0,8,0"/>
+        <labs:SettingsExpander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True" Header="MinecraftLauncher" Description="by Jurij15">
+            <labs:SettingsExpander.HeaderIcon>
+                <ImageIcon Source="/Assets/LogoNew.png"/>
+            </labs:SettingsExpander.HeaderIcon>
+            <labs:SettingsExpander.Content>
+                <TextBlock FontWeight="Normal" FontSize="13" x:Name="VersionBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </labs:SettingsExpander.Content>
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard>
+                    <labs:SettingsCard.Header>
+                        <StackPanel Grid.Row="0" HorizontalAlignment="Left">
+                            <TextBlock Text="This project is not affiliated with Mojang or Microsoft in any way." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
+                            <TextBlock Text="Artwork copyright goes to its respective owners." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
+                            <StackPanel Orientation="Horizontal">
+                                <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
+                                <HyperlinkButton x:Name="NewsLink" Click="NewsLink_Click" Content="Show News"/>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="MinecraftLauncher" FontSize="15"/>
-                            <TextBlock Text="by Jurij15" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </labs:SettingsCard.Header>
+                    <labs:SettingsCard.Content>
+                        <StackPanel Grid.Row="0" HorizontalAlignment="Right">
+                            <TextBlock Text="Open source libraries used:" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
+                            <HyperlinkButton NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core"/>
                         </StackPanel>
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock FontWeight="Normal" FontSize="13" x:Name="VersionBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                    </StackPanel>
-                </Grid>
-            </Expander.Header>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" HorizontalAlignment="Right">
-                    <TextBlock Text="Open source libraries used:" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
-                    <HyperlinkButton NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core"/>
-                </StackPanel>
-                <StackPanel Grid.Row="0" HorizontalAlignment="Left">
-                    <TextBlock Text="This project is not affiliated with Mojang or Microsoft in any way." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
-                    <TextBlock Text="Artwork copyright goes to its respective owners." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
-                    <StackPanel Orientation="Horizontal">
-                        <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
-                        <HyperlinkButton x:Name="NewsLink" Click="NewsLink_Click" Content="Show News"/>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-        </Expander>
-        <Expander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" IsExpanded="False">
-            <Expander.Header>
-                <Grid Margin="8" Padding="14,14,4,14">
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <StackPanel Orientation="Horizontal">
-                            <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="40" Width="40" Margin="0,0,8,0"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Minecraft" FontSize="15"/>
-                            <TextBlock Text="by Mojang" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-            </Expander.Header>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <HyperlinkButton NavigateUri="https://www.minecraft.net/en-us" ToolTipService.ToolTip="Click To Visit!" Grid.Row="0" Height="80" Width="350">
-                    <HyperlinkButton.Background>
-                        <ImageBrush ImageSource="/Assets/MCSplashScreen.png" Stretch="UniformToFill"/>
-                    </HyperlinkButton.Background>
-                </HyperlinkButton>
-            </Grid>
-        </Expander>
+                    </labs:SettingsCard.Content>
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
+        <labs:SettingsExpander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" IsExpanded="False" Header="Minecraft" Description="by Mojang">
+            <labs:SettingsExpander.HeaderIcon>
+                <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="40" Width="40" Margin="0,0,8,0"/>
+            </labs:SettingsExpander.HeaderIcon>
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard>
+                    <labs:SettingsCard.Header>
+                        <HyperlinkButton NavigateUri="https://www.minecraft.net/en-us" ToolTipService.ToolTip="Click To Visit!" Content="Official Site"/>
+                    </labs:SettingsCard.Header>
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
         <labs:SettingsCard Header="Updates" Description="Check for updates" 
               Grid.Row="3">
             <labs:SettingsCard.HeaderIcon>

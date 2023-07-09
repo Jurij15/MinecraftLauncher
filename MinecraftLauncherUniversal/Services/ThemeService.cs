@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using MinecraftLauncherUniversal.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,42 @@ namespace MinecraftLauncherUniversal.Services
 {
     public class ThemeService
     {
-        public static void SetTheme(ElementTheme theme)
+        public static void ChangeTheme(ElementTheme theme)
         {
-            FrameworkElement element = Window.Current.Content as FrameworkElement;
-            element.RequestedTheme = theme;
+            if (Globals.m_window.Content is FrameworkElement frameworkElement)
+            {
+                frameworkElement.RequestedTheme = theme;
+            }
+        }
+
+        public static bool IsDarkTheme()
+        {
+            bool RetVal = false;
+
+            if (Globals.m_window.Content is FrameworkElement frameworkElement)
+            {
+                if (frameworkElement.RequestedTheme == ElementTheme.Dark)
+                {
+                    RetVal = true;
+                }
+            }
+
+            return RetVal;
+        }
+
+        public static bool IsLightTheme()
+        {
+            bool RetVal = false;
+
+            if (Globals.m_window.Content is FrameworkElement frameworkElement)
+            {
+                if (frameworkElement.RequestedTheme == ElementTheme.Light)
+                {
+                    RetVal = true;
+                }
+            }
+
+            return RetVal;
         }
     }
 }

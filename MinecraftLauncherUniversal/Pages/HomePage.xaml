@@ -57,7 +57,7 @@
                                 </Border>
                             </Border>
                         </FlipViewItem>
-                        <FlipViewItem>
+                        <FlipViewItem Visibility="Collapsed">
                             <Border CornerRadius="8" Grid.Row="0">
                                 <Border.Background>
                                     <ImageBrush ImageSource="/Assets/1.17.1-banner.jpg"
@@ -86,7 +86,7 @@
                                 </Border>
                             </Border>
                         </FlipViewItem>
-                        <FlipViewItem>
+                        <FlipViewItem Visibility="Collapsed">
                             <Border CornerRadius="8" Grid.Row="0">
                                 <Border.Background>
                                     <ImageBrush ImageSource="/Assets/thumb.png"

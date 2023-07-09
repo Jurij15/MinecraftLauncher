@@ -25,6 +25,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinUIEx;
 using WinUIEx.Messaging;
+using static MinecraftLauncherUniversal.Services.NavigationService;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -117,6 +118,8 @@ namespace MinecraftLauncherUniversal
             InitDesgin();
             SetGlobalObjects();
 
+            InitializeNavigationService(MainNavigation, MainBreadcrumb, RootFrame);
+
             OnMainWindowStartup();
         }
 
@@ -150,9 +153,7 @@ namespace MinecraftLauncherUniversal
 
             //navigate home
             MainNavigation.SelectedItem = HomeItem;
-            RootFrame.Navigate(typeof(HomePage));
-            NavigationService.UpdateBreadcrumb("Home", true);
-            NavigationService.HideBreadcrumb();
+            ChangeBreadcrumbVisibility(false);
 
             if (Globals.bIsFirstTimeRun)
             {
@@ -223,72 +224,21 @@ namespace MinecraftLauncherUniversal
             Globals.RestartApp();
         }
 
-        private void MainNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {
-            string content = ((Microsoft.UI.Xaml.Controls.NavigationViewItem)sender.SelectedItem).Content.ToString();
-            if (args.IsSettingsInvoked)
-            {
-                NavigationService.UpdateBreadcrumb("Settings", true);
-                NavigationService.ShowBreadcrumb();
-                RootFrame.Navigate(typeof(SettingsPage));
-            }
-            if (args.InvokedItemContainer == HomeItem)
-            {
-                RootFrame.Navigate(typeof(HomePage));
-                NavigationService.UpdateBreadcrumb("Home", true);
-                NavigationService.HideBreadcrumb();
-            }
-            if (args.InvokedItemContainer == AllVersionsPage)
-            {
-                NavigationService.UpdateBreadcrumb("All Versions", true);
-                NavigationService.ShowBreadcrumb();
-                RootFrame.Navigate(typeof(AllVersionsPage));
-            }
-            if (args.InvokedItemContainer == OptifineItem)
-            {
-                NavigationService.UpdateBreadcrumb("OptiFine", true);
-                NavigationService.ShowBreadcrumb();
-                RootFrame.Navigate(typeof(OptiFinePage));
-            }
-            if (args.InvokedItemContainer == AboutItem)
-            {
-                NavigationService.UpdateBreadcrumb("About", true);
-                NavigationService.ShowBreadcrumb();
-                RootFrame.Navigate(typeof(AboutPage));
-            }
-
-            //MainNavigation.PaneTitle = Globals.Username;
-            UsernameBlock.Text = Globals.Username;
-            ProfileSubtext.Text = Globals.SubText;
-
-            GC.Collect(); //idk, trying to lower ram usage
-
-            Logger.Log("NAVIGATION", "Navigated!");
-        }
-
         private void MainBreadcrumb_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
         {
-            RootFrame.GoBack();
-            Globals.Breadcrumbs.RemoveAt(1);
-        }
-
-        private void AppTitleBackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (NavigationService.CanGoBack())
+            if (args.Index < NavigationService.BreadCrumbs.Count - 1)
             {
-                AppTitleBackButton.IsEnabled = true;
-                NavigationService.FrameGoBack();
+                var crumb = (Breadcrumb)args.Item;
+                crumb.NavigateToFromBreadcrumb(args.Index);
             }
         }
 
         private void PlayerPaneContent_Click(object sender, RoutedEventArgs e)
         {
             MainNavigation.SelectedItem = MainNavigation.SettingsItem;
-            NavigationService.UpdateBreadcrumb("Settings", true);
-            NavigationService.ShowBreadcrumb();
-            RootFrame.Navigate(typeof(SettingsPage));
+            Navigate(typeof(SettingsPage), "Settings", true);
 
-            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+            Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
 
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
@@ -342,15 +292,13 @@ namespace MinecraftLauncherUniversal
                 return;
             }
             Globals.MainNavigation.SelectedItem = AllVersionsPage;
-            NavigationService.UpdateBreadcrumb("All Versions", true);
-            NavigationService.ShowBreadcrumb();
-            RootFrame.Navigate(typeof(AllVersionsPage));
+            Navigate(typeof(AllVersionsPage), "All Versions", true);
 
             string version = args.SelectedItem.ToString();
 
             Globals.CurrentVersion = version;
 
-            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+            Navigate(typeof(SelectedVersionPage), "Play", true);
         }
 
         private async void RootGrid_Loaded(object sender, RoutedEventArgs e)
@@ -386,12 +334,64 @@ namespace MinecraftLauncherUniversal
             UsernameBlock.Text = Globals.Username;
             ProfileSubtext.Text = Globals.SubText;
 
+            if (e.SourcePageType == typeof(HomePage))
+            {
+                ChangeBreadcrumbVisibility(false);
+            }
+
             GC.Collect(); //idk, trying to lower ram usage
         }
 
         private void WindowEx_Closed(object sender, WindowEventArgs args)
         {
             Globals.CloseConsole();
+        }
+
+        private void MainNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            string content = ((Microsoft.UI.Xaml.Controls.NavigationViewItem)sender.SelectedItem).Content.ToString();
+            if (args.IsSettingsSelected)
+            {
+                Navigate(typeof(SettingsPage), "Settings", true);
+            }
+            if (args.SelectedItemContainer == HomeItem)
+            {
+                Navigate(typeof(HomePage), "Home", true);
+                ChangeBreadcrumbVisibility(false);
+            }
+            if (args.SelectedItemContainer == AllVersionsPage)
+            {
+                Navigate(typeof(AllVersionsPage), "All Versions", true);
+            }
+            if (args.SelectedItemContainer == OptifineItem)
+            {
+                Navigate(typeof(OptiFinePage), "OptiFine", true);
+            }
+            if (args.SelectedItemContainer == AboutItem)
+            {
+                Navigate(typeof(AboutPage), "About", true);
+            }
+
+            //MainNavigation.PaneTitle = Globals.Username;
+            UsernameBlock.Text = Globals.Username;
+            ProfileSubtext.Text = Globals.SubText;
+
+            GC.Collect(); //idk, trying to lower ram usage
+
+            Logger.Log("NAVIGATION", "Navigated!");
+        }
+
+        private void AppTitlePaneButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool Current = MainNavigation.IsPaneOpen;
+            if (Current)
+            {
+                MainNavigation.IsPaneOpen = false;
+            }
+            else
+            {
+                MainNavigation.IsPaneOpen = true;
+            }
         }
     }
 }

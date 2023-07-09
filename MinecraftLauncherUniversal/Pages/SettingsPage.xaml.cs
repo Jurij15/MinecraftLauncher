@@ -117,7 +117,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+            NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
 
         private void DownloadConnectionLimitBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)

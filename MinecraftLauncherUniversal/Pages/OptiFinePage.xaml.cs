@@ -129,7 +129,7 @@ namespace MinecraftLauncherUniversal.Pages
             string version = "OptiFine 1.17.1";
             Globals.CurrentVersion = version;
 
-            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
         }
 
         private void PlayForgeOptifine_Click(object sender, RoutedEventArgs e)
@@ -137,7 +137,7 @@ namespace MinecraftLauncherUniversal.Pages
             string version = "ForgeOptiFine 1.17.1";
             Globals.CurrentVersion = version;
 
-            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
         }
 
         private void InstallBtnForgeOptifine_Click(object sender, RoutedEventArgs e)

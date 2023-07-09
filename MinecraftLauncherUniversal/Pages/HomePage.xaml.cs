@@ -2,6 +2,7 @@ using CmlLib.Core;
 using CmlLib.Core.Version;
 using CmlLib.Core.VersionLoader;
 using CmlLib.Utils;
+using CommunityToolkit.WinUI.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -9,6 +10,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.WindowsAppSDK.Runtime;
 using MinecraftLauncherUniversal.Controls;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Enums;
@@ -107,6 +109,9 @@ namespace MinecraftLauncherUniversal.Pages
             NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
             */
 
+            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
+
+            /*
             ContentDialog dialog = new ContentDialog();
             dialog.XamlRoot = Globals.MainGridXamlRoot;
             dialog.Title = "Play "+version;
@@ -133,6 +138,7 @@ namespace MinecraftLauncherUniversal.Pages
             dialog.DefaultButton = ContentDialogButton.Primary;
 
             await dialog.ShowAsync();
+            */
         }
 
         private async void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -143,9 +149,7 @@ namespace MinecraftLauncherUniversal.Pages
         private void PlayOptifine_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2];
-            Globals.MainFrame.Navigate(typeof(OptiFinePage));
-            NavigationService.ShowBreadcrumb();
-            NavigationService.UpdateBreadcrumb("OptiFine", true);
+            //NavigationService.Navigate(typeof(OptiFinePage), "OptiFine", false);
         }
 
         private void HomeHeader_Loaded(object sender, RoutedEventArgs e)
@@ -172,19 +176,19 @@ namespace MinecraftLauncherUniversal.Pages
                     UpdatesInfoBar.Title = "Checking Failed";
                     UpdatesInfoBar.Message = "Please check your internet connection!";
                     UpdatesInfoBar.Severity = InfoBarSeverity.Error;
-                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
+                    //UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
                     break;
                 case UpdateStatus.UpToDateWell:
                     UpdatesInfoBar.Title = "Up to Date";
                     UpdatesInfoBar.Message = "You are running the latest version of the launcher!";
                     UpdatesInfoBar.Severity = InfoBarSeverity.Success;
-                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
+                    //UpdatesInfoBar.ActionButton.Visibility = Visibility.Collapsed;
                     break;
                 case UpdateStatus.UpdateAvailable:
                     UpdatesInfoBar.Title = "Update Available";
                     UpdatesInfoBar.Message = "Check the GitHub page for updates!";
                     UpdatesInfoBar.Severity = InfoBarSeverity.Warning;
-                    UpdatesInfoBar.ActionButton.Visibility = Visibility.Visible;
+                    //UpdatesInfoBar.ActionButton.Visibility = Visibility.Visible;
                     break;
                 case UpdateStatus.PreRelease:
                     UpdatesInfoBar.Title = "PreRelease";
@@ -202,26 +206,20 @@ namespace MinecraftLauncherUniversal.Pages
         private void PlayVersionCard_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[1];
-            NavigationService.ShowBreadcrumb();
-            Globals.MainFrame.Navigate(typeof(AllVersionsPage));
-            NavigationService.UpdateBreadcrumb("All Versions", true);
+            NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
         }
 
         private void PlayOptifineCard_Click(object sender, RoutedEventArgs e)
         {
-            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2]; 
-            NavigationService.ShowBreadcrumb();
-            Globals.MainFrame.Navigate(typeof(OptiFinePage));
-            NavigationService.UpdateBreadcrumb("OptiFine", true);
+            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2];
+            //NavigationService.Navigate(typeof(OptiFinePage), "OptiFine", true);
         }
 
         private void ChangeUsernameCard_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.SettingsItem;
-            NavigationService.ShowBreadcrumb();
-            Globals.MainFrame.Navigate(typeof(SettingsPage));
-            NavigationService.UpdateBreadcrumb("Settings", true);
-            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+            NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
+            NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
     }
 }

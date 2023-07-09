@@ -32,11 +32,20 @@ namespace MinecraftLauncherUniversal.Helpers
             WebClient wc = new WebClient();
             try
             {
-                wc.DownloadFile(uri, "Settings/VersionTemp");
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync(uri))
+                    {
+                        using (var fs = new FileStream("Settings/VersionTemp", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                        }
+                    }
+                }
             }
             catch (WebException ex)
             {
-                DialogService.ShowSimpleDialog("Error", "An error occured while checking for updates");
+                //DialogService.ShowSimpleDialog("Error", "An error occured while checking for updates");
                 throw;
             }
 

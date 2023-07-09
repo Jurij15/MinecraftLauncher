@@ -205,7 +205,7 @@ namespace MinecraftLauncherUniversal.Pages
         {
             Directory.Delete(MinecraftPath.WindowsDefaultPath + "\\" + "versions" + "\\" + Globals.CurrentVersion, true);
 
-            NavigationService.FrameGoBack();
+            NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
         }
     }
 }

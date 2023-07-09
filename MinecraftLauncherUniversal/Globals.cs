@@ -40,7 +40,7 @@ namespace MinecraftLauncherUniversal
         public static string CustomUUID { get; set; }
         public static string AccessToken { get; set; } //this will not save, for now
 
-        public static string VersionString = "2.0 - BETA1";
+        public static string VersionString = "2.0";
 
         public static bool ToastFailedInit = false;
 
@@ -52,6 +52,7 @@ namespace MinecraftLauncherUniversal
         public static Grid MainGrid;
         public static XamlRoot MainGridXamlRoot;
         public static InfoBadge AllVersionsNavigationViewItemInfoBadge;
+        public static Window m_window;
         #endregion
 
         //i should use binding for this, instead of just constantly updating it

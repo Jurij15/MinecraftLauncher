@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.WindowsAppSDK.Runtime;
 using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
@@ -207,8 +208,8 @@ namespace MinecraftLauncherUniversal.Pages
 
 
 
-            NavigationService.FrameGoBack();
-            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+            NavigationService.Navigate(typeof(Settings), "Settings", true); 
+            NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
 
             foreach (ComboBoxItem item in ProfileSelector.Items)
             {
@@ -263,8 +264,8 @@ namespace MinecraftLauncherUniversal.Pages
                 }
             }
 
-            NavigationService.FrameGoBack();
-            NavigationService.NavigateHiearchical(typeof(PlayerSettingsPage), "Player Settings", false);
+            NavigationService.Navigate(typeof(SettingsPage), "Settings", true);
+            NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
 
         private void Loaddialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

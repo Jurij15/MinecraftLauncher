@@ -53,7 +53,7 @@
                 </StackPanel>
             </StackPanel>
         </RelativePanel>
-        <Grid Margin="45,0,0,0" Grid.Column="1" Grid.Row="1">
+        <Grid Margin="45,0,0,0" Grid.Column="1" Grid.Row="1" RowSpacing="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

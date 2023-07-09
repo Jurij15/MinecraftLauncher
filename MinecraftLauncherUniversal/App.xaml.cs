@@ -56,6 +56,8 @@ namespace MinecraftLauncherUniversal
         {
             m_window = new MainWindow();
             m_window.Activate();
+
+            Globals.m_window = m_window;
         }
 
         private Window m_window;

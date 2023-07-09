@@ -9,6 +9,7 @@ using MinecraftLauncherUniversal.Helpers;
 using Windows.Devices.WiFi;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
+using System.Net.NetworkInformation;
 
 namespace MinecraftLauncherUniversal.Managers
 {
@@ -29,6 +30,10 @@ namespace MinecraftLauncherUniversal.Managers
             List<string> AllVersions = new List<string>();
             try
             {
+                if (!NetworkInterface.GetIsNetworkAvailable())
+                {
+                    return AllVersions.ToArray();
+                }
                 System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
 
                 //var path = new MinecraftPath("game_directory_path");
@@ -71,6 +76,10 @@ namespace MinecraftLauncherUniversal.Managers
 
             try
             {
+                if (!NetworkInterface.GetIsNetworkAvailable())
+                {
+                    return AllVersions.ToArray();
+                }
                 System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
 
                 //var path = new MinecraftPath("game_directory_path");
@@ -183,6 +192,10 @@ namespace MinecraftLauncherUniversal.Managers
 
         public async Task PreloadVersionArrays()
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                return;
+            }
             foreach (var item in await GetAllVersionsAsync())
             {
                 AllVersionsGlobal.Add(item);

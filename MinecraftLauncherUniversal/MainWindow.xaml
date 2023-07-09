@@ -19,14 +19,14 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid x:Name="AppTitleBar" Background="Transparent" Visibility="Visible" Margin="48,0,0,0" IsHitTestVisible="True" Canvas.ZIndex="2" Grid.Column="1">
+        <Grid x:Name="AppTitleBar" Background="Transparent" Visibility="Visible" Margin="50,0,0,0" IsHitTestVisible="True" Canvas.ZIndex="2" Grid.Column="1">
             <Grid.OpacityTransition>
                 <ScalarTransition Duration="0:0:0.083" />
             </Grid.OpacityTransition>
             <TextBlock
         x:Name="WindowTitle"
         Grid.Column="3"
-        Margin="20,1,0,0"
+        Margin="10,1,0,0"
         VerticalAlignment="Center"
                 HorizontalAlignment="Left"
         FontFamily="Segoe UI Variable Text"
@@ -34,15 +34,15 @@
         FontSize="12"
         Text="Minecraft Launcher" />
         </Grid>
-        <Button x:Name="AppTitleBackButton"
-                    Background="Transparent"   BorderBrush="Transparent" Grid.ColumnSpan="2" Margin="5,0,0,0" Width="36" Click="AppTitleBackButton_Click">
+        <Button x:Name="AppTitlePaneButton"
+                    Background="Transparent"   BorderBrush="Transparent" Grid.ColumnSpan="2" Margin="4,4,0,0" Width="36" Click="AppTitlePaneButton_Click">
             <Button.Content>
                 <AnimatedIcon Height="17" Margin="-3,0,-3,0">
                     <AnimatedIcon.Source>
-                        <animatedvisuals:AnimatedBackVisualSource/>
+                        <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource/>
                     </AnimatedIcon.Source>
                     <AnimatedIcon.FallbackIconSource>
-                        <SymbolIconSource Symbol="Find"/>
+                        <SymbolIconSource Symbol="OpenPane"/>
                     </AnimatedIcon.FallbackIconSource>
 
                 </AnimatedIcon>
@@ -57,7 +57,7 @@
                                  AlwaysShowHeader="True"
                                  OpenPaneLength="200"
                                  PaneDisplayMode="Left"
-                                 ItemInvoked="MainNavigation_ItemInvoked"
+                                 SelectionChanged="MainNavigation_SelectionChanged"
                                  IsTabStop="False"
                                  IsTitleBarAutoPaddingEnabled="False"
                                  >
@@ -83,20 +83,9 @@
             -->
             <NavigationView.Resources>
                 <ResourceDictionary x:Name="MainNavigationDisableContentBackgroundDictionary">
-                    <ResourceDictionary.ThemeDictionaries>
-                        <ResourceDictionary x:Key="Dark">
-                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                        </ResourceDictionary>
-                        <ResourceDictionary x:Key="Light">
-                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
-                        </ResourceDictionary>
-                        <ResourceDictionary x:Key="HighContrast">
-                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{ThemeResource SystemColorWindowColor}" />
-                        </ResourceDictionary>
-                    </ResourceDictionary.ThemeDictionaries>
+                    <Thickness x:Key="NavigationViewHeaderMargin">56,26,0,0</Thickness>
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                    <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
                 </ResourceDictionary>
             </NavigationView.Resources>
             <NavigationView.PaneHeader>
@@ -159,10 +148,12 @@
                     <NavigationViewItem.Content>
                         <StackPanel Spacing="1" Padding="6">
                             <TextBlock Text="All Versions" Margin="-6,0,0,0"/>
-                            <TextBlock x:Name="TotalVersionsBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                            <TextBlock x:Name="TotalReleasesBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                            <TextBlock x:Name="TotalOptiFineBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                            <TextBlock x:Name="TotalInstalledBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <StackPanel Spacing="1" Visibility="Collapsed">
+                                <TextBlock x:Name="TotalVersionsBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                                <TextBlock x:Name="TotalReleasesBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                                <TextBlock x:Name="TotalOptiFineBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                                <TextBlock x:Name="TotalInstalledBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            </StackPanel>
                         </StackPanel>
                     </NavigationViewItem.Content>
                 </NavigationViewItem>

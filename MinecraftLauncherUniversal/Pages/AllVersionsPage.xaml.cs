@@ -139,7 +139,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             ItemsPanel.Items.Clear();
 
-            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play "+version, false);
+            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
             //NavigationService.NavigateHiearchical(typeof(AboutPage), "test", false);
         }
 
@@ -280,7 +280,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             Globals.CurrentVersion = version;
 
-            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
+            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
