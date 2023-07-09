@@ -17,12 +17,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.Connectivity;
 using WinUIEx;
 using WinUIEx.Messaging;
 using static MinecraftLauncherUniversal.Services.NavigationService;
@@ -76,12 +79,10 @@ namespace MinecraftLauncherUniversal
             this.CenterOnScreen();
             this.SetIsResizable(false);
 
-            // Title = "MinecraftLauncher";
+           
+            Title = "Minecraft Launcher";
             SetCapitionButtonColorForWin10();
 
-            //Application.Current.FocusVisualKind = FocusVisualKind.HighVisibility;
-
-            //DesktopAcrylicBackdrop abackdrop = new DesktopAcrylicBackdrop();
             MicaBackdrop abackdrop = new MicaBackdrop();
             if (Globals.Theme == 0)
             {
@@ -96,7 +97,7 @@ namespace MinecraftLauncherUniversal
 
             if (Environment.OSVersion.Version.Build <= 22000) //enable the normal look of navigationview on windows 10
             {
-                MainNavigationDisableContentBackgroundDictionary.ThemeDictionaries.Clear();
+                //MainNavigationDisableContentBackgroundDictionary.ThemeDictionaries.Clear();
             }
 
             //Application.Current.FocusVisualKind = FocusVisualKind.Reveal;
@@ -182,6 +183,20 @@ namespace MinecraftLauncherUniversal
 
             loaddialog.ShowAsync();
 
+            if (NetworkInformation.GetInternetConnectionProfile()?.NetworkAdapter == null)
+            {
+                ContentDialog Nonetworkdialog = new ContentDialog();
+                Nonetworkdialog.XamlRoot = this.Content.XamlRoot;
+                Nonetworkdialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                Nonetworkdialog.Title = "Error";
+                Nonetworkdialog.Content = "Network is not available. Launcher might not function properly!";
+
+                Nonetworkdialog.CloseButtonText = "OK";
+                Nonetworkdialog.CloseButtonClick += Nonetworkdialog_CloseButtonClick;
+
+                loaddialog.Hide();
+                await Nonetworkdialog.ShowAsync();            
+            }
             VersionManager manager = new VersionManager();
             await manager.PreloadVersionArrays();
 
@@ -209,6 +224,11 @@ namespace MinecraftLauncherUniversal
             }
 
             loaddialog.Hide();
+        }
+
+        private void Nonetworkdialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            sender.Hide();
         }
 
         void SetStats()

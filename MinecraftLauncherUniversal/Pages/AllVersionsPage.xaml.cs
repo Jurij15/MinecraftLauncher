@@ -43,7 +43,7 @@ namespace MinecraftLauncherUniversal.Pages
             Long
         }
         //weird fix for duplication
-        async Task<bool> CheckIfCardAlreadyExists(string Header)
+        bool CheckIfCardAlreadyExists(string Header)
         {
             bool RetVal = false;
 
@@ -59,20 +59,6 @@ namespace MinecraftLauncherUniversal.Pages
         }
         public async Task CreateCardAsync(string VersionName, PopInAnimationDuration AnimDuration, bool bCheckIfInstalled)
         {
-            if (VersionManager.AllVersionsGlobal.Count <= 0)
-            {
-                ContentDialog dialog = new ContentDialog();
-                dialog.XamlRoot = Globals.MainGridXamlRoot;
-                dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-                dialog.Title = "Error";
-                dialog.Content = "An Error occured while searching for all available versions. Please restart the app";
-
-                dialog.CloseButtonText = "OK";
-                dialog.CloseButtonClick += Dialog_CloseButtonClick;
-
-                await dialog.ShowAsync();
-            }
-
             SettingsCard NewCard = new SettingsCard();
             NewCard.Header = VersionName.ToString();
             NewCard.IsEnabled = true;
@@ -101,24 +87,27 @@ namespace MinecraftLauncherUniversal.Pages
                     await Task.Delay(1);
                     break;
                 case PopInAnimationDuration.Short:
-                    await Task.Delay(5);
+                    await Task.Delay(1);
+                    //await Task.Delay(5);
                     break;
                 case PopInAnimationDuration.Normal:
-                    await Task.Delay(7);
+                    await Task.Delay(1);
+                    //await Task.Delay(7);
                     break;
                 case PopInAnimationDuration.Long:
-                    await Task.Delay(9);
+                    await Task.Delay(1);
+                    //await Task.Delay(9);
                     break;
                 default:
-                    await Task.Delay(7);
+                    await Task.Delay(1);
+                    //await Task.Delay(7);
                     break;
             }
 
-            if (!await CheckIfCardAlreadyExists(VersionName))
+            if (!CheckIfCardAlreadyExists(VersionName))
             {
                 ItemsPanel.Items.Add(NewCard);
             }
-
             TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
             Globals.AllVersionsNavigationViewItemInfoBadge.Value = ItemsPanel.Items.Count;
         }

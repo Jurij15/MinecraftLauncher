@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,8 +32,15 @@ namespace MinecraftLauncherUniversal.Pages
             VersionBox.Text = "Version " + Globals.VersionString;
         }
 
-        private void CheckForUpdatesBtn_Click(object sender, RoutedEventArgs e)
+        private async void CheckForUpdatesBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (!NetworkService.GetIsConnectedToNetwork())
+            {
+                ContentDialog dialog = DialogService.CreateContentDialog("Cannot check for updates", "No network connection is available.");
+                dialog.CloseButtonText = "Close";
+                await dialog.ShowAsync();
+                return;
+            }
             bool value = Updater.bIsUpToDate();
             if (value)
             {

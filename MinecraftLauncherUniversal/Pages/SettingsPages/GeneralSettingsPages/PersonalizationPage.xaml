@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Pages.SettingsPages.GeneralSettingsPages.PersonalizationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages.SettingsPages.GeneralSettingsPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:media="using:CommunityToolkit.WinUI.UI.Media">
+
+    <Grid RowSpacing="3" Margin="58, 42, 58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <labs:SettingsCard x:Name="ThemeCard" Header="Theme" Description="Change app theme"
+              Grid.Row="0" >
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE790;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <Grid>
+                <ComboBox x:Name="ThemesCombo" SelectionChanged="ThemesCombo_SelectionChanged">
+                    <ComboBoxItem Content="Dark" x:Name="DarkItem"/>
+                    <ComboBoxItem Content="Light" x:Name="LightItem"/>
+                </ComboBox>
+            </Grid>
+        </labs:SettingsCard>
+        <labs:SettingsCard x:Name="BackdropCard"
+                           Grid.Row="1"
+                           Header="Backdrop"
+                           Description="Change Backdrops (BETA)">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xEB42;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <ComboBox x:Name="BackdropCombo" SelectionChanged="BackdropCombo_SelectionChanged"/>
+        </labs:SettingsCard>
+        <labs:SettingsCard x:Name="SoundCard"
+              Grid.Row="2"
+              Header="Sound"
+              Description="Enable sound effects while using the app">
+            <labs:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE8D6;"/>
+            </labs:SettingsCard.HeaderIcon>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                <ToggleSwitch x:Name="SoundToggle" OnContent="On" OffContent="Off" IsOn="False" Toggled="SoundToggle_Toggled" IsEnabled="True"/>
+            </StackPanel>
+        </labs:SettingsCard>
+    </Grid>
+</Page>

@@ -41,10 +41,8 @@
         <GridView x:Name="ItemsPanel" Grid.Row="3" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
             <GridView.ItemContainerTransitions>
                 <TransitionCollection>
-                    <ContentThemeTransition />
-                    <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                    <AddDeleteThemeTransition />
                 </TransitionCollection>
-
             </GridView.ItemContainerTransitions>
         </GridView>
     </Grid>

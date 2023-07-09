@@ -29,7 +29,6 @@ namespace MinecraftLauncherUniversal.Helpers
             }
 
             Uri uri = new Uri("https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestVersion.txt");
-            WebClient wc = new WebClient();
             try
             {
                 using (var client = new HttpClient())
@@ -46,7 +45,7 @@ namespace MinecraftLauncherUniversal.Helpers
             catch (WebException ex)
             {
                 //DialogService.ShowSimpleDialog("Error", "An error occured while checking for updates");
-                throw;
+                return null;
             }
 
             RetVal = File.ReadAllText("Settings/VersionTemp");

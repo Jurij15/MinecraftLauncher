@@ -70,7 +70,7 @@
                 <FontIcon Glyph="&#xE777;"/>
             </labs:SettingsCard.HeaderIcon>
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button Style="{ThemeResource AccentButtonStyle}" Content="Check For Updates" x:Name="CheckForUpdatesBtn" Click="CheckForUpdatesBtn_Click">
+                <Button Content="Check For Updates" x:Name="CheckForUpdatesBtn" Click="CheckForUpdatesBtn_Click">
                     <Button.Flyout>
                         <Flyout x:Name="UpdateFlyout">
                             <StackPanel Orientation="Horizontal">

@@ -98,7 +98,6 @@ namespace MinecraftLauncherUniversal
                 Console.WriteLine(item);
             }
             Logger.Log("core", "Console Enabled!");
-            DialogService.ShowSimpleDialog("", "Console Enabled!");
         }
 
         [DllImport("kernel32.dll", EntryPoint = "FreeConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]

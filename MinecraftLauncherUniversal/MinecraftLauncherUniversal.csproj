@@ -35,6 +35,9 @@
     <None Remove="Pages\PlayerSettingsPage.xaml" />
     <None Remove="Pages\SelectedVersionPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
+    <None Remove="Pages\SettingsPages\AdvancedSettingsPage.xaml" />
+    <None Remove="Pages\SettingsPages\GeneralSettingsPageIndex.xaml" />
+    <None Remove="Pages\SettingsPages\GeneralSettingsPages\PersonalizationPage.xaml" />
     <None Remove="Styles\BreadcrumbBar.xaml" />
   </ItemGroup>
 
@@ -161,6 +164,18 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Pages\SettingsPages\GeneralSettingsPageIndex.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SettingsPages\GeneralSettingsPages\PersonalizationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SettingsPages\AdvancedSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SettingsPages\GeneralSettingsPages\GeneralSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Dialogs\WelcomeV2DialogContent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,6 +239,9 @@
     <Page Update="Styles\BreadcrumbBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\SettingsPages\AdvancedSettingsPages\" />
   </ItemGroup>
 
   <!-- 

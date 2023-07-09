@@ -35,7 +35,7 @@
         Text="Minecraft Launcher" />
         </Grid>
         <Button x:Name="AppTitlePaneButton"
-                    Background="Transparent"   BorderBrush="Transparent" Grid.ColumnSpan="2" Margin="4,4,0,0" Width="36" Click="AppTitlePaneButton_Click">
+                    Background="Transparent"   BorderBrush="Transparent" Grid.ColumnSpan="2" Margin="8,4,0,0" Width="36" Click="AppTitlePaneButton_Click">
             <Button.Content>
                 <AnimatedIcon Height="17" Margin="-3,0,-3,0">
                     <AnimatedIcon.Source>

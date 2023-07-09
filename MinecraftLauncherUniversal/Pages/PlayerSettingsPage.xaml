@@ -120,6 +120,9 @@
         </Grid>
         <labs:SettingsExpander HorizontalAlignment="Stretch" Grid.Row="4" HorizontalContentAlignment="Stretch" IsExpanded="True" Header="Profile Management"
                                Description="add profile, remove profile" Margin="0,4,0,0">
+            <labs:SettingsExpander.HeaderIcon>
+                <FontIcon Glyph="&#xE70F;" />
+            </labs:SettingsExpander.HeaderIcon>
             <labs:SettingsExpander.Items>
                 <labs:SettingsCard Header="Add Profile" IsClickEnabled="True" IsActionIconVisible="True" x:Name="AddProfileCard" Click="AddProfileCard_Click"/>
                 <labs:SettingsCard Header="Remove Profile" IsClickEnabled="True" IsActionIconVisible="True" x:Name="RemoveProfileCard" Click="RemoveProfileCard_Click"/>

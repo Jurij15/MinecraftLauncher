@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
+using MinecraftLauncherUniversal.Pages.SettingsPages;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -33,34 +34,6 @@ namespace MinecraftLauncherUniversal.Pages
         public SettingsPage()
         {
             this.InitializeComponent();
-            if (Globals.SoundPlayerState == ElementSoundPlayerState.On)
-            {
-                SoundToggle.IsOn = true;
-            }
-            else
-            {
-                SoundToggle.IsOn = false;
-            }
-
-            if (!Updater.bIsPrerelease())
-            {
-                ConsoleVisibilityCombo.IsEnabled = false;
-                ToolTipService.SetToolTip(ConsoleVisibilityCombo, "Not Available in Release!");
-            }
-
-            if (Globals.bShowConsole)
-            {
-                ConsoleVisibilityCombo.SelectedItem = ShowConsole;
-            }
-            else
-            {
-                ConsoleVisibilityCombo.SelectedItem = HideConsole;
-            }
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            DownloadConnectionLimitBox.Value = Globals.DownloadRateLimit;
         }
 
         private void TempWarning_Toggled(object sender, RoutedEventArgs e)
@@ -120,33 +93,8 @@ namespace MinecraftLauncherUniversal.Pages
             NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
 
-        private void DownloadConnectionLimitBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
-        {
-            Globals.DownloadRateLimit = Convert.ToInt32(args.NewValue);
-        }
-
-        private void DownloadRateLimitCard_Loaded(object sender, RoutedEventArgs e)
-        {
-            DownloadConnectionLimitBox.Value = Globals.DownloadRateLimit;
-        }
-
-        private void BackdropCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            BackdropManager manager = new BackdropManager();
-            string content = ((ComboBoxItem)sender).Content.ToString();
-            if (content == "Mica")
-            {
-                manager.ApplyMicaKind(Microsoft.UI.Composition.SystemBackdrops.MicaKind.Base);
-            }
-            else if (content == "MicaAlt")
-            {
-                manager.ApplyMicaKind(Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt);
-            }
-        }
-
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            Globals.DownloadRateLimit = Convert.ToInt32(DownloadConnectionLimitBox.Value);
         }
 
         private async void ResetAppBtn_Click(object sender, RoutedEventArgs e)
@@ -179,18 +127,14 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.ResetApp(true);
         }
 
-        private void ConsoleVisibilityCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PersonalizeNavigationCard_Click(object sender, RoutedEventArgs e)
         {
-            if (ConsoleVisibilityCombo.SelectedItem == ShowConsole)
-            {
-                Globals.bShowConsole = true;
-                Globals.SetupConsole();
-            }
-            if (ConsoleVisibilityCombo.SelectedItem == HideConsole)
-            {
-                Globals.bShowConsole = false;
-                Globals.CloseConsole();
-            }
+            NavigationService.Navigate(typeof(GeneralSettingsPageIndex), "General", false);
+        }
+
+        private void AdvancedNavigationCard_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(AdvancedSettingsPage), "Advanced", false);
         }
     }
 }
