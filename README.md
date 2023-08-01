@@ -3,7 +3,7 @@ A simple Minecraft launcher (Codename HybridCraft) made using [CmlLib](https://g
 
 ![heroImg](https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/images/Demo2.0.png)
 
-Current Latest version: 1.1
+Current Latest version: 2.0
 
 *This project is not affiliated with Mojang*.
 # How to use
