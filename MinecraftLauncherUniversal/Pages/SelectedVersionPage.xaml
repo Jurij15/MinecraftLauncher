@@ -66,7 +66,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch">
+            <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="True">
                 <Expander.Header>
                     <StackPanel Margin="8" CornerRadius="8">
                         <TextBlock Text="Game Launch Settings" FontSize="15"/>
@@ -75,15 +75,15 @@
                 </Expander.Header>
                 <StackPanel>
                     <CheckBox IsChecked="True" Content="Offline Mode" IsEnabled="False"/>
-                    <CheckBox IsChecked="True" Content="Fullscreen" x:Name="FullscreenCheck" IsEnabled="True" Margin="0,4,0,4"/>
+                    <CheckBox Content="Fullscreen" x:Name="FullscreenCheck" Loaded="FullscreenCheck_Loaded" Margin="0,4,0,4" Checked="FullscreenCheck_Checked" Unchecked="FullscreenCheck_Unchecked"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="RAM Allocation (in GB)" FontSize="12" FontWeight="SemiBold"/>
                         <FontIcon Glyph="&#xE946;" ToolTipService.ToolTip="Maximum amount of RAM Minecraft can use in GB" Margin="2,0,0,0"/>
                     </StackPanel>
-                    <NumberBox x:Name="RamAmountBox" SpinButtonPlacementMode="Hidden" AcceptsExpression="False" Value="2"/>
+                    <NumberBox x:Name="RamAmountBox" SpinButtonPlacementMode="Hidden" AcceptsExpression="False" Loaded="RamAmountBox_Loaded" ValueChanged="RamAmountBox_ValueChanged"/>
                 </StackPanel>
             </Expander>
-            <Expander HorizontalAlignment="Stretch" Grid.Row="2" x:Name="QuickPlayerSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="True" Collapsed="QuickPlayerSettingsExpander_Collapsed">
+            <Expander HorizontalAlignment="Stretch" Grid.Row="2" x:Name="QuickPlayerSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="False" Collapsed="QuickPlayerSettingsExpander_Collapsed">
                 <Expander.Header>
                     <StackPanel Margin="8" CornerRadius="8">
                         <TextBlock Text="Player Settings" FontSize="15"/>

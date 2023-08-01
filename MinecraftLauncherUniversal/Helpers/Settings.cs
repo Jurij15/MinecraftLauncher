@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MinecraftLauncherUniversal.Interop;
 
 namespace MinecraftLauncherUniversal.Helpers
 {
@@ -13,6 +14,8 @@ namespace MinecraftLauncherUniversal.Helpers
         public static string RootDir = "Settings/";
         public static string ThemeConfig = RootDir + "ThemeConfig";
         public static string RecentBuilds = RootDir + "RecentsConfig";
+        public static string MemoryInGB = RootDir + "AllocationMemoryInGBConfig";
+        public static string Fullscreen = RootDir + "FullscreenConfig";
 
         public static string ProfileDir = RootDir + "Profile/";
         public static string UsernameConfig = ProfileDir + "UsernameConfig";
@@ -53,6 +56,18 @@ namespace MinecraftLauncherUniversal.Helpers
                 sw.Write(0);
                 sw.Close();
             }
+
+            using (StreamWriter sw = File.CreateText(MemoryInGB))
+            {
+                sw.Write(2);
+                sw.Close();
+            }
+
+            using (StreamWriter sw = File.CreateText(Fullscreen))
+            {
+                sw.Write(true);
+                sw.Close();
+            }
         }
 
         public static void GetSettings() 
@@ -63,18 +78,65 @@ namespace MinecraftLauncherUniversal.Helpers
                 Globals.bIsFirstTimeRun = true;
             }
 
-            string theme = File.ReadAllText(ThemeConfig);
-            Globals.Theme = Convert.ToInt32(theme);
+            if (!File.Exists(ThemeConfig))
+            {
+                MessageBox.Show("Config will be reset to defaults!", "Failed to find ThemeConfig");
+                using (StreamWriter sw = File.CreateText(ThemeConfig))
+                {
+                    sw.Write(1);
+                    sw.Close();
+                }
+            }
+            else
+            {
+                string theme = File.ReadAllText(ThemeConfig);
+                Globals.Theme = Convert.ToInt32(theme);
+            }
 
-            //for testing purposes, lets not do that
-            string Username = File.ReadAllText(UsernameConfig);
-            //Globals.Username = Username;
+            if (!File.Exists(LastSelectedProfileIDConfig))
+            {
+                MessageBox.Show("Config will be reset to defaults!", "Failed to find LastSelectedProfileIDConfig");
+                using (StreamWriter sw = File.CreateText(LastSelectedProfileIDConfig))
+                {
+                    sw.Write(0);
+                    sw.Close();
+                }
+            }
+            else
+            {
+                string Profile = File.ReadAllText(LastSelectedProfileIDConfig);
+                Globals.LastUsedProfileID = Profile;
+            }
 
-            string SubText = File.ReadAllText(SubTextConfig);
-            //Globals.SubText = SubText;
+            if (!File.Exists(MemoryInGB))
+            {
+                MessageBox.Show("Config will be reset to defaults!", "Failed to find MemoryInGB");
+                using (StreamWriter sw = File.CreateText(MemoryInGB))
+                {
+                    sw.Write(2);
+                    sw.Close();
+                }
+            }
+            else
+            {
+                string mem = File.ReadAllText(MemoryInGB);
+                Globals.MemoryAmountInGB = Convert.ToInt32(mem);
+            }
 
-            string Profile = File.ReadAllText(LastSelectedProfileIDConfig);
-            Globals.LastUsedProfileID = Profile;
+            if (!File.Exists(Fullscreen))
+            {
+                MessageBox.Show("Config will be reset to defaults!", "Failed to find Fullscreen");
+                using (StreamWriter sw = File.CreateText(Fullscreen))
+                {
+                    sw.Write(true);
+                    sw.Close();
+                }
+            }
+            else
+            {
+                string fullscreen = File.ReadAllText(Fullscreen);
+                Globals.ShouldGoFullscreen = Convert.ToBoolean(fullscreen);
+            }
 
             foreach (var item in File.ReadAllLines(RecentBuilds))
             {
@@ -132,6 +194,26 @@ namespace MinecraftLauncherUniversal.Helpers
             using (StreamWriter sw = File.CreateText(LastSelectedProfileIDConfig))
             {
                 sw.Write(Globals.LastUsedProfileID.ToString());
+                sw.Close();
+            }
+        }
+
+        public static void SaveMemoryAllocationInGB(int Amount)
+        {
+            File.Delete(MemoryInGB);
+            using (StreamWriter sw = File.CreateText(MemoryInGB))
+            {
+                sw.Write(Amount);
+                sw.Close();
+            }
+        }
+
+        public static void SaveFullscreenConfig(bool NewValue)
+        {
+            File.Delete(Fullscreen);
+            using (StreamWriter sw = File.CreateText(Fullscreen))
+            {
+                sw.Write(NewValue);
                 sw.Close();
             }
         }

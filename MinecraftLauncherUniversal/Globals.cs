@@ -29,6 +29,9 @@ namespace MinecraftLauncherUniversal
         public static bool bIsFirstTimeRun = false;
         public static HashSet<string> Recents = new HashSet<string>();
 
+        public static int MemoryAmountInGB { get; set; }
+        public static bool ShouldGoFullscreen { get; set; }
+
         public static ElementSoundPlayerState SoundPlayerState;
 
         public static string LastUsedProfileID { get; set; }

@@ -22,6 +22,8 @@ using WinUIEx;
 using CmlLib.Utils;
 using Microsoft.UI.Xaml.Media.Imaging;
 using CmlLib.Core;
+using WinUIEx.Messaging;
+using MinecraftLauncherUniversal.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -206,6 +208,34 @@ namespace MinecraftLauncherUniversal.Pages
             Directory.Delete(MinecraftPath.WindowsDefaultPath + "\\" + "versions" + "\\" + Globals.CurrentVersion, true);
 
             NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
+        }
+
+        private void RamAmountBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((NumberBox)sender).Value = Globals.MemoryAmountInGB;
+        }
+
+        private void FullscreenCheck_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((CheckBox)sender).IsChecked = Globals.ShouldGoFullscreen;
+        }
+
+        private void FullscreenCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.SaveFullscreenConfig(true);
+            Globals.ShouldGoFullscreen = true;
+        }
+
+        private void FullscreenCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.SaveFullscreenConfig(false);
+            Globals.ShouldGoFullscreen = false;
+        }
+
+        private void RamAmountBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            Settings.SaveMemoryAllocationInGB(Convert.ToInt32(sender.Value));
+            Globals.MemoryAmountInGB = Convert.ToInt32(sender.Value);
         }
     }
 }
