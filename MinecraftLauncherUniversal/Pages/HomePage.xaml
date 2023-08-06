@@ -131,8 +131,8 @@
                             <EntranceThemeTransition IsStaggeringEnabled="True" />
                         </TransitionCollection>
                     </StackPanel.ChildrenTransitions>
-                    <TextBlock Text="Messages" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                    <StackPanel Spacing="2">
+                    <TextBlock Text="Messages" Margin="0,0,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    <StackPanel Spacing="2" Margin="0,2,0,0">
                         <InfoBar Title="GitHub" IsOpen="True" IsClosable="False">
                             <InfoBar.ActionButton>
                                 <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="Click Here"/>

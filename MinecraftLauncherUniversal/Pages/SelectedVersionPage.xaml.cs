@@ -135,6 +135,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
             await core.Download(OnProgressChanged);
+            LoadingRing.Value = 0;
             LoadingRing.Visibility = Visibility.Collapsed;
             DownloadButton.Visibility = Visibility.Collapsed;
             PlayButton.Visibility = Visibility.Visible;

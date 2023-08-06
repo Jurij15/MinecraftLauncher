@@ -115,7 +115,7 @@
                                 <StackPanel Spacing="1">
                                     <TextBlock Text="Are you sure?" FontWeight="Medium"/>
                                     <TextBlock Text="You can download this build back later" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,12"/>
-                                    <Button x:Name="ConfirmDelete" Style="{ThemeResource AccentButtonStyle}" Content="Yes" Click="ConfirmDelete_Click"/>
+                                    <Button x:Name="ConfirmDelete" Content="Yes" Click="ConfirmDelete_Click"/>
                                 </StackPanel>
                             </Flyout>
                         </Button.Flyout>
