@@ -118,14 +118,14 @@
                 <!--<NavigationViewItemSeparator/>-->
                 <NavigationViewItem x:Name="AllVersionsPage">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71D;"/>
+                        <FontIcon Glyph="&#xE768;"/>
                     </NavigationViewItem.Icon>
                     <NavigationViewItem.InfoBadge>
                         <InfoBadge Style="{StaticResource InformationalValueInfoBadgeStyle}" Value="0" x:Name="AllVersionsInfoBadge" Visibility="Collapsed"/>
                     </NavigationViewItem.InfoBadge>
                     <NavigationViewItem.Content>
                         <StackPanel Spacing="1" Padding="6">
-                            <TextBlock Text="All Versions" Margin="-6,0,0,0"/>
+                            <TextBlock Text="Play" Margin="-6,0,0,0"/>
                             <StackPanel Spacing="1" Visibility="Collapsed">
                                 <TextBlock x:Name="TotalVersionsBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
                                 <TextBlock x:Name="TotalReleasesBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>

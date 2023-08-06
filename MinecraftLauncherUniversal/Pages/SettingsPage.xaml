@@ -34,7 +34,7 @@
                 <FontIcon Glyph="&#xEC7A;"/>
             </labs:SettingsCard.HeaderIcon>
         </labs:SettingsCard>
-        <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username, SubText, Profiles" Click="HyperlinkButton_Click" Grid.Row="2">
+        <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username" Click="HyperlinkButton_Click" Grid.Row="2">
             <labs:SettingsCard.HeaderIcon>
                 <FontIcon Glyph="&#xEF58;"/>
             </labs:SettingsCard.HeaderIcon>

@@ -270,14 +270,15 @@ namespace MinecraftLauncherUniversal
                 sender.Text = string.Empty;
                 return;
             }
-            Globals.MainNavigation.SelectedItem = AllVersionsPage;
-            Navigate(typeof(AllVersionsPage), "All Versions", true);
 
             string version = args.SelectedItem.ToString();
 
             Globals.CurrentVersion = version;
 
-            Navigate(typeof(SelectedVersionPage), "Play", true);
+            Globals.MainNavigation.SelectedItem = AllVersionsPage;
+            Navigate(typeof(AllVersionsPage), "Select a Version", true);
+
+            Navigate(typeof(SelectedVersionPage), "Play", false);
         }
 
         private async void RootGrid_Loaded(object sender, RoutedEventArgs e)
@@ -336,7 +337,7 @@ namespace MinecraftLauncherUniversal
             }
             if (args.SelectedItemContainer == AllVersionsPage)
             {
-                Navigate(typeof(AllVersionsPage), "All Versions", true);
+                Navigate(typeof(AllVersionsPage), "Select a Version", true);
             }
             if (args.SelectedItemContainer == OptifineItem)
             {

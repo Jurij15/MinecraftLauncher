@@ -33,7 +33,7 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Spacing="1">
                     <CheckBox x:Name="ReleasesOnly" Content="Releases Only" Unchecked="ReleasesOnly_Unchecked" Checked="ReleasesOnly_Checked"/>
-                    <CheckBox x:Name="ShowInstalledStatus" Content="Installed" Checked="ShowInstalledStatus_Checked" Unchecked="ShowInstalledStatus_Unchecked"/>
+                    <CheckBox x:Name="ShowInstalledStatus" Content="Version Status" Checked="ShowInstalledStatus_Checked" Unchecked="ShowInstalledStatus_Unchecked"/>
                 </StackPanel>
             </Grid>
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>

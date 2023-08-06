@@ -206,7 +206,7 @@ namespace MinecraftLauncherUniversal.Pages
         private void PlayVersionCard_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[1];
-            NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
+            NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true);
         }
 
         private void PlayOptifineCard_Click(object sender, RoutedEventArgs e)
@@ -218,7 +218,7 @@ namespace MinecraftLauncherUniversal.Pages
         private void ChangeUsernameCard_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.SettingsItem;
-            NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
+            NavigationService.Navigate(typeof(SettingsPage), "Settings", true);
             NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
     }

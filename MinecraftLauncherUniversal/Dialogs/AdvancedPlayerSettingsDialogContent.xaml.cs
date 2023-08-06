@@ -24,12 +24,14 @@ namespace MinecraftLauncherUniversal.Dialogs
     /// </summary>
     public sealed partial class AdvancedPlayerSettingsDialogContent : Page
     {
-        public AdvancedPlayerSettingsDialogContent()
+        public AdvancedPlayerSettingsDialogContent(ContentDialog PresenterDialog)
         {
             this.InitializeComponent();
+
+            PresenterDialog.PrimaryButtonClick += PresenterDialog_PrimaryButtonClick;
         }
 
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        private void PresenterDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             if (!string.IsNullOrEmpty(CustomUUIDBox.Text) && !string.IsNullOrWhiteSpace(CustomUUIDBox.Text))
             {
@@ -39,6 +41,10 @@ namespace MinecraftLauncherUniversal.Dialogs
             {
                 Globals.Settings.CustomAccessToken = AccessTokenBox.Text;
             }
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
