@@ -39,7 +39,7 @@ namespace MinecraftLauncherUniversal.Dialogs
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            UsernameBox.Text = Globals.Username;
+            UsernameBox.Text = Globals.Settings.Username;
             if (VersionsHelper.bVersionSupportsSkins(Globals.CurrentVersion))
             {
                 ShowSkinCheck.IsChecked = true;
@@ -63,7 +63,7 @@ namespace MinecraftLauncherUniversal.Dialogs
                 //the launching procedure
                 int memooryinmb = Convert.ToInt32(RamAmountBox.Value) * 1024;
 
-                PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.CustomUUID, Globals.AccessToken);
+                PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
                 bool result = await core.Launch();
                 dialog.Hide();
                 await Task.Delay(500);

@@ -64,7 +64,7 @@ namespace MinecraftLauncherUniversal.Pages
         public SelectedVersionPage()
         {
             this.InitializeComponent();
-            UsernameBox.Text = Globals.Username;
+            UsernameBox.Text = Globals.Settings.Username;
             if (Globals.bIsFirstTimeRun)
             {
                 OpenUsernameTip();
@@ -133,7 +133,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             LoadingRing.Visibility = Visibility.Visible;
 
-            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.CustomUUID, Globals.AccessToken);
+            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
             await core.Download(OnProgressChanged);
             LoadingRing.Visibility = Visibility.Collapsed;
             DownloadButton.Visibility = Visibility.Collapsed;
@@ -158,14 +158,14 @@ namespace MinecraftLauncherUniversal.Pages
             PlayButton.Visibility = Visibility.Collapsed;
             StatusBox.Text = "Launching...";
 
-            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.CustomUUID, Globals.AccessToken);
+            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
             bool result = await core.Launch();
             if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }   
             LoadingRing.Visibility = Visibility.Collapsed;
             StatusBox.Text = "Playing";
 
             //by now, it has already been launched, now store the build in recents
-            Settings.SaveRecentBuild(Globals.CurrentVersion);
+            MessageBox.Show("Recent builds need reimplementation!");
             MinecraftLaunchedInfo.IsOpen = true;
             PlayButton.Visibility = Visibility.Visible;
 
@@ -212,30 +212,30 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void RamAmountBox_Loaded(object sender, RoutedEventArgs e)
         {
-            ((NumberBox)sender).Value = Globals.MemoryAmountInGB;
+            ((NumberBox)sender).Value = Globals.Settings.MemoryAllocationInGB;
         }
 
         private void FullscreenCheck_Loaded(object sender, RoutedEventArgs e)
         {
-            ((CheckBox)sender).IsChecked = Globals.ShouldGoFullscreen;
+            ((CheckBox)sender).IsChecked = Globals.Settings.Fullscreen;
         }
 
         private void FullscreenCheck_Checked(object sender, RoutedEventArgs e)
         {
-            Settings.SaveFullscreenConfig(true);
-            Globals.ShouldGoFullscreen = true;
+           Globals.Settings.Fullscreen = true;
+            SettingsJson.SaveSettings();
         }
 
         private void FullscreenCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            Settings.SaveFullscreenConfig(false);
-            Globals.ShouldGoFullscreen = false;
+            Globals.Settings.Fullscreen = false;
+            SettingsJson.SaveSettings();
         }
 
         private void RamAmountBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
         {
-            Settings.SaveMemoryAllocationInGB(Convert.ToInt32(sender.Value));
-            Globals.MemoryAmountInGB = Convert.ToInt32(sender.Value);
+            Globals.Settings.MemoryAllocationInGB = (int)args.NewValue;
+            SettingsJson.SaveSettings();
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -36,15 +37,20 @@ namespace MinecraftLauncherUniversal
         {
             this.InitializeComponent();
 
-            Settings.GetSettings();
-            string text = File.ReadAllText(Settings.ThemeConfig);
-            if (text.Contains("1"))
+            SettingsJson.LoadSettings();
+            if (Globals.Settings.Theme == ElementTheme.Dark)
             {
                 App.Current.RequestedTheme = ApplicationTheme.Dark;
             }
-            else if (text.Contains("0"))
+            else if (Globals.Settings.Theme == ElementTheme.Light)
             {
                 App.Current.RequestedTheme = ApplicationTheme.Light;
+            }
+
+
+            if (Globals.Settings.Sound)
+            {
+                ElementSoundPlayer.State = ElementSoundPlayerState.On;
             }
         }
 

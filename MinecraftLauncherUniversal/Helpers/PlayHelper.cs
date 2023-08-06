@@ -24,7 +24,7 @@ namespace MinecraftLauncherUniversal.Helpers
             var launchOption = new MLaunchOption
             {
                 MaximumRamMb = MemoryAmountInMB,
-                Session = MSession.GetOfflineSession(Globals.Username),
+                Session = MSession.GetOfflineSession(Globals.Settings.Username),
                 FullScreen = bFullscreen
                 //ScreenWidth = 1600,
                 //ScreenHeight = 900,
@@ -54,7 +54,7 @@ namespace MinecraftLauncherUniversal.Helpers
             var launchOption = new MLaunchOption
             {
                 MaximumRamMb = MemoryAmountInMB,
-                Session = MSession.GetOfflineSession(Globals.Username),
+                Session = MSession.GetOfflineSession(Globals.Settings.Username),
                 FullScreen = bFullscreen
             };
 

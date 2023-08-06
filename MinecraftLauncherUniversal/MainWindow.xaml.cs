@@ -84,7 +84,7 @@ namespace MinecraftLauncherUniversal
             SetCapitionButtonColorForWin10();
 
             MicaBackdrop abackdrop = new MicaBackdrop();
-            if (Globals.Theme == 0)
+            if (Globals.Settings.Theme == ElementTheme.Light)
             {
                 //light
                 abackdrop.Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt; //idk if i should keep this in, it looks nice but idk
@@ -134,23 +134,6 @@ namespace MinecraftLauncherUniversal
             {
                 Globals.ToastFailedInit = true;
             }
-            Settings.GetSettings();
-
-            if (Globals.bIsFirstTimeRun)
-            {
-                OnFirstTimeRun();
-            }
-            else
-            {
-                //init last used user profile
-                CustomProfileDataManager managet = new CustomProfileDataManager();
-                managet.GetLastUsedProfile();
-            }
-
-            //MainNavigation.PaneTitle = Globals.Username;
-            UsernameBlock.Text = Globals.Username;
-            ProfileSubtext.Text = Globals.SubText;
-            ToolTipService.SetToolTip(PlayerPaneContent, "Edit Profile " + UsernameBlock.Text);
 
             //navigate home
             MainNavigation.SelectedItem = HomeItem;
@@ -161,17 +144,6 @@ namespace MinecraftLauncherUniversal
                 UsernameTip.Target = (FrameworkElement)MainNavigation.PaneCustomContent;
                 //UsernameTip.IsOpen = true;
             }
-
-            if (!Globals.bIsFirstTimeRun)
-            {
-                InfoDot.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        void OnFirstTimeRun()
-        {
-            CustomProfileDataManager manager = new CustomProfileDataManager();
-            manager.InitProfiles();
         }
 
         async Task PreloadArrays()
@@ -251,19 +223,6 @@ namespace MinecraftLauncherUniversal
                 var crumb = (Breadcrumb)args.Item;
                 crumb.NavigateToFromBreadcrumb(args.Index);
             }
-        }
-
-        private void PlayerPaneContent_Click(object sender, RoutedEventArgs e)
-        {
-            MainNavigation.SelectedItem = MainNavigation.SettingsItem;
-            Navigate(typeof(SettingsPage), "Settings", true);
-
-            Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
-
-            UsernameBlock.Text = Globals.Username;
-            ProfileSubtext.Text = Globals.SubText;
-
-            InfoDot.Visibility = Visibility.Collapsed;
         }
 
         private void AppTitlePaneOpenButton_Click(object sender, RoutedEventArgs e)
@@ -350,10 +309,6 @@ namespace MinecraftLauncherUniversal
 
         private void RootFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            //MainNavigation.PaneTitle = Globals.Username;
-            UsernameBlock.Text = Globals.Username;
-            ProfileSubtext.Text = Globals.SubText;
-
             if (e.SourcePageType == typeof(HomePage))
             {
                 ChangeBreadcrumbVisibility(false);
@@ -391,10 +346,6 @@ namespace MinecraftLauncherUniversal
             {
                 Navigate(typeof(AboutPage), "About", true);
             }
-
-            //MainNavigation.PaneTitle = Globals.Username;
-            UsernameBlock.Text = Globals.Username;
-            ProfileSubtext.Text = Globals.SubText;
 
             GC.Collect(); //idk, trying to lower ram usage
 

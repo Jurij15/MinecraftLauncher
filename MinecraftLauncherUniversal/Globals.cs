@@ -2,6 +2,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.Windows.AppLifecycle;
+using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
@@ -22,30 +23,19 @@ namespace MinecraftLauncherUniversal
 {
     public class Globals
     {
-        public static string SQLiteConnectionPath = "Data Source=Profiles.db;Version=3;";
-
-        public static int Theme = 1;
+        public static string RootDir = "Settings/";
+        public static string SettingsFile = RootDir+"settings.json";
         public static int DownloadRateLimit = 1024;
         public static bool bIsFirstTimeRun = false;
         public static HashSet<string> Recents = new HashSet<string>();
 
-        public static int MemoryAmountInGB { get; set; }
-        public static bool ShouldGoFullscreen { get; set; }
-
-        public static ElementSoundPlayerState SoundPlayerState;
-
-        public static string LastUsedProfileID { get; set; }
-
         public static string CurrentVersion {  get; set; }  
 
-        public static string Username {  get; set; }
-        public static string SubText { get; set; }
-        public static string CustomUUID { get; set; }
-        public static string AccessToken { get; set; } //this will not save, for now
-
-        public static string VersionString = "2.0";
+        public static string VersionString = "2.1-DEV";
 
         public static bool ToastFailedInit = false;
+
+        public static SettingsJson Settings;
 
         #region Objects
         public static WindowEx MainWindow;
@@ -58,23 +48,15 @@ namespace MinecraftLauncherUniversal
         public static Window m_window;
         #endregion
 
-        //i should use binding for this, instead of just constantly updating it
-        public static ObservableCollection<string> Breadcrumbs = new ObservableCollection<string>();
-        public static void UpdateBreadcrumb()
-        {
-            MainNavigationBreadcrumb.ItemsSource = Breadcrumbs;
-        }
-
         public static async void ResetApp(bool bSendNotification)
         {
-            Directory.Delete(Settings.RootDir, true);
+            Directory.Delete(RootDir, true);
             if (bSendNotification) { NotificationService.SendSimpleToast("MinecraftLauncher was reset", "Restart was required to complete", 1.9); }
 
             //CustomProfileDataManager manager = new CustomProfileDataManager();
             //manager.DeleteProfile();
 
             RestartApp();
-            CustomProfileDataManager.ResetProfiles();
         }
 
         public static async void RestartApp()

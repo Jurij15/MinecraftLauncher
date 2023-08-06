@@ -65,19 +65,19 @@ namespace MinecraftLauncherUniversal.Core
                 MSession session  = new MSession();
                 session.AccessToken = _accessToken;
                 session.UUID = _uuid;
-                session.Username = Globals.Username;
+                session.Username = Globals.Settings.Username;
                 launchOption.Session = session;
             }
             if (!string.IsNullOrEmpty(_accessToken) && !string.IsNullOrWhiteSpace(_accessToken))
             {
                 MSession session = new MSession();
                 session.AccessToken = _accessToken;
-                session.Username = Globals.Username;
+                session.Username = Globals.Settings.Username;
                 launchOption.Session = session;
             }
             else
             {
-                launchOption.Session = MSession.GetOfflineSession(Globals.Username);
+                launchOption.Session = MSession.GetOfflineSession(Globals.Settings.Username);
             }
 
             try
@@ -108,7 +108,7 @@ namespace MinecraftLauncherUniversal.Core
             var launchOption = new MLaunchOption
             {
                 MaximumRamMb = _memoryMB,
-                Session = MSession.GetOfflineSession(Globals.Username),
+                Session = MSession.GetOfflineSession(Globals.Settings.Username),
                 FullScreen = _bfullscreen
             };
 

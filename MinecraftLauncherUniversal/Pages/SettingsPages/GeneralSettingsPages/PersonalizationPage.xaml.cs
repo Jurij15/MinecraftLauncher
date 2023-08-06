@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -28,25 +29,34 @@ namespace MinecraftLauncherUniversal.Pages.SettingsPages.GeneralSettingsPages
     public sealed partial class PersonalizationPage : Page
     {
         bool InitFinished = false;
+        public enum Theme
+        {
+            //
+            // Summary:
+            //     Use the Application.RequestedTheme value for the element. This is the default.
+            Default,
+            //
+            // Summary:
+            //     Use the **Light** default theme.
+            Light,
+            //
+            // Summary:
+            //     Use the **Dark** default theme.
+            Dark
+        }
         public PersonalizationPage()
         {
             this.InitializeComponent();
-            if (Globals.Theme == 1)
-            {
-                ThemesCombo.SelectedItem = DarkItem;
-            }
-            else if (Globals.Theme == 0)
-            {
-                ThemesCombo.SelectedItem = LightItem;
-            }
 
-            if (Globals.SoundPlayerState == ElementSoundPlayerState.On)
-            {
-                SoundToggle.IsOn = true;
-            }
+            SoundToggle.IsOn = Globals.Settings.Sound;
 
             var _enumval = Enum.GetValues(typeof(Backdrop)).Cast<Backdrop>();
             BackdropCombo.ItemsSource = _enumval;
+
+            var _themeenumval = Enum.GetValues(typeof(Theme)).Cast<Theme>();
+            ThemesCombo.ItemsSource = _themeenumval;
+
+            ThemesCombo.SelectedIndex = (int)Globals.Settings.Theme;
 
             InitFinished = true;
         }
@@ -59,14 +69,16 @@ namespace MinecraftLauncherUniversal.Pages.SettingsPages.GeneralSettingsPages
             }
             if (SoundToggle.IsOn)
             {
-                Globals.SoundPlayerState = ElementSoundPlayerState.On;
                 ElementSoundPlayer.State = ElementSoundPlayerState.On;
+                Globals.Settings.Sound = true;
             }
             else
             {
-                Globals.SoundPlayerState = ElementSoundPlayerState.Off;
                 ElementSoundPlayer.State = ElementSoundPlayerState.Off;
+                Globals.Settings.Sound = false;
             }
+
+            SettingsJson.SaveSettings();
         }
 
         private void ThemesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -75,16 +87,12 @@ namespace MinecraftLauncherUniversal.Pages.SettingsPages.GeneralSettingsPages
             {
                 return;
             }
-            if (ThemesCombo.SelectedIndex == 0)
-            {
-                ThemeService.ChangeTheme(ElementTheme.Dark);
-                Globals.Theme = 1;
-            }
-            else
-            {
-                ThemeService.ChangeTheme(ElementTheme.Light);
-                Globals.Theme = 0;
-            }
+            ElementTheme theme = (ElementTheme)((ComboBox)sender).SelectedItem;
+
+            ThemeService.ChangeTheme(theme);
+            Globals.Settings.Theme = theme;
+
+            SettingsJson.SaveSettings();
         }
 
         private void BackdropCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

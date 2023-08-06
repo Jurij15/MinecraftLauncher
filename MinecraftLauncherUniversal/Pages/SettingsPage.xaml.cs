@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
@@ -15,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -34,58 +36,6 @@ namespace MinecraftLauncherUniversal.Pages
         public SettingsPage()
         {
             this.InitializeComponent();
-        }
-
-        private void TempWarning_Toggled(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TempTestStop_Toggled(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SoundToggle_Toggled(object sender, RoutedEventArgs e)
-        {
-            bool state = ((ToggleSwitch)sender).IsOn;
-            if (state == true)
-            {
-                ElementSoundPlayer.State = ElementSoundPlayerState.On;
-                Globals.SoundPlayerState = ElementSoundPlayerState.On;
-            }
-            else
-            {
-                ElementSoundPlayer.State = ElementSoundPlayerState.Off;
-                Globals.SoundPlayerState = ElementSoundPlayerState.Off;
-            }
-        }
-
-        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-        {
-            // Save theme choice to LocalSettings. 
-            // ApplicationTheme enum values: 0 = Light, 1 = Dark
-            bool toggleswitchstate = ((ToggleSwitch)sender).IsOn;
-
-            if (!toggleswitchstate)
-            {
-                //ThemeService.SetTheme(ApplicationTheme.Light);
-            }
-            else
-            {
-                //ThemeService.SetTheme(ApplicationTheme.Dark);
-            }
-
-            Globals.Theme = Convert.ToInt32(toggleswitchstate);
-
-            Helpers.Settings.SaveNewTheme();
-
-            //ThemeConfigAppRestartMessage.Visibility = Visibility.Visible;
-        }
-
-        private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)
-        {
-            ((ToggleSwitch)sender).IsOn = Convert.ToBoolean(Globals.Theme);
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)

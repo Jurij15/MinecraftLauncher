@@ -33,11 +33,11 @@ namespace MinecraftLauncherUniversal.Dialogs
         {
             if (!string.IsNullOrEmpty(CustomUUIDBox.Text) && !string.IsNullOrWhiteSpace(CustomUUIDBox.Text))
             {
-                Globals.CustomUUID = CustomUUIDBox.Text;
+                Globals.Settings.CustomUUID = CustomUUIDBox.Text;
             }
             if (!string.IsNullOrEmpty(AccessTokenBox.Text) && !string.IsNullOrWhiteSpace(AccessTokenBox.Text))
             {
-                Globals.AccessToken = AccessTokenBox.Text;
+                Globals.Settings.CustomAccessToken = AccessTokenBox.Text;
             }
         }
     }

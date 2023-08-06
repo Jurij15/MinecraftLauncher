@@ -52,8 +52,7 @@ namespace MinecraftLauncherUniversal.Pages
         {
             this.InitializeComponent();
 
-            UsernameSettingsBox.Text = Globals.Username;
-            SubText.Text = Globals.SubText;
+            UsernameSettingsBox.Text = Globals.Settings.Username;
         }
 
         private void UsernameSettingsBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -67,68 +66,12 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 return;
             }
-            bool bUnloading = true;
-            if (!string.IsNullOrEmpty(UsernameSettingsBox.Text) || !string.IsNullOrWhiteSpace(UsernameSettingsBox.Text))
-            {
-                Globals.Username = UsernameSettingsBox.Text;
-                //Settings.SaveNewUsername();
-                CustomProfileDataManager p = new CustomProfileDataManager();
-                p.SaveNewUsernameConfigToGuid(GetCurrentID());
-            }
-            if (!string.IsNullOrEmpty(SubText.Text) || !string.IsNullOrWhiteSpace(SubText.Text))
-            {
-                Globals.SubText = SubText.Text;
-                //Settings.SaveNewSubText();
-                CustomProfileDataManager p = new CustomProfileDataManager();
-                p.SaveNewSubTextConfigToGuid(GetCurrentID());
-            }
-
-            Globals.LastUsedProfileID = GetCurrentID();
-            Settings.SaveLastUsedProfile(Globals.LastUsedProfileID);
 
             ProfileSelector.Items.Clear();
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            #region Init Profiles 
-            CustomProfileDataManager manager = new CustomProfileDataManager();
-            List<string> ids = manager.GetAllGuids();
-            foreach (var id in ids)
-            {
-                Profile p = new Profile(id);
-
-                ComboBoxItem item = new ComboBoxItem();
-                StackPanel content = new StackPanel();
-
-                TextBlock username = new TextBlock();
-                TextBlock subText = new TextBlock();
-
-                username.Text = p.GetUsername();
-                subText.Text = p.GetSubtext();
-
-                username.FontSize = 16;
-                username.FontWeight = FontWeights.Medium;
-
-                item.Name = id;
-
-                content.Children.Add(username);
-                content.Children.Add(subText);
-
-                item.Content = content;
-
-                ProfileSelector.Items.Add(item);
-            }
-
-            foreach (ComboBoxItem item in ProfileSelector.Items)
-            {
-                if (item.Name == Globals.LastUsedProfileID)
-                {
-                    ProfileSelector.SelectedItem = item;
-                    break;
-                }
-            } 
-            #endregion
         }
 
         private async void ExploreBtn_Click(object sender, RoutedEventArgs e)
@@ -184,41 +127,10 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void ProfileSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (bUnloading)
-            {
-                return;
-            }
-            if (ProfileSelector.Items.Count <= 0)
-            {
-                return;
-            }
-            _id = ((ComboBoxItem)ProfileSelector.SelectedItem).Name;
-
-            CustomProfileDataManager manager = new CustomProfileDataManager();
-            UsernameSettingsBox.Text = manager.GetUsernameByGuid(GetCurrentID());
-            SubText.Text = manager.GetSubTextByGuid(GetCurrentID());
-
-            //Settings.SaveLastUsedProfile(_id);
         }
 
         private void AddProfileCard_Click(object sender, RoutedEventArgs e)
         {
-            CustomProfileDataManager manager = new CustomProfileDataManager();
-            string guid = manager.CreateNewProfileAndGetGuid();
-
-
-
-            NavigationService.Navigate(typeof(Settings), "Settings", true); 
-            NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
-
-            foreach (ComboBoxItem item in ProfileSelector.Items)
-            {
-                if (item.Name == guid)
-                {
-                    ProfileSelector.SelectedItem = item;
-                    break;
-                }
-            }
         }
 
         private async void RemoveProfileCard_Click(object sender, RoutedEventArgs e)
@@ -242,28 +154,6 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Loaddialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            sender.Hide();
-            if (ProfileSelector.Items.Count == 1)
-            {
-                DialogService.ShowSimpleDialog("Error", "You cannot delete the only existing account");
-                return;
-            }
-
-            CustomProfileDataManager manager = new CustomProfileDataManager();
-            manager.DeleteProfile(GetCurrentID());
-
-            foreach (ComboBoxItem item in ProfileSelector.Items)
-            {
-                string guid = item.Name;
-                if (guid != GetCurrentID())
-                {
-                    Settings.SaveLastUsedProfile(guid);
-                    Globals.LastUsedProfileID = guid;
-
-                    bRestartingAfterAccDeleted = true;
-                }
-            }
-
             NavigationService.Navigate(typeof(SettingsPage), "Settings", true);
             NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
