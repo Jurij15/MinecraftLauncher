@@ -38,7 +38,7 @@
             </Grid>
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>
         </Grid>
-        <GridView x:Name="ItemsPanel" Grid.Row="3" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
+        <GridView x:Name="ItemsPanel" Grid.Row="3" BorderBrush="Transparent" SelectionMode="None" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
             <GridView.ItemContainerTransitions>
                 <TransitionCollection>
                     <AddDeleteThemeTransition />

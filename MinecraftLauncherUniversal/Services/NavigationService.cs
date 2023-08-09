@@ -96,10 +96,10 @@ namespace MinecraftLauncherUniversal.Services
                 info.Effect = SlideNavigationTransitionEffect.FromRight;
             }
 
+            MainFrame.Navigate(TargetPageType, null, info);
+
             UpdateBreadcrumb();
             ChangeBreadcrumbVisibility(true);
-
-            MainFrame.Navigate(TargetPageType, null, info);
         }
         public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, SlideNavigationTransitionEffect TransitionEffect)
         {

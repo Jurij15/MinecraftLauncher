@@ -99,12 +99,16 @@
                             <Setter Property="FontWeight" Value="SemiBold"/>
                             <Setter Property="Foreground" Value="{ThemeResource TextFillColorTertiaryBrush}"/>
                         </Style>
+                        <StaticResource x:Key="BreadcrumbBarNormalForegroundBrush" ResourceKey="TextFillColorSecondaryBrush" />
+                        <StaticResource x:Key="BreadcrumbBarHoverForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+                        <StaticResource x:Key="BreadcrumbBarPressedForegroundBrush" ResourceKey="TextFillColorTertiaryBrush" />
                     </BreadcrumbBar.Resources>
                     <BreadcrumbBar.ItemTemplate>
                         <DataTemplate x:Name="BreadcrumbBarItemTemplate" 
                       x:DataType="BreadcrumbBarItem">
                             <BreadcrumbBarItem Style="{StaticResource BreadcrumbBarItemStyle}"
-                                         Content="{Binding Content}"/>
+                                         Content="{Binding Content}">
+                            </BreadcrumbBarItem>
                         </DataTemplate>
                     </BreadcrumbBar.ItemTemplate>
                 </BreadcrumbBar>
@@ -140,6 +144,11 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xF4A5;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem Content="Servers" x:Name="ServersItem">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE731;" />
+                    </NavigationViewItem.Icon>
+            </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="About" x:Name="AboutItem">

@@ -223,6 +223,8 @@ namespace MinecraftLauncherUniversal
                 var crumb = (Breadcrumb)args.Item;
                 crumb.NavigateToFromBreadcrumb(args.Index);
             }
+
+            ElementSoundPlayer.Play(ElementSoundKind.GoBack);
         }
 
         private void AppTitlePaneOpenButton_Click(object sender, RoutedEventArgs e)
@@ -346,6 +348,10 @@ namespace MinecraftLauncherUniversal
             if (args.SelectedItemContainer == AboutItem)
             {
                 Navigate(typeof(AboutPage), "About", true);
+            }
+            if (args.SelectedItemContainer == ServersItem)
+            {
+                Navigate(typeof(ServersPage), "Servers", true);
             }
 
             GC.Collect(); //idk, trying to lower ram usage

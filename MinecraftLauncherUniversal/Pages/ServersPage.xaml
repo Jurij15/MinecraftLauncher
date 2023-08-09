@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Pages.ServersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Margin="58, 42, 58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <CommandBar x:Name="Toolbar" Grid.Row="0" DefaultLabelPosition="Right">
+            <AppBarButton Label="Add" Icon="Add" x:Name="AddToolbarBtn" Click="AddToolbarBtn_Click" HorizontalAlignment="Left"/>
+        </CommandBar>
+        <GridView x:Name="ItemsPanel" Grid.Row="1" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" CanDragItems="False" IsItemClickEnabled="False" CanReorderItems="False">
+            <GridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition />
+                </TransitionCollection>
+            </GridView.ItemContainerTransitions>
+        </GridView>
+    </Grid>
+</Page>
