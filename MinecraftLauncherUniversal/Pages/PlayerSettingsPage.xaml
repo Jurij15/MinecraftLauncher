@@ -29,7 +29,19 @@
                            Description="This username will be used In-Game">
             <TextBox x:Name="UsernameSettingsBox" PlaceholderText="Username" TextChanged="UsernameSettingsBox_TextChanged" Margin="0,2,0,2"/>
         </labs:SettingsCard>
-        <Grid Grid.Row="2" Margin="2">
+        <labs:SettingsCard x:Name="MemoryAllocationCard"
+                           Grid.Row="2"
+                           Header="Memory Allocation"
+                           Description="Limit of memory (RAM) that Minecraft can use">
+            <NumberBox x:Name="MemoryBox"/>
+        </labs:SettingsCard>
+        <labs:SettingsCard x:Name="FullecreenCard"
+                           Grid.Row="3"
+                           Header="Fullscreen"
+                           Description="Change weather the game will go to fullscreen on launch">
+            <ToggleSwitch x:Name="FullscreenCheck"/>
+        </labs:SettingsCard>
+        <Grid Grid.Row="5" Margin="2">
             <Button x:Name="AdvancedDialogBtn" Click="AdvancedDialogBtn_Click" Content="Advanced" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>

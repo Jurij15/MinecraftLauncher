@@ -97,6 +97,58 @@ namespace MinecraftLauncherUniversal.Core
             return RetVal;
         }
 
+        public async Task<bool> LaunchServer(string ServerIP, string ServerPort)
+        {
+            bool RetVal = false;
+            System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;
+
+            var path = new MinecraftPath(); // use default directory
+
+            var launcher = new CMLauncher(path);
+
+            var launchOption = new MLaunchOption();
+            launchOption.MaximumRamMb = _memoryMB;
+            launchOption.FullScreen = _bfullscreen;
+            launchOption.GameLauncherName = "Minecraft Launcher Universal";
+            launchOption.ServerIp = ServerIP;
+            launchOption.ServerPort = Convert.ToInt32(ServerPort);
+            if (!string.IsNullOrEmpty(_uuid) && !string.IsNullOrWhiteSpace(_uuid))
+            {
+                MSession session = new MSession();
+                session.AccessToken = _accessToken;
+                session.UUID = _uuid;
+                session.Username = Globals.Settings.Username;
+                launchOption.Session = session;
+            }
+            if (!string.IsNullOrEmpty(_accessToken) && !string.IsNullOrWhiteSpace(_accessToken))
+            {
+                MSession session = new MSession();
+                session.AccessToken = _accessToken;
+                session.Username = Globals.Settings.Username;
+                launchOption.Session = session;
+            }
+            else
+            {
+                launchOption.Session = MSession.GetOfflineSession(Globals.Settings.Username);
+            }
+
+            try
+            {
+                var process = await launcher.CreateProcessAsync(_version, launchOption);
+
+                process.Start();
+
+                RetVal = true; //launched no problem
+            }
+            catch (Exception ex)
+            {
+                RetVal = false;
+                _errorDuringLaunch = ex.Message;
+            }
+
+            return RetVal;
+        }
+
         public async Task Download(Action<int> ProgressChanged)
         {
             System.Net.ServicePointManager.DefaultConnectionLimit = Globals.DownloadRateLimit;

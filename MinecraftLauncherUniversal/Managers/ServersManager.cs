@@ -55,5 +55,10 @@ namespace MinecraftLauncherUniversal.Managers
 
             return JsonConvert.DeserializeObject<ServerJson>(json);
         }
+
+        public void DeleteServer(string Guid)
+        {
+            File.Delete(ServersRootDir+Guid+".json");
+        }
     }
 }

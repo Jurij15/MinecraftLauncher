@@ -17,6 +17,7 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="ServerNameBox" Text="{x:Bind _serverName, Mode=TwoWay}" Header="Server Name" PlaceholderText="Name" Grid.Row="0"/>
         <TextBox x:Name="ServerIPBox" Text="{x:Bind _serverIP, Mode=TwoWay}" Header="Server IP" PlaceholderText="IP" Grid.Row="1"/>
-        <ComboBox Header="Server Version" x:Name="VersionsBox" Grid.Row="2" IsEditable="True" SelectionChanged="VersionsBox_SelectionChanged"/>
+        <TextBox x:Name="ServerPortBox" Text="{x:Bind _serverPort, Mode=TwoWay}" Header="Server Port" PlaceholderText="Port" Grid.Row="2"/>
+        <ComboBox Header="Server Version" x:Name="VersionsBox" Grid.Row="3" IsEditable="True" SelectionChanged="VersionsBox_SelectionChanged"/>
     </Grid>
 </Page>

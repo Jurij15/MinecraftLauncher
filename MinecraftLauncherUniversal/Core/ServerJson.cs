@@ -11,6 +11,7 @@ namespace MinecraftLauncherUniversal.Core
         public string ServerName;
         public string ServerVersion;
         public string ServerIP;
+        public string ServerPort;
 
         public string GUID;
     }
