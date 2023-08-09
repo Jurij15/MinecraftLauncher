@@ -257,7 +257,8 @@ namespace MinecraftLauncherUniversal.Pages
             content.Children.Add(text);
             content.Children.Add(confirm);
 
-            btn.Flyout = flyout;
+            flyout.Content = content;
+
             flyout.ShowAt(btn);
         }
 
