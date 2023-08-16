@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Pages.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <NavigationView Margin="4,0,0,0"
+                         x:Name="MainNavigation"
+                         IsBackButtonVisible="Collapsed"
+                         IsPaneOpen="True"
+                         IsPaneToggleButtonVisible="False"
+                         
+                         AlwaysShowHeader="True"
+                         OpenPaneLength="200"
+                         PaneDisplayMode="Left"
+                         SelectionChanged="MainNavigation_SelectionChanged"
+                         IsTabStop="False"
+                         IsTitleBarAutoPaddingEnabled="False"
+                         >
+        <!-- make it look like windows settings
+                <NavigationView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                    <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                    <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                    <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{ThemeResource SystemColorWindowColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </NavigationView.Resources>
+    -->
+        <NavigationView.Resources>
+            <ResourceDictionary x:Name="MainNavigationDisableContentBackgroundDictionary">
+                <Thickness x:Key="NavigationViewHeaderMargin">56,14,0,0</Thickness>
+                <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
+            </ResourceDictionary>
+        </NavigationView.Resources>
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox x:Name="NavigationSearchBox" PlaceholderText="Search for Version" QueryIcon="Find" Margin="-10,4,-10,4" TextChanged="NavigationSearchBox_TextChanged" SuggestionChosen="NavigationSearchBox_SuggestionChosen"/>
+        </NavigationView.AutoSuggestBox>
+        <NavigationView.Header>
+            <BreadcrumbBar x:Name="MainBreadcrumb" FontSize="48" FontWeight="Medium" ItemClicked="MainBreadcrumb_ItemClicked">
+                <BreadcrumbBar.Resources>
+                    <Style x:Key="BreadcrumbBarItemStyle" TargetType="BreadcrumbBarItem">
+                        <Setter Property="FontSize" Value="28"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Foreground" Value="{ThemeResource TextFillColorTertiaryBrush}"/>
+                    </Style>
+                    <StaticResource x:Key="BreadcrumbBarNormalForegroundBrush" ResourceKey="TextFillColorSecondaryBrush" />
+                    <StaticResource x:Key="BreadcrumbBarHoverForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+                    <StaticResource x:Key="BreadcrumbBarPressedForegroundBrush" ResourceKey="TextFillColorTertiaryBrush" />
+                </BreadcrumbBar.Resources>
+                <BreadcrumbBar.ItemTemplate>
+                    <DataTemplate x:Name="BreadcrumbBarItemTemplate" 
+              x:DataType="BreadcrumbBarItem">
+                        <BreadcrumbBarItem Style="{StaticResource BreadcrumbBarItemStyle}"
+                                 Content="{Binding Content}">
+                        </BreadcrumbBarItem>
+                    </DataTemplate>
+                </BreadcrumbBar.ItemTemplate>
+            </BreadcrumbBar>
+        </NavigationView.Header>
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="Home" x:Name="HomeItem">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <!--<NavigationViewItemSeparator/>-->
+            <NavigationViewItem x:Name="AllVersionsPage">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE768;"/>
+                </NavigationViewItem.Icon>
+                <NavigationViewItem.InfoBadge>
+                    <InfoBadge Style="{StaticResource InformationalValueInfoBadgeStyle}" Value="0" x:Name="AllVersionsInfoBadge" Visibility="Collapsed"/>
+                </NavigationViewItem.InfoBadge>
+                <NavigationViewItem.Content>
+                    <StackPanel Spacing="1" Padding="6">
+                        <TextBlock Text="Play" Margin="-6,0,0,0"/>
+                        <StackPanel Spacing="1" Visibility="Collapsed">
+                            <TextBlock x:Name="TotalVersionsBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalReleasesBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalOptiFineBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock x:Name="TotalInstalledBlock" Margin="-4,0,0,0" FontSize="10" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </NavigationViewItem.Content>
+            </NavigationViewItem>
+            <NavigationViewItem Content="OptiFine" x:Name="OptifineItem" Visibility="Collapsed">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xF4A5;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Servers" x:Name="ServersItem">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE731;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem Content="About" x:Name="AboutItem">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xE779;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.FooterMenuItems>
+        <Frame x:Name="RootFrame" Margin="0,0,0,0" Navigated="RootFrame_Navigated"
+            >
+        </Frame>
+        <NavigationView.ContentOverlay>
+            <TeachingTip x:Name="UsernameTip" Title="Change your username" Subtitle="Click here" IsOpen="False"/>
+        </NavigationView.ContentOverlay>
+    </NavigationView>
+</Page>

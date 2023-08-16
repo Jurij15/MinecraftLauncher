@@ -40,6 +40,8 @@
     <None Remove="Pages\SettingsPages\AdvancedSettingsPage.xaml" />
     <None Remove="Pages\SettingsPages\GeneralSettingsPageIndex.xaml" />
     <None Remove="Pages\SettingsPages\GeneralSettingsPages\PersonalizationPage.xaml" />
+    <None Remove="Pages\ShellPage.xaml" />
+    <None Remove="Pages\StartupPage.xaml" />
     <None Remove="Styles\BreadcrumbBar.xaml" />
   </ItemGroup>
 
@@ -167,6 +169,12 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Pages\StartupPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\ShellPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Dialogs\AddServerDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
