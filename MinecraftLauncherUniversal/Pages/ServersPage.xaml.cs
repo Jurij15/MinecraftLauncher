@@ -23,6 +23,10 @@ using Windows.UI.WebUI;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Media.Animation;
 using MinecraftLauncherUniversal.Helpers;
+using MineStatLib;
+using Windows.ApplicationModel.Contacts;
+using Microsoft.UI.Xaml.Media.Imaging;
+using CmlLib.Core.Mojang;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -116,6 +120,8 @@ namespace MinecraftLauncherUniversal.Pages
                     return; //an error occurred before while it was loading or something idk
                 }
 
+                //bool status = await Task.Run<bool>(ServersHelper.IsServerOnline(JsonClass.ServerIP, JsonClass.ServerPort, 2)));
+
                 if (ServersHelper.IsServerOnline(JsonClass.ServerIP, JsonClass.ServerPort, 2))
                 {
                     statusbadge.Style = Application.Current.Resources["SuccessIconInfoBadgeStyle"] as Style;
@@ -140,8 +146,10 @@ namespace MinecraftLauncherUniversal.Pages
             //card basics
             card.Header = ServerName;
             card.FontSize = 16;
-            card.IsClickEnabled = false;
+            card.IsClickEnabled = true;
             card.Tag = JsonClass;
+            card.Click += Card_Click;
+            card.IsActionIconVisible = false;
 
             //description
             StackPanel rowPanel = new StackPanel();
@@ -201,9 +209,9 @@ namespace MinecraftLauncherUniversal.Pages
             moreStatsitem.Icon = new SymbolIcon() { Symbol = Symbol.More };
             moreStatsitem.Tag = JsonClass;
 
-            flyout.Items.Add(edititem);
+            //flyout.Items.Add(edititem);//TODO: Finish This
             flyout.Items.Add(deleteitem);
-            flyout.Items.Add(moreStatsitem);
+            //flyout.Items.Add(moreStatsitem); //i dont think we need this anymore
 
             //transitions
             TransitionCollection transitions = new TransitionCollection
@@ -219,6 +227,53 @@ namespace MinecraftLauncherUniversal.Pages
             card.Content = button;
 
             ItemsPanel.Items.Add(card);
+        }
+
+        private async void Card_Click(object sender, RoutedEventArgs e)
+        {
+            MoreStatusPanel.Visibility = Visibility.Visible;
+
+            ServerJson json = (sender as SettingsCard).Tag as ServerJson;
+
+            ServerNameBlock.Text = json.ServerName;
+            ServerIPBlock.Text = json.ServerIP;
+            ServerPortBlock.Text = json.ServerPort;
+
+            PlayBtn.Tag = json;
+
+            //reset stats that will be loaded
+            FaviconImage.Source = null;
+            ServerLatencyBlock.Text = null;
+            ServerGamemodeBlock.Text = null;
+
+            LoadingServerStats.Visibility = Visibility.Visible;
+
+            await Task.Delay(50);
+
+            MineStat server = ServersHelper.GetServer(json.ServerIP, json.ServerPort);
+
+            BitmapImage icon = await ImageHelper.GetBitmapAsync(server.FaviconBytes);
+            FaviconImage.Source = icon;
+
+            await Task.Delay(50);
+
+            if (server.ServerUp)
+            {
+                ServerStatusBlock.Text = "Online";
+            }
+            else
+            {
+                ServerStatusBlock.Text = "Offline";
+            }
+
+            await Task.Delay(50);
+
+            ServerLatencyBlock.Text = server.Latency.ToString() + " ms";
+            await Task.Delay(50);
+            ServerGamemodeBlock.Text = server.Gamemode;
+            await Task.Delay(50);
+
+            LoadingServerStats.Visibility = Visibility.Collapsed;
         }
 
         private void Deleteitem_Click(object sender, RoutedEventArgs e)
@@ -259,7 +314,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             flyout.Content = content;
 
-            flyout.ShowAt(btn);
+            flyout.ShowAt(btn, new FlyoutShowOptions() { Placement  = FlyoutPlacementMode.Bottom, ShowMode = FlyoutShowMode.Auto});
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
@@ -272,7 +327,7 @@ namespace MinecraftLauncherUniversal.Pages
             LoadGuids();
         }
 
-        private async void Button_Click(SplitButton sender, SplitButtonClickEventArgs args)
+        public async void Button_Click(SplitButton sender, SplitButtonClickEventArgs args)
         {
             //sender.Height = sender.ActualHeight;
             //sender.Width = sender.ActualWidth;
@@ -331,6 +386,34 @@ namespace MinecraftLauncherUniversal.Pages
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             _isPageUnloading = true;
+        }
+
+        private async void PlayBtn_Click(object sende, RoutedEventArgs e)
+        {
+            //sender.Height = sender.ActualHeight;
+            //sender.Width = sender.ActualWidth;
+
+            Button sender = sende as Button;
+
+            ProgressRing ring = new ProgressRing();
+            ring.IsIndeterminate = true;
+            ring.Foreground = new SolidColorBrush(Microsoft.UI.Colors.Black);
+            //ring.Height = sender.ActualHeight;
+            //ring.Width = sender.ActualWidth;
+            sender.Content = ring;
+
+            ServerJson json = sender.Tag as ServerJson;
+            MessageBox.Show(Globals.Settings.Fullscreen.ToString());
+            PlayCore core = new PlayCore(json.ServerVersion, Globals.Settings.MemoryAllocationInGB * 1024, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
+            await core.LaunchServer(json.ServerIP, json.ServerPort);
+
+            FontIcon icon = new FontIcon();
+            icon.Glyph = "\uE73E";
+            sender.Content = icon;
+
+            await Task.Delay(950);
+
+            sender.Content = "Play";
         }
     }
 }

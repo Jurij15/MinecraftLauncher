@@ -39,12 +39,59 @@
                 <TextBlock Text="Checking Status..." Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Center" Grid.Column="1"/>
             </Grid>
         </Grid>
-        <GridView Margin="0,2,0,0" x:Name="ItemsPanel" Grid.Row="2" BorderThickness="0" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None">
-            <GridView.ItemContainerTransitions>
-                <TransitionCollection>
-                    <AddDeleteThemeTransition />
-                </TransitionCollection>
-            </GridView.ItemContainerTransitions>
-        </GridView>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <GridView Margin="0,2,0,12" x:Name="ItemsPanel" Grid.Row="0" Grid.Column="0" BorderThickness="0" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None">
+                <GridView.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
+                </GridView.ItemContainerTransitions>
+            </GridView>
+            <StackPanel Grid.Column="1" Grid.Row="0" x:Name="MoreStatusPanel" Visibility="Collapsed" Margin="0,0,0,12"
+                        CornerRadius="12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="32" Spacing="4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Spacing="4">
+                        <StackPanel.ChildrenTransitions>
+                            <ContentThemeTransition/>
+                        </StackPanel.ChildrenTransitions>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="" Style="{ThemeResource TitleTextBlockStyle}"  x:Name="ServerNameBlock" VerticalAlignment="Bottom"/>
+                            <TextBlock Text="Unknown" x:Name="ServerStatusBlock" Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Bottom" LineHeight="36" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                        </StackPanel>
+                        <TextBlock x:Name="ServerIPBlock" Style="{ThemeResource BodyStrongTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="ServerPortBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="ServerLatencyBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="ServerGamemodeBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <Button Content="Play" Style="{ThemeResource AccentButtonStyle}" x:Name="PlayBtn" Click="PlayBtn_Click">
+                            <Button.ContentTransitions>
+                                <ContentThemeTransition/>
+                            </Button.ContentTransitions>
+                        </Button>
+                        <StackPanel Orientation="Horizontal" Spacing="4" x:Name="LoadingServerStats" Visibility="Collapsed" Margin="0,8,0,0">
+                            <ProgressRing IsIndeterminate="True"/>
+                            <TextBlock Text="Loading..." Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="0">
+                        <Image x:Name="FaviconImage"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

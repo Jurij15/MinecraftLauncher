@@ -286,6 +286,9 @@ namespace MinecraftLauncherUniversal
         private async void RootGrid_Loaded(object sender, RoutedEventArgs e)
         {
             Globals.MainGridXamlRoot = this.Content.XamlRoot;
+
+            await Task.Delay(100);//wait for the actual page to load
+
             await PreloadArrays();
 
             if (Globals.ToastFailedInit && !Globals.bIsFirstTimeRun)

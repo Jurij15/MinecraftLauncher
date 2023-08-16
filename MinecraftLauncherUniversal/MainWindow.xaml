@@ -99,9 +99,9 @@
                             <Setter Property="FontWeight" Value="SemiBold"/>
                             <Setter Property="Foreground" Value="{ThemeResource TextFillColorTertiaryBrush}"/>
                         </Style>
-                        <StaticResource x:Key="BreadcrumbBarNormalForegroundBrush" ResourceKey="TextFillColorSecondaryBrush" />
-                        <StaticResource x:Key="BreadcrumbBarHoverForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
-                        <StaticResource x:Key="BreadcrumbBarPressedForegroundBrush" ResourceKey="TextFillColorTertiaryBrush" />
+                        <ThemeResource x:Key="BreadcrumbBarNormalForegroundBrush" ResourceKey="TextFillColorSecondaryBrush" />
+                        <ThemeResource x:Key="BreadcrumbBarHoverForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+                        <ThemeResource x:Key="BreadcrumbBarPressedForegroundBrush" ResourceKey="TextFillColorTertiaryBrush" />
                     </BreadcrumbBar.Resources>
                     <BreadcrumbBar.ItemTemplate>
                         <DataTemplate x:Name="BreadcrumbBarItemTemplate" 

@@ -1,9 +1,11 @@
-﻿using MineStatLib;
+﻿using MinecraftLauncherUniversal.Interop;
+using MineStatLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinUIEx.Messaging;
 
 namespace MinecraftLauncherUniversal.Helpers
 {
@@ -13,8 +15,12 @@ namespace MinecraftLauncherUniversal.Helpers
         {
             bool RetVal = false;
 
-            MineStat ms = new MineStat(ServerIP, (ushort)Convert.ToInt32(ServerPort), Timeout);
-            if (ms.ServerUp && ms.Stripped_Motd == "Offline") //for aternos, as their motd will say the actuall status
+            MineStat ms = new MineStat(ServerIP, (ushort)Convert.ToInt32(ServerPort), Timeout); //MessageBox.Show(ms.Stripped_Motd.Contains("Offline").ToString(), ServerIP); sometimes, this just returns false idk why
+            if (ms.ServerUp && ms.Stripped_Motd.Contains("Offline")) //for aternos, as their motd will say the actuall status
+            {
+                return false;
+            }
+            else if (!ms.ServerUp)
             {
                 RetVal = false;
             }
@@ -30,8 +36,12 @@ namespace MinecraftLauncherUniversal.Helpers
         {
             bool RetVal = false;
 
-            MineStat ms = new MineStat(ServerIP, (ushort)ServerPort, Timeout);
-            if (ms.ServerUp && ms.Stripped_Motd == "Offline") //for aternos, as their motd will say the actuall status
+            MineStat ms = new MineStat(ServerIP, (ushort)Convert.ToInt32(ServerPort), Timeout);
+            if (ms.ServerUp && ms.Stripped_Motd.Contains("Offline")) //for aternos, as their motd will say the actuall status
+            {
+                RetVal = false;
+            }
+            else if (!ms.ServerUp)
             {
                 RetVal = false;
             }
@@ -41,6 +51,16 @@ namespace MinecraftLauncherUniversal.Helpers
             }
 
             return RetVal;
+        }
+
+        public static MineStat GetServer(string ServerIP, int ServerPort, int Timeout = 4)
+        {
+            return new MineStat(ServerIP, (ushort)ServerPort, Timeout);
+        }
+
+        public static MineStat GetServer(string ServerIP, string ServerPort, int Timeout = 4)
+        {
+            return new MineStat(ServerIP, (ushort)Convert.ToInt32(ServerPort), Timeout);
         }
     }
 }
