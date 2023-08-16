@@ -236,7 +236,7 @@ namespace MinecraftLauncherUniversal.Pages
             ServerJson json = (sender as SettingsCard).Tag as ServerJson;
 
             ServerNameBlock.Text = json.ServerName;
-            ServerIPBlock.Text = json.ServerIP;
+            ServerIPBlock.Text =json.ServerIP;
             ServerPortBlock.Text = json.ServerPort;
 
             PlayBtn.Tag = json;
@@ -251,6 +251,11 @@ namespace MinecraftLauncherUniversal.Pages
             await Task.Delay(50);
 
             MineStat server = ServersHelper.GetServer(json.ServerIP, json.ServerPort);
+
+            if (!server.ServerUp)
+            {
+                return;
+            }
 
             BitmapImage icon = await ImageHelper.GetBitmapAsync(server.FaviconBytes);
             FaviconImage.Source = icon;

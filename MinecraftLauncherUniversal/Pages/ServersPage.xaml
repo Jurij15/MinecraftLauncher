@@ -70,13 +70,25 @@
                             <ContentThemeTransition/>
                         </StackPanel.ChildrenTransitions>
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="" Style="{ThemeResource TitleTextBlockStyle}"  x:Name="ServerNameBlock" VerticalAlignment="Bottom"/>
-                            <TextBlock Text="Unknown" x:Name="ServerStatusBlock" Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Bottom" LineHeight="36" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock Text="" Style="{ThemeResource TitleTextBlockStyle}"  x:Name="ServerNameBlock"/>
+                            <TextBlock Text="Unknown" x:Name="ServerStatusBlock" Style="{ThemeResource CaptionTextBlockStyle}" LineHeight="36" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
                         </StackPanel>
-                        <TextBlock x:Name="ServerIPBlock" Style="{ThemeResource BodyStrongTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        <TextBlock x:Name="ServerPortBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        <TextBlock x:Name="ServerLatencyBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        <TextBlock x:Name="ServerGamemodeBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <StackPanel Spacing="4" Margin="0,2,0,2">
+                            <TextBlock Text="IP Address" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock x:Name="ServerIPBlock" Style="{ThemeResource BodyStrongTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                        <StackPanel Spacing="4" Margin="0,2,0,2">
+                            <TextBlock Text="Port" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock x:Name="ServerPortBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                        <StackPanel Spacing="4" Margin="0,2,0,2">
+                            <TextBlock Text="Latency" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock x:Name="ServerLatencyBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                        <StackPanel Spacing="4" Margin="0,2,0,2">
+                            <TextBlock Text="Gamemode" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock x:Name="ServerGamemodeBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
                         <Button Content="Play" Style="{ThemeResource AccentButtonStyle}" x:Name="PlayBtn" Click="PlayBtn_Click">
                             <Button.ContentTransitions>
                                 <ContentThemeTransition/>
