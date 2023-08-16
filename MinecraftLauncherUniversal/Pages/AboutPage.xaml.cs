@@ -67,7 +67,7 @@ namespace MinecraftLauncherUniversal.Pages
             ContentDialog loaddialog = new ContentDialog();
             loaddialog.XamlRoot = this.Content.XamlRoot;
             loaddialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            loaddialog.Title = "Welcome to MinecraftLauncher V2!";
+            loaddialog.Title = "Welcome to MinecraftLauncher V2.1!";
             loaddialog.Content = new WelcomeV2DialogContent();
 
             loaddialog.CloseButtonText = "OK";

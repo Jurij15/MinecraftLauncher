@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Networking.Connectivity;
+using Windows.UI;
 using WinUIEx;
 using WinUIEx.Messaging;
 using static MinecraftLauncherUniversal.Services.NavigationService;
@@ -47,10 +48,6 @@ namespace MinecraftLauncherUniversal
         {
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
-
-            ThemeListener listener = new ThemeListener();
-
-            var titlebar = AppWindow.TitleBar;
 
             this.CenterOnScreen();
             this.SetIsResizable(false);

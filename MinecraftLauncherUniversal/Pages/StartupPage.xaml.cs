@@ -42,7 +42,16 @@ namespace MinecraftLauncherUniversal.Pages
         {
             MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Collapsed;
 
-            Ring.Foreground = new SolidColorBrush(Microsoft.UI.Colors.LightGreen) as SolidColorBrush;//just to test, i like it more like this
+            //just to test, i like it more like this
+            if (Globals.Settings.Theme == ElementTheme.Dark)
+            {
+                Ring.Foreground = new SolidColorBrush(Microsoft.UI.Colors.LightGreen) as SolidColorBrush;
+            }
+            else 
+            {
+                Ring.Foreground = new SolidColorBrush(Microsoft.UI.Colors.DarkGreen) as SolidColorBrush;
+            }
+
             await Task.Delay(100);//wait for the actual page to load
 
             Task taskToAwait = PreloadArrays();

@@ -10,17 +10,22 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="This is the first release of the new, redesigned launcher, made completely in WinUI3/Windows App SDK. Bugs are expected, especially around profiles!" FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>
+            <TextBlock Text="This is the second release of the new, redesigned launcher, made completely in WinUI3/Windows App SDK. Many bugs and issues have been fixed." FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>
             <TextBlock TextWrapping="WrapWholeWords" Margin="0,12,0,0">
                 Here is a quick rundown of new things:
                 <LineBreak/>
-                    -Redesigned and updated UI, with nicer icons and smoother animations
+                    -Many UI updates
                 <LineBreak/>
-                    -Improved version support and speed
+                    -Added servers, a handy way to join servers right from the launcher
                 <LineBreak/>
-                    -(BETA) Support for skins in OptiFine using OfflineSkins mod (BETA)
+                    -Improved performance
+            </TextBlock>
+            <TextBlock TextWrapping="WrapWholeWords" Margin="0,4,0,0">
+                But here are some things that have been removed:
                 <LineBreak/>
-                    -Player Profiles
+                    -Profiles
+                <LineBreak/>
+                    -(TEMPORARY) OptiFine (This will be added back in the next update)
             </TextBlock>
         </StackPanel>
     </Grid>
