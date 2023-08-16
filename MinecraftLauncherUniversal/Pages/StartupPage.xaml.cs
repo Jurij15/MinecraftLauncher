@@ -9,11 +9,14 @@ using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -29,6 +32,7 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class StartupPage : Page
     {
+        int LoadTimeout = 6000;
         public StartupPage()
         {
             this.InitializeComponent();
@@ -40,11 +44,44 @@ namespace MinecraftLauncherUniversal.Pages
 
             Ring.Foreground = new SolidColorBrush(Microsoft.UI.Colors.LightGreen) as SolidColorBrush;//just to test, i like it more like this
             await Task.Delay(100);//wait for the actual page to load
-            await PreloadArrays();
 
-            MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
-            DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
-            MainWindow.MainWindowFrame.Navigate(typeof(ShellPage) , null, info);
+            Task taskToAwait = PreloadArrays();
+
+            Task completedTask = await Task.WhenAny(taskToAwait, Task.Delay(LoadTimeout));
+
+            if (completedTask == taskToAwait)
+            {
+                // task completed within timeout
+                ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
+
+                MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
+                DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
+                MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);
+            }
+            else
+            {
+                // timeout logic
+                ContentDialog ServerConnectionFailedDialog = new ContentDialog();
+                ServerConnectionFailedDialog.XamlRoot = this.Content.XamlRoot;
+                ServerConnectionFailedDialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                ServerConnectionFailedDialog.Title = "Error";
+                ServerConnectionFailedDialog.Content = "Failed to connect to Mojang Servers! Please check your internet connection and restart the app!";
+
+                ServerConnectionFailedDialog.CloseButtonText = "Close App";
+                ServerConnectionFailedDialog.CloseButtonClick += ServerConnectionFailedDialog_CloseButtonClick;
+
+                ServerConnectionFailedDialog.PrimaryButtonText = "Restart App";
+                ServerConnectionFailedDialog.PrimaryButtonClick += ServerConnectionFailedDialog_PrimaryButtonClick;
+
+                ServerConnectionFailedDialog.DefaultButton = ContentDialogButton.Primary;
+
+                await ServerConnectionFailedDialog.ShowAsync();
+            }
+        }
+
+        private void ServerConnectionFailedDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            Globals.RestartApp();
         }
 
         async Task PreloadArrays()
@@ -64,8 +101,8 @@ namespace MinecraftLauncherUniversal.Pages
                 Nonetworkdialog.Title = "Error";
                 Nonetworkdialog.Content = "Network is not available. Launcher might not function properly!";
 
-                Nonetworkdialog.CloseButtonText = "OK";
-                Nonetworkdialog.CloseButtonClick += Nonetworkdialog_CloseButtonClick;
+                Nonetworkdialog.CloseButtonText = "Close App";
+                Nonetworkdialog.CloseButtonClick += ServerConnectionFailedDialog_CloseButtonClick;
 
                 loaddialog.Hide();
                 await Nonetworkdialog.ShowAsync();
@@ -98,6 +135,10 @@ namespace MinecraftLauncherUniversal.Pages
             loaddialog.Hide();
         }
 
+        private void ServerConnectionFailedDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            Application.Current.Exit();
+        }
 
         private void Nonetworkdialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {

@@ -42,7 +42,7 @@
                     </ComboBox>
                 </Grid>
             </labs:SettingsCard>
-            <labs:SettingsCard x:Name="BackdropCard" Margin="0,3,0,0"
+            <labs:SettingsCard x:Name="BackdropCard" Margin="0,3,0,0" Visibility="Collapsed"
                    Grid.Row="2"
                    Header="Backdrop"
                    Description="Change Backdrops (BETA)">
@@ -76,7 +76,7 @@
                 </StackPanel>
             </labs:SettingsCard>
 
-            <TextBlock Text="Advanced" Margin="0,8,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="5"/>
+            <TextBlock Text="Advanced" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="5"/>
 
             <labs:SettingsCard x:Name="ResetAppCard" Visibility="Visible" Margin="0,3,0,0"
               Grid.Row="6"
@@ -97,7 +97,7 @@
                 <ToggleButton x:Name="ToggleConsoleBtn" Loaded="ToggleConsoleBtn_Loaded" Content="Debug Console" Checked="ToggleConsoleBtn_Checked" Unchecked="ToggleConsoleBtn_Unchecked"/>
             </labs:SettingsCard>
 
-            <TextBlock Text="Related" Margin="0,8,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="8"/>
+            <TextBlock Text="Related" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="8"/>
 
             <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username" Click="HyperlinkButton_Click" Grid.Row="9" Margin="0,3,0,0">
                 <labs:SettingsCard.HeaderIcon>

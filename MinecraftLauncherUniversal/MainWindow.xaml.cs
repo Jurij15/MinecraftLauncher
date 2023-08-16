@@ -43,7 +43,7 @@ namespace MinecraftLauncherUniversal
         public static Button TitleBarPaneToggleButton;
         public static Frame MainWindowFrame;
         #region Design and objects
-        async void InitDesgin() 
+        void InitDesgin() 
         {
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
@@ -54,21 +54,8 @@ namespace MinecraftLauncherUniversal
 
             this.CenterOnScreen();
             this.SetIsResizable(false);
-
            
             Title = "Minecraft Launcher";
-
-            MicaBackdrop abackdrop = new MicaBackdrop();
-            if (Globals.Settings.Theme == ElementTheme.Light)
-            {
-                //light
-                abackdrop.Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt; //idk if i should keep this in, it looks nice but idk
-            }
-            else
-            {
-                abackdrop.Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.Base;
-            }
-            this.SystemBackdrop = abackdrop;
 
             if (Environment.OSVersion.Version.Build <= 22000) //enable the normal look of navigationview on windows 10
             {
@@ -128,6 +115,7 @@ namespace MinecraftLauncherUniversal
 
         private void MainWindowRootFrame_Loaded(object sender, RoutedEventArgs e)
         {
+            ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.None);
             MainWindowFrame.Navigate(typeof(StartupPage));
         }
     }
