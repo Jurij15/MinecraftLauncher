@@ -10,7 +10,6 @@ using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
-using MinecraftLauncherUniversal.Pages.SettingsPages;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -22,6 +21,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using static MinecraftLauncherUniversal.Services.ThemeService.BackdropExtension;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,9 +33,38 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        bool InitFinished = false;
+        public enum Theme
+        {
+            //
+            // Summary:
+            //     Use the Application.RequestedTheme value for the element. This is the default.
+            Default,
+            //
+            // Summary:
+            //     Use the **Light** default theme.
+            Light,
+            //
+            // Summary:
+            //     Use the **Dark** default theme.
+            Dark
+        }
         public SettingsPage()
         {
             this.InitializeComponent();
+
+
+            SoundToggle.IsOn = Globals.Settings.Sound;
+
+            var _enumval = Enum.GetValues(typeof(Backdrop)).Cast<Backdrop>();
+            BackdropCombo.ItemsSource = _enumval;
+
+            var _themeenumval = Enum.GetValues(typeof(Theme)).Cast<Theme>();
+            ThemesCombo.ItemsSource = _themeenumval;
+
+            ThemesCombo.SelectedIndex = (int)Globals.Settings.Theme;
+
+            InitFinished = true;
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
@@ -47,44 +76,84 @@ namespace MinecraftLauncherUniversal.Pages
         {
         }
 
-        private async void ResetAppBtn_Click(object sender, RoutedEventArgs e)
+        private void SoundToggle_Toggled(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.XamlRoot = Globals.MainGridXamlRoot;
-            dialog.Title = "Reset";
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            dialog.Content = "Resetting will delete all saved configurations. A restart will be required.";
-            //dialog.Background = transparentBrush;
+            if (!InitFinished)
+            {
+                return;
+            }
+            if (SoundToggle.IsOn)
+            {
+                ElementSoundPlayer.State = ElementSoundPlayerState.On;
+                Globals.Settings.Sound = true;
+            }
+            else
+            {
+                ElementSoundPlayer.State = ElementSoundPlayerState.Off;
+                Globals.Settings.Sound = false;
+            }
 
-            dialog.CloseButtonText = "Cancel";
-            dialog.CloseButtonClick += Dialog_CloseButtonClick; ;
-
-            dialog.PrimaryButtonText = "Reset and restart";
-            dialog.PrimaryButtonClick += Dialog_PrimaryButtonClick;
-
-            dialog.DefaultButton = ContentDialogButton.Close;
-
-            await dialog.ShowAsync();
+            SettingsJson.SaveSettings();
         }
 
-        private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ThemesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            sender.Hide();
+            if (!InitFinished)
+            {
+                return;
+            }
+            ElementTheme theme = (ElementTheme)((ComboBox)sender).SelectedItem;
+
+            ThemeService.ChangeTheme(theme);
+            Globals.Settings.Theme = theme;
+
+            SettingsJson.SaveSettings();
         }
 
-        private void Dialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void BackdropCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ThemeService.BackdropExtension.SetBackdrop((ThemeService.BackdropExtension.Backdrop)BackdropCombo.SelectedItem);
+        }
+
+
+        private void DownloadRateLimitCard_Loaded(object sender, RoutedEventArgs e)
+        {
+            DownloadConnectionLimitBox.Value = Globals.DownloadRateLimit;
+        }
+
+        private void DownloadConnectionLimitBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            Globals.DownloadRateLimit = Convert.ToInt32(args.NewValue);
+        }
+
+
+        private void ToggleConsoleBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            Globals.SetupConsole();
+            Globals.bShowConsole = true;
+        }
+
+        private void ToggleConsoleBtn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Globals.CloseConsole();
+            Globals.bShowConsole = false;
+        }
+
+        private void ResetAppBtn_Click(object sender, RoutedEventArgs e)
         {
             Globals.ResetApp(true);
         }
 
-        private void PersonalizeNavigationCard_Click(object sender, RoutedEventArgs e)
+        private void ToggleConsoleBtn_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(typeof(GeneralSettingsPageIndex), "General", false);
-        }
-
-        private void AdvancedNavigationCard_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(typeof(AdvancedSettingsPage), "Advanced", false);
+            if (Globals.bShowConsole)
+            {
+                ((ToggleButton)sender).IsChecked = true;
+            }
+            else
+            {
+                ((ToggleButton)sender).IsChecked = false;
+            }
         }
     }
 }

@@ -10,34 +10,100 @@
     xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
     mc:Ignorable="d" Unloaded="Page_Unloaded"
     Background="Transparent">
+    <ScrollViewer Margin="58, 42, 58,0">
+        <Grid x:Name="RGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ChildrenTransitions>
+                <RepositionThemeTransition />
+            </Grid.ChildrenTransitions>
+            <TextBlock Text="Appearance and behavior" Margin="0,0,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="0"/>
+            <labs:SettingsCard x:Name="ThemeCard" Header="Theme" Description="Change app theme" Grid.Row="1" Margin="0,3,0,0">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <Grid>
+                    <ComboBox x:Name="ThemesCombo" SelectionChanged="ThemesCombo_SelectionChanged">
+                        <ComboBoxItem Content="Dark" x:Name="DarkItem"/>
+                        <ComboBoxItem Content="Light" x:Name="LightItem"/>
+                    </ComboBox>
+                </Grid>
+            </labs:SettingsCard>
+            <labs:SettingsCard x:Name="BackdropCard" Margin="0,3,0,0"
+                   Grid.Row="2"
+                   Header="Backdrop"
+                   Description="Change Backdrops (BETA)">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEB42;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <ComboBox x:Name="BackdropCombo" SelectionChanged="BackdropCombo_SelectionChanged"/>
+            </labs:SettingsCard>
+            <labs:SettingsCard x:Name="SoundCard" Margin="0,3,0,0"
+                    Grid.Row="3"
+                    Header="Sound"
+                    Description="Enable sound effects while using the app">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE8D6;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ToggleSwitch x:Name="SoundToggle" OnContent="On" OffContent="Off" IsOn="False" Toggled="SoundToggle_Toggled" IsEnabled="True"/>
+                </StackPanel>
+            </labs:SettingsCard>
 
-    <Grid Margin="58, 42, 58,0" RowSpacing="3" x:Name="RGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <labs:SettingsCard x:Name="PersonalizeNavigationCard" Grid.Row="0" Click="PersonalizeNavigationCard_Click" Header="General" Description="Sound, Download Rate Limit" IsClickEnabled="True" IsActionIconVisible="True">
-            <labs:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE790;"/>
-            </labs:SettingsCard.HeaderIcon>
-        </labs:SettingsCard>
-        <labs:SettingsCard x:Name="AdvancedNavigationCard" Grid.Row="1" Click="AdvancedNavigationCard_Click" Header="Advanced" Description="Reset app, Debug Console" IsClickEnabled="True" IsActionIconVisible="True">
-            <labs:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xEC7A;"/>
-            </labs:SettingsCard.HeaderIcon>
-        </labs:SettingsCard>
-        <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username" Click="HyperlinkButton_Click" Grid.Row="2">
-            <labs:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xEF58;"/>
-            </labs:SettingsCard.HeaderIcon>
-        </labs:SettingsCard>
-    </Grid>
+            <labs:SettingsCard x:Name="DownloadRateLimitCard" Margin="0,3,0,0"
+              Grid.Row="4"
+              Loaded="DownloadRateLimitCard_Loaded"
+              Header="Download Rate Limit"
+              Description="Change how many connections will be used to download Minecraft">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEBD3;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <NumberBox SpinButtonPlacementMode="Hidden" x:Name="DownloadConnectionLimitBox" ValueChanged="DownloadConnectionLimitBox_ValueChanged"/>
+                </StackPanel>
+            </labs:SettingsCard>
+
+            <TextBlock Text="Advanced" Margin="0,8,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="5"/>
+
+            <labs:SettingsCard x:Name="ResetAppCard" Visibility="Visible" Margin="0,3,0,0"
+              Grid.Row="6"
+              Header="Reset App"
+              Description="This will require app restart!">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xED10;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <Button x:Name="ResetAppBtn" Click="ResetAppBtn_Click" Background="Red" Content="Reset"/>
+            </labs:SettingsCard>
+            <labs:SettingsCard x:Name="ConsoleCard" Visibility="Visible" Margin="0,3,0,0"
+              Grid.Row="7"
+              Header="Debug Console"
+              Description="Enable or disable a simple debug console">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEBE8;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <ToggleButton x:Name="ToggleConsoleBtn" Loaded="ToggleConsoleBtn_Loaded" Content="Debug Console" Checked="ToggleConsoleBtn_Checked" Unchecked="ToggleConsoleBtn_Unchecked"/>
+            </labs:SettingsCard>
+
+            <TextBlock Text="Related" Margin="0,8,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="8"/>
+
+            <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username" Click="HyperlinkButton_Click" Grid.Row="9" Margin="0,3,0,0">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEF58;"/>
+                </labs:SettingsCard.HeaderIcon>
+            </labs:SettingsCard>
+        </Grid>
+    </ScrollViewer>
 </Page>

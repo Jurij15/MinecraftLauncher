@@ -37,9 +37,6 @@
     <None Remove="Pages\SelectedVersionPage.xaml" />
     <None Remove="Pages\ServersPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
-    <None Remove="Pages\SettingsPages\AdvancedSettingsPage.xaml" />
-    <None Remove="Pages\SettingsPages\GeneralSettingsPageIndex.xaml" />
-    <None Remove="Pages\SettingsPages\GeneralSettingsPages\PersonalizationPage.xaml" />
     <None Remove="Pages\ShellPage.xaml" />
     <None Remove="Pages\StartupPage.xaml" />
     <None Remove="Styles\BreadcrumbBar.xaml" />
@@ -181,18 +178,6 @@
     <Page Update="Pages\ServersPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\SettingsPages\GeneralSettingsPageIndex.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Pages\SettingsPages\GeneralSettingsPages\PersonalizationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Pages\SettingsPages\AdvancedSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Pages\SettingsPages\GeneralSettingsPages\GeneralSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Update="Dialogs\WelcomeV2DialogContent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,9 +241,6 @@
     <Page Update="Styles\BreadcrumbBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\SettingsPages\AdvancedSettingsPages\" />
   </ItemGroup>
 
   <!-- 

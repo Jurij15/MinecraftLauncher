@@ -41,13 +41,6 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class PlayerSettingsPage : Page
     {
-        string _id;
-        bool bUnloading = false;
-        bool bRestartingAfterAccDeleted = false;
-        string GetCurrentID()
-        {
-            return _id;
-        }
         public PlayerSettingsPage()
         {
             this.InitializeComponent();
@@ -79,6 +72,30 @@ namespace MinecraftLauncherUniversal.Pages
             dialog.DefaultButton = ContentDialogButton.Close;
 
             await dialog.ShowAsync();
+        }
+
+        private void MemoryBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((NumberBox)sender).Value = Globals.Settings.MemoryAllocationInGB;
+        }
+
+        private void FullscreenCheck_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ToggleSwitch)sender).IsOn = Globals.Settings.Fullscreen;
+        }
+
+        private void MemoryBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            Globals.Settings.MemoryAllocationInGB = (int)args.NewValue;
+
+            SettingsJson.SaveSettings();
+        }
+
+        private void FullscreenCheck_Toggled(object sender, RoutedEventArgs e)
+        {
+            Globals.Settings.Fullscreen = ((ToggleSwitch)sender).IsOn;
+
+            SettingsJson.SaveSettings();
         }
     }
 }

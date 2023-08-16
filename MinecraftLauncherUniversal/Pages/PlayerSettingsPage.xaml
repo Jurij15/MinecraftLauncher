@@ -10,7 +10,7 @@
     Background="Transparent"
     xmlns:labs="using:CommunityToolkit.Labs.WinUI">
 
-    <Grid Margin="58, 42, 58,0">
+    <Grid Margin="58, 42, 58,0" RowSpacing="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -33,13 +33,13 @@
                            Grid.Row="2"
                            Header="Memory Allocation"
                            Description="Limit of memory (RAM) that Minecraft can use">
-            <NumberBox x:Name="MemoryBox"/>
+            <NumberBox x:Name="MemoryBox" ValueChanged="MemoryBox_ValueChanged" Loaded="MemoryBox_Loaded"/>
         </labs:SettingsCard>
         <labs:SettingsCard x:Name="FullecreenCard"
                            Grid.Row="3"
                            Header="Fullscreen"
                            Description="Change weather the game will go to fullscreen on launch">
-            <ToggleSwitch x:Name="FullscreenCheck"/>
+            <ToggleSwitch x:Name="FullscreenCheck" Toggled="FullscreenCheck_Toggled" Loaded="FullscreenCheck_Loaded"/>
         </labs:SettingsCard>
         <Grid Grid.Row="5" Margin="2">
             <Button x:Name="AdvancedDialogBtn" Click="AdvancedDialogBtn_Click" Content="Advanced" HorizontalAlignment="Right"/>
