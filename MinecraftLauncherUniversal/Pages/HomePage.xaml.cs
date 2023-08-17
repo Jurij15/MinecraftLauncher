@@ -2,6 +2,7 @@ using CmlLib.Core;
 using CmlLib.Core.Version;
 using CmlLib.Core.VersionLoader;
 using CmlLib.Utils;
+using CommunityToolkit.Labs.WinUI;
 using CommunityToolkit.WinUI.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -11,7 +12,6 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.WindowsAppSDK.Runtime;
-using MinecraftLauncherUniversal.Controls;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Enums;
 using MinecraftLauncherUniversal.Helpers;
@@ -38,7 +38,6 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class HomePage : Page
     {
-        List<string> items = new List<string>();
         public HomePage()
         {
             this.InitializeComponent();
@@ -51,12 +50,32 @@ namespace MinecraftLauncherUniversal.Pages
             HomeHeader.NumberOfPages = Gallery.Items.Count;
             HomeHeader.SelectedPageIndex = Gallery.SelectedIndex;
 
-            foreach (var item in Globals.Recents)
-            {
-                items.Add(item);
+            VersionManager manager = new VersionManager();
 
-                ItemsPanel.ItemsSource = items;
+            ItemsPanel.Items.Clear();
+            foreach (var item in manager.GetAllRecentVersions())
+            {
+                SettingsCard card = new SettingsCard();
+                card.Header = item;
+
+                card.IsActionIconVisible = false;
+                card.IsClickEnabled = true;
+
+                card.Click += Card_Click;
+
+                ItemsPanel.Items.Add(card);
             }
+        }
+
+        private void Card_Click(object sender, RoutedEventArgs e)
+        {
+            string Version = ((SettingsCard)sender).Header.ToString();
+
+            Globals.CurrentVersion = Version;
+
+            ItemsPanel.Items.Clear();
+
+            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + Version, false);
         }
 
         private void HomeHeader_SelectedIndexChanged(PipsPager sender, PipsPagerSelectedIndexChangedEventArgs args)
@@ -81,69 +100,6 @@ namespace MinecraftLauncherUniversal.Pages
         private void ItemsPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             //TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
-        }
-
-        private void CardAction_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-        }
-
-        private void CardAction_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-        }
-
-        private async void CardAction_PointerPressed(object sender, PointerRoutedEventArgs e) //when the version card is pressed
-        {
-            StackPanel content = (StackPanel)(((CardAction)sender).Content);
-            string version = "";
-            foreach (var item in content.Children)
-            {
-                if (item.GetType() == typeof(TextBlock))
-                {
-                    TextBlock nameblock = (TextBlock)item;
-                    version = nameblock.Text;
-                }
-            }
-
-            Globals.CurrentVersion = version;
-            /*
-            NavigationService.NavigateHiearchical(typeof(SelectedVersionPage), "Play " + version, false);
-            */
-
-            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
-
-            /*
-            ContentDialog dialog = new ContentDialog();
-            dialog.XamlRoot = Globals.MainGridXamlRoot;
-            dialog.Title = "Play "+version;
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            dialog.Content = new QuickPlayDialogContent(dialog);
-
-            dialog.MinWidth = 600;
-
-            dialog.CloseButtonText = "Close";
-            dialog.CloseButtonClick += Dialog_CloseButtonClick;
-
-            if (!Globals.CurrentVersion.Contains("OptiFine"))
-            {
-                dialog.Title = "Play Minecraft " + version;
-            }
-            else
-            {
-                dialog.Title = "Play " + version;
-            }
-
-            dialog.PrimaryButtonText = "Play";
-            //dialog.PrimaryButtonClick += Dialog_PrimaryButtonClick;
-
-            dialog.DefaultButton = ContentDialogButton.Primary;
-
-            await dialog.ShowAsync();
-            */
-        }
-
-        private async void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            sender.Hide();
         }
 
         private void PlayOptifine_Click(object sender, RoutedEventArgs e)

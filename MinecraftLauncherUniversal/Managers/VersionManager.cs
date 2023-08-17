@@ -10,6 +10,7 @@ using Windows.Devices.WiFi;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 using System.Net.NetworkInformation;
+using System.IO;
 
 namespace MinecraftLauncherUniversal.Managers
 {
@@ -224,6 +225,45 @@ namespace MinecraftLauncherUniversal.Managers
                     PrefetchedStatistics.TotalInstalled++;
                 }
             }
+        }
+
+        public string[] GetAllRecentVersions()
+        {
+            HashSet<string> ret = new HashSet<string>();
+
+            if (!File.Exists(Globals.RecentBuildsFile))
+            {
+                return new List<string>().ToArray();
+            }
+
+            foreach (var line in File.ReadAllLines(Globals.RecentBuildsFile))
+            {
+                ret.Add(line);
+            }
+
+            return ret.ToArray();
+        }
+
+        public void AddNewBuildToRecents(string Name)
+        {
+            List<string> ret = GetAllRecentVersions().ToList<string>();
+
+            ret.Add(Name);
+
+            if (File.Exists(Globals.RecentBuildsFile))
+            {
+                File.Delete(Globals.RecentBuildsFile);  
+            }
+
+            using (StreamWriter sw = File.CreateText(Globals.RecentBuildsFile))
+            {
+                foreach (var item in ret)
+                {
+                    sw.WriteLine(item);
+                }
+            };
+
+            ret.Clear();
         }
     }
 }

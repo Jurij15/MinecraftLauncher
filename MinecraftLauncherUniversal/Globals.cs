@@ -25,6 +25,7 @@ namespace MinecraftLauncherUniversal
     {
         public static string RootDir = "Settings/";
         public static string SettingsFile = RootDir+"settings.json";
+        public static string RecentBuildsFile = RootDir + "recents";
         public static int DownloadRateLimit = 1024;
         public static bool bIsFirstTimeRun = false;
         public static HashSet<string> Recents = new HashSet<string>();

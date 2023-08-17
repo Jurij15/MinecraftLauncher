@@ -19,7 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\minecraft-icon.ico" />
-    <None Remove="Controls\CardAction.xaml" />
     <None Remove="Dialogs\AddServerDialog.xaml" />
     <None Remove="Dialogs\AdvancedPlayerSettingsDialogContent.xaml" />
     <None Remove="Dialogs\QuickPlayDialogContent.xaml" />
@@ -149,7 +148,28 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\PlayPage-Banners\thumb.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_bedrock_edition_1080x1920.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_island_1080x1920.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_java_edition_1080x1920.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_mineshaft_1080x1920.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_ocean_monument_1080x1920.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_pc_bundle_1080x1920.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_winter_celebration_1080x1920.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\StevePfp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -229,11 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\HomePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Controls\CardAction.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

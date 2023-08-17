@@ -24,6 +24,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using CmlLib.Core;
 using WinUIEx.Messaging;
 using MinecraftLauncherUniversal.Interop;
+using MinecraftLauncherUniversal.Managers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -166,7 +167,8 @@ namespace MinecraftLauncherUniversal.Pages
             StatusBox.Text = "Playing";
 
             //by now, it has already been launched, now store the build in recents
-            MessageBox.Show("Recent builds need reimplementation!");
+            VersionManager manager = new VersionManager();
+            manager.AddNewBuildToRecents(Globals.CurrentVersion);
             MinecraftLaunchedInfo.IsOpen = true;
             PlayButton.Visibility = Visibility.Visible;
 
@@ -237,6 +239,11 @@ namespace MinecraftLauncherUniversal.Pages
         {
             Globals.Settings.MemoryAllocationInGB = (int)args.NewValue;
             SettingsJson.SaveSettings();
+        }
+
+        private void PlayerSettingsCard_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
     }
 }

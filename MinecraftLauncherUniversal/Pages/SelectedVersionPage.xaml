@@ -31,8 +31,8 @@
         </Grid.ColumnDefinitions>
         <RelativePanel x:Name="InfoGrid" Grid.Row="1" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
-                <StackPanel Height="358" Width="242" HorizontalAlignment="Left" CornerRadius="8">
-                    <Image x:Name="BannerImg" HorizontalAlignment="Left"  Height="358" Width="242"/>
+                <StackPanel HorizontalAlignment="Left" CornerRadius="8">
+                    <Image x:Name="BannerImg" HorizontalAlignment="Left" Height="358" Width="242" Stretch="Uniform"/>
                 </StackPanel>
                 <StackPanel  Margin="8,0,0,0">
                     <TextBlock x:Name="MinecraftVersionBlock" Text="Minecraft" FontSize="36" FontWeight="Medium"/>
@@ -66,7 +66,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="True">
+            <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="GameSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="True" Visibility="Collapsed">
                 <Expander.Header>
                     <StackPanel Margin="8" CornerRadius="8">
                         <TextBlock Text="Game Launch Settings" FontSize="15"/>
@@ -83,7 +83,7 @@
                     <NumberBox x:Name="RamAmountBox" SpinButtonPlacementMode="Hidden" AcceptsExpression="False" Loaded="RamAmountBox_Loaded" ValueChanged="RamAmountBox_ValueChanged"/>
                 </StackPanel>
             </Expander>
-            <Expander HorizontalAlignment="Stretch" Grid.Row="2" x:Name="QuickPlayerSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="False" Collapsed="QuickPlayerSettingsExpander_Collapsed">
+            <Expander Visibility="Collapsed" HorizontalAlignment="Stretch" Grid.Row="2" x:Name="QuickPlayerSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="False" Collapsed="QuickPlayerSettingsExpander_Collapsed">
                 <Expander.Header>
                     <StackPanel Margin="8" CornerRadius="8">
                         <TextBlock Text="Player Settings" FontSize="15"/>
@@ -101,6 +101,18 @@
                     </TeachingTip>
                 </StackPanel>
             </Expander>
+
+            <labs:SettingsCard x:Name="PlayerSettingsCard"
+                               Header="Player and Launch Settings"
+                               Description="Memory Allocation, Username, FullScreen"
+                               IsClickEnabled="True"
+                               Grid.Row="2"
+                               Click="PlayerSettingsCard_Click">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEF58;" />
+                </labs:SettingsCard.HeaderIcon>
+            </labs:SettingsCard>
+            
             <Expander HorizontalAlignment="Stretch" Grid.Row="3" x:Name="VersionSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="False">
                 <Expander.Header>
                     <StackPanel Margin="8" CornerRadius="8">
