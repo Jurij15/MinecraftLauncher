@@ -10,7 +10,7 @@
     xmlns:styles="using:MinecraftLauncherUniversal" Closed="WindowEx_Closed"
     xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
     mc:Ignorable="d">
-    <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded">
+    <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>

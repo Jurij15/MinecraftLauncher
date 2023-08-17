@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.ContentWindows;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Services;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -76,6 +78,12 @@ namespace MinecraftLauncherUniversal.Pages
             loaddialog.DefaultButton = ContentDialogButton.Close;
 
             loaddialog.ShowAsync();
+        }
+
+        private void OpenConsoleStyledWindow_Click(object sender, RoutedEventArgs e)
+        {
+            ConsoleStyledWindow window = new ConsoleStyledWindow();
+            window.Show();
         }
     }
 }

@@ -142,6 +142,8 @@ namespace MinecraftLauncherUniversal.Pages
             PlayButton.Visibility = Visibility.Visible;
             StatusBox.Text = "Ready to Play";
 
+            LoadingRing.Value = 0;
+
             NotificationService.SendSimpleToast("Download Complete", "Minecraft " + Globals.CurrentVersion + " is ready to play!", 1.5);
         }
 
