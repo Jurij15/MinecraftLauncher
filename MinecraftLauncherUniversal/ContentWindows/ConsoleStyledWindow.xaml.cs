@@ -26,7 +26,7 @@ using WinUIEx;
 namespace MinecraftLauncherUniversal.ContentWindows
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// This was an idea i got out of boredroom, might not finish it but it looks a little cool
     /// </summary>
     public sealed partial class ConsoleStyledWindow : WindowEx
     {

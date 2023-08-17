@@ -63,6 +63,12 @@ namespace MinecraftLauncherUniversal.Pages
                 // task completed within timeout
                 ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
 
+                //fix for if the arrays are empty for some reason
+                if (VersionManager.AllVersionsGlobal.Count < 1)
+                {
+                    DialogService.ShowSimpleDialog("Error", "An error occured while loading versions. Please restart your launcher!");
+                }
+
                 MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
                 DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
                 MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);

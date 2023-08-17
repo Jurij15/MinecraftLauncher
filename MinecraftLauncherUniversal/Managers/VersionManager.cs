@@ -238,7 +238,14 @@ namespace MinecraftLauncherUniversal.Managers
 
             foreach (var line in File.ReadAllLines(Globals.RecentBuildsFile))
             {
-                ret.Add(line);
+                if (line == "")
+                {
+                    continue;
+                }
+                else
+                {
+                    ret.Add(line);
+                }
             }
 
             return ret.ToArray();
