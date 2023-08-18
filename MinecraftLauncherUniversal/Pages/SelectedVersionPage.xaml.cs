@@ -130,11 +130,11 @@ namespace MinecraftLauncherUniversal.Pages
         {
             DownloadButton.Visibility = Visibility.Collapsed;
             StatusBox.Text = "Downloading...";
-            int memooryinmb = Convert.ToInt32(RamAmountBox.Value) * 1024;
+            int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
 
             LoadingRing.Visibility = Visibility.Visible;
 
-            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
+            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
             await core.Download(OnProgressChanged);
             LoadingRing.Value = 0;
             LoadingRing.Visibility = Visibility.Collapsed;
@@ -156,13 +156,13 @@ namespace MinecraftLauncherUniversal.Pages
         async void AsyncLaunch()
         {
             bool bSucess = false;
-            int memooryinmb = Convert.ToInt32(RamAmountBox.Value) * 1024;
+            int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
 
             LoadingRing.Visibility = Visibility.Visible;
             PlayButton.Visibility = Visibility.Collapsed;
             StatusBox.Text = "Launching...";
 
-            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Convert.ToBoolean(FullscreenCheck.IsChecked), Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
+            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
             bool result = await core.Launch();
             if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }   
             LoadingRing.Visibility = Visibility.Collapsed;
