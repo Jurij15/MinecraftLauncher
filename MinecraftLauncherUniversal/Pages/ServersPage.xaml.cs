@@ -76,6 +76,18 @@ namespace MinecraftLauncherUniversal.Pages
                 AddCard(json.ServerName, json.GUID, json);
             }
 
+            if (ItemsPanel.Items.Count < 1)
+            {
+                TextBlock text = new TextBlock();
+                text.Text = "You do not have any servers added. Try adding one by pressing Add";
+                text.Foreground = Application.Current.Resources["TextFillColorSecondaryBrush"] as SolidColorBrush;
+                text.Style = Application.Current.Resources["BodyTextBlockStyle"] as Style;
+
+                ItemsPanel.Items.Add(text);
+
+                return;
+            }
+
             await Task.Delay(400);//wait for servers to show
 
             LoadStatus();
