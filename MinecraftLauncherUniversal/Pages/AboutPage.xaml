@@ -47,8 +47,6 @@
                         <StackPanel Grid.Row="0" HorizontalAlignment="Right">
                             <TextBlock Text="Open source libraries used:" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
                             <HyperlinkButton NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core"/>
-                            <HyperlinkButton NavigateUri="https://github.com/FragLand/minestat" Content="MineStat"/>
-                            <HyperlinkButton NavigateUri="https://github.com/minecraft-dotnet/Substrate" Content="Substrate"/>
                         </StackPanel>
                     </labs:SettingsCard.Content>
                 </labs:SettingsCard>

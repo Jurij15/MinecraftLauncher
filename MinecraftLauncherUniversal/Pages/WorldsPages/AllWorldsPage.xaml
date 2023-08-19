@@ -9,6 +9,23 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GridView Margin="0,2,0,12" x:Name="ItemsPanel" Grid.Row="0" Grid.Column="0" BorderThickness="0" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None">
+            <GridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition />
+                </TransitionCollection>
+            </GridView.ItemContainerTransitions>
+        </GridView>
     </Grid>
 </Page>
