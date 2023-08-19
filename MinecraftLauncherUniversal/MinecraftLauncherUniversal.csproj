@@ -39,6 +39,7 @@
     <None Remove="Pages\SettingsPage.xaml" />
     <None Remove="Pages\ShellPage.xaml" />
     <None Remove="Pages\StartupPage.xaml" />
+    <None Remove="Pages\WorldsPages\AllWorldsPage.xaml" />
     <None Remove="Styles\BreadcrumbBar.xaml" />
   </ItemGroup>
 
@@ -190,6 +191,9 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Pages\WorldsPages\AllWorldsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="ContentWindows\ConsoleStyledWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

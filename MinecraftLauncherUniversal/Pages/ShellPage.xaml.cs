@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Windows.AppNotifications;
 using MinecraftLauncherUniversal.Managers;
+using MinecraftLauncherUniversal.Pages.WorldsPages;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -162,6 +163,10 @@ namespace MinecraftLauncherUniversal.Pages
             if (args.SelectedItemContainer == ServersItem)
             {
                 Navigate(typeof(ServersPage), "Servers", true);
+            }
+            if (args.SelectedItemContainer == WorldsItem)
+            {
+                Navigate(typeof(AllWorldsPage), "Select a World", true);
             }
 
             GC.Collect(); //idk, trying to lower ram usage
