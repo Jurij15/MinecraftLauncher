@@ -114,14 +114,7 @@ namespace MinecraftLauncherUniversal
         private void MainWindowRootFrame_Loaded(object sender, RoutedEventArgs e)
         {
             ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.None);
-            if (Globals.bIsFirstTimeRun)
-            {
-                MainWindowFrame.Navigate(typeof(SetupRootPage));
-            }
-            else
-            {
-                MainWindowFrame.Navigate(typeof(StartupPage));
-            }
+            MainWindowFrame.Navigate(typeof(StartupPage));
         }
     }
 }

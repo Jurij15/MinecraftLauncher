@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
+using MinecraftLauncherUniversal.Pages.SetupPages;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 Ring.Foreground = new SolidColorBrush(Microsoft.UI.Colors.LightGreen) as SolidColorBrush;
             }
-            else 
+            else if(Globals.Settings.Theme == ElementTheme.Light)
             {
                 Ring.Foreground = new SolidColorBrush(Microsoft.UI.Colors.DarkGreen) as SolidColorBrush;
             }
@@ -60,18 +61,25 @@ namespace MinecraftLauncherUniversal.Pages
 
             if (completedTask == taskToAwait)
             {
-                // task completed within timeout
-                ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
-
-                //fix for if the arrays are empty for some reason
-                if (VersionManager.AllVersionsGlobal.Count < 1)
+                if (Globals.bIsFirstTimeRun)
                 {
-                    DialogService.ShowSimpleDialog("Error", "An error occured while loading versions. Please restart your launcher!");
+                    MainWindow.MainWindowFrame.Navigate(typeof(SetupRootPage));
                 }
+                else
+                {
+                    // task completed within timeout
+                    ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
 
-                MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
-                DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
-                MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);
+                    //fix for if the arrays are empty for some reason
+                    if (VersionManager.AllVersionsGlobal.Count < 1)
+                    {
+                        DialogService.ShowSimpleDialog("Error", "An error occured while loading versions. Please restart your launcher!");
+                    }
+
+                    MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
+                    DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
+                    MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);
+                }
             }
             else
             {

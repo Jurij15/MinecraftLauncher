@@ -85,7 +85,16 @@
                 <labs:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xED10;"/>
                 </labs:SettingsCard.HeaderIcon>
-                <Button x:Name="ResetAppBtn" Click="ResetAppBtn_Click" Background="Red" Content="Reset"/>
+                <Button x:Name="ResetAppBtn" Background="Red" Content="Reset">
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All settings will be reset. Are you sure?" Margin="0,0,0,12" />
+                                <Button Click="ResetAppBtn_Click" Content="Yes, reset my app" />
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
             </labs:SettingsCard>
             <labs:SettingsCard x:Name="ConsoleCard" Visibility="Visible" Margin="0,3,0,0"
               Grid.Row="7"
