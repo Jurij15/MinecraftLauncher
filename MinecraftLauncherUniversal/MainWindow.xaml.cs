@@ -12,6 +12,7 @@ using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Pages;
+using MinecraftLauncherUniversal.Pages.SetupPages;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -113,7 +114,14 @@ namespace MinecraftLauncherUniversal
         private void MainWindowRootFrame_Loaded(object sender, RoutedEventArgs e)
         {
             ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.None);
-            MainWindowFrame.Navigate(typeof(StartupPage));
+            if (Globals.bIsFirstTimeRun)
+            {
+                MainWindowFrame.Navigate(typeof(SetupRootPage));
+            }
+            else
+            {
+                MainWindowFrame.Navigate(typeof(StartupPage));
+            }
         }
     }
 }

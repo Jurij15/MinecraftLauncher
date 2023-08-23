@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Pages.SetupPages.ContentPages.LauncherSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages.SetupPages.ContentPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock VerticalAlignment="Top" Text="Edit Launcher Settings" Style="{ThemeResource SubtitleTextBlockStyle}" Grid.Row="0" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Spacing="4">
+            <labs:SettingsCard x:Name="ThemeCard" Header="Theme" Description="Change app theme" Grid.Row="1" Margin="0,3,0,0">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <Grid>
+                    <ComboBox x:Name="ThemesCombo" SelectionChanged="ThemesCombo_SelectionChanged">
+                        <ComboBoxItem Content="Dark" x:Name="DarkItem"/>
+                        <ComboBoxItem Content="Light" x:Name="LightItem"/>
+                    </ComboBox>
+                </Grid>
+            </labs:SettingsCard>
+            <labs:SettingsCard x:Name="SoundCard" Margin="0,3,0,0"
+                    Grid.Row="3"
+                    Header="Sound"
+                    Description="Enable sound effects while using the app">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE8D6;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ToggleSwitch x:Name="SoundToggle" OnContent="On" OffContent="Off" IsOn="False" Toggled="SoundToggle_Toggled" IsEnabled="True"/>
+                </StackPanel>
+            </labs:SettingsCard>
+        </StackPanel>
+    </Grid>
+</Page>

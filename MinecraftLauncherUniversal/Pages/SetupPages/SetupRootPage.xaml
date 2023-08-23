@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Pages.SetupPages.SetupRootPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages.SetupPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Margin="56">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="TitlePanel" Grid.Row="0" VerticalAlignment="Top" BorderBrush="Red" BorderThickness="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="MinecraftLauncher" Style="{ThemeResource TitleLargeTextBlockStyle}" Grid.Row="0" HorizontalAlignment="Center"/>
+            <TextBlock Text="Quick Setup" Style="{ThemeResource TitleTextBlockStyle}" Grid.Row="1" HorizontalAlignment="Center"/>
+        </Grid>
+        <Frame BorderBrush="AliceBlue" BorderThickness="0" Margin="16,56,16,16" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="SetupPagesFrame" x:FieldModifier="public" Grid.Row="2"/>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal" Spacing="8">
+            <TextBlock x:Name="PageStatusBox" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Text=""/>
+            <Button x:Name="NextBtn" Click="NextBtn_Click" Content="Next" Style="{ThemeResource AccentButtonStyle}" MinWidth="90"/>
+        </StackPanel>
+    </Grid>
+</Page>

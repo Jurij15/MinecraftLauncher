@@ -37,6 +37,11 @@
     <None Remove="Pages\SelectedVersionPage.xaml" />
     <None Remove="Pages\ServersPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
+    <None Remove="Pages\SetupPages\ContentPages\AuthPage.xaml" />
+    <None Remove="Pages\SetupPages\ContentPages\GameSettingsPage.xaml" />
+    <None Remove="Pages\SetupPages\ContentPages\LauncherSettingsPage.xaml" />
+    <None Remove="Pages\SetupPages\ContentPages\OfflineAuthPage.xaml" />
+    <None Remove="Pages\SetupPages\SetupRootPage.xaml" />
     <None Remove="Pages\ShellPage.xaml" />
     <None Remove="Pages\StartupPage.xaml" />
     <None Remove="Pages\WorldsPages\AllWorldsPage.xaml" />
@@ -192,6 +197,21 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Page Update="Pages\SetupPages\ContentPages\LauncherSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SetupPages\ContentPages\GameSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SetupPages\ContentPages\OfflineAuthPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SetupPages\ContentPages\AuthPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SetupPages\SetupRootPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\WorldsPages\AllWorldsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
