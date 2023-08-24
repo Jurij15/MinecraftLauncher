@@ -297,6 +297,11 @@
   <ItemGroup>
     <Folder Include="lib\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MinecraftNbtWorld">
+      <HintPath>lib\MinecraftNbtWorld\MinecraftNbtWorld.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
   <!-- 
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 

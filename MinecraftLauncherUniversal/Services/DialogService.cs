@@ -7,13 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using WinUIEx.Messaging;
 using MinecraftLauncherUniversal.Dialogs;
+using Serilog.Core;
+using Serilog;
 
 namespace MinecraftLauncherUniversal.Services
 {
     public class DialogService
     {
-        public static void ShowSimpleDialog(string title, string message)
+        public static async void ShowSimpleDialog(string title, string message)
         {
+            Log.Verbose($"Showing a contentdialog with title: {title}, and message: {message}");
             ContentDialog dialog = new ContentDialog();
             dialog.XamlRoot = Globals.MainGridXamlRoot;
             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
@@ -23,7 +26,7 @@ namespace MinecraftLauncherUniversal.Services
             dialog.CloseButtonText = "OK";
             dialog.CloseButtonClick += Dialog_CloseButtonClick;
 
-            dialog.ShowAsync();
+            await dialog.ShowAsync();
         }
 
         private static void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -34,6 +37,7 @@ namespace MinecraftLauncherUniversal.Services
 
         public static async void ShowWelcomeSetupDialog()
         {
+            Log.Verbose($"Showing the welcome dialog");
             ContentDialog dialog = new ContentDialog();
             dialog.XamlRoot = Globals.MainGridXamlRoot;
             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
@@ -48,6 +52,7 @@ namespace MinecraftLauncherUniversal.Services
 
         public static ContentDialog CreateContentDialog(string Title, object Content)
         {
+            Log.Verbose($"Creating a contentdialog with title: {Title}");
             ContentDialog dialog = new ContentDialog();
             dialog.XamlRoot = Globals.MainGridXamlRoot;
             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;

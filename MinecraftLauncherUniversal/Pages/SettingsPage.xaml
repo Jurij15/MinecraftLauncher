@@ -103,7 +103,6 @@
                 <labs:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEBE8;"/>
                 </labs:SettingsCard.HeaderIcon>
-                <ToggleButton x:Name="ToggleConsoleBtn" Loaded="ToggleConsoleBtn_Loaded" Content="Debug Console" Checked="ToggleConsoleBtn_Checked" Unchecked="ToggleConsoleBtn_Unchecked"/>
             </labs:SettingsCard>
 
             <TextBlock Text="Related" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="8"/>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Media.Imaging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace MinecraftLauncherUniversal.Helpers
             }
 			catch (Exception ex)
 			{
-                Logger.Log("[IMAGE]", "Failed to load image with error " + ex.Message);
+                Log.Error("Failed to load image with error " + ex.Message);
 
                 return null;
 			}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Windows.AppNotifications;
 using Microsoft.Windows.AppNotifications.Builder;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace MinecraftLauncherUniversal.Services
 
             if (Globals.ToastFailedInit)
             {
-                Logger.Log("NOTIFICATIONSERVICE", "Failed to show a notification with title " + title + " and message " + message + " that was set to expire in " + ExpirationTime.ToString());
+                Log.Error("Failed to show a notification with title " + title + " and message " + message + " that was set to expire in " + ExpirationTime.ToString());
             }
             else
             {
@@ -44,7 +45,7 @@ namespace MinecraftLauncherUniversal.Services
                 }
                 catch (Exception)
                 {
-                    Logger.Log("NOTIFICATIONSERVICE", "Failed to show a notification with title " + title + " and message " + message + " that was set to expire in " + ExpirationTime.ToString());
+                    Log.Error("Failed to show a notification with title " + title + " and message " + message + " that was set to expire in " + ExpirationTime.ToString());
                     throw;
                 }
             }

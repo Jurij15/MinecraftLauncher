@@ -9,6 +9,7 @@ using Microsoft.Windows.AppNotifications;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Pages.WorldsPages;
 using MinecraftLauncherUniversal.Services;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -171,7 +172,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             GC.Collect(); //idk, trying to lower ram usage
 
-            Logger.Log("NAVIGATION", "Navigated!");
+            Log.Verbose("Navigated!");
         }
     }
 }

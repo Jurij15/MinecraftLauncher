@@ -82,6 +82,11 @@ namespace MinecraftLauncherUniversal
 
             this.SetIcon("Assets\\LogoNew.ico");
 
+            //only show console on prerelease
+            if (Updater.bIsPrerelease())
+            {
+                //Globals.SetupConsole();
+            }
             //setup logger
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
@@ -98,6 +103,7 @@ namespace MinecraftLauncherUniversal
 
             if (Globals.ToastFailedInit && !Globals.bIsFirstTimeRun)
             {
+                Log.Error("Notifications failed to initialize!");
                 DialogService.ShowSimpleDialog("Error", "Notifications failed to initialize and will be disabled during app runtime!");
             }
         }
@@ -109,6 +115,7 @@ namespace MinecraftLauncherUniversal
 
         private void AppTitlePaneButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.Verbose("Pane toggle button in titlebar pressed!");
             bool Current = MainNavigation.IsPaneOpen;
             if (Current)
             {
@@ -122,7 +129,9 @@ namespace MinecraftLauncherUniversal
 
         private void MainWindowRootFrame_Loaded(object sender, RoutedEventArgs e)
         {
+            Log.Verbose("MainWindowFrame Loaded");
             ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.None);
+            Log.Verbose("Will navigate to StartupPage");
             MainWindowFrame.Navigate(typeof(StartupPage));
         }
     }

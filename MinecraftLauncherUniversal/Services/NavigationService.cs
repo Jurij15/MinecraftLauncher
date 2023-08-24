@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -79,12 +80,15 @@ namespace MinecraftLauncherUniversal.Services
         #region Public Functions
         public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation)
         {
+            Log.Verbose("Navigate started");
             if (ClearNavigation)
             {
                 BreadCrumbs.Clear();
                 MainFrame.BackStack.Clear();
+                Log.Verbose("Cleaned navigation breadcrumb and backstack");
             }
             BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
+            Log.Verbose($"Added a new breadcrumb with page {TargetPageType.ToString()}, and label {BreadcrumbItemLabel}");
 
             SlideNavigationTransitionInfo info = new SlideNavigationTransitionInfo();
             if (ClearNavigation)
@@ -97,6 +101,7 @@ namespace MinecraftLauncherUniversal.Services
             }
 
             MainFrame.Navigate(TargetPageType, null, info);
+            Log.Verbose($"Navigated to {TargetPageType.ToString()}");
 
             UpdateBreadcrumb();
             ChangeBreadcrumbVisibility(true);
@@ -115,6 +120,7 @@ namespace MinecraftLauncherUniversal.Services
 
             UpdateBreadcrumb();
             MainFrame.Navigate(TargetPageType, null, info);
+            Log.Verbose($"Navigated to {TargetPageType.ToString()}, with effect {TransitionEffect.ToString()}");
         }
 
         public static void ChangeBreadcrumbVisibility(bool IsBreadcrumbVisible)
@@ -129,6 +135,8 @@ namespace MinecraftLauncherUniversal.Services
                 MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
                 MainNavigation.AlwaysShowHeader = false;
             }
+
+            Log.Verbose($"Changed breadcurmbbar visibility to {IsBreadcrumbVisible.ToString()}");
         }
         #endregion
     }
