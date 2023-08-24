@@ -14,6 +14,8 @@ using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Pages;
 using MinecraftLauncherUniversal.Pages.SetupPages;
 using MinecraftLauncherUniversal.Services;
+using Serilog.Events;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -79,6 +81,13 @@ namespace MinecraftLauncherUniversal
             TitleBarPaneToggleButton = AppTitlePaneButton;
 
             this.SetIcon("Assets\\LogoNew.ico");
+
+            //setup logger
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Verbose)
+                .CreateLogger();
+            Log.Information("MinecraftLauncher by Jurij15, Version: " + Globals.VersionString);
         }
 
         private async void RootGrid_Loaded(object sender, RoutedEventArgs e)

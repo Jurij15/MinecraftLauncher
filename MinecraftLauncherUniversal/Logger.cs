@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,8 +19,7 @@ namespace MinecraftLauncherUniversal
     {
         public static void Log(string Source, string Message)
         {
-            Console.WriteLine("[" + Source.ToUpper() + "]" + Message);
-            Globals.LoggerHistory.Add("[" + Source.ToUpper() + "]" + Message);
+            Serilog.Log.Information(Message);
         }
     }
 }
