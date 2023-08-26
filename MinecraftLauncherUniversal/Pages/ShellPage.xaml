@@ -112,7 +112,7 @@
                         <FontIcon Glyph="&#xE731;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Worlds" x:Name="WorldsItem" Visibility="Collapsed">
+                <NavigationViewItem Content="Worlds" x:Name="WorldsItem">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE909;" />
                     </NavigationViewItem.Icon>

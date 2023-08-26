@@ -6,26 +6,27 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages.WorldsPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <GridView Margin="0,2,0,12" x:Name="ItemsPanel" Grid.Row="0" Grid.Column="0" BorderThickness="0" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None">
-            <GridView.ItemContainerTransitions>
-                <TransitionCollection>
-                    <AddDeleteThemeTransition />
-                </TransitionCollection>
-            </GridView.ItemContainerTransitions>
-        </GridView>
-    </Grid>
+    mc:Ignorable="d" NavigationCacheMode="Disabled">
+    <ScrollViewer>
+        <Grid Margin="58, 42, 58,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <GridView Margin="0,2,0,12" Unloaded="ItemsPanel_Unloaded" x:Name="ItemsPanel" Grid.Row="0" Grid.Column="0" BorderThickness="0" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None">
+                <GridView.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
+                </GridView.ItemContainerTransitions>
+            </GridView>
+        </Grid>
+    </ScrollViewer>
 </Page>

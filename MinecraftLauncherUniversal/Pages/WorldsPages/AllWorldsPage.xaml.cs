@@ -1,3 +1,4 @@
+using CommunityToolkit.Labs.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -7,6 +8,8 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
+using MinecraftNbtWorld;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +29,17 @@ namespace MinecraftLauncherUniversal.Pages.WorldsPages
     /// </summary>
     public sealed partial class AllWorldsPage : Page
     {
+        void CreateWorldCard(MWorld World, string Path)
+        {
+            SettingsCard card = new SettingsCard();
+            card.Tag = World;
+
+            Log.Verbose("World with path:" + Path);
+
+            card.Header = World.Level.LevelName;
+
+            ItemsPanel.Items.Add(card);
+        }
         public AllWorldsPage()
         {
             this.InitializeComponent();
@@ -33,7 +47,22 @@ namespace MinecraftLauncherUniversal.Pages.WorldsPages
 
         private void ItemsPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            ItemsPanel.Items.Clear();
+            WorldsManager manager = new WorldsManager();
+            manager.LoadAllPaths();
+            foreach (var item in WorldsManager.WorldsPaths)
+            {
+                if (File.Exists(item+"\\level.dat"))
+                {
+                    Log.Verbose("Creating world card from path: " + item);
+                    CreateWorldCard(new MWorld(item), item);
+                }
+            }
+        }
 
+        private void ItemsPanel_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ItemsPanel.Items.Clear();
         }
     }
 }

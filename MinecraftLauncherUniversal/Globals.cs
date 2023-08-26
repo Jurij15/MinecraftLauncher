@@ -78,11 +78,6 @@ namespace MinecraftLauncherUniversal
         public static void SetupConsole()
         {
             AllocConsole();
-            _isConsoleVisible = true;
-            foreach (var item in LoggerHistory)
-            {
-                Console.WriteLine(item);
-            }
         }
 
         [DllImport("kernel32.dll", EntryPoint = "FreeConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]

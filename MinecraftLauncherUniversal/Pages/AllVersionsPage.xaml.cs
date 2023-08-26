@@ -6,9 +6,11 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -126,9 +128,14 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.CurrentVersion = version;
 
             ItemsPanel.Items.Clear();
-
             NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
-            //NavigationService.NavigateHiearchical(typeof(AboutPage), "test", false);
+        }
+        private void ItemsPanel_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            SettingsCard content = e.ClickedItem as SettingsCard;
+            string version = content.Header.ToString();
+
+            Globals.CurrentVersion = version;
         }
 
         async void LoadVersions(bool bOnlyReleases)

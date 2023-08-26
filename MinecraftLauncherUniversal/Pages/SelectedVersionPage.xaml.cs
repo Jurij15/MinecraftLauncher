@@ -25,6 +25,8 @@ using CmlLib.Core;
 using WinUIEx.Messaging;
 using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
+using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -65,22 +67,8 @@ namespace MinecraftLauncherUniversal.Pages
         public SelectedVersionPage()
         {
             this.InitializeComponent();
-            UsernameBox.Text = Globals.Settings.Username;
-            if (Globals.bIsFirstTimeRun)
-            {
-                OpenUsernameTip();
-            }
 
             //PickAndSetRandomImage();
-        }
-
-        async void OpenUsernameTip()
-        {
-            UsernameTip.Target = UsernameBox;
-            // bugbug: without this delay, the tip opens, but won't close
-            await Task.Delay(100);
-
-            UsernameTip.IsOpen = true;
         }
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
@@ -116,11 +104,6 @@ namespace MinecraftLauncherUniversal.Pages
                 DownloadButton.Visibility = Visibility.Visible;
                 PlayButton.Visibility = Visibility.Collapsed;
                 StatusBox.Text = "Download Required";
-            }
-
-            if (VersionsHelper.bVersionSupportsSkins(Globals.CurrentVersion))
-            {
-                ShowSkinCheck.IsChecked = true;
             }
 
             PickAndSetRandomImage();
@@ -183,31 +166,6 @@ namespace MinecraftLauncherUniversal.Pages
             }
         }
 
-        private void UsernameTip_CloseButtonClick(TeachingTip sender, object args)
-        {
-            sender.IsOpen = false;
-        }
-
-        private void UsernameTip_Closing(TeachingTip sender, TeachingTipClosingEventArgs args)
-        {
-            //UsernameTip.Content = "null";
-        }
-
-        private void QuickPlayerSettingsExpander_Collapsed(Expander sender, ExpanderCollapsedEventArgs args)
-        {
-            UsernameTip.IsOpen = false;
-        }
-
-        private void ShowSkinCheck_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void DeleteBuildBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void ConfirmDelete_Click(object sender, RoutedEventArgs e)
         {
             Directory.Delete(MinecraftPath.WindowsDefaultPath + "\\" + "versions" + "\\" + Globals.CurrentVersion, true);
@@ -215,37 +173,25 @@ namespace MinecraftLauncherUniversal.Pages
             NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
         }
 
-        private void RamAmountBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            ((NumberBox)sender).Value = Globals.Settings.MemoryAllocationInGB;
-        }
-
-        private void FullscreenCheck_Loaded(object sender, RoutedEventArgs e)
-        {
-            ((CheckBox)sender).IsChecked = Globals.Settings.Fullscreen;
-        }
-
-        private void FullscreenCheck_Checked(object sender, RoutedEventArgs e)
-        {
-           Globals.Settings.Fullscreen = true;
-            SettingsJson.SaveSettings();
-        }
-
-        private void FullscreenCheck_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Globals.Settings.Fullscreen = false;
-            SettingsJson.SaveSettings();
-        }
-
-        private void RamAmountBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
-        {
-            Globals.Settings.MemoryAllocationInGB = (int)args.NewValue;
-            SettingsJson.SaveSettings();
-        }
-
         private void PlayerSettingsCard_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            //NavigationService.ChangeBreadcrumbVisibility(false);
+            base.OnNavigatedTo(e);
+
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+        }
+
+        private void scrollview_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
         }
     }
 }

@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\minecraft-icon.ico" />
+    <None Remove="Assets\PlayPage\background-playpage.png" />
     <None Remove="ContentWindows\ConsoleStyledWindow.xaml" />
     <None Remove="Dialogs\AddServerDialog.xaml" />
     <None Remove="Dialogs\AdvancedPlayerSettingsDialogContent.xaml" />
@@ -75,6 +76,7 @@
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Media" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Media" Version="7.1.2" />
+    <PackageReference Include="fNbt" Version="0.6.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230724000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
@@ -183,6 +185,9 @@
     </Content>
     <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_winter_celebration_1080x1920.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage\background-playpage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\StevePfp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
