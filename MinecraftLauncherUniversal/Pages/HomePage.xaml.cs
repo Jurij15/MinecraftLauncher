@@ -65,6 +65,8 @@ namespace MinecraftLauncherUniversal.Pages
 
                 ItemsPanel.Items.Add(card);
             }
+
+            NavigationService.ChangeBreadcrumbVisibility(false);
         }
 
         private void Card_Click(object sender, RoutedEventArgs e)

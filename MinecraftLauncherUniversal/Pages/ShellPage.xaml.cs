@@ -56,7 +56,6 @@ namespace MinecraftLauncherUniversal.Pages
 
             //navigate home
             MainNavigation.SelectedItem = HomeItem;
-            ChangeBreadcrumbVisibility(false);
 
             SetStats();
         }
@@ -147,7 +146,6 @@ namespace MinecraftLauncherUniversal.Pages
             if (args.SelectedItemContainer == HomeItem)
             {
                 Navigate(typeof(HomePage), "Home", true);
-                ChangeBreadcrumbVisibility(false);
             }
             if (args.SelectedItemContainer == AllVersionsPage)
             {

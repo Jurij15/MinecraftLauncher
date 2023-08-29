@@ -141,12 +141,12 @@ namespace MinecraftLauncherUniversal.Services
         {
             if (IsBreadcrumbVisible)
             {
-                MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                //MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                 MainNavigation.AlwaysShowHeader = true;
             }
             else
             {
-                MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+                //MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
                 MainNavigation.AlwaysShowHeader = false;
             }
 

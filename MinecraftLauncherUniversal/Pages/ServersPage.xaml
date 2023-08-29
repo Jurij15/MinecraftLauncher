@@ -71,7 +71,7 @@
                         </StackPanel.ChildrenTransitions>
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock Text="" Style="{ThemeResource TitleTextBlockStyle}"  x:Name="ServerNameBlock"/>
-                            <TextBlock Text="Unknown" x:Name="ServerStatusBlock" Style="{ThemeResource CaptionTextBlockStyle}" LineHeight="36" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                            <TextBlock VerticalAlignment="Bottom" Text="Unknown" x:Name="ServerStatusBlock" Style="{ThemeResource CaptionTextBlockStyle}" LineHeight="36" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
                         </StackPanel>
                         <StackPanel Spacing="4" Margin="0,2,0,2">
                             <TextBlock Text="IP Address" Style="{ThemeResource CaptionTextBlockStyle}"/>

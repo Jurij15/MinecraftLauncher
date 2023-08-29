@@ -34,6 +34,8 @@ namespace MinecraftLauncherUniversal.Pages
     public sealed partial class StartupPage : Page
     {
         int LoadTimeout = 6000;
+
+        int LoadFailedCounter = 0;
         public StartupPage()
         {
             this.InitializeComponent();
@@ -54,31 +56,63 @@ namespace MinecraftLauncherUniversal.Pages
             }
 
             await Task.Delay(100);//wait for the actual page to load
-
+            LoadingText.Text = "Loading version data...";
             Task taskToAwait = PreloadArrays();
 
             Task completedTask = await Task.WhenAny(taskToAwait, Task.Delay(LoadTimeout));
 
             if (completedTask == taskToAwait)
             {
-                if (Globals.bIsFirstTimeRun)
+                if (LoadFailedCounter < 4)
                 {
-                    MainWindow.MainWindowFrame.Navigate(typeof(SetupRootPage));
+                    if (VersionManager.AllVersionsGlobal.Count <= 1)
+                    {
+                        LoadFailedCounter++;
+                        LoadingText.Text = "Trying to connect to mojang servers... "+LoadFailedCounter.ToString();
+                        taskToAwait = PreloadArrays();
+                    }
+                    else
+                    {
+                        if (Globals.bIsFirstTimeRun)
+                        {
+                            MainWindow.MainWindowFrame.Navigate(typeof(SetupRootPage));
+                        }
+                        else
+                        {
+                            LoadingText.Text = "Done...";
+                            // task completed within timeout
+                            ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
+
+                            //fix for if the arrays are empty for some reason
+                            if (VersionManager.AllVersionsGlobal.Count < 1)
+                            {
+                                //DialogService.ShowSimpleDialog("Error", "An error occured while loading versions. Please restart your launcher!");
+                            }
+
+                            MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
+                            DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
+                            MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);
+                        }
+                    }
                 }
                 else
                 {
-                    // task completed within timeout
-                    ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
+                    // timeout logic
+                    ContentDialog ServerConnectionFailedDialog = new ContentDialog();
+                    ServerConnectionFailedDialog.XamlRoot = this.Content.XamlRoot;
+                    ServerConnectionFailedDialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                    ServerConnectionFailedDialog.Title = "Error";
+                    ServerConnectionFailedDialog.Content = "Failed to connect to Mojang Servers! Please check your internet connection and restart the app!";
 
-                    //fix for if the arrays are empty for some reason
-                    if (VersionManager.AllVersionsGlobal.Count < 1)
-                    {
-                        DialogService.ShowSimpleDialog("Error", "An error occured while loading versions. Please restart your launcher!");
-                    }
+                    ServerConnectionFailedDialog.CloseButtonText = "Close App";
+                    ServerConnectionFailedDialog.CloseButtonClick += ServerConnectionFailedDialog_CloseButtonClick;
 
-                    MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
-                    DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
-                    MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);
+                    ServerConnectionFailedDialog.PrimaryButtonText = "Restart App";
+                    ServerConnectionFailedDialog.PrimaryButtonClick += ServerConnectionFailedDialog_PrimaryButtonClick;
+
+                    ServerConnectionFailedDialog.DefaultButton = ContentDialogButton.Primary;
+
+                    await ServerConnectionFailedDialog.ShowAsync();
                 }
             }
             else
