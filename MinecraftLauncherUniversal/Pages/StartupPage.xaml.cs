@@ -75,7 +75,7 @@ namespace MinecraftLauncherUniversal.Pages
                     {
                         if (Globals.bIsFirstTimeRun)
                         {
-                            MainWindow.MainWindowFrame.Navigate(typeof(SetupRootPage));
+                            MainWindow.MainWindowFrame.Navigate(typeof(SetupRootPage), null, new DrillInNavigationTransitionInfo());
                         }
                         else
                         {
