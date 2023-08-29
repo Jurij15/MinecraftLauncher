@@ -130,13 +130,6 @@ namespace MinecraftLauncherUniversal.Pages
             ItemsPanel.Items.Clear();
             NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
         }
-        private void ItemsPanel_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            SettingsCard content = e.ClickedItem as SettingsCard;
-            string version = content.Header.ToString();
-
-            Globals.CurrentVersion = version;
-        }
 
         async void LoadVersions(bool bOnlyReleases)
         {

@@ -32,6 +32,29 @@
                 <TextBlock FontWeight="Normal" FontSize="13" x:Name="VersionBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
             </labs:SettingsExpander.Content>
             <labs:SettingsExpander.Items>
+                <labs:SettingsCard Header="Updates" Description="Check for updates" 
+              Grid.Row="3">
+                    <labs:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE777;"/>
+                    </labs:SettingsCard.HeaderIcon>
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Content="Check For Updates" x:Name="CheckForUpdatesBtn" Click="CheckForUpdatesBtn_Click">
+                            <Button.Flyout>
+                                <Flyout x:Name="UpdateFlyout">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE777;" x:Name="UpdateIcon" Visibility="Collapsed"/>
+                                        <FontIcon Glyph="&#xE8D8;" x:Name="CannotUpdateIcon" Visibility="Collapsed"/>
+                                        <FontIcon Glyph="&#xE73E;" x:Name="NoUpdatesIcon" Visibility="Collapsed"/>
+                                        <StackPanel Margin="4,0,0,0">
+                                            <TextBlock x:Name="StatusBox" Style="{ThemeResource BaseTextBlockStyle}"/>
+                                            <TextBlock x:Name="AditionalStuffBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </labs:SettingsCard>
                 <labs:SettingsCard>
                     <labs:SettingsCard.Header>
                         <StackPanel Grid.Row="0" HorizontalAlignment="Left">
@@ -64,29 +87,6 @@
                 </labs:SettingsCard>
             </labs:SettingsExpander.Items>
         </labs:SettingsExpander>
-        <labs:SettingsCard Header="Updates" Description="Check for updates" 
-              Grid.Row="3">
-            <labs:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE777;"/>
-            </labs:SettingsCard.HeaderIcon>
-            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button Content="Check For Updates" x:Name="CheckForUpdatesBtn" Click="CheckForUpdatesBtn_Click">
-                    <Button.Flyout>
-                        <Flyout x:Name="UpdateFlyout">
-                            <StackPanel Orientation="Horizontal">
-                                <FontIcon Glyph="&#xE777;" x:Name="UpdateIcon" Visibility="Collapsed"/>
-                                <FontIcon Glyph="&#xE8D8;" x:Name="CannotUpdateIcon" Visibility="Collapsed"/>
-                                <FontIcon Glyph="&#xE73E;" x:Name="NoUpdatesIcon" Visibility="Collapsed"/>
-                                <StackPanel Margin="4,0,0,0">
-                                    <TextBlock x:Name="StatusBox" Style="{ThemeResource BaseTextBlockStyle}"/>
-                                    <TextBlock x:Name="AditionalStuffBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
-            </StackPanel>
-        </labs:SettingsCard>
 
         <Button x:Name="OpenConsoleStyledWindow" Visibility="Collapsed" Click="OpenConsoleStyledWindow_Click" Content="Open Console Styled Window" Grid.Row="4" Margin="0,4,0,0"/>
     </Grid>

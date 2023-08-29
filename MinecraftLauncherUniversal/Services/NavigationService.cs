@@ -90,17 +90,16 @@ namespace MinecraftLauncherUniversal.Services
             BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
             Log.Verbose($"Added a new breadcrumb with page {TargetPageType.ToString()}, and label {BreadcrumbItemLabel}");
 
-            SlideNavigationTransitionInfo info = new SlideNavigationTransitionInfo();
             if (ClearNavigation)
             {
-                info.Effect = SlideNavigationTransitionEffect.FromBottom; //navigating fresh
+                MainFrame.Navigate(TargetPageType, null, new EntranceNavigationTransitionInfo());
             }
             else
             {
-                info.Effect = SlideNavigationTransitionEffect.FromRight;
+                SlideNavigationTransitionInfo info = new SlideNavigationTransitionInfo();
+                (info as SlideNavigationTransitionInfo).Effect = SlideNavigationTransitionEffect.FromRight;
+                MainFrame.Navigate(TargetPageType, null, info);
             }
-
-            MainFrame.Navigate(TargetPageType, null, info);
             Log.Verbose($"Navigated to {TargetPageType.ToString()}");
 
             UpdateBreadcrumb();

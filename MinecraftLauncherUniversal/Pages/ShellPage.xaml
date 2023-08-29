@@ -79,7 +79,7 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem Content="Home" x:Name="HomeItem">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"/>
+                        <FontIcon Glyph="&#xE80F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <!--<NavigationViewItemSeparator/>-->
@@ -104,7 +104,7 @@
                 </NavigationViewItem>
                 <NavigationViewItem Content="OptiFine" x:Name="OptifineItem" Visibility="Collapsed">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xF4A5;"/>
+                        <FontIcon Glyph="&#xF4A5;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem Content="Servers" x:Name="ServersItem">
@@ -121,7 +121,7 @@
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="About" x:Name="AboutItem">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xE779;"/>
+                        <FontIcon  Glyph="&#xE779;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
