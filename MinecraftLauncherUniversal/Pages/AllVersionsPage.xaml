@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded" NavigationCacheMode="Disabled"
+    xmlns:controls="using:CommunityToolkit.Labs.WinUI"
+    xmlns:custom="using:MinecraftLauncherUniversal.Controls"
     Background="Transparent">
 
     <Grid Margin="58, 42, 58,0">
@@ -31,17 +33,25 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Spacing="1">
                     <CheckBox x:Name="ReleasesOnly" Content="Releases Only" Unchecked="ReleasesOnly_Unchecked" Checked="ReleasesOnly_Checked"/>
-                    <CheckBox x:Name="ShowInstalledStatus" Content="Version Status" Checked="ShowInstalledStatus_Checked" Unchecked="ShowInstalledStatus_Unchecked"/>
+                    <CheckBox x:Name="ShowInstalledStatus" Visibility="Collapsed" Content="Version Status" Checked="ShowInstalledStatus_Checked" Unchecked="ShowInstalledStatus_Unchecked"/>
                 </StackPanel>
             </Grid>
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>
         </Grid>
-        <GridView x:Name="ItemsPanel" Grid.Row="3" BorderBrush="Transparent" SelectionMode="None" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
+        <GridView x:Name="ItemsPanel" Grid.Row="3" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
             <GridView.ItemContainerTransitions>
-                <TransitionCollection>
-                    
-                </TransitionCollection>
+                <EntranceThemeTransition/>
             </GridView.ItemContainerTransitions>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <custom:VersionCardControl x:Name="TemplateCard"
+                        Margin="4"
+                        Width="255"
+                        Version="{Binding Version}"
+                        VersionInstalledState="{Binding VersionInstalledState}"
+                        PointerPressed="VersionCardControl_PointerPressed"/>
+                </DataTemplate>
+            </GridView.ItemTemplate>
         </GridView>
     </Grid>
 </Page>

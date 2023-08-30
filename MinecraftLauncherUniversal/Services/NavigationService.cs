@@ -105,6 +105,34 @@ namespace MinecraftLauncherUniversal.Services
             UpdateBreadcrumb();
             ChangeBreadcrumbVisibility(true);
         }
+        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, bool BreadcrumbVisibility)
+        {
+            Log.Verbose("Navigate started");
+            if (ClearNavigation)
+            {
+                BreadCrumbs.Clear();
+                MainFrame.BackStack.Clear();
+                Log.Verbose("Cleaned navigation breadcrumb and backstack");
+            }
+            BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
+            Log.Verbose($"Added a new breadcrumb with page {TargetPageType.ToString()}, and label {BreadcrumbItemLabel}");
+
+            ChangeBreadcrumbVisibility(BreadcrumbVisibility);
+
+            if (ClearNavigation)
+            {
+                MainFrame.Navigate(TargetPageType, null, new EntranceNavigationTransitionInfo());
+            }
+            else
+            {
+                SlideNavigationTransitionInfo info = new SlideNavigationTransitionInfo();
+                (info as SlideNavigationTransitionInfo).Effect = SlideNavigationTransitionEffect.FromRight;
+                MainFrame.Navigate(TargetPageType, null, info);
+            }
+            Log.Verbose($"Navigated to {TargetPageType.ToString()}");
+
+            UpdateBreadcrumb();
+        }
         public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, SlideNavigationTransitionEffect TransitionEffect)
         {
             if (ClearNavigation)
@@ -136,16 +164,31 @@ namespace MinecraftLauncherUniversal.Services
             Log.Verbose($"Navigated to {TargetPageType.ToString()}, with no effect");
         }
 
+        public static void NavigateSuppressedAnim(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, bool BreadcrumbVisibility)
+        {
+            if (ClearNavigation)
+            {
+                BreadCrumbs.Clear();
+                MainFrame.BackStack.Clear();
+            }
+            BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
+
+            UpdateBreadcrumb();
+            MainFrame.Navigate(TargetPageType, null, new SuppressNavigationTransitionInfo());
+            ChangeBreadcrumbVisibility(BreadcrumbVisibility);
+            Log.Verbose($"Navigated to {TargetPageType.ToString()}, with no effect");
+        }
+
         public static void ChangeBreadcrumbVisibility(bool IsBreadcrumbVisible)
         {
             if (IsBreadcrumbVisible)
             {
-                //MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                 MainNavigation.AlwaysShowHeader = true;
             }
             else
             {
-                //MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+                MainBreadcrumb.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
                 MainNavigation.AlwaysShowHeader = false;
             }
 

@@ -16,6 +16,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\LogoNew.png" />
+    <Content Remove="Assets\MinecraftPlayIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\minecraft-icon.ico" />
@@ -36,6 +37,7 @@
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\OptiFinePage.xaml" />
     <None Remove="Pages\PlayerSettingsPage.xaml" />
+    <None Remove="Pages\PlayVersionPage.xaml" />
     <None Remove="Pages\SelectedVersionPage.xaml" />
     <None Remove="Pages\ServersPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
@@ -205,6 +207,12 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <None Update="Assets\MinecraftPlayIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Page Update="Pages\PlayVersionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Controls\VersionCardControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

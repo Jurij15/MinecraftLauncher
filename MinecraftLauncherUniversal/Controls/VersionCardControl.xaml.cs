@@ -20,9 +20,48 @@ namespace MinecraftLauncherUniversal.Controls
 {
     public sealed partial class VersionCardControl : UserControl
     {
+        public static readonly DependencyProperty VersionProperty =
+                 DependencyProperty.Register("Version", typeof(string), typeof(VersionCardControl), new PropertyMetadata(null));
+        public string Version
+        {
+            get { return (string)GetValue(VersionProperty); }
+            set { SetValue(VersionProperty, value); }
+        }
+
+        // VersionInstalledState Property
+        public string VersionInstalledState
+        {
+            get { return (string)GetValue(VersionInstalledStateProperty); }
+            set { SetValue(VersionInstalledStateProperty, value); }
+        }
+
+        public static readonly DependencyProperty VersionInstalledStateProperty =
+            DependencyProperty.Register("VersionInstalledState", typeof(string), typeof(VersionCardControl), new PropertyMetadata(""));
+
+        public Image MinecraftImage { get; private set; }
+
+        public static readonly DependencyProperty ImageProperty =
+         DependencyProperty.Register("Image", typeof(Image), typeof(VersionCardControl), new PropertyMetadata(null));
         public VersionCardControl()
         {
             this.InitializeComponent();
+
+            MinecraftImage = IMG;
+        }
+
+        private void SetPointerNormalState(object sender, PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "Normal", true);
+        }
+
+        private void SetPointerOverState(object sender, PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "PointerOver", true);
+        }
+
+        private void SetPointerPressedState(object sender, PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "Pressed", true);
         }
     }
 }

@@ -27,6 +27,7 @@ using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI;
+using System.Text.RegularExpressions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -38,6 +39,7 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class SelectedVersionPage : Page
     {
+        static Type SourcePageType;
         static int i;
         void PickAndSetRandomImage()
         {
@@ -180,13 +182,25 @@ namespace MinecraftLauncherUniversal.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //NavigationService.ChangeBreadcrumbVisibility(false);
+            SourcePageType = e.SourcePageType;
+            MainWindow.TitleBarGoBackButton.Visibility = Visibility.Visible;
+            MainWindow.TitleBarGoBackButton.Click += TitleBarGoBackButton_Click;
             base.OnNavigatedTo(e);
 
         }
 
+        private void TitleBarGoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            //this is only meant for AllVersionsPage
+            MainWindow.TitleBarGoBackButton.Visibility = Visibility.Collapsed;
+            MainWindow.TitleBarGoBackButton.Click -= TitleBarGoBackButton_Click;
+            NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true);
+        }
+
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            MainWindow.TitleBarGoBackButton.Visibility = Visibility.Collapsed;
+            MainWindow.TitleBarGoBackButton.Click -= TitleBarGoBackButton_Click;
             base.OnNavigatingFrom(e);
         }
 

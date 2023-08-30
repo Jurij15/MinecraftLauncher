@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Pages.PlayVersionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="325"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="InfoPresenterGrid" CornerRadius="8"
+              Grid.Column="0"
+              
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+            <StackPanel VerticalAlignment="Center">
+                <Border Margin="0,0,0,12" MaxHeight="125" MaxWidth="125" CornerRadius="4">
+                    <Image x:Name="MCImg" x:FieldModifier="public" Source="/Assets/MinecraftPlayIcon.png"/>
+                </Border>
+                <TextBlock x:Name="MinecraftVersionBlock" HorizontalAlignment="Center" Margin="0,0,0,4" Style="{ThemeResource TitleTextBlockStyle}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Mojang Studios" FontSize="12" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    <TextBlock Text="·" Margin="2,2,2,2" FontWeight="ExtraBlack"/>
+                    <TextBlock x:Name="StatusBox" Text="Not Installed" FontSize="12" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Center">
+                    <Button x:Name="DownloadButton" Style="{StaticResource AccentButtonStyle}" Margin="0,10,0,0" Width="222" Height="55" Visibility="Collapsed" Click="DownloadButton_Click">
+                        <Button.ContentTransitions>
+                            <ContentThemeTransition/>
+                        </Button.ContentTransitions>
+                        <SymbolIcon Symbol="Download"/>
+                    </Button>
+                    <Button x:Name="PlayButton" Style="{StaticResource AccentButtonStyle}" Margin="0,10,0,0" Width="222" Height="55" Visibility="Collapsed" Click="PlayButton_Click">
+                        <Button.ContentTransitions>
+                            <ContentThemeTransition/>
+                        </Button.ContentTransitions>
+                        <SymbolIcon Symbol="Play"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ContentGrid">
+            <Grid.ChildrenTransitions>
+                <ContentThemeTransition/>
+            </Grid.ChildrenTransitions>
+        </Grid>
+    </Grid>
+</Page>

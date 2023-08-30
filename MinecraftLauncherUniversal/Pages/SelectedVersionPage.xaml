@@ -13,6 +13,9 @@
 
     <ScrollViewer x:Name="scrollview" ViewChanged="scrollview_ViewChanged">
         <Grid x:Name="ContentGrid" Margin="58, 42, 58,0">
+            <Grid.ChildrenTransitions>
+                <EntranceThemeTransition/>
+            </Grid.ChildrenTransitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

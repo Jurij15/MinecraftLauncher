@@ -1,4 +1,5 @@
 using CommunityToolkit.Labs.WinUI;
+using CommunityToolkit.WinUI.UI.Animations;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -9,6 +10,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using MinecraftLauncherUniversal.Controls;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
@@ -23,6 +25,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI.Composition;
 using Windows.Web.Http.Diagnostics;
 using WinUIEx;
@@ -33,8 +36,16 @@ using WinUIEx;
 namespace MinecraftLauncherUniversal.Pages
 {
     //This page is a bit of a mess, needs organization
+    public class VersionItem
+    {
+        public string Version { get; set; }
+        public string VersionInstalledState { get; set; }
+    }
     public sealed partial class AllVersionsPage : Page
     {
+        public static VersionCardControl _storedCard;
+
+        HashSet<VersionItem> VersionsSource;
         bool bInitFinished = false;
         public enum PopInAnimationDuration
         {
@@ -170,7 +181,8 @@ namespace MinecraftLauncherUniversal.Pages
                     return yDecimal.CompareTo(xDecimal);
                 }));
             }
-            
+
+            VersionsSource = new HashSet<VersionItem>();
             foreach (var item in versions)
             {
                 PopInAnimationDuration duration = PopInAnimationDuration.Normal;
@@ -190,12 +202,32 @@ namespace MinecraftLauncherUniversal.Pages
                 {
                     duration = PopInAnimationDuration.VeryShort;
                 }
-                await CreateCardAsync(item, duration, Convert.ToBoolean(ShowInstalledStatus.IsChecked));
+                //await CreateCardAsync(item, duration, Convert.ToBoolean(ShowInstalledStatus.IsChecked));
+
+                VersionItem version = new VersionItem();
+                version.Version = item;
+                version.VersionInstalledState = "Unknown";
+
+                if (VersionsHelper.bIsVersionInstalled(item))
+                {
+                    version.VersionInstalledState = "Installed";
+                }
+                else
+                {
+                    version.VersionInstalledState = "Not Installed";
+                }
+
+                VersionsSource.Add(version);
             }
+
+            ItemsPanel.ItemsSource = VersionsSource;
 
             versions.Clear();
             ReleasesOnly.IsEnabled = true;
             ShowInstalledStatus.IsEnabled = true;
+
+            TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
+            Globals.AllVersionsNavigationViewItemInfoBadge.Value = ItemsPanel.Items.Count;
         }
 
         public AllVersionsPage()
@@ -211,13 +243,11 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
         {
-            ItemsPanel.Items.Clear();
             LoadVersions(false);
         }
 
         private void ReleasesOnly_Checked(object sender, RoutedEventArgs e)
         {
-            ItemsPanel.Items.Clear();
             LoadVersions(true);
         }
 
@@ -274,7 +304,6 @@ namespace MinecraftLauncherUniversal.Pages
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             //var itemsSource = ItemsPanel.ItemsSource as IList ;
-            ItemsPanel.Items.Clear();
         }
 
         private void ShowInstalledStatus_Checked(object sender, RoutedEventArgs e)
@@ -283,7 +312,6 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 return;
             }
-            ItemsPanel.Items.Clear();
             LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
         }
 
@@ -293,8 +321,59 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 return;
             }
-            ItemsPanel.Items.Clear();
             LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
+        }
+
+        Type NavigatedFromPageType;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            NavigatedFromPageType = e.SourcePageType as Type;
+            base.OnNavigatedTo(e);
+        }
+
+        private async void ItemsPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            await Task.Delay(500);
+            if (NavigatedFromPageType.GetType() == typeof(PlayVersionPage))
+            {
+                // Retrieve and start the connected animation for back navigation
+                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("BackConnectedAnimation");
+                if (_storedCard == null)
+                {
+                    MessageBox.Show("null!");
+                }
+                if (animation != null)
+                {
+                    animation.TryStart(_storedCard);
+                }
+
+                animation.Completed += Animation_Completed;
+            }
+        }
+
+        private void Animation_Completed(ConnectedAnimation sender, object args)
+        {
+            MessageBox.Show("back anim completed!");
+        }
+
+        private void VersionCardControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            VersionCardControl card = sender as VersionCardControl;
+            if (card != null)
+            {
+                string version = card.Version;
+                //MessageBox.Show(version);
+                //DialogService.ShowSimpleDialog("content", version);
+                //string version = "test";
+
+                Globals.CurrentVersion = version;
+                _storedCard = card;
+
+                // Prepare the connected animation
+                var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", card);
+
+                NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, false, false);
+            }
         }
     }
 }

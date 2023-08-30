@@ -156,7 +156,7 @@
                 </StackPanel>
 
             </Grid>
-            <GridView x:Name="ItemsPanel" Grid.Row="4" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False" Header="Recently Played">
+            <GridView x:Name="ItemsPanel" Visibility="Collapsed" Grid.Row="4" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False" Header="Recently Played">
                 <GridView.ItemContainerTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition IsStaggeringEnabled="True" />

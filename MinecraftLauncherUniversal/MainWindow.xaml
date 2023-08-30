@@ -11,15 +11,21 @@
     xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
     mc:Ignorable="d">
     <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded" Background="Transparent">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+                <RepositionThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="AppTitleBar" Background="Transparent" Visibility="Visible" Margin="56,0,0,0" IsHitTestVisible="True" Canvas.ZIndex="2" Grid.Column="1">
+        <Grid x:Name="AppTitleBar" Background="Transparent" Visibility="Visible" Margin="86,0,0,0" IsHitTestVisible="True" Canvas.ZIndex="2" Grid.Column="1">
             <Grid.OpacityTransition>
                 <ScalarTransition Duration="0:0:0.083" />
             </Grid.OpacityTransition>
@@ -34,20 +40,46 @@
         FontSize="12"
         Text="Minecraft Launcher" />
         </Grid>
-        <Button x:Name="AppTitlePaneButton" Style="{ThemeResource PaneToggleButtonStyle}" HorizontalAlignment="Left"
-                     Grid.ColumnSpan="2" Margin="6,4,0,0" Width="36" Click="AppTitlePaneButton_Click">
-            <Button.Content>
-                <AnimatedIcon Height="17" Margin="-3,0,-3,0">
-                    <AnimatedIcon.Source>
-                        <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource/>
-                    </AnimatedIcon.Source>
-                    <AnimatedIcon.FallbackIconSource>
-                        <SymbolIconSource Symbol="OpenPane"/>
-                    </AnimatedIcon.FallbackIconSource>
+        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left"  Margin="9,4,0,0">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                    <RepositionThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="AppTitlePaneButton" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left"
+                     Grid.Column="0" Click="AppTitlePaneButton_Click">
+                <Button.Content>
+                    <AnimatedIcon Height="17" Margin="-3,0,-3,0">
+                        <AnimatedIcon.Source>
+                            <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource/>
+                        </AnimatedIcon.Source>
+                        <AnimatedIcon.FallbackIconSource>
+                            <SymbolIconSource Symbol="OpenPane"/>
+                        </AnimatedIcon.FallbackIconSource>
 
-                </AnimatedIcon>
-            </Button.Content>
-        </Button>
+                    </AnimatedIcon>
+                </Button.Content>
+            </Button>
+            <Button x:Name="AppTitleBackButton" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"
+                     Grid.Column="1" Margin="4,0,0,0" Visibility="Collapsed">
+                <Button.Content>
+                    <AnimatedIcon Height="17" Margin="-3,0,-3,0">
+                        <AnimatedIcon.Source>
+                            <animatedvisuals:AnimatedBackVisualSource/>
+                        </AnimatedIcon.Source>
+                        <AnimatedIcon.FallbackIconSource>
+                            <SymbolIconSource Symbol="Back"/>
+                        </AnimatedIcon.FallbackIconSource>
+
+                    </AnimatedIcon>
+                </Button.Content>
+            </Button>
+        </Grid>
 
         <Frame  Grid.Row="1" Canvas.ZIndex="0" Grid.Column="1" x:Name="MainWindowRootFrame" Loaded="MainWindowRootFrame_Loaded"/>
     </Grid>

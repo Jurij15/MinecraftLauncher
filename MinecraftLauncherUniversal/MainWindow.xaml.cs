@@ -45,6 +45,7 @@ namespace MinecraftLauncherUniversal
     public sealed partial class MainWindow : WindowEx
     {
         public static Button TitleBarPaneToggleButton;
+        public static Button TitleBarGoBackButton;
         public static Frame MainWindowFrame;
         #region Design and objects
         void InitDesgin() 
@@ -79,6 +80,7 @@ namespace MinecraftLauncherUniversal
 
             MainWindowFrame = MainWindowRootFrame;
             TitleBarPaneToggleButton = AppTitlePaneButton;
+            TitleBarGoBackButton = AppTitleBackButton;
 
             this.SetIcon("Assets\\LogoNew.ico");
 
