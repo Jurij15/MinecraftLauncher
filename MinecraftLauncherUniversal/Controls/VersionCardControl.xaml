@@ -79,7 +79,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border MaxHeight="80" MaxWidth="80" CornerRadius="4" Grid.Column="0" VerticalAlignment="Center">
+            <Border MaxHeight="70" MaxWidth="70" CornerRadius="4" Grid.Column="0" VerticalAlignment="Center">
                 <Image Source="/Assets/MinecraftPlayIcon.png" x:Name="IMG"/>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0">

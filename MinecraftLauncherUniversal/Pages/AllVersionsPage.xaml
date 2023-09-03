@@ -48,8 +48,8 @@
                         Margin="4"
                         Width="255"
                         Version="{Binding Version}"
-                        VersionInstalledState="{Binding VersionInstalledState}"
-                        PointerPressed="VersionCardControl_PointerPressed"/>
+                        VersionInstalledState="{Binding VersionInstalledState}" 
+                        PointerReleased="VersionCardControl_PointerPressed"/>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>

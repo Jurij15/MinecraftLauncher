@@ -8,7 +8,6 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.WindowsAppSDK.Runtime;
 using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
