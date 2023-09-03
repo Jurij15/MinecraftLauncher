@@ -10,8 +10,8 @@ Current Latest version: 2.0
 Download the portable executable in the [Releases](https://github.com/Jurij15/MinecraftLauncher/releases?latest) section and extract the ZIP
 
 # Work in progress
-- Implement skins
-- Move to [SettingsCards](https://toolkitlabs.dev/) instead of custom cards (HALF-DONE)
+- Basic world editor
+- Finish play page
 - Optimize old code (HALF-DONE)
 
 # Plans and ToDo
