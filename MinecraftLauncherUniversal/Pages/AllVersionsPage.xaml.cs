@@ -15,6 +15,7 @@ using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
+using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,8 +45,9 @@ namespace MinecraftLauncherUniversal.Pages
     public sealed partial class AllVersionsPage : Page
     {
         public static VersionCardControl _storedCard;
+        public static UIElement _storedElement;
 
-        HashSet<VersionItem> VersionsSource;
+        List<VersionItem> VersionsSource;
         bool bInitFinished = false;
         public enum PopInAnimationDuration
         {
@@ -54,215 +56,135 @@ namespace MinecraftLauncherUniversal.Pages
             Normal,
             Long
         }
-        //weird fix for duplication
-        bool CheckIfCardAlreadyExists(string Header)
-        {
-            bool RetVal = false;
 
-            foreach (var item in ItemsPanel.Items)
+        void LoadVersions(bool bOnlyReleases)
+        {
+            try
             {
-                if ((item as SettingsCard).Header.ToString() == Header)
+                Log.Verbose("[AllVersionsPage]LoadVersions Called");
+                Log.Verbose("[AllVersionsPage]LoadVersions Called");
+                ReleasesOnly.IsEnabled = false;
+                ShowInstalledStatus.IsEnabled = false;
+                VersionManager manager = new VersionManager();
+                HashSet<string> versions = new HashSet<string>();
+
+                foreach (var item in VersionManager.AllVersionsGlobal)
                 {
-                    RetVal = true;
-                }
-            }
-
-            return RetVal;
-        }
-        public async Task CreateCardAsync(string VersionName, PopInAnimationDuration AnimDuration, bool bCheckIfInstalled)
-        {
-            SettingsCard NewCard = new SettingsCard();
-            NewCard.Header = VersionName.ToString();
-            NewCard.IsEnabled = true;
-
-            //NewCard.Margin = new Thickness(2, 2, 2, 2);
-
-            NewCard.IsActionIconVisible = false;
-            NewCard.IsClickEnabled = true;
-            NewCard.Click += NewCard_Click;
-
-            if (bCheckIfInstalled)
-            {
-                if (VersionsHelper.bIsVersionInstalled(VersionName))
-                {
-                    NewCard.Description = "Installed";
-                }
-                else
-                {
-                    NewCard.Description = "Not Installed";
-                }
-            }
-
-            switch (AnimDuration)
-            {
-                case PopInAnimationDuration.VeryShort:
-                    await Task.Delay(1);
-                    break;
-                case PopInAnimationDuration.Short:
-                    await Task.Delay(1);
-                    //await Task.Delay(5);
-                    break;
-                case PopInAnimationDuration.Normal:
-                    await Task.Delay(1);
-                    //await Task.Delay(7);
-                    break;
-                case PopInAnimationDuration.Long:
-                    await Task.Delay(1);
-                    //await Task.Delay(9);
-                    break;
-                default:
-                    await Task.Delay(1);
-                    //await Task.Delay(7);
-                    break;
-            }
-
-            if (!CheckIfCardAlreadyExists(VersionName))
-            {
-                ItemsPanel.Items.Add(NewCard);
-            }
-            TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
-            Globals.AllVersionsNavigationViewItemInfoBadge.Value = ItemsPanel.Items.Count;
-        }
-
-        private void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            Globals.RestartApp();
-        }
-
-        private void NewCard_Click(object sender, RoutedEventArgs e)
-        {
-            SettingsCard content = sender as SettingsCard;
-            string version = content.Header.ToString();
-            //DialogService.ShowSimpleDialog("content", version);
-            //string version = "test";
-
-            Globals.CurrentVersion = version;
-
-            ItemsPanel.Items.Clear();
-            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
-        }
-
-        async void LoadVersions(bool bOnlyReleases)
-        {
-            ReleasesOnly.IsEnabled = false;
-            ShowInstalledStatus.IsEnabled = false;
-            VersionManager manager = new VersionManager();
-            HashSet<string> versions = new HashSet<string>();
-
-            foreach (var item in VersionManager.AllVersionsGlobal)
-            {
-                if (bOnlyReleases)
-                {
-                    if (VersionsHelper.bIsReleaseVersion(item))
+                    if (bOnlyReleases)
+                    {
+                        if (VersionsHelper.bIsReleaseVersion(item))
+                        {
+                            versions.Add(item);
+                        }
+                    }
+                    else if (!bOnlyReleases)
                     {
                         versions.Add(item);
                     }
                 }
-                else if (!bOnlyReleases)
-                {
-                    versions.Add(item);
-                }
-            }
 
-            //sort the array, but only of releases, no snapshots
-            if (bOnlyReleases)
+                //sort the array, but only of releases, no snapshots
+                if (bOnlyReleases)
+                {
+                    Array.Sort(versions.ToArray(), new Comparison<string>((x, y) =>
+                    {
+                        // Split the strings into segments separated by decimal points
+                        string[] xSegments = x.Split('.');
+                        string[] ySegments = y.Split('.');
+
+                        // Skip the first segment and parse the remaining segments as decimals
+                        decimal xDecimal = decimal.Parse(string.Join("", xSegments.Skip(1)));
+                        decimal yDecimal = decimal.Parse(string.Join("", ySegments.Skip(1)));
+
+                        // Compare the two decimal values
+                        return yDecimal.CompareTo(xDecimal);
+                    }));
+                }
+
+                VersionsSource = new List<VersionItem>();
+                foreach (var item in versions)
+                {
+                    VersionItem version = new VersionItem();
+                    version.Version = item;
+                    version.VersionInstalledState = "Unknown";
+
+                    if (VersionsHelper.bIsVersionInstalled(item))
+                    {
+                        version.VersionInstalledState = "Installed";
+                    }
+                    else
+                    {
+                        version.VersionInstalledState = "Not Installed";
+                    }
+
+                    VersionsSource.Add(version);
+                }
+
+                ItemsPanel.ItemsSource = VersionsSource;
+
+                versions.Clear();
+                ReleasesOnly.IsEnabled = true;
+                ShowInstalledStatus.IsEnabled = true;
+                TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
+                Log.Verbose("[AllVersionsPage]LoadVersions Call finished");
+            }
+            catch (Exception ex)
             {
-                Array.Sort(versions.ToArray(), new Comparison<string>((x, y) =>
-                {
-                    // Split the strings into segments separated by decimal points
-                    string[] xSegments = x.Split('.');
-                    string[] ySegments = y.Split('.');
-
-                    // Skip the first segment and parse the remaining segments as decimals
-                    decimal xDecimal = decimal.Parse(string.Join("", xSegments.Skip(1)));
-                    decimal yDecimal = decimal.Parse(string.Join("", ySegments.Skip(1)));
-
-                    // Compare the two decimal values
-                    return yDecimal.CompareTo(xDecimal);
-                }));
+                Log.Error(ex.InnerException.Message);
+                MessageBox.Show(ex.InnerException.Message);
+                throw;
             }
-
-            VersionsSource = new HashSet<VersionItem>();
-            foreach (var item in versions)
-            {
-                PopInAnimationDuration duration = PopInAnimationDuration.Normal;
-                if (versions.Count <= 10)
-                {
-                    duration = PopInAnimationDuration.Long;
-                }
-                if (versions.Count <= 30)
-                {
-                    duration = PopInAnimationDuration.Normal;
-                }
-                if (versions.Count <= 80)
-                {
-                    duration = PopInAnimationDuration.Short;
-                }
-                if (versions.Count > 120)
-                {
-                    duration = PopInAnimationDuration.VeryShort;
-                }
-                //await CreateCardAsync(item, duration, Convert.ToBoolean(ShowInstalledStatus.IsChecked));
-
-                VersionItem version = new VersionItem();
-                version.Version = item;
-                version.VersionInstalledState = "Unknown";
-
-                if (VersionsHelper.bIsVersionInstalled(item))
-                {
-                    version.VersionInstalledState = "Installed";
-                }
-                else
-                {
-                    version.VersionInstalledState = "Not Installed";
-                }
-
-                VersionsSource.Add(version);
-            }
-
-            ItemsPanel.ItemsSource = VersionsSource;
-
-            versions.Clear();
-            ReleasesOnly.IsEnabled = true;
-            ShowInstalledStatus.IsEnabled = true;
-
-            TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
-            Globals.AllVersionsNavigationViewItemInfoBadge.Value = ItemsPanel.Items.Count;
         }
 
         public AllVersionsPage()
         {
-            this.InitializeComponent();
-            LoadVersions(true);
-            ReleasesOnly.IsChecked = true;
+            try
+            {
+                this.InitializeComponent();
+                Log.Verbose("Loading versions!");
+                LoadVersions(true);
+                Log.Verbose("Loaded!");
+                ReleasesOnly.IsChecked = true;
 
-            //ShowInstalledStatus.IsChecked = true;
+                //ShowInstalledStatus.IsChecked = true;
 
-            bInitFinished = true;
+                bInitFinished = true;
+                Log.Information("InitFinished!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
         }
 
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
         {
+            Log.Verbose("[AllVersionsPage]ReleasesOnly_Unchecked Called");
             LoadVersions(false);
+            Log.Verbose("[AllVersionsPage]ReleasesOnly_Unchecked Call finished");
         }
 
         private void ReleasesOnly_Checked(object sender, RoutedEventArgs e)
         {
+            Log.Verbose("[AllVersionsPage]ReleasesOnly_Checked Called");
             LoadVersions(true);
+            Log.Verbose("[AllVersionsPage]ReleasesOnly_Checked Call finished");
         }
 
         private void ItemsPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            Log.Verbose("[AllVersionsPage]ItemsPanel_SizeChanged Called");
+
             TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
             Globals.AllVersionsNavigationViewItemInfoBadge.Value = ItemsPanel.Items.Count;
-        }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
+            Log.Verbose("[AllVersionsPage]ItemsPanel_SizeChanged Call finished");
         }
 
         private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            Log.Verbose("[AllVersionsPage]SearchBox_TextChanged Called");
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var suitableItems = new List<string>();
@@ -285,10 +207,12 @@ namespace MinecraftLauncherUniversal.Pages
                 sender.ItemsSource = suitableItems;
 
             }
+            Log.Verbose("[AllVersionsPage]SearchBox_TextChanged Call finished");
         }
 
         private void SearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
+            Log.Verbose("[AllVersionsPage]SearchBox_SuggestionChosen Called");
             if (args.SelectedItem.ToString() == "No results found")
             {
                 sender.Text = string.Empty;
@@ -299,81 +223,88 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.CurrentVersion = version;
 
             NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
-        }
 
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {
-            //var itemsSource = ItemsPanel.ItemsSource as IList ;
+            Log.Verbose("[AllVersionsPage]SearchBox_SuggestionChosen call finished");
         }
 
         private void ShowInstalledStatus_Checked(object sender, RoutedEventArgs e)
         {
+            Log.Verbose("[AllVersionsPage]ShowInstalledStatus_Checked Called");
             if (!bInitFinished)
             {
                 return;
             }
             LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
+            Log.Verbose("[AllVersionsPage]ShowInstalledStatus_Checked Call finished");
         }
 
         private void ShowInstalledStatus_Unchecked(object sender, RoutedEventArgs e)
         {
+            Log.Verbose("[AllVersionsPage]ShowInstalledStatus_Unchecked Called");
             if (!bInitFinished)
             {
                 return;
             }
             LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
+            Log.Verbose("[AllVersionsPage]ShowInstalledStatus_Unchecked Call finished");
         }
 
-        Type NavigatedFromPageType;
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void ItemsPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigatedFromPageType = e.SourcePageType as Type;
-            base.OnNavigatedTo(e);
-        }
-
-        private async void ItemsPanel_Loaded(object sender, RoutedEventArgs e)
-        {
-            await Task.Delay(500);
-            if (NavigatedFromPageType.GetType() == typeof(PlayVersionPage))
+            Log.Verbose("[AllVersionsPage]ItemsPanel_Loaded Called");
+            if (_storedCard != null)
             {
-                // Retrieve and start the connected animation for back navigation
-                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("BackConnectedAnimation");
-                if (_storedCard == null)
+                ItemsPanel.ScrollIntoView(_storedElement, ScrollIntoViewAlignment.Default);
+                ItemsPanel.UpdateLayout();
+                try
                 {
-                    MessageBox.Show("null!");
-                }
-                if (animation != null)
-                {
-                    animation.TryStart(_storedCard);
-                }
+                    // Retrieve and start the connected animation for back navigation
+                    //MessageBox.Show("test");
+                    var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("BackAnim");
+                    if (animation != null)
+                    {
+                        bool result = animation.TryStart(_storedCard);
+                    }
 
-                animation.Completed += Animation_Completed;
+                    var imganimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ImgBackAnim");
+                    if (imganimation != null)
+                    {
+                        bool result = imganimation.TryStart(_storedCard.MinecraftImage);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    throw;
+                }
             }
-        }
-
-        private void Animation_Completed(ConnectedAnimation sender, object args)
-        {
-            MessageBox.Show("back anim completed!");
+            Log.Verbose("[AllVersionsPage]ItemsPanel_Loaded Call finished");
         }
 
         private void VersionCardControl_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            Log.Verbose("[AllVersionsPage]VersionCardControl_PointerPressed Called");
             VersionCardControl card = sender as VersionCardControl;
             if (card != null)
             {
+                //card.MinecraftImage.Visibility = Visibility.Collapsed;
+
                 string version = card.Version;
                 //MessageBox.Show(version);
                 //DialogService.ShowSimpleDialog("content", version);
                 //string version = "test";
 
+                _storedElement = card.Content;
+
                 Globals.CurrentVersion = version;
                 _storedCard = card;
 
-                // Prepare the connected animation
-                var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", card);
-
+                //ItemsPanel.PrepareConnectedAnimation("ForwardConnectedAnimation", card, "TemplateCard.MinecraftImage");
+                var imageanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("forwardImageAnim", _storedCard.MinecraftImage);
+                var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", _storedCard);
                 NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, false, false);
             }
+            Log.Verbose("[AllVersionsPage]VersionCardControl_PointerPressed Call finished");
         }
     }
 }

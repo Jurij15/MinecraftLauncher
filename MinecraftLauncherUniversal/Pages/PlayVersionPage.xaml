@@ -6,49 +6,103 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
+    xmlns:animations="using:CommunityToolkit.WinUI.UI.Animations"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
-
-    <Grid Margin="8">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="325"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="InfoPresenterGrid" CornerRadius="8"
-              Grid.Column="0"
-              
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-            <StackPanel VerticalAlignment="Center">
-                <Border Margin="0,0,0,12" MaxHeight="125" MaxWidth="125" CornerRadius="4">
-                    <Image x:Name="MCImg" x:FieldModifier="public" Source="/Assets/MinecraftPlayIcon.png"/>
-                </Border>
-                <TextBlock x:Name="MinecraftVersionBlock" HorizontalAlignment="Center" Margin="0,0,0,4" Style="{ThemeResource TitleTextBlockStyle}"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="Mojang Studios" FontSize="12" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                    <TextBlock Text="·" Margin="2,2,2,2" FontWeight="ExtraBlack"/>
-                    <TextBlock x:Name="StatusBox" Text="Not Installed" FontSize="12" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Center">
-                    <Button x:Name="DownloadButton" Style="{StaticResource AccentButtonStyle}" Margin="0,10,0,0" Width="222" Height="55" Visibility="Collapsed" Click="DownloadButton_Click">
-                        <Button.ContentTransitions>
-                            <ContentThemeTransition/>
-                        </Button.ContentTransitions>
-                        <SymbolIcon Symbol="Download"/>
-                    </Button>
-                    <Button x:Name="PlayButton" Style="{StaticResource AccentButtonStyle}" Margin="0,10,0,0" Width="222" Height="55" Visibility="Collapsed" Click="PlayButton_Click">
-                        <Button.ContentTransitions>
-                            <ContentThemeTransition/>
-                        </Button.ContentTransitions>
-                        <SymbolIcon Symbol="Play"/>
-                    </Button>
-                </StackPanel>
-            </StackPanel>
+    <Grid CornerRadius="8,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="BackgroundGrid" Grid.Row="0" Opacity="1" Loaded="Background_Loaded">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Assets/PlayPage/background-playpage-gradient.png" Stretch="UniformToFill" x:Name="BackgroundBrush" Opacity="1"/>
+            </Grid.Background>
         </Grid>
-        <Grid x:Name="ContentGrid">
-            <Grid.ChildrenTransitions>
-                <ContentThemeTransition/>
-            </Grid.ChildrenTransitions>
+        <Grid Grid.RowSpan="2">
+            <Grid>
+                <Grid.Background>
+                    <media:AcrylicBrush x:Name="BlurTint" TintOpacity="0.04" BlurAmount="14.00" TintColor="DarkGray" Opacity="1"/>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="325"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="InfoPresenterGrid" 
+                      CornerRadius="8"
+                      Grid.Column="0"
+                      Margin="8"
+                      Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                      BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                    <StackPanel VerticalAlignment="Center">
+                        <Border Margin="0,0,0,12" MaxHeight="70" MaxWidth="70" CornerRadius="4">
+                            <Image x:Name="MCImg" x:FieldModifier="public" Source="/Assets/MinecraftPlayIcon.png"/>
+                        </Border>
+                        <TextBlock x:Name="MinecraftVersionBlock" HorizontalAlignment="Center" Margin="0,0,0,4" Style="{ThemeResource TitleTextBlockStyle}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Mojang Studios" FontSize="12" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                            <TextBlock Text="·" Margin="2,2,2,2" FontWeight="ExtraBlack"/>
+                            <TextBlock x:Name="StatusBox" Text="Not Installed" FontSize="12" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Center">
+                            <Button x:Name="DownloadButton" Style="{StaticResource AccentButtonStyle}" Margin="0,10,0,0" Width="222" Height="55" Visibility="Collapsed" Click="DownloadButton_Click">
+                                <Button.ContentTransitions>
+                                    <ContentThemeTransition/>
+                                </Button.ContentTransitions>
+                                <SymbolIcon Symbol="Download"/>
+                            </Button>
+                            <Button x:Name="PlayButton" Style="{StaticResource AccentButtonStyle}" Margin="0,10,0,0" Width="222" Height="55" Visibility="Collapsed" Click="PlayButton_Click">
+                                <Button.ContentTransitions>
+                                    <ContentThemeTransition/>
+                                </Button.ContentTransitions>
+                                <SymbolIcon Symbol="Play"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="ContentGrid" Grid.Column="1" Margin="4,2,8,8">
+                    <Grid.ChildrenTransitions>
+                        <ContentThemeTransition/>
+                    </Grid.ChildrenTransitions>
+                    <StackPanel Spacing="4">
+                        <InfoBar Title="Minecraft Launched" Message="Minecraft launched successfully!" Severity="Success" IsOpen="False" Grid.Row="0" Margin="2,2,2,2" x:Name="MinecraftLaunchedInfo" Grid.ColumnSpan="2"/>
+                        <labs:SettingsCard  x:Name="PlayerSettingsCard"
+                                        Header="Player and Launch Settings"
+                                        Description="Memory Allocation, Username, FullScreen"
+                                        IsClickEnabled="True"
+                                        Grid.Row="0"
+                                        Click="PlayerSettingsCard_Click">
+                            <labs:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xEF58;" />
+                            </labs:SettingsCard.HeaderIcon>
+                        </labs:SettingsCard>
+
+                        <Expander HorizontalAlignment="Stretch" Grid.Row="1" x:Name="VersionSettingsExpander" HorizontalContentAlignment="Stretch" IsExpanded="False">
+                            <Expander.Header>
+                                <StackPanel Margin="8" CornerRadius="8">
+                                    <TextBlock Text="Version Settings" FontSize="15"/>
+                                    <TextBlock Text="Delete Version" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                            </Expander.Header>
+                            <StackPanel>
+                                <Button Background="Red" Content="Delete Version" x:Name="DeleteBuildBtn">
+                                    <Button.Flyout>
+                                        <Flyout x:Name="DeleteVersionFlyout">
+                                            <StackPanel Spacing="1">
+                                                <TextBlock Text="Are you sure?" FontWeight="Medium"/>
+                                                <TextBlock Text="You can download this build back later" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,12"/>
+                                                <Button x:Name="ConfirmDelete" Content="Yes" Click="ConfirmDelete_Click"/>
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </StackPanel>
+                        </Expander>
+                        
+                    </StackPanel>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

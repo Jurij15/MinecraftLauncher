@@ -80,7 +80,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border MaxHeight="70" MaxWidth="70" CornerRadius="4" Grid.Column="0" VerticalAlignment="Center">
-                <Image Source="/Assets/MinecraftPlayIcon.png" x:Name="IMG"/>
+                <Image Source="/Assets/MinecraftPlayIcon.png" x:Name="IMG" Visibility="{Binding ImageVisibility}"/>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0">
                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Version}" Margin="0,0,0,1" FontSize="15"/>

@@ -1,3 +1,6 @@
+using CmlLib.Core;
+using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.UI.Animations;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -5,9 +8,12 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Shapes;
 using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Helpers;
+using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
@@ -15,10 +21,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.UserDataTasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using WinUIEx;
+using WinUIEx.Messaging;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,6 +44,11 @@ namespace MinecraftLauncherUniversal.Pages
         public PlayVersionPage()
         {
             this.InitializeComponent();
+
+            if (NavigationService.MainBreadcrumb.Visibility == Visibility.Visible)
+            {
+                NavigationService.ChangeBreadcrumbVisibility(false);
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -44,15 +60,42 @@ namespace MinecraftLauncherUniversal.Pages
             var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardConnectedAnimation");
             if (animation != null)
             {
-                animation.TryStart(InfoPresenterGrid, new UIElement[] {ContentGrid});
+                animation.TryStart(InfoPresenterGrid, new UIElement[] {});
+            }
+            var imganim = ConnectedAnimationService.GetForCurrentView().GetAnimation("forwardImageAnim");
+            if (imganim != null)
+            {
+                imganim.TryStart(MCImg);
             }
             base.OnNavigatedTo(e);
 
             MinecraftVersionBlock.Text ="Minecraft "+ Globals.CurrentVersion;
+
+            //BitmapImage bitmapImage = new BitmapImage();
+            //bitmapImage.UriSource = new Uri("ms-appx:///"+ "/Assets/MinecraftPlayIcon.png", UriKind.Absolute);
+            //MCImg.Source = bitmapImage;
         }
 
+        private async void Background_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!Globals.Settings.ShowImageBackgroundInPlayPage)
+            {
+                BlurTint.Opacity = 0;
+                BackgroundBrush.Opacity = 0;
+            }
+            else
+            {
+                await AnimationBuilder
+                            .Create()
+                            .Opacity(to: 1, duration: TimeSpan.FromMilliseconds(1250), easingType: EasingType.Linear, from: 0)
+                            .StartAsync(BackgroundGrid);
+            }
+        }
+
+        bool BackButtonPressed = false;
         private void TitleBarGoBackButton_Click(object sender, RoutedEventArgs e)
         {
+            BackButtonPressed = true;
             //this is only meant for AllVersionsPage
             MainWindow.TitleBarGoBackButton.Visibility = Visibility.Collapsed;
             MainWindow.TitleBarGoBackButton.Click -= TitleBarGoBackButton_Click;
@@ -65,16 +108,21 @@ namespace MinecraftLauncherUniversal.Pages
             MainWindow.TitleBarGoBackButton.Visibility = Visibility.Collapsed;
             MainWindow.TitleBarGoBackButton.Click -= TitleBarGoBackButton_Click;
             base.OnNavigatingFrom(e);
+
+            if (BackButtonPressed)
+            {
+                //MessageBox.Show(e.SourcePageType.Name.ToString());
+                var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("BackAnim", InfoPresenterGrid);
+                animation.Configuration = new DirectConnectedAnimationConfiguration();
+
+                var imgbackanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ImgBackAnim", MCImg);
+                imgbackanim.Configuration = new DirectConnectedAnimationConfiguration();
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
-            if (e.SourcePageType == typeof(AllVersionsPage))
-            {
-                var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("BackConnectedAnimation", InfoPresenterGrid);
-            }
         }
 
         private ProgressRing DownloadProgressRing;
@@ -148,7 +196,7 @@ namespace MinecraftLauncherUniversal.Pages
             //by now, it has already been launched, now store the build in recents
             VersionManager manager = new VersionManager();
             manager.AddNewBuildToRecents(Globals.CurrentVersion);
-            //TODO:REPLIMPLEMENT THISMinecraftLaunchedInfo.IsOpen = true;
+            MinecraftLaunchedInfo.IsOpen = true;
             PlayButton.IsEnabled = true;
 
             if (bSucess)
@@ -183,6 +231,18 @@ namespace MinecraftLauncherUniversal.Pages
                 PlayButton.Visibility = Visibility.Collapsed;
                 StatusBox.Text = "Download Required";
             }
+        }
+
+        private void ConfirmDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Directory.Delete(MinecraftPath.WindowsDefaultPath + "\\" + "versions" + "\\" + Globals.CurrentVersion, true);
+
+            NavigationService.Navigate(typeof(AllVersionsPage), "All Versions", true);
+        }
+
+        private void PlayerSettingsCard_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
     }
 }

@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ImageIcon Height="100" Width="100" x:Name="LauncherImage" Source="/Assets/LogoNew.png" VerticalAlignment="Center" Margin="0,0,0,118" HorizontalAlignment="Center" Grid.Row="0"/>
-        <ProgressRing x:Name="Ring" HorizontalAlignment="Center" Height="40" Width="40" Margin="0,290,0,0" VerticalAlignment="Center" IsIndeterminate="True" Foreground="{ThemeResource TextFillColorPrimaryBrush}" Grid.Row="0"/>
+        <ProgressRing x:Name="Ring" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Center" IsIndeterminate="True" Foreground="{ThemeResource TextFillColorPrimaryBrush}" Grid.Row="0"/>
         <TextBlock x:Name="LoadingText" Text="      " Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,370,0,0" FontSize="18" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorPrimaryBrush}" Grid.Row="0">
             <TextBlock.Transitions>
                 <TransitionCollection>

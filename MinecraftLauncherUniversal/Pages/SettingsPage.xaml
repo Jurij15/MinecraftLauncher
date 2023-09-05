@@ -10,9 +10,11 @@
     xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
     mc:Ignorable="d" Unloaded="Page_Unloaded"
     Background="Transparent">
-    <ScrollViewer Margin="58, 42, 58,0">
+    <ScrollViewer Margin="58, 42, 58,26">
         <Grid x:Name="RGrid">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -76,10 +78,23 @@
                 </StackPanel>
             </labs:SettingsCard>
 
-            <TextBlock Text="Advanced" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="5"/>
+            <labs:SettingsCard x:Name="PlayPageBackgroundCard" Margin="0,3,0,0"
+              Grid.Row="5"
+              Loaded="PlayPageBackgroundCard_Loaded"
+              Header="Play Page Background"
+              Description="If on, an image will be used for the background">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE81E;"/>
+                </labs:SettingsCard.HeaderIcon>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ToggleSwitch x:Name="PlayPageBackgroundToggle" OnContent="On" OffContent="Off" Toggled="PlayPageBackgroundToggle_Toggled" IsEnabled="True"/>
+                </StackPanel>
+            </labs:SettingsCard>
+
+            <TextBlock Text="Advanced" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="6"/>
 
             <labs:SettingsCard x:Name="ResetAppCard" Visibility="Visible" Margin="0,3,0,0"
-              Grid.Row="6"
+              Grid.Row="7"
               Header="Reset App"
               Description="This will require app restart!">
                 <labs:SettingsCard.HeaderIcon>
@@ -87,7 +102,10 @@
                 </labs:SettingsCard.HeaderIcon>
                 <Button x:Name="ResetAppBtn" Background="Red" Content="Reset">
                     <Button.Flyout>
-                        <Flyout>
+                        <Flyout ShouldConstrainToRootBounds="False">
+                            <Flyout.SystemBackdrop>
+                                <DesktopAcrylicBackdrop/>
+                            </Flyout.SystemBackdrop>
                             <StackPanel>
                                 <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All settings will be reset. Are you sure?" Margin="0,0,0,12" />
                                 <Button Click="ResetAppBtn_Click" Content="Yes, reset my app" />
@@ -97,7 +115,7 @@
                 </Button>
             </labs:SettingsCard>
             <labs:SettingsCard x:Name="ConsoleCard" Visibility="Visible" Margin="0,3,0,0"
-              Grid.Row="7"
+              Grid.Row="8"
               Header="Debug Console"
               Description="Enable or disable a simple debug console">
                 <labs:SettingsCard.HeaderIcon>
@@ -105,9 +123,9 @@
                 </labs:SettingsCard.HeaderIcon>
             </labs:SettingsCard>
 
-            <TextBlock Text="Related" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="8"/>
+            <TextBlock Text="Related" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="9"/>
 
-            <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username" Click="HyperlinkButton_Click" Grid.Row="9" Margin="0,3,0,0">
+            <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username" Click="HyperlinkButton_Click" Grid.Row="10" Margin="0,3,0,0">
                 <labs:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEF58;"/>
                 </labs:SettingsCard.HeaderIcon>

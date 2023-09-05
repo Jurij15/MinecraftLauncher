@@ -114,6 +114,9 @@
     <Content Update="Assets\1.17.1-banner.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\background-gradient.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -188,6 +191,9 @@
     </Content>
     <Content Update="Assets\PlayPage-Banners\wallpaper_minecraft_winter_celebration_1080x1920.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\PlayPage\background-playpage-gradient.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\PlayPage\background-playpage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

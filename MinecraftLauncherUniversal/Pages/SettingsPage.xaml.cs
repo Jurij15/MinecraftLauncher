@@ -55,6 +55,7 @@ namespace MinecraftLauncherUniversal.Pages
 
 
             SoundToggle.IsOn = Globals.Settings.Sound;
+            PlayPageBackgroundToggle.IsOn = Globals.Settings.ShowImageBackgroundInPlayPage;
 
             var _enumval = Enum.GetValues(typeof(Backdrop)).Cast<Backdrop>();
             BackdropCombo.ItemsSource = _enumval;
@@ -154,6 +155,29 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 ((ToggleButton)sender).IsChecked = false;
             }
+        }
+
+        private void PlayPageBackgroundCard_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PlayPageBackgroundToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (!InitFinished)
+            {
+                return;
+            }
+            if (PlayPageBackgroundToggle.IsOn)
+            {
+                Globals.Settings.ShowImageBackgroundInPlayPage = true;
+            }
+            else
+            {
+                Globals.Settings.ShowImageBackgroundInPlayPage = false;
+            }
+
+            SettingsJson.SaveSettings();
         }
     }
 }

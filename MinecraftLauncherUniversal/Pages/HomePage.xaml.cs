@@ -163,7 +163,7 @@ namespace MinecraftLauncherUniversal.Pages
         private void PlayVersionCard_Click(object sender, RoutedEventArgs e)
         {
             Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[1];
-            NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true);
+            //NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true);
         }
 
         private void PlayOptifineCard_Click(object sender, RoutedEventArgs e)
