@@ -208,7 +208,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DownloadBefore();
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
