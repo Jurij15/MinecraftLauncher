@@ -41,6 +41,8 @@ namespace MinecraftLauncherUniversal.Services
         public static Frame MainFrame { get; private set; }
 
         public static ObservableCollection<Breadcrumb> BreadCrumbs = new ObservableCollection<Breadcrumb>();
+
+        public static bool BreadcrumbbarVisibility = true;
         #endregion
 
         #region Constructor
@@ -49,6 +51,13 @@ namespace MinecraftLauncherUniversal.Services
             MainNavigation = navigationView;
             MainBreadcrumb = breadcrumbBar;
             MainFrame = frame;
+
+            MainFrame.Navigated += MainFrame_Navigated;
+        }
+
+        private static void MainFrame_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            ChangeBreadcrumbVisibility(BreadcrumbbarVisibility);
         }
         #endregion
 
@@ -78,7 +87,7 @@ namespace MinecraftLauncherUniversal.Services
         #endregion
 
         #region Public Functions
-        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation)
+        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, bool BreadcrumbVisibility = true)
         {
             Log.Verbose("Navigate started");
             if (ClearNavigation)
@@ -90,34 +99,8 @@ namespace MinecraftLauncherUniversal.Services
             BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
             Log.Verbose($"Added a new breadcrumb with page {TargetPageType.ToString()}, and label {BreadcrumbItemLabel}");
 
-            if (ClearNavigation)
-            {
-                MainFrame.Navigate(TargetPageType, null, new EntranceNavigationTransitionInfo());
-            }
-            else
-            {
-                SlideNavigationTransitionInfo info = new SlideNavigationTransitionInfo();
-                (info as SlideNavigationTransitionInfo).Effect = SlideNavigationTransitionEffect.FromRight;
-                MainFrame.Navigate(TargetPageType, null, info);
-            }
-            Log.Verbose($"Navigated to {TargetPageType.ToString()}");
-
-            UpdateBreadcrumb();
-            ChangeBreadcrumbVisibility(true);
-        }
-        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, bool BreadcrumbVisibility)
-        {
-            Log.Verbose("Navigate started");
-            if (ClearNavigation)
-            {
-                BreadCrumbs.Clear();
-                MainFrame.BackStack.Clear();
-                Log.Verbose("Cleaned navigation breadcrumb and backstack");
-            }
-            BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
-            Log.Verbose($"Added a new breadcrumb with page {TargetPageType.ToString()}, and label {BreadcrumbItemLabel}");
-
-            ChangeBreadcrumbVisibility(BreadcrumbVisibility);
+            //ChangeBreadcrumbVisibility(BreadcrumbVisibility);
+            BreadcrumbbarVisibility = BreadcrumbVisibility;
 
             if (ClearNavigation)
             {
@@ -133,7 +116,7 @@ namespace MinecraftLauncherUniversal.Services
 
             UpdateBreadcrumb();
         }
-        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, SlideNavigationTransitionEffect TransitionEffect)
+        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, SlideNavigationTransitionEffect TransitionEffect, bool BreadcrumbVisibility = true)
         {
             if (ClearNavigation)
             {
@@ -145,12 +128,14 @@ namespace MinecraftLauncherUniversal.Services
             SlideNavigationTransitionInfo info = new SlideNavigationTransitionInfo();
             info.Effect = (SlideNavigationTransitionEffect)TransitionEffect;
 
+            BreadcrumbbarVisibility = BreadcrumbVisibility;
+
             UpdateBreadcrumb();
             MainFrame.Navigate(TargetPageType, null, info);
             Log.Verbose($"Navigated to {TargetPageType.ToString()}, with effect {TransitionEffect.ToString()}");
         }
 
-        public static void NavigateSuppressedAnim(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation)
+        public static void NavigateSuppressedAnim(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, bool BreadcrumbVisibility = true)
         {
             if (ClearNavigation)
             {
@@ -160,20 +145,8 @@ namespace MinecraftLauncherUniversal.Services
             BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
 
             UpdateBreadcrumb();
-            MainFrame.Navigate(TargetPageType, null, new SuppressNavigationTransitionInfo());
-            Log.Verbose($"Navigated to {TargetPageType.ToString()}, with no effect");
-        }
+            BreadcrumbbarVisibility = BreadcrumbVisibility;
 
-        public static void NavigateSuppressedAnim(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, bool BreadcrumbVisibility)
-        {
-            if (ClearNavigation)
-            {
-                BreadCrumbs.Clear();
-                MainFrame.BackStack.Clear();
-            }
-            BreadCrumbs.Add(new Breadcrumb(BreadcrumbItemLabel, TargetPageType));
-
-            UpdateBreadcrumb();
             MainFrame.Navigate(TargetPageType, null, new SuppressNavigationTransitionInfo());
             ChangeBreadcrumbVisibility(BreadcrumbVisibility);
             Log.Verbose($"Navigated to {TargetPageType.ToString()}, with no effect");

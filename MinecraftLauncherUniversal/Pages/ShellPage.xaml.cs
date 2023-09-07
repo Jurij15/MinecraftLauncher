@@ -127,12 +127,8 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void RootFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            if (e.SourcePageType == typeof(HomePage))
-            {
-                ChangeBreadcrumbVisibility(false);
-            }
 
-            GC.Collect(); //idk, trying to lower ram usage
+            //GC.Collect(); //idk, trying to lower ram usage
         }
 
 
@@ -145,7 +141,7 @@ namespace MinecraftLauncherUniversal.Pages
             }
             if (args.SelectedItemContainer == HomeItem)
             {
-                Navigate(typeof(HomePage), "Home", true);
+                Navigate(typeof(HomePage), "Home", true, false);
             }
             if (args.SelectedItemContainer == AllVersionsPage)
             {
@@ -168,7 +164,7 @@ namespace MinecraftLauncherUniversal.Pages
                 Navigate(typeof(AllWorldsPage), "Select a World", true);
             }
 
-            GC.Collect(); //idk, trying to lower ram usage
+            //GC.Collect(); //idk, trying to lower ram usage
 
             Log.Verbose("Navigated!");
         }

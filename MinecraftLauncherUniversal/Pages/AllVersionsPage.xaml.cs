@@ -47,7 +47,7 @@ namespace MinecraftLauncherUniversal.Pages
         public static VersionCardControl _storedCard;
         public static UIElement _storedElement;
 
-        List<VersionItem> VersionsSource;
+        static List<VersionItem> VersionsSource;
         bool bInitFinished = false;
         public enum PopInAnimationDuration
         {
