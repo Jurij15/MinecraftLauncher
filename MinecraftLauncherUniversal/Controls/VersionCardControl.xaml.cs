@@ -52,16 +52,19 @@ namespace MinecraftLauncherUniversal.Controls
         private void SetPointerNormalState(object sender, PointerRoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "Normal", true);
+            VisualStateManager.GoToState(this, "IMGNormal", true);
         }
 
         private void SetPointerOverState(object sender, PointerRoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "PointerOver", true);
+            VisualStateManager.GoToState(this, "IMGPointerOver", true);
         }
 
         private void SetPointerPressedState(object sender, PointerRoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "Pressed", true);
+            VisualStateManager.GoToState(this, "IMGPressed", true);
         }
     }
 }

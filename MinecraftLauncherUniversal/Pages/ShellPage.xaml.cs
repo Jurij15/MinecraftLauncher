@@ -121,7 +121,7 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.MainNavigation.SelectedItem = AllVersionsPage;
             Navigate(typeof(AllVersionsPage), "Select a Version", true);
 
-            Navigate(typeof(SelectedVersionPage), "Play", false);
+            Navigate(typeof(PlayVersionPage), "Play", false, false);
         }
 
 
@@ -141,7 +141,7 @@ namespace MinecraftLauncherUniversal.Pages
             }
             if (args.SelectedItemContainer == HomeItem)
             {
-                Navigate(typeof(HomePage), "Home", true, false);
+                Navigate(typeof(HomePage), "Home", true, true);
             }
             if (args.SelectedItemContainer == AllVersionsPage)
             {

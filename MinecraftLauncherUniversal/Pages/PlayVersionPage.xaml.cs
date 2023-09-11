@@ -41,6 +41,7 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class PlayVersionPage : Page
     {
+        bool NavigatedFromPageThatIsNotAllVersionsPage = true;
         public PlayVersionPage()
         {
             this.InitializeComponent();
@@ -61,11 +62,13 @@ namespace MinecraftLauncherUniversal.Pages
             if (animation != null)
             {
                 animation.TryStart(InfoPresenterGrid, new UIElement[] {});
+                NavigatedFromPageThatIsNotAllVersionsPage = false;
             }
             var imganim = ConnectedAnimationService.GetForCurrentView().GetAnimation("forwardImageAnim");
             if (imganim != null)
             {
                 imganim.TryStart(MCImg);
+                NavigatedFromPageThatIsNotAllVersionsPage = false;
             }
             base.OnNavigatedTo(e);
 
@@ -100,7 +103,14 @@ namespace MinecraftLauncherUniversal.Pages
             MainWindow.TitleBarGoBackButton.Visibility = Visibility.Collapsed;
             MainWindow.TitleBarGoBackButton.Click -= TitleBarGoBackButton_Click;
 
-            NavigationService.NavigateSuppressedAnim(typeof(AllVersionsPage), "Select a Version", true, true);
+            if (!NavigatedFromPageThatIsNotAllVersionsPage)
+            {
+                NavigationService.NavigateSuppressedAnim(typeof(AllVersionsPage), "Select a Version", true, true);
+            }
+            else
+            {
+                NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true, SlideNavigationTransitionEffect.FromLeft, true);
+            }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -109,7 +119,7 @@ namespace MinecraftLauncherUniversal.Pages
             MainWindow.TitleBarGoBackButton.Click -= TitleBarGoBackButton_Click;
             base.OnNavigatingFrom(e);
 
-            if (BackButtonPressed)
+            if (BackButtonPressed && !NavigatedFromPageThatIsNotAllVersionsPage)
             {
                 //MessageBox.Show(e.SourcePageType.Name.ToString());
                 var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("BackAnim", InfoPresenterGrid);

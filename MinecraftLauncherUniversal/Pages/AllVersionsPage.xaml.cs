@@ -222,7 +222,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             Globals.CurrentVersion = version;
 
-            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + version, false);
+            NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, true, false);
 
             Log.Verbose("[AllVersionsPage]SearchBox_SuggestionChosen call finished");
         }

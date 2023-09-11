@@ -133,8 +133,9 @@ namespace MinecraftLauncherUniversal.Services
 
             UpdateBreadcrumb();
         }
-        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, SlideNavigationTransitionEffect TransitionEffect)
+        public static void Navigate(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation, SlideNavigationTransitionEffect TransitionEffect, bool BreadcrumbVisibility)
         {
+            ChangeBreadcrumbVisibility(BreadcrumbVisibility);
             if (ClearNavigation)
             {
                 BreadCrumbs.Clear();
@@ -148,6 +149,8 @@ namespace MinecraftLauncherUniversal.Services
             UpdateBreadcrumb();
             MainFrame.Navigate(TargetPageType, null, info);
             Log.Verbose($"Navigated to {TargetPageType.ToString()}, with effect {TransitionEffect.ToString()}");
+
+            UpdateBreadcrumb();
         }
 
         public static void NavigateSuppressedAnim(Type TargetPageType, string BreadcrumbItemLabel, bool ClearNavigation)

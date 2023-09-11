@@ -79,8 +79,33 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border MaxHeight="70" MaxWidth="70" CornerRadius="4" Grid.Column="0" VerticalAlignment="Center">
+            <Border MaxHeight="70" x:Name="IMGBorder" MaxWidth="70" CornerRadius="4" Grid.Column="0" VerticalAlignment="Center">
                 <Image Source="/Assets/MinecraftPlayIcon.png" x:Name="IMG" Visibility="{Binding ImageVisibility}"/>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualState x:Name="IMGNormal">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IMG" Storyboard.TargetProperty="Background">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="IMGPointerOver">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IMG" Storyboard.TargetProperty="Background">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="IMGPressed">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="IMG" Storyboard.TargetProperty="Background">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0">
                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Version}" Margin="0,0,0,1" FontSize="15"/>

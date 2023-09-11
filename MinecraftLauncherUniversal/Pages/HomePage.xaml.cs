@@ -178,5 +178,11 @@ namespace MinecraftLauncherUniversal.Pages
             NavigationService.Navigate(typeof(SettingsPage), "Settings", true);
             NavigationService.Navigate(typeof(PlayerSettingsPage), "Player Settings", false);
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            NavigationService.ChangeBreadcrumbVisibility(false);
+        }
     }
 }

@@ -104,9 +104,9 @@
                     <Button.Flyout>
                         <Flyout ShouldConstrainToRootBounds="False">
                             <Flyout.SystemBackdrop>
-                                <DesktopAcrylicBackdrop/>
+                                <MicaBackdrop Kind="Base"/>
                             </Flyout.SystemBackdrop>
-                            <StackPanel>
+                            <StackPanel Background="Transparent">
                                 <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All settings will be reset. Are you sure?" Margin="0,0,0,12" />
                                 <Button Click="ResetAppBtn_Click" Content="Yes, reset my app" />
                             </StackPanel>
