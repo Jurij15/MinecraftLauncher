@@ -87,7 +87,7 @@ namespace MinecraftLauncherUniversal
             //only show console on prerelease
             if (Updater.bIsPrerelease())
             {
-                Globals.SetupConsole();
+                //Globals.SetupConsole();
             }
             //setup logger
             Log.Logger = new LoggerConfiguration()

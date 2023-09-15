@@ -56,6 +56,9 @@
             </NavigationView.AutoSuggestBox>
             <NavigationView.Header>
                 <BreadcrumbBar x:Name="MainBreadcrumb" FontSize="48" FontWeight="Medium" ItemClicked="MainBreadcrumb_ItemClicked">
+                    <BreadcrumbBar.Transitions>
+                        <TransitionCollection/>
+                    </BreadcrumbBar.Transitions>
                     <BreadcrumbBar.Resources>
                         <Style x:Key="BreadcrumbBarItemStyle" TargetType="BreadcrumbBarItem">
                             <Setter Property="FontSize" Value="28"/>
