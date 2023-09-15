@@ -241,8 +241,8 @@ namespace MinecraftLauncherUniversal.Pages
             Log.Verbose("[AllVersionsPage]ItemsPanel_Loaded Called");
             if (_storedCard != null)
             {
-                //ItemsPanel.ScrollIntoView(_storedCard, ScrollIntoViewAlignment.Default);
-                //ItemsPanel.UpdateLayout();
+                ItemsPanel.ScrollIntoView(_storedCard, ScrollIntoViewAlignment.Leading);
+                ItemsPanel.UpdateLayout();
                 try
                 {
                     // Retrieve and start the connected animation for back navigation
@@ -271,8 +271,15 @@ namespace MinecraftLauncherUniversal.Pages
                     throw;
                 }
             }
-            await Task.Delay(100); //delay it so that everything loads
+            await Task.Delay(80); //delay it so that everything loads
             LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
+            //ISSUE: Upon refresh, it does not scroll back into view.
+            await Task.Delay(80); //delay it again so that everything loads
+            if (_storedCard != null)
+            {
+                ItemsPanel.ScrollIntoView(_storedCard);
+                _storedCard = null;
+            }
             Log.Verbose("[AllVersionsPage]ItemsPanel_Loaded Call finished");
         }
 
