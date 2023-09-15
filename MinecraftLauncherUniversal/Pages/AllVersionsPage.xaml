@@ -6,7 +6,7 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Enabled"
+    mc:Ignorable="d" NavigationCacheMode="Required"
     xmlns:controls="using:CommunityToolkit.Labs.WinUI"
     xmlns:custom="using:MinecraftLauncherUniversal.Controls"
     Background="Transparent">
@@ -38,9 +38,9 @@
             </Grid>
             <TextBlock Text="Total Versions: " x:Name="TotalCountBlock" Foreground="{ThemeResource TextFillColorTertiaryBrush}" VerticalAlignment="Bottom"  Grid.Row="1"/>
         </Grid>
-        <GridView x:Name="ItemsPanel" Grid.Row="3" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False">
+        <GridView x:Name="ItemsPanel" Grid.Row="3" Loaded="ItemsPanel_Loaded" BorderBrush="Transparent" SelectionMode="None" CanDragItems="False" CanReorderItems="False">
             <GridView.ItemContainerTransitions>
-                <EntranceThemeTransition/>
+                <ContentThemeTransition/>
             </GridView.ItemContainerTransitions>
             <GridView.ItemTemplate>
                 <DataTemplate>

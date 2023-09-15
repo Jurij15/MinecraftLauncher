@@ -57,62 +57,31 @@ namespace MinecraftLauncherUniversal.Pages
 
             await Task.Delay(100);//wait for the actual page to load
             LoadingText.Text = "Loading version data...";
+
             Task taskToAwait = PreloadArrays();
 
             Task completedTask = await Task.WhenAny(taskToAwait, Task.Delay(LoadTimeout));
 
             if (completedTask == taskToAwait)
             {
-                if (LoadFailedCounter < 4)
+                if (Globals.bIsFirstTimeRun)
                 {
-                    if (VersionManager.AllVersionsGlobal.Count <= 1)
-                    {
-                        LoadFailedCounter++;
-                        LoadingText.Text = "Trying to connect to mojang servers... "+LoadFailedCounter.ToString();
-                        taskToAwait = PreloadArrays();
-                    }
-                    else
-                    {
-                        if (Globals.bIsFirstTimeRun)
-                        {
-                            MainWindow.MainWindowFrame.Navigate(typeof(SetupRootPage), null, new DrillInNavigationTransitionInfo());
-                        }
-                        else
-                        {
-                            LoadingText.Text = "Done...";
-                            // task completed within timeout
-                            ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
-
-                            //fix for if the arrays are empty for some reason
-                            if (VersionManager.AllVersionsGlobal.Count < 1)
-                            {
-                                //DialogService.ShowSimpleDialog("Error", "An error occured while loading versions. Please restart your launcher!");
-                            }
-
-                            MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
-                            DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
-                            MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);
-                        }
-                    }
+                    MainWindow.MainWindowFrame.Navigate(typeof(SetupRootPage));
                 }
                 else
                 {
-                    // timeout logic
-                    ContentDialog ServerConnectionFailedDialog = new ContentDialog();
-                    ServerConnectionFailedDialog.XamlRoot = this.Content.XamlRoot;
-                    ServerConnectionFailedDialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-                    ServerConnectionFailedDialog.Title = "Error";
-                    ServerConnectionFailedDialog.Content = "Failed to connect to Mojang Servers! Please check your internet connection and restart the app!";
+                    // task completed within timeout
+                    ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
 
-                    ServerConnectionFailedDialog.CloseButtonText = "Close App";
-                    ServerConnectionFailedDialog.CloseButtonClick += ServerConnectionFailedDialog_CloseButtonClick;
+                    //fix for if the arrays are empty for some reason
+                    if (VersionManager.AllVersionsGlobal.Count < 1)
+                    {
+                        DialogService.ShowSimpleDialog("Error", "An error occured while loading versions. Please restart your launcher!");
+                    }
 
-                    ServerConnectionFailedDialog.PrimaryButtonText = "Restart App";
-                    ServerConnectionFailedDialog.PrimaryButtonClick += ServerConnectionFailedDialog_PrimaryButtonClick;
-
-                    ServerConnectionFailedDialog.DefaultButton = ContentDialogButton.Primary;
-
-                    await ServerConnectionFailedDialog.ShowAsync();
+                    MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Visible;
+                    DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
+                    MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, info);
                 }
             }
             else

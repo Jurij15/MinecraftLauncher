@@ -45,20 +45,14 @@ namespace MinecraftLauncherUniversal.Pages
     public sealed partial class AllVersionsPage : Page
     {
         public static VersionCardControl _storedCard;
-        public static UIElement _storedElement;
 
-        static List<VersionItem> VersionsSource;
+        List<VersionItem> VersionsSource;
         bool bInitFinished = false;
-        public enum PopInAnimationDuration
-        {
-            VeryShort,
-            Short,
-            Normal,
-            Long
-        }
 
         void LoadVersions(bool bOnlyReleases)
         {
+            VersionsSource = new List<VersionItem>();
+            VersionsSource.Clear();
             try
             {
                 Log.Verbose("[AllVersionsPage]LoadVersions Called");
@@ -101,7 +95,7 @@ namespace MinecraftLauncherUniversal.Pages
                     }));
                 }
 
-                VersionsSource = new List<VersionItem>();
+                //VersionsSource = new List<VersionItem>();
                 foreach (var item in versions)
                 {
                     VersionItem version = new VersionItem();
@@ -124,8 +118,8 @@ namespace MinecraftLauncherUniversal.Pages
 
                 versions.Clear();
                 ReleasesOnly.IsEnabled = true;
+                TotalCountBlock.Text = "Total Versions: " + VersionsSource.Count;
                 ShowInstalledStatus.IsEnabled = true;
-                TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
                 Log.Verbose("[AllVersionsPage]LoadVersions Call finished");
             }
             catch (Exception ex)
@@ -138,10 +132,12 @@ namespace MinecraftLauncherUniversal.Pages
 
         public AllVersionsPage()
         {
+            Log.Verbose("[AllVersionsPage]Constructing Page");
             try
             {
                 this.InitializeComponent();
                 Log.Verbose("Loading versions!");
+                VersionsSource = new List<VersionItem>();
                 LoadVersions(true);
                 Log.Verbose("Loaded!");
                 ReleasesOnly.IsChecked = true;
@@ -156,6 +152,7 @@ namespace MinecraftLauncherUniversal.Pages
                 MessageBox.Show(ex.Message);
                 throw;
             }
+            Log.Verbose("[AllVersionsPage]Construction finished");
         }
 
         private void ReleasesOnly_Unchecked(object sender, RoutedEventArgs e)
@@ -170,16 +167,6 @@ namespace MinecraftLauncherUniversal.Pages
             Log.Verbose("[AllVersionsPage]ReleasesOnly_Checked Called");
             LoadVersions(true);
             Log.Verbose("[AllVersionsPage]ReleasesOnly_Checked Call finished");
-        }
-
-        private void ItemsPanel_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Log.Verbose("[AllVersionsPage]ItemsPanel_SizeChanged Called");
-
-            TotalCountBlock.Text = "Total Versions: " + ItemsPanel.Items.Count;
-            Globals.AllVersionsNavigationViewItemInfoBadge.Value = ItemsPanel.Items.Count;
-
-            Log.Verbose("[AllVersionsPage]ItemsPanel_SizeChanged Call finished");
         }
 
         private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -249,13 +236,13 @@ namespace MinecraftLauncherUniversal.Pages
             Log.Verbose("[AllVersionsPage]ShowInstalledStatus_Unchecked Call finished");
         }
 
-        private void ItemsPanel_Loaded(object sender, RoutedEventArgs e)
+        private async void ItemsPanel_Loaded(object sender, RoutedEventArgs e)
         {
             Log.Verbose("[AllVersionsPage]ItemsPanel_Loaded Called");
             if (_storedCard != null)
             {
-                ItemsPanel.ScrollIntoView(_storedElement, ScrollIntoViewAlignment.Default);
-                ItemsPanel.UpdateLayout();
+                //ItemsPanel.ScrollIntoView(_storedCard, ScrollIntoViewAlignment.Default);
+                //ItemsPanel.UpdateLayout();
                 try
                 {
                     // Retrieve and start the connected animation for back navigation
@@ -271,6 +258,12 @@ namespace MinecraftLauncherUniversal.Pages
                     {
                         bool result = imganimation.TryStart(_storedCard.MinecraftImage);
                     }
+
+                    var textanim = ConnectedAnimationService.GetForCurrentView().GetAnimation("TextBackAnim");
+                    if (textanim != null)
+                    {
+                        bool result = textanim.TryStart(_storedCard.VersionTextBlock);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -278,6 +271,8 @@ namespace MinecraftLauncherUniversal.Pages
                     throw;
                 }
             }
+            await Task.Delay(100); //delay it so that everything loads
+            LoadVersions(Convert.ToBoolean(ReleasesOnly.IsChecked));
             Log.Verbose("[AllVersionsPage]ItemsPanel_Loaded Call finished");
         }
 
@@ -290,18 +285,14 @@ namespace MinecraftLauncherUniversal.Pages
                 //card.MinecraftImage.Visibility = Visibility.Collapsed;
 
                 string version = card.Version;
-                //MessageBox.Show(version);
-                //DialogService.ShowSimpleDialog("content", version);
-                //string version = "test";
-
-                _storedElement = card.Content;
 
                 Globals.CurrentVersion = version;
                 _storedCard = card;
 
-                //ItemsPanel.PrepareConnectedAnimation("ForwardConnectedAnimation", card, "TemplateCard.MinecraftImage");
                 var imageanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("forwardImageAnim", _storedCard.MinecraftImage);
                 var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", _storedCard);
+                var textanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardTextAnim", _storedCard.VersionTextBlock);
+
                 NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, false, false);
             }
             Log.Verbose("[AllVersionsPage]VersionCardControl_PointerPressed Call finished");

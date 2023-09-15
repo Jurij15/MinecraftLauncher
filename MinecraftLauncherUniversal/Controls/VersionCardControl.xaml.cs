@@ -39,14 +39,22 @@ namespace MinecraftLauncherUniversal.Controls
             DependencyProperty.Register("VersionInstalledState", typeof(string), typeof(VersionCardControl), new PropertyMetadata(""));
 
         public Image MinecraftImage { get; private set; }
+        public TextBlock VersionTextBlock { get; private set; }
+        public TextBlock VersionStateTextBlock;
 
         public static readonly DependencyProperty ImageProperty =
-         DependencyProperty.Register("Image", typeof(Image), typeof(VersionCardControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Image", typeof(Image), typeof(VersionCardControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty VersionBlockProperty =
+            DependencyProperty.Register("VersionTextBlock", typeof(TextBlock), typeof(VersionCardControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty VersionStateBlock =
+            DependencyProperty.Register("VersionStateTextBlock", typeof(TextBlock), typeof(VersionCardControl), new PropertyMetadata(null));
         public VersionCardControl()
         {
             this.InitializeComponent();
 
             MinecraftImage = IMG;
+            VersionTextBlock = VersionTextBlockO;
+            VersionStateTextBlock = VersionStateTextBlockO;
         }
 
         private void SetPointerNormalState(object sender, PointerRoutedEventArgs e)

@@ -70,6 +70,12 @@ namespace MinecraftLauncherUniversal.Pages
                 imganim.TryStart(MCImg);
                 NavigatedFromPageThatIsNotAllVersionsPage = false;
             }
+            var textanim = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardTextAnim");
+            if (textanim != null)
+            {
+                textanim.TryStart(MinecraftVersionBlock);
+                NavigatedFromPageThatIsNotAllVersionsPage = false;
+            }
             base.OnNavigatedTo(e);
 
             MinecraftVersionBlock.Text ="Minecraft "+ Globals.CurrentVersion;
@@ -127,6 +133,9 @@ namespace MinecraftLauncherUniversal.Pages
 
                 var imgbackanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ImgBackAnim", MCImg);
                 imgbackanim.Configuration = new DirectConnectedAnimationConfiguration();
+
+                var TextBackAnim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("TextBackAnim", MinecraftVersionBlock);
+                TextBackAnim.Configuration = new DirectConnectedAnimationConfiguration();
             }
         }
 
