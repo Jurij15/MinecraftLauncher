@@ -96,15 +96,15 @@ namespace MinecraftLauncherUniversal.Pages
                 control.PointerPressed += VersionCardControl_PointerPressed;
                 control.Loaded += ServerCardControl_Loaded;
 
-                control.MinWidth = 200;
-                control.MinHeight = 65;
+                control.Width = 320;
+                control.Height = 70;
 
                 control.ServerCurrentPlayers = minestat.CurrentPlayers;
                 control.ServerTotalPlayers = minestat.MaximumPlayers;
 
                 ItemsPanel.Items.Add(control);
 
-                await Task.Delay(50); //wait for the server to appear
+                await Task.Delay(100); //wait for the server to appear
             }
 
             if (ItemsPanel.Items.Count < 1)

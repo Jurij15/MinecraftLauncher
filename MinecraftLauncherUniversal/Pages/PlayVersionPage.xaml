@@ -93,7 +93,8 @@
                                     <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text=" / "/>
                                     <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" x:Name="TotalPlayersBlock" Text="{Binding ServerTotalPlayers}"/>
                                 </StackPanel>
-                                <Button x:Name="ServerMoreBtn" Grid.Column="1" Grid.RowSpan="4">
+                                <Button x:Name="ServerMoreBtn" Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Stretch"
+                                        Background="Transparent" BorderBrush="Transparent">
                                     <Button.Content>
                                         <FontIcon Glyph="&#xE712;" />
                                     </Button.Content>
