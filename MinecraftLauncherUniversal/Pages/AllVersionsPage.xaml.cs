@@ -300,6 +300,12 @@ namespace MinecraftLauncherUniversal.Pages
                 var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", _storedCard);
                 var textanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardTextAnim", _storedCard.VersionTextBlock);
 
+                //idk if this is better or not
+                //imageanim.Configuration = new BasicConnectedAnimationConfiguration();
+                //animation.Configuration = new BasicConnectedAnimationConfiguration();
+                //textanim.Configuration = new BasicConnectedAnimationConfiguration();
+
+                PlayVersionPage.IsPlayingNormalVersion = true;
                 NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, false, false);
             }
             Log.Verbose("[AllVersionsPage]VersionCardControl_PointerPressed Call finished");

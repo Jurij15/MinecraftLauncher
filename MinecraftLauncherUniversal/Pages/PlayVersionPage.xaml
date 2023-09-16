@@ -45,6 +45,12 @@
                             <TextBlock Text="·" Margin="2,2,2,2" FontWeight="ExtraBlack"/>
                             <TextBlock x:Name="StatusBox" Text="Not Installed" FontSize="12" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                         </StackPanel>
+                        <StackPanel x:Name="ServerInfoBlock" Orientation="Horizontal" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,0,0,4">
+                            <Border Height="8" Width="8">
+                                <FontIcon Glyph="&#xE946;" VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="You are going to play a server" Style="{ThemeResource CaptionTextBlockStyle}" Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Center">
                             <Button x:Name="DownloadButton" Style="{StaticResource AccentButtonStyle}" Margin="0,10,0,0" Width="222" Height="55" Visibility="Collapsed" Click="DownloadButton_Click">
                                 <Button.ContentTransitions>
@@ -58,6 +64,58 @@
                                 </Button.ContentTransitions>
                                 <SymbolIcon Symbol="Play"/>
                             </Button>
+                        </StackPanel>
+                        <AppBarSeparator Margin="0,12,0,12" Visibility="Collapsed" x:Name="Seperator"/>
+                        <StackPanel x:Name="ServerPanel" Visibility="Collapsed"
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    Padding="12"
+                                    Margin="12"
+                                    CornerRadius="6">
+                            <Grid x:Name="ServerGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" Spacing="6">
+                                    <InfoBadge x:Name="ServerInfoBadge" Style="{ThemeResource InformationalIconInfoBadgeStyle}"/>
+                                    <TextBlock x:Name="ServerNameBlock" Style="{ThemeResource BodyStrongTextBlockStyle}" FontSize="15"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="0" x:Name="ServerMOTDBlock" HorizontalAlignment="Center" Grid.Row="1" Margin="0,4,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                <StackPanel x:Name="PlayersPanel" Grid.Column="0" HorizontalAlignment="Center" Spacing="2" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="6,0,0,0">
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" x:Name="CurrentPlayersBlock" Text="{Binding ServerCurrentPlayers}"/>
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text=" / "/>
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" x:Name="TotalPlayersBlock" Text="{Binding ServerTotalPlayers}"/>
+                                </StackPanel>
+                                <Button x:Name="ServerMoreBtn" Grid.Column="1" Grid.RowSpan="4">
+                                    <Button.Content>
+                                        <FontIcon Glyph="&#xE712;" />
+                                    </Button.Content>
+                                    <Button.Flyout>
+                                        <Flyout x:Name="ServerMoreFlyout" Placement="Right" Opened="ServerMoreFlyout_Opened">
+                                            <Flyout.SystemBackdrop>
+                                                <DesktopAcrylicBackdrop/>
+                                            </Flyout.SystemBackdrop>
+                                            <StackPanel Spacing="4">
+                                                <StackPanel Spacing="2">
+                                                    <TextBlock Text="GameMode" Style="{ThemeResource BodyTextBlockStyle}"/>
+                                                    <TextBlock x:Name="GameModeBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                                </StackPanel>
+                                                <StackPanel Spacing="2">
+                                                    <TextBlock Text="Latency (ping)" Style="{ThemeResource BodyTextBlockStyle}"/>
+                                                    <TextBlock x:Name="LatencyBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button> 
+                            </Grid>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

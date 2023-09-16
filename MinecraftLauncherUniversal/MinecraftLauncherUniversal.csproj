@@ -22,6 +22,7 @@
     <None Remove="Assets\minecraft-icon.ico" />
     <None Remove="Assets\PlayPage\background-playpage.png" />
     <None Remove="ContentWindows\ConsoleStyledWindow.xaml" />
+    <None Remove="Controls\ServerCardControl.xaml" />
     <None Remove="Controls\VersionCardControl.xaml" />
     <None Remove="Dialogs\AddServerDialog.xaml" />
     <None Remove="Dialogs\AdvancedPlayerSettingsDialogContent.xaml" />
@@ -216,6 +217,9 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Controls\ServerCardControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\PlayVersionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

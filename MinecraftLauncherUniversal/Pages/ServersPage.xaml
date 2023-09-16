@@ -6,11 +6,13 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:custom="using:MinecraftLauncherUniversal.Controls"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
+    NavigationCacheMode="Required"
     Unloaded="Page_Unloaded">
 
-    <Grid Margin="58, 42, 58,0" Loaded="Grid_Loaded" x:Name="MainGrid">
+    <Grid Margin="58, 42, 58,0" x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -35,8 +37,8 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ProgressRing IsIndeterminate="True" Margin="0,0,2,0" VerticalAlignment="Center" Grid.Column="0"/>
-                <TextBlock Text="Checking Status..." Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Center" Grid.Column="1"/>
+                <ProgressRing IsIndeterminate="True" Margin="0,0,4,0" VerticalAlignment="Center" Grid.Column="0"/>
+                <TextBlock Text="Loading Servers..." Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Center" Grid.Column="1"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
@@ -54,56 +56,6 @@
                     </TransitionCollection>
                 </GridView.ItemContainerTransitions>
             </GridView>
-            <StackPanel Grid.Column="1" Grid.Row="0" x:Name="MoreStatusPanel" Visibility="Collapsed" Margin="0,0,0,12"
-                        CornerRadius="12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Padding="32" Spacing="4">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0" Grid.Row="0" Spacing="4">
-                        <StackPanel.ChildrenTransitions>
-                            <ContentThemeTransition/>
-                        </StackPanel.ChildrenTransitions>
-                        <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="" Style="{ThemeResource TitleTextBlockStyle}"  x:Name="ServerNameBlock"/>
-                            <TextBlock VerticalAlignment="Bottom" Text="Unknown" x:Name="ServerStatusBlock" Style="{ThemeResource CaptionTextBlockStyle}" LineHeight="36" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                        </StackPanel>
-                        <StackPanel Spacing="4" Margin="0,2,0,2">
-                            <TextBlock Text="IP Address" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock x:Name="ServerIPBlock" Style="{ThemeResource BodyStrongTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        </StackPanel>
-                        <StackPanel Spacing="4" Margin="0,2,0,2">
-                            <TextBlock Text="Port" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock x:Name="ServerPortBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        </StackPanel>
-                        <StackPanel Spacing="4" Margin="0,2,0,2">
-                            <TextBlock Text="Latency" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock x:Name="ServerLatencyBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        </StackPanel>
-                        <StackPanel Spacing="4" Margin="0,2,0,2">
-                            <TextBlock Text="Gamemode" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock x:Name="ServerGamemodeBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        </StackPanel>
-                        <Button Content="Play" Style="{ThemeResource AccentButtonStyle}" x:Name="PlayBtn" Click="PlayBtn_Click">
-                            <Button.ContentTransitions>
-                                <ContentThemeTransition/>
-                            </Button.ContentTransitions>
-                        </Button>
-                        <StackPanel Orientation="Horizontal" Spacing="4" x:Name="LoadingServerStats" Visibility="Collapsed" Margin="0,8,0,0">
-                            <ProgressRing IsIndeterminate="True"/>
-                            <TextBlock Text="Loading..." Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="0">
-                        <Image x:Name="FaviconImage"/>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
         </Grid>
     </Grid>
 </Page>
