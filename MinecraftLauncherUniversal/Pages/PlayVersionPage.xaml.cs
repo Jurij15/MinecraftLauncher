@@ -315,7 +315,7 @@ namespace MinecraftLauncherUniversal.Pages
                 await Task.Delay(800);
 
                 FontIcon icon2 = new FontIcon();
-                icon.Glyph = "\uE768";
+                icon2.Glyph = "\uE768";
                 PlayButton.Content = icon2;
 
                 //by now, it has already been launched, now store the build in recents
