@@ -47,6 +47,7 @@ namespace MinecraftLauncherUniversal.Pages
         //this should be moved to an enum, and used as an arg in the constructor
         public static bool IsPlayingNormalVersion = false; // naviating from play page
         public static bool IsPlayingServer = false;
+        public static bool IsPlayingForge = false;
 
         public static bool IsSearchedForAVersion = false;
         public PlayVersionPage()
@@ -137,6 +138,24 @@ namespace MinecraftLauncherUniversal.Pages
                     ToolTipService.SetToolTip(ServerInfoBadge, "Offline");
                 }
             }
+            else if (IsPlayingForge)
+            {
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.UriSource = new Uri("ms-appx:///"+ "Assets/forgeLogo.jpg");
+                MCImg.Source = bitmapImage;
+
+                // Retrieve and start the connected animation
+                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardForgeConnectedAnimation");
+                if (animation != null)
+                {
+                    animation.TryStart(InfoPresenterGrid, new UIElement[] { });
+                }
+                var imganim = ConnectedAnimationService.GetForCurrentView().GetAnimation("forwardForgeImageAnim");
+                if (imganim != null)
+                {
+                    imganim.TryStart(MCImg);
+                }
+            }
             else if(IsSearchedForAVersion)
             {
                 //just finish navigation
@@ -150,6 +169,10 @@ namespace MinecraftLauncherUniversal.Pages
             else if (VersionsHelper.bIsOptifine(Globals.CurrentVersion))
             {
                 MinecraftVersionBlock.Text =Globals.CurrentVersion;
+            }
+            else
+            {
+                MinecraftVersionBlock.Text = "Minecraft " + Globals.CurrentVersion;
             }
 
             //BitmapImage bitmapImage = new BitmapImage();
@@ -193,6 +216,10 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true, SlideNavigationTransitionEffect.FromLeft, true);
             }
+            else if (IsPlayingForge)
+            {
+                NavigationService.NavigateSuppressedAnim(typeof(ForgePage), "Forge", true, true);
+            }
             else
             {
                 NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true, SlideNavigationTransitionEffect.FromLeft, true);
@@ -227,15 +254,24 @@ namespace MinecraftLauncherUniversal.Pages
                 var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ServerBackAnim", InfoPresenterGrid);
                 animation.Configuration = new DirectConnectedAnimationConfiguration();
             }
+            else if (BackButtonPressed && IsPlayingForge)
+            {
+                var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("BackForgeAnim", InfoPresenterGrid);
+                animation.Configuration = new DirectConnectedAnimationConfiguration();
+
+                var imgbackanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ImgForgeBackAnim", MCImg);
+                imgbackanim.Configuration = new DirectConnectedAnimationConfiguration();
+            }
             else if (BackButtonPressed && IsSearchedForAVersion)
             {
                 //just finish navigation
             }
 
-            if (IsPlayingNormalVersion && !IsNaviatingToPlayerSettings || IsPlayingServer && !IsNaviatingToPlayerSettings)
+            if (IsPlayingNormalVersion && !IsNaviatingToPlayerSettings || IsPlayingServer && !IsNaviatingToPlayerSettings || IsPlayingForge && !IsNaviatingToPlayerSettings)
             {
                 IsPlayingNormalVersion = false;
                 IsPlayingServer = false;
+                IsPlayingForge = false;
                 PlayServerClass = null;
             }
         }
@@ -253,13 +289,19 @@ namespace MinecraftLauncherUniversal.Pages
             int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
 
             ProgressRing r = new ProgressRing();
-            PlayButton.Content = r;
-
-            r = PlayButton.Content as ProgressRing;
+            r.IsIndeterminate = true;
             DownloadProgressRing = r;
 
-            PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
-            await core.Download(OnProgressChanged);
+            if (IsPlayingForge)
+            {
+                PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
+                await core.InstallForge(OnProgressChanged);
+            }
+            else
+            {
+                PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
+                await core.Download(OnProgressChanged);
+            }
 
             FontIcon icon = new FontIcon();
             icon.Glyph = "\uE8FB";
@@ -299,6 +341,12 @@ namespace MinecraftLauncherUniversal.Pages
             StatusBox.Text = "Launching...";
 
             if (IsPlayingNormalVersion || IsSearchedForAVersion)
+            {
+                PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
+                bool result = await core.Launch();
+                if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }
+            }
+            else if (IsPlayingForge)
             {
                 PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
                 bool result = await core.Launch();

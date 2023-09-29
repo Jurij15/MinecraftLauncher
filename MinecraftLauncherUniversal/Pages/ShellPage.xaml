@@ -110,6 +110,11 @@
                         <FontIcon Glyph="&#xF4A5;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem Content="Forge" x:Name="ForgeItem" Visibility="Visible">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE736;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Content="Servers" x:Name="ServersItem">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE731;" />

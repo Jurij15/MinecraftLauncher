@@ -22,6 +22,7 @@
     <None Remove="Assets\minecraft-icon.ico" />
     <None Remove="Assets\PlayPage\background-playpage.png" />
     <None Remove="ContentWindows\ConsoleStyledWindow.xaml" />
+    <None Remove="Controls\ForgeVersionCardControl.xaml" />
     <None Remove="Controls\ServerCardControl.xaml" />
     <None Remove="Controls\VersionCardControl.xaml" />
     <None Remove="Dialogs\AddServerDialog.xaml" />
@@ -35,6 +36,7 @@
     <None Remove="OptiFine\OptiFine.zip" />
     <None Remove="Pages\AboutPage.xaml" />
     <None Remove="Pages\AllVersionsPage.xaml" />
+    <None Remove="Pages\ForgePage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\OptiFinePage.xaml" />
     <None Remove="Pages\PlayerSettingsPage.xaml" />
@@ -74,7 +76,7 @@
 
   <ItemGroup>
     <PackageReference Include="CmlLib.Core" Version="3.3.7" />
-    <PackageReference Include="CmlLib.Core.Installer.Forge" Version="0.0.2" />
+    <PackageReference Include="CmlLib.Core.Installer.Forge" Version="0.0.1" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.18" />
     <PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
@@ -139,6 +141,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\demo-1.0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\forgeLogo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\HomeBanners\HomeBanner.jpg">
@@ -219,6 +224,12 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Controls\ForgeVersionCardControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\ForgePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\WikiPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

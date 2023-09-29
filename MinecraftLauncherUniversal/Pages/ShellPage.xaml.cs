@@ -168,6 +168,10 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 Navigate(typeof(WikiPage), "Wiki", true, false);
             }
+            if (args.SelectedItemContainer == ForgeItem)
+            {
+                Navigate(typeof(ForgePage), "Forge", true);
+            }
 
             //GC.Collect(); //idk, trying to lower ram usage
 

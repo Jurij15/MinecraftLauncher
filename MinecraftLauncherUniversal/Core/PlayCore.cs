@@ -7,6 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml.Controls;
+using Windows.System;
+using CmlLib.Core.Installer;
+using MinecraftLauncherUniversal.Interop;
+using CmlLib.Core.Installer.Forge;
+using CmlLib.Core.Downloader;
+using System.ComponentModel;
 
 namespace MinecraftLauncherUniversal.Core
 {
@@ -145,6 +151,56 @@ namespace MinecraftLauncherUniversal.Core
                 RetVal = false;
                 _errorDuringLaunch = ex.Message;
             }
+
+            return RetVal;
+        }
+
+        public async Task<bool> InstallForge(Action<int> ProgressChanged)
+        {
+            bool RetVal = false;
+
+            ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
+
+            // install the best forge version
+            List<ForgeVersion> versions = new List<ForgeVersion>();
+            foreach (var item in await loader.GetForgeVersions(_version))
+            {
+                versions.Add(item);
+            }
+
+            MessageBox.Show(versions.Count.ToString());
+
+            var path = new MinecraftPath(); // use default directory
+            var launcher = new CMLauncher(path);
+
+            // show launch progress to console
+            void fileChanged(DownloadFileChangedEventArgs e)
+            {
+                Console.WriteLine($"[{e.FileKind.ToString()}] {e.FileName} - {e.ProgressedFileCount}/{e.TotalFileCount}");
+            }
+            void progressChanged(object? sender, ProgressChangedEventArgs e)
+            {
+                Console.WriteLine($"{e.ProgressPercentage}%");
+            }
+
+            launcher.FileChanged += fileChanged;
+            launcher.ProgressChanged += progressChanged;
+
+            //Initialize MForge
+            var forge = new CmlLib.Core.Installer.Forge.MForge(path, launcher);
+            forge.FileChanged += fileChanged;
+            forge.InstallerOutput += (s, e) => Console.WriteLine(e);
+
+            var version_name = await forge.Install(_version, versions[versions.Count].ForgeVersionName);
+
+            return RetVal;
+        }
+
+        public async Task<bool> LaunchForge()
+        {
+            bool RetVal = false;
+
+            throw new NotImplementedException();
 
             return RetVal;
         }
