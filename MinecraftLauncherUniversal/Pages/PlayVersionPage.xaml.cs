@@ -143,7 +143,14 @@ namespace MinecraftLauncherUniversal.Pages
             }
             base.OnNavigatedTo(e);
 
-            MinecraftVersionBlock.Text ="Minecraft "+ Globals.CurrentVersion;
+            if (VersionsHelper.bIsReleaseVersion(Globals.CurrentVersion))
+            {
+                MinecraftVersionBlock.Text = "Minecraft " + Globals.CurrentVersion;
+            }
+            else if (VersionsHelper.bIsOptifine(Globals.CurrentVersion))
+            {
+                MinecraftVersionBlock.Text =Globals.CurrentVersion;
+            }
 
             //BitmapImage bitmapImage = new BitmapImage();
             //bitmapImage.UriSource = new Uri("ms-appx:///"+ "/Assets/MinecraftPlayIcon.png", UriKind.Absolute);
