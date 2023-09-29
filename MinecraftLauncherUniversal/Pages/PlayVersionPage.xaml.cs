@@ -44,8 +44,11 @@ namespace MinecraftLauncherUniversal.Pages
     public sealed partial class PlayVersionPage : Page
     {
         public static ServerClass PlayServerClass;
+        //this should be moved to an enum, and used as an arg in the constructor
         public static bool IsPlayingNormalVersion = false; // naviating from play page
         public static bool IsPlayingServer = false;
+
+        public static bool IsSearchedForAVersion = false;
         public PlayVersionPage()
         {
             this.InitializeComponent();
@@ -134,9 +137,9 @@ namespace MinecraftLauncherUniversal.Pages
                     ToolTipService.SetToolTip(ServerInfoBadge, "Offline");
                 }
             }
-            else
+            else if(IsSearchedForAVersion)
             {
-
+                //just finish navigation
             }
             base.OnNavigatedTo(e);
 
@@ -179,6 +182,10 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 NavigationService.NavigateSuppressedAnim(typeof(ServersPage), "Servers", true, true);
             }
+            else if(IsSearchedForAVersion)
+            {
+                NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true, SlideNavigationTransitionEffect.FromLeft, true);
+            }
             else
             {
                 NavigationService.Navigate(typeof(AllVersionsPage), "Select a Version", true, SlideNavigationTransitionEffect.FromLeft, true);
@@ -212,6 +219,10 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ServerBackAnim", InfoPresenterGrid);
                 animation.Configuration = new DirectConnectedAnimationConfiguration();
+            }
+            else if (BackButtonPressed && IsSearchedForAVersion)
+            {
+                //just finish navigation
             }
 
             if (IsPlayingNormalVersion && !IsNaviatingToPlayerSettings || IsPlayingServer && !IsNaviatingToPlayerSettings)
@@ -268,23 +279,33 @@ namespace MinecraftLauncherUniversal.Pages
 
         async void AsyncLaunch()
         {
-            if (IsPlayingNormalVersion)
+            bool bSucess = false;
+            int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
+
+            ProgressRing r = new ProgressRing();
+            r.IsIndeterminate = true;
+            PlayButton.Content = r;
+
+            r = PlayButton.Content as ProgressRing;
+
+            PlayButton.IsEnabled = false;
+            StatusBox.Text = "Launching...";
+
+            if (IsPlayingNormalVersion || IsSearchedForAVersion)
             {
-                bool bSucess = false;
-                int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
-
-                ProgressRing r = new ProgressRing();
-                r.IsIndeterminate = true;
-                PlayButton.Content = r;
-
-                r = PlayButton.Content as ProgressRing;
-
-                PlayButton.IsEnabled = false;
-                StatusBox.Text = "Launching...";
-
                 PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
                 bool result = await core.Launch();
                 if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }
+            }
+            else if (IsPlayingServer)
+            {
+                PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
+                bool result = await core.LaunchServer(PlayServerClass.Json.ServerIP, PlayServerClass.Json.ServerPort);
+                if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }
+            }
+
+            if (bSucess)
+            {
                 StatusBox.Text = "Playing";
 
                 FontIcon icon = new FontIcon();
@@ -303,112 +324,8 @@ namespace MinecraftLauncherUniversal.Pages
                 MinecraftLaunchedInfo.IsOpen = true;
                 PlayButton.IsEnabled = true;
 
-                if (bSucess)
-                {
-                    Globals.MainWindow.Minimize();
-                    NotificationService.SendSimpleToast("Launched", "Minecraft " + Globals.CurrentVersion + " launched successfully!", 1.5);
-                }
-            }
-            else if (IsPlayingServer)
-            {
-                //this is a mess
-                if (PlayServerClass.State == ServerState.Offline)
-                {
-                    ContentDialog warningofflinedialog = DialogService.CreateContentDialog("Warning", "You are launching into a server that is offline, which can cause crashes. Do you want to continue?");
-                    warningofflinedialog.PrimaryButtonText = "Launch Anyway";
-                    warningofflinedialog.CloseButtonText = "Cancel";
-                    warningofflinedialog.DefaultButton = ContentDialogButton.Close;
-
-                    ContentDialogResult dialogresultresult = await warningofflinedialog.ShowAsync();
-                    if (dialogresultresult == ContentDialogResult.Primary)
-                    {
-                        bool bSucess = false;
-                        int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
-
-                        ProgressRing r = new ProgressRing();
-                        r.IsIndeterminate = true;
-                        PlayButton.Content = r;
-
-                        r = PlayButton.Content as ProgressRing;
-
-                        PlayButton.IsEnabled = false;
-                        StatusBox.Text = "Launching...";
-
-                        PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
-                        bool result = await core.LaunchServer(PlayServerClass.Json.ServerIP, PlayServerClass.Json.ServerPort);
-                        if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }
-
-                        StatusBox.Text = "Playing";
-
-                        FontIcon icon = new FontIcon();
-                        icon.Glyph = "\uE8FB";
-                        PlayButton.Content = icon;
-
-                        await Task.Delay(800);
-
-                        FontIcon icon2 = new FontIcon();
-                        icon2.Glyph = "\uE768";
-                        PlayButton.Content = icon2;
-
-                        //by now, it has already been launched, now store the build in recents
-                        VersionManager manager = new VersionManager();
-                        manager.AddNewBuildToRecents(Globals.CurrentVersion);
-                        MinecraftLaunchedInfo.IsOpen = true;
-                        PlayButton.IsEnabled = true;
-
-                        if (bSucess)
-                        {
-                            Globals.MainWindow.Minimize();
-                            NotificationService.SendSimpleToast("Launched", "Minecraft Server " + PlayServerClass.Json.ServerName + " launched successfully!", 1.5);
-                        }
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    bool bSucess = false;
-                    int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
-
-                    ProgressRing r = new ProgressRing();
-                    r.IsIndeterminate = true;
-                    PlayButton.Content = r;
-
-                    r = PlayButton.Content as ProgressRing;
-
-                    PlayButton.IsEnabled = false;
-                    StatusBox.Text = "Launching...";
-
-                    PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
-                    bool result = await core.LaunchServer(PlayServerClass.Json.ServerIP, PlayServerClass.Json.ServerPort);
-                    if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }
-
-                    StatusBox.Text = "Playing";
-
-                    FontIcon icon = new FontIcon();
-                    icon.Glyph = "\uE8FB";
-                    PlayButton.Content = icon;
-
-                    await Task.Delay(800);
-
-                    FontIcon icon2 = new FontIcon();
-                    icon2.Glyph = "\uE768";
-                    PlayButton.Content = icon2;
-
-                    //by now, it has already been launched, now store the build in recents
-                    VersionManager manager = new VersionManager();
-                    manager.AddNewBuildToRecents(Globals.CurrentVersion);
-                    MinecraftLaunchedInfo.IsOpen = true;
-                    PlayButton.IsEnabled = true;
-
-                    if (bSucess)
-                    {
-                        Globals.MainWindow.Minimize();
-                        NotificationService.SendSimpleToast("Launched", "Minecraft Server " + PlayServerClass.Json.ServerName + " launched successfully!", 1.5);
-                    }
-                }
+                Globals.MainWindow.Minimize();
+                NotificationService.SendSimpleToast("Launched", "Minecraft " + Globals.CurrentVersion + " launched successfully!", 1.5);
             }
         }
 

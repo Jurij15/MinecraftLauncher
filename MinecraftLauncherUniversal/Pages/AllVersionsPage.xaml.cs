@@ -209,6 +209,7 @@ namespace MinecraftLauncherUniversal.Pages
 
             Globals.CurrentVersion = version;
 
+            PlayVersionPage.IsSearchedForAVersion = true;
             NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, true, false);
 
             Log.Verbose("[AllVersionsPage]SearchBox_SuggestionChosen call finished");

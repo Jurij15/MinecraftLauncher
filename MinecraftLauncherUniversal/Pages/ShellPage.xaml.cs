@@ -121,6 +121,7 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.MainNavigation.SelectedItem = AllVersionsPage;
             Navigate(typeof(AllVersionsPage), "Select a Version", true);
 
+            PlayVersionPage.IsSearchedForAVersion = true;
             Navigate(typeof(PlayVersionPage), "Play", false, false);
         }
 
