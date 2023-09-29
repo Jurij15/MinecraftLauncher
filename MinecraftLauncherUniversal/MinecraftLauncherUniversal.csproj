@@ -49,6 +49,7 @@
     <None Remove="Pages\SetupPages\SetupRootPage.xaml" />
     <None Remove="Pages\ShellPage.xaml" />
     <None Remove="Pages\StartupPage.xaml" />
+    <None Remove="Pages\WikiPage.xaml" />
     <None Remove="Pages\WorldsPages\AllWorldsPage.xaml" />
     <None Remove="Styles\BreadcrumbBar.xaml" />
   </ItemGroup>
@@ -217,6 +218,9 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\WikiPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Controls\ServerCardControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

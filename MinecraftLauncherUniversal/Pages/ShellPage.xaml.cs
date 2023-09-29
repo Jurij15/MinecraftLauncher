@@ -164,6 +164,10 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 Navigate(typeof(AllWorldsPage), "Select a World", true);
             }
+            if (args.SelectedItemContainer == WikiItem)
+            {
+                Navigate(typeof(WikiPage), "Wiki", true, false);
+            }
 
             //GC.Collect(); //idk, trying to lower ram usage
 

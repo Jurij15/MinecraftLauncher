@@ -120,6 +120,11 @@
                         <FontIcon Glyph="&#xE909;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem Content="Wiki" x:Name="WikiItem" Visibility="Visible">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE736;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="About" x:Name="AboutItem">
