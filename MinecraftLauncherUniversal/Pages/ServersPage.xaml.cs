@@ -43,6 +43,8 @@ namespace MinecraftLauncherUniversal.Pages
     {
         ServerCardControl _storedCard;
         bool _isPageUnloading = false;
+
+        bool _guidsLoaded = true;
         public ServersPage()
         {
             this.InitializeComponent();
@@ -69,6 +71,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         async void LoadGuids()
         {
+            _guidsLoaded = false;
             LoadingStatus.Visibility = Visibility.Visible;
             await Task.Delay(20);
             ItemsPanel.Items.Clear();
@@ -79,7 +82,7 @@ namespace MinecraftLauncherUniversal.Pages
             foreach (string guid in guids)
             {
                 ServerJson json = manager.GetServerJson(guid);
-                MineStat minestat = ServersHelper.GetServer(json.ServerIP, json.ServerPort, 2);
+                MineStat minestat = await Task.Run(() => ServersHelper.GetServer(json.ServerIP, json.ServerPort, 2));
                 bool stat = ServersHelper.IsServerUp(minestat);
 
                 ServerClass Class = new ServerClass();
@@ -121,6 +124,8 @@ namespace MinecraftLauncherUniversal.Pages
 
             LoadingStatus.Visibility = Visibility.Collapsed;
             await Task.Delay(50);//wait for servers to show
+
+            _guidsLoaded = true;
         }
 
         private void Deleteitem_Click(object sender, RoutedEventArgs e)
@@ -186,7 +191,16 @@ namespace MinecraftLauncherUniversal.Pages
             }
 
             await Task.Delay(100);//wait for anim to finish
-            LoadGuids() ; //reload guids
+            LoadGuids(); //reload guids
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (!_guidsLoaded)
+            {
+                //e.Cancel = true;
+            }
+            base.OnNavigatingFrom(e);
         }
 
         private void RefreshToolbarBtn_Click(object sender, RoutedEventArgs e)
