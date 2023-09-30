@@ -13,6 +13,8 @@ using MinecraftLauncherUniversal.Interop;
 using CmlLib.Core.Installer.Forge;
 using CmlLib.Core.Downloader;
 using System.ComponentModel;
+using System.Threading;
+using System.Reflection;
 
 namespace MinecraftLauncherUniversal.Core
 {
@@ -155,20 +157,14 @@ namespace MinecraftLauncherUniversal.Core
             return RetVal;
         }
 
-        public async Task<bool> InstallForge(Action<int> ProgressChanged)
+        public async Task<bool> InstallForge(Action<int> ProgressChanged, string ForgeVersion = null)
         {
             bool RetVal = false;
 
-            ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
-
-            // install the best forge version
-            List<ForgeVersion> versions = new List<ForgeVersion>();
-            foreach (var item in await loader.GetForgeVersions(_version))
+            if (ForgeVersion == null)
             {
-                versions.Add(item);
+                return false;
             }
-
-            MessageBox.Show(versions.Count.ToString());
 
             var path = new MinecraftPath(); // use default directory
             var launcher = new CMLauncher(path);
@@ -191,16 +187,95 @@ namespace MinecraftLauncherUniversal.Core
             forge.FileChanged += fileChanged;
             forge.InstallerOutput += (s, e) => Console.WriteLine(e);
 
-            var version_name = await forge.Install(_version, versions[versions.Count].ForgeVersionName);
+
+            if (_version == null)
+            {
+                MessageBox.Show("f null");
+            }
+            var version_name = await forge.Install(_version, ForgeVersion);
+
+            var launchOption = new MLaunchOption();
+            launchOption.MaximumRamMb = _memoryMB;
+            launchOption.FullScreen = _bfullscreen;
+            launchOption.GameLauncherName = "Minecraft Launcher Universal";
+            if (!string.IsNullOrEmpty(_uuid) && !string.IsNullOrWhiteSpace(_uuid))
+            {
+                MSession session = new MSession();
+                session.AccessToken = _accessToken;
+                session.UUID = _uuid;
+                session.Username = Globals.Settings.Username;
+                launchOption.Session = session;
+            }
+            if (!string.IsNullOrEmpty(_accessToken) && !string.IsNullOrWhiteSpace(_accessToken))
+            {
+                MSession session = new MSession();
+                session.AccessToken = _accessToken;
+                session.Username = Globals.Settings.Username;
+                launchOption.Session = session;
+            }
+            else
+            {
+                launchOption.Session = MSession.GetOfflineSession(Globals.Settings.Username);
+            }
+
+            try
+            {
+                var process = await launcher.CreateProcessAsync(version_name, launchOption);
+
+                process.Start();
+
+                RetVal = true; //launched no problem
+            }
+            catch (Exception ex)
+            {
+                RetVal = false;
+                _errorDuringLaunch = ex.Message;
+                //MessageBox.Show(ex.Message);
+            }
 
             return RetVal;
         }
 
-        public async Task<bool> LaunchForge()
+        public async Task<bool> LaunchForge(string ForgeVersion = null)
         {
             bool RetVal = false;
 
-            throw new NotImplementedException();
+            if (ForgeVersion == null)
+            {
+                return false;
+            }
+
+            ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
+            MessageBox.Show(_version);
+            Thread.Sleep(1500); //delay it for a bit, idk why but it should make it work better
+
+            var path = new MinecraftPath(); // use default directory
+            var launcher = new CMLauncher(path);
+
+            // show launch progress to console
+            void fileChanged(DownloadFileChangedEventArgs e)
+            {
+                Console.WriteLine($"[{e.FileKind.ToString()}] {e.FileName} - {e.ProgressedFileCount}/{e.TotalFileCount}");
+            }
+            void progressChanged(object? sender, ProgressChangedEventArgs e)
+            {
+                Console.WriteLine($"{e.ProgressPercentage}%");
+            }
+
+            launcher.FileChanged += fileChanged;
+            launcher.ProgressChanged += progressChanged;
+
+            //Initialize MForge
+            var forge = new CmlLib.Core.Installer.Forge.MForge(path, launcher);
+            forge.FileChanged += fileChanged;
+            forge.InstallerOutput += (s, e) => Console.WriteLine(e);
+
+
+            if (_version == null)
+            {
+                MessageBox.Show("f null");
+            }
+            var version_name = await forge.Install(_version, ForgeVersion);
 
             return RetVal;
         }

@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:MinecraftLauncherUniversal.Controls"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     
     NavigationCacheMode="Required"
     
@@ -16,12 +17,38 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <AutoSuggestBox x:Name="SearchBox" Visibility="Collapsed" Grid.Row="0"/>
-        <InfoBar x:Name="MinimumVersionInfoBar" Message="Only Forge versions above 1.7.10 are supported!" IsOpen="True" IsClosable="False" Grid.Row="1"/>
-        <GridView x:Name="ForgeVersionsPanel" Grid.Row="2" Margin="4" Loaded="ForgeVersionsPanel_Loaded" SelectionMode="None">
-            
-        </GridView>
+        <InfoBar x:Name="MinimumVersionInfoBar" Message="Certain forge versions might not work" IsOpen="True" IsClosable="False" Grid.Row="1"/>
+        <labs:SettingsCard x:Name="MinecraftVersionCard" Grid.Row="2" Margin="0,4,0,0"
+                           Header="Minecraft Version"
+                           >
+            <ComboBox x:Name="MCVersionsBox" ItemsSource="{x:Bind versions}" SelectionChanged="ComboBox_SelectionChanged"/>
+        </labs:SettingsCard>
+        <labs:SettingsCard x:Name="ForgeVersionCard" Grid.Row="3" Margin="0,4,0,0"
+                           Header="Forge Version" IsEnabled="False"
+                           
+                           >
+            <labs:SettingsCard.Description>
+                <HyperlinkButton x:Name="ForgeVersionGoBack" Click="ForgeVersionGoBack_Click">Go Back</HyperlinkButton>
+            </labs:SettingsCard.Description>
+            <ComboBox x:Name="ForgeVersionsBox" SelectionChanged="ForgeVersionsBox_SelectionChanged"/>
+        </labs:SettingsCard>
+        <labs:SettingsCard x:Name="PlayCard" Grid.Row="4" Margin="0,4,0,0"
+                           IsEnabled="False"
+                           >
+            <labs:SettingsCard.HeaderIcon>
+                <ImageIcon Source="Assets/forgeLogo.jpg"/>
+            </labs:SettingsCard.HeaderIcon>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Play" x:Name="PlayButton" Click="PlayButton_Click"/>
+                <Button Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"/>
+            </StackPanel>
+        </labs:SettingsCard>
     </Grid>
 </Page>

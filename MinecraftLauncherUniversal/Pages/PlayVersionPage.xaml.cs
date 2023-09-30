@@ -44,6 +44,7 @@ namespace MinecraftLauncherUniversal.Pages
     public sealed partial class PlayVersionPage : Page
     {
         public static ServerClass PlayServerClass;
+        public static string ForgeVersion;
         //this should be moved to an enum, and used as an arg in the constructor
         public static bool IsPlayingNormalVersion = false; // naviating from play page
         public static bool IsPlayingServer = false;
@@ -162,7 +163,11 @@ namespace MinecraftLauncherUniversal.Pages
             }
             base.OnNavigatedTo(e);
 
-            if (VersionsHelper.bIsReleaseVersion(Globals.CurrentVersion))
+            if (IsPlayingForge)
+            {
+                MinecraftVersionBlock.Text = "Forge " + Globals.CurrentVersion;
+            }
+            else if (VersionsHelper.bIsReleaseVersion(Globals.CurrentVersion))
             {
                 MinecraftVersionBlock.Text = "Minecraft " + Globals.CurrentVersion;
             }
@@ -273,6 +278,7 @@ namespace MinecraftLauncherUniversal.Pages
                 IsPlayingServer = false;
                 IsPlayingForge = false;
                 PlayServerClass = null;
+                ForgeVersion = null;
             }
         }
 
@@ -294,8 +300,8 @@ namespace MinecraftLauncherUniversal.Pages
 
             if (IsPlayingForge)
             {
-                PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
-                await core.InstallForge(OnProgressChanged);
+                PlayCore core = new PlayCore(Globals.CurrentVersion.Remove(0, 6), memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
+                await core.InstallForge(OnProgressChanged, ForgeVersion);
             }
             else
             {
@@ -349,7 +355,8 @@ namespace MinecraftLauncherUniversal.Pages
             else if (IsPlayingForge)
             {
                 PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
-                bool result = await core.Launch();
+                //MessageBox.Show(ForgeVersion);
+                bool result = await core.LaunchForge(ForgeVersion);
                 if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }
             }
             else if (IsPlayingServer)
@@ -381,6 +388,15 @@ namespace MinecraftLauncherUniversal.Pages
 
                 Globals.MainWindow.Minimize();
                 NotificationService.SendSimpleToast("Launched", "Minecraft " + Globals.CurrentVersion + " launched successfully!", 1.5);
+            }
+            else
+            {
+                StatusBox.Text = "Launch Failed";
+                FontIcon icon2 = new FontIcon();
+                icon2.Glyph = "\uE768";
+                PlayButton.Content = icon2;
+
+                PlayButton.IsEnabled = true;
             }
         }
 

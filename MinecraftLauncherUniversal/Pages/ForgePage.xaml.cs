@@ -24,6 +24,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Media.Animation;
 using System.Threading.Tasks;
 using MinecraftLauncherUniversal.Services;
+using CmlLib.Core.Installer.Forge;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,31 +36,54 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class ForgePage : Page
     {
-        static ForgeVersionCardControl _storedCard;
-        static List<string> mcversions = new List<string>();
-        //i just quickly generated this with ai
-        static bool IsVersionHigherOrEqual(string version1, string version2)
+        // from https://github.com/CmlLib/CmlLib.Core.Installer.Forge/blob/main/SampleForgeInstaller/AllInstaller.cs
+        string[] versions = new string[]
         {
-            // Split the versions and parse the first two segments
-            string[] version1Segments = version1.Split('.');
-            string[] version2Segments = version2.Split('.');
+            "1.20.1", // ok
+            "1.20", // ok
+            "1.19.4", // ok
+            "1.19.3", // ok
+            "1.19.2", //ok
+            "1.19.1", //ok
+            "1.19", //ok
+            "1.18.2", // ok
+            "1.18.1", // ok
+            "1.18", // ok
+            "1.17.1", // ok
+            "1.16.5", // ok
+            "1.16.4", // ok
+            "1.16.3", // ok
+            "1.16.2", // ok
+            "1.16.1", // ok
+            "1.15.2", // ok
+            "1.15.1", // ok
+            "1.15", // ok
+            "1.14.4", // ok
+            "1.14.3", // ok
+            "1.14.2", // ok
+            "1.13.2", // ok
+            "1.12.2", // ok
+            "1.12.1", // ok
+            "1.12", // ok
+            "1.11.2", // ok
+            "1.11", // ok
+            "1.10.2", // ok
+            "1.10", // ok
+            "1.9.4", // ok
+            "1.9", // ok
+            "1.8.9", // ok
+            "1.8.8", // ok
+            "1.7.10", // ok
+                      //"1.7.10_pre4", // cannot find 1.7.10_pre4
+                      //"1.7.2", // crash
+                      //"1.6.4", // crash
+                      //"1.6.3", // crash
+                      //"1.6.2", // crash
+                      //"1.6.1", // crash, wrong version name
+                      //"1.5.2" // crash
+        };
 
-            int majorVersion1 = int.Parse(version1Segments[0]);
-            int minorVersion1 = int.Parse(version1Segments[1]);
-
-            int majorVersion2 = int.Parse(version2Segments[0]);
-            int minorVersion2 = int.Parse(version2Segments[1]);
-
-            // Compare the first two segments
-            if (majorVersion1 > majorVersion2 || (majorVersion1 == majorVersion2 && minorVersion1 >= minorVersion2))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        static ForgeVersionCardControl _storedCard;
         public ForgePage()
         {
             this.InitializeComponent();
@@ -67,99 +91,88 @@ namespace MinecraftLauncherUniversal.Pages
             //load all forge versions
             //ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
 
-            foreach (var item in VersionManager.AllVersionsGlobal)
+            this.DataContext = this;
+        }
+
+        string PickedForgeVersion = null;
+        string PickedMinecraftVersion = null;
+
+        private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PickedMinecraftVersion = ((ComboBox)sender).SelectedItem.ToString();
+            MinecraftVersionCard.IsEnabled = false;
+            ForgeVersionCard.IsEnabled = true;
+
+            ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
+            var versions = await loader.GetForgeVersions(PickedMinecraftVersion);
+            foreach (var item in versions)
             {
-                if (VersionsHelper.bIsReleaseVersion(item))
-                {
-                    if (IsVersionHigherOrEqual(item, "1.7.10"))
-                    {
-                        mcversions.Add(item);
-                    }
-                }
+                ForgeVersionsBox.Items.Add(item.ForgeVersionName);
             }
         }
 
-        void LoadVersions()
+        private void ForgeVersionGoBack_Click(object sender, RoutedEventArgs e)
         {
-            ForgeVersionsPanel.Items.Clear();
-            foreach (var item in mcversions)
-            {
-                ForgeVersionCardControl card = new ForgeVersionCardControl();
-                card.Version = "Forge " + item;
+            MinecraftVersionCard.IsEnabled = true;
+            ForgeVersionCard.IsEnabled = false;
 
-                //card.Margin = new Thickness(4);
-
-                if (VersionsHelper.bIsVersionInstalled(item))
-                {
-                    card.VersionInstalledState = "Installed";
-                }
-                else
-                {
-                    card.VersionInstalledState = "Not Installed";
-                }
-
-                card.Width = 210;
-
-                card.PointerReleased += Card_PointerReleased;
-
-                ForgeVersionsPanel.Items.Add(card);
-            }
+            ForgeVersionsBox.Items.Clear();
         }
 
-        private async void ForgeVersionsPanel_Loaded(object sender, RoutedEventArgs e)
+        private void ForgeVersionsBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_storedCard != null)
-            {
-                ForgeVersionsPanel.ScrollIntoView(_storedCard, ScrollIntoViewAlignment.Leading);
-                ForgeVersionsPanel.UpdateLayout();
-                try
-                {
-                    // Retrieve and start the connected animation for back navigation
-                    //MessageBox.Show("test");
-                    var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("BackForgeAnim");
-                    if (animation != null)
-                    {
-                        bool result = animation.TryStart(_storedCard);
-                    }
+            PickedForgeVersion = ((ComboBox)sender).SelectedItem.ToString();
 
-                    var imganimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ImgForgeBackAnim");
-                    if (imganimation != null)
-                    {
-                        bool result = imganimation.TryStart(_storedCard.MinecraftImage);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    throw;
-                }
-            }
-            await Task.Delay(100); //delay it so that everything loads
-            LoadVersions();
+            ForgeVersionCard.IsEnabled = false;
+            PlayCard.IsEnabled = true;
+
+            PlayCard.Header = "Forge "+PickedMinecraftVersion;
+            PlayCard.Description = PickedForgeVersion;
         }
 
-        private void Card_PointerReleased(object sender, PointerRoutedEventArgs e)
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            ForgeVersionCardControl card = sender as ForgeVersionCardControl;
-            if (card != null)
+            var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardForgeConnectedAnimation", PlayCard);
+            animation.Configuration = new DirectConnectedAnimationConfiguration();
+
+            var imgbackanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("forwardForgeImageAnim", PlayCard.HeaderIcon);
+            imgbackanim.Configuration = new DirectConnectedAnimationConfiguration();
+
+            PlayVersionPage.IsPlayingForge = true;
+            PlayVersionPage.ForgeVersion = PickedForgeVersion;
+            Globals.CurrentVersion = PickedMinecraftVersion;
+            NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play Forge" + PickedMinecraftVersion, false, false);
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //reset everything
+            PlayCard.IsEnabled = false;
+            ForgeVersionCard.IsEnabled = false;
+
+            MinecraftVersionCard.IsEnabled = true;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // Retrieve and start the connected animation
+            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("BackForgeAnim");
+            if (animation != null)
             {
-                //card.MinecraftImage.Visibility = Visibility.Collapsed;
-
-                string version = card.Version;
-
-                Globals.CurrentVersion = version;
-                _storedCard = card;
-
-                var imageanim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("forwardForgeImageAnim", _storedCard.MinecraftImage);
-                var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardForgeConnectedAnimation", _storedCard);
-
-                //idk if this is better or not
-                imageanim.Configuration = new BasicConnectedAnimationConfiguration();
-                animation.Configuration = new BasicConnectedAnimationConfiguration();
-
-                PlayVersionPage.IsPlayingForge = true;
-                NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, false, false);
+                animation.TryStart(PlayCard, new UIElement[] { });
             }
+            var imganim = ConnectedAnimationService.GetForCurrentView().GetAnimation("ImgForgeBackAnim");
+            if (imganim != null)
+            {
+                imganim.TryStart(PlayCard.HeaderIcon);
+            }
+
+            base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
         }
     }
 }
