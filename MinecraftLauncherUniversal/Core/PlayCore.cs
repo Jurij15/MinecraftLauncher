@@ -15,6 +15,7 @@ using CmlLib.Core.Downloader;
 using System.ComponentModel;
 using System.Threading;
 using System.Reflection;
+using CmlLib.Core.Installer.Forge.Versions;
 
 namespace MinecraftLauncherUniversal.Core
 {
@@ -157,7 +158,7 @@ namespace MinecraftLauncherUniversal.Core
             return RetVal;
         }
 
-        public async Task<bool> InstallForge(Action<int> ProgressChanged, string ForgeVersion = null)
+        public async Task<bool> LaunchForge(string ForgeVersion = null)
         {
             bool RetVal = false;
 
@@ -183,16 +184,22 @@ namespace MinecraftLauncherUniversal.Core
             launcher.ProgressChanged += progressChanged;
 
             //Initialize MForge
-            var forge = new CmlLib.Core.Installer.Forge.MForge(path, launcher);
+            var forge = new CmlLib.Core.Installer.Forge.MForge(launcher);
             forge.FileChanged += fileChanged;
             forge.InstallerOutput += (s, e) => Console.WriteLine(e);
 
+            var version_name = "";
 
-            if (_version == null)
+            try
             {
-                MessageBox.Show("f null");
+                version_name = await forge.Install(_version, ForgeVersion);
             }
-            var version_name = await forge.Install(_version, ForgeVersion);
+            catch (Exception ex)
+            {
+                _errorDuringLaunch = ex.Message;
+                return false;
+                throw;
+            }
 
             var launchOption = new MLaunchOption();
             launchOption.MaximumRamMb = _memoryMB;
@@ -230,13 +237,12 @@ namespace MinecraftLauncherUniversal.Core
             {
                 RetVal = false;
                 _errorDuringLaunch = ex.Message;
-                //MessageBox.Show(ex.Message);
             }
 
             return RetVal;
         }
 
-        public async Task<bool> LaunchForge(string ForgeVersion = null)
+        public async Task<bool> InstallForge(Action<int> ProgressChanged, string ForgeVersion = null)
         {
             bool RetVal = false;
 
@@ -259,23 +265,27 @@ namespace MinecraftLauncherUniversal.Core
             }
             void progressChanged(object? sender, ProgressChangedEventArgs e)
             {
-                Console.WriteLine($"{e.ProgressPercentage}%");
+                ProgressChanged(e.ProgressPercentage);
             }
 
             launcher.FileChanged += fileChanged;
             launcher.ProgressChanged += progressChanged;
 
             //Initialize MForge
-            var forge = new CmlLib.Core.Installer.Forge.MForge(path, launcher);
+            var forge = new CmlLib.Core.Installer.Forge.MForge(launcher);
             forge.FileChanged += fileChanged;
             forge.InstallerOutput += (s, e) => Console.WriteLine(e);
 
-
-            if (_version == null)
+            try
             {
-                MessageBox.Show("f null");
+                var version_name = await forge.Install(_version, ForgeVersion);
             }
-            var version_name = await forge.Install(_version, ForgeVersion);
+            catch (Exception ex)
+            {
+                _errorDuringDownload = ex.Message;
+                return false;
+                throw;
+            }
 
             return RetVal;
         }

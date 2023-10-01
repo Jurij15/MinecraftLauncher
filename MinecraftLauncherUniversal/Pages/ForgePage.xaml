@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <AutoSuggestBox x:Name="SearchBox" Visibility="Collapsed" Grid.Row="0"/>
-        <InfoBar x:Name="MinimumVersionInfoBar" Message="Certain forge versions might not work" IsOpen="True" IsClosable="False" Grid.Row="1"/>
+        <InfoBar x:Name="MinimumVersionInfoBar" Message="Certain forge versions might not work. Currently confirmed working: 1.20.1::47.0.35" IsOpen="True" IsClosable="False" Grid.Row="1"/>
         <labs:SettingsCard x:Name="MinecraftVersionCard" Grid.Row="2" Margin="0,4,0,0"
                            Header="Minecraft Version"
                            >

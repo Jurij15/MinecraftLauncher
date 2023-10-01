@@ -357,7 +357,14 @@ namespace MinecraftLauncherUniversal.Pages
                 PlayCore core = new PlayCore(Globals.CurrentVersion, memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomAccessToken, Globals.Settings.CustomAccessToken);
                 //MessageBox.Show(ForgeVersion);
                 bool result = await core.LaunchForge(ForgeVersion);
-                if (!result) { DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; }
+                if (!result) 
+                {
+                    if (core.GetLaunchErrors() == "Object reference not set to an instance of an object") //the requested version probably does not work
+                    {
+                        DialogService.ShowSimpleDialog("An Error Occured", "This forge version is not working. Try another one.");
+                    }
+                    DialogService.ShowSimpleDialog("An Error Occured", core.GetLaunchErrors()); } else { bSucess = true; 
+                }
             }
             else if (IsPlayingServer)
             {
