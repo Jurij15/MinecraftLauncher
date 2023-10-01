@@ -252,7 +252,7 @@ namespace MinecraftLauncherUniversal.Core
             }
 
             ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
-            MessageBox.Show(_version);
+            //MessageBox.Show(_version);
             Thread.Sleep(1500); //delay it for a bit, idk why but it should make it work better
 
             var path = new MinecraftPath(); // use default directory

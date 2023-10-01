@@ -43,7 +43,7 @@
                            IsEnabled="False"
                            >
             <labs:SettingsCard.HeaderIcon>
-                <ImageIcon Source="Assets/forgeLogo.jpg"/>
+                <ImageIcon Source="/Assets/forgeLogo.jpg"/>
             </labs:SettingsCard.HeaderIcon>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Play" x:Name="PlayButton" Click="PlayButton_Click"/>

@@ -101,28 +101,39 @@ namespace MinecraftLauncherUniversal.Pages
         private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PickedMinecraftVersion = ((ComboBox)sender).SelectedItem.ToString();
-            MinecraftVersionCard.IsEnabled = false;
-            ForgeVersionCard.IsEnabled = true;
 
             ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
             var versions = await loader.GetForgeVersions(PickedMinecraftVersion);
+            Thread.Sleep(100);
+            await Task.Delay(200);
+            ForgeVersionsBox.Items.Clear();
+            ForgeVersionsBox.SelectedItem = null;
             foreach (var item in versions)
             {
                 ForgeVersionsBox.Items.Add(item.ForgeVersionName);
             }
+
+            MinecraftVersionCard.IsEnabled = false;
+            ForgeVersionCard.IsEnabled = true;
+            PlayCard.IsEnabled = false;
         }
 
         private void ForgeVersionGoBack_Click(object sender, RoutedEventArgs e)
         {
             MinecraftVersionCard.IsEnabled = true;
             ForgeVersionCard.IsEnabled = false;
+            PlayCard.IsEnabled = false;
+            ForgeVersionsBox.SelectedItem = null;
 
             ForgeVersionsBox.Items.Clear();
         }
 
         private void ForgeVersionsBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PickedForgeVersion = ((ComboBox)sender).SelectedItem.ToString();
+            if (((ComboBox)sender).SelectedItem != null)
+            {
+                PickedForgeVersion = ((ComboBox)sender).SelectedItem.ToString();
+            }
 
             ForgeVersionCard.IsEnabled = false;
             PlayCard.IsEnabled = true;

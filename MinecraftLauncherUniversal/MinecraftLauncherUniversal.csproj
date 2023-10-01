@@ -38,6 +38,7 @@
     <None Remove="Pages\AllVersionsPage.xaml" />
     <None Remove="Pages\ForgePage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
+    <None Remove="Pages\ModsPage.xaml" />
     <None Remove="Pages\OptiFinePage.xaml" />
     <None Remove="Pages\PlayerSettingsPage.xaml" />
     <None Remove="Pages\PlayVersionPage.xaml" />
@@ -224,6 +225,9 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\ModsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Controls\ForgeVersionCardControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

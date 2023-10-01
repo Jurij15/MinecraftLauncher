@@ -122,6 +122,11 @@
                         <FontIcon Glyph="&#xE9F5;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem Content="Mods" x:Name="ModsItem" Visibility="Visible">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xF133;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItemHeader Content="Extras"/>
                 <NavigationViewItem Content="Worlds" x:Name="WorldsItem" Visibility="Collapsed">
                     <NavigationViewItem.Icon>

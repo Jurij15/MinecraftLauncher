@@ -172,6 +172,10 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 Navigate(typeof(ForgePage), "Forge", true);
             }
+            if (args.SelectedItemContainer == ModsItem)
+            {
+                Navigate(typeof(ModsPage), "Mods", true);
+            }
 
             //GC.Collect(); //idk, trying to lower ram usage
 
