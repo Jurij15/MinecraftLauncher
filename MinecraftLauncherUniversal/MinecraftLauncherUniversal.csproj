@@ -344,6 +344,9 @@
     <Reference Include="MinecraftNbtWorld">
       <HintPath>lib\MinecraftNbtWorld\MinecraftNbtWorld.dll</HintPath>
     </Reference>
+    <Reference Include="MinecraftServersParser">
+      <HintPath>lib\MinecraftServersParser\MinecraftServersParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <!-- 

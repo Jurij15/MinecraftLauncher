@@ -61,5 +61,11 @@ namespace MinecraftLauncherUniversal.Managers
         {
             File.Delete(ServersRootDir+Guid+".json");
         }
+
+        public void GetServersFromMinecraftSaveFile()
+        {
+            ///TL;DR
+            ///Get all minecraft servers from servers.dat, to import them into here
+        }
     }
 }

@@ -88,8 +88,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{Binding ServerName}" Margin="0,0,0,1" FontSize="15" x:Name="ServerNameTextBlockO"/>
-                <TextBlock Grid.Row="1" TextWrapping="WrapWholeWords" MaxLines="1" TextTrimming="CharacterEllipsis" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{Binding ServerMOTD}" x:Name="ServerMOTDTextBlockO"/>
+                <TextBlock Grid.Row="0" Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{Binding ServerName, Mode=OneWay}" Margin="0,0,0,1" FontSize="15" x:Name="ServerNameTextBlockO"/>
+                <TextBlock Grid.Row="1" TextWrapping="WrapWholeWords" MaxLines="1" TextTrimming="CharacterEllipsis" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{Binding ServerMOTD, Mode=OneWay}" x:Name="ServerMOTDTextBlockO"/>
             </Grid>
             <StackPanel x:Name="PlayersStats" Grid.Column="2" Spacing="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="6,0,0,0">
                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" x:Name="CurrentPlayersTextBlockO" Text="{Binding ServerCurrentPlayers}"/>
