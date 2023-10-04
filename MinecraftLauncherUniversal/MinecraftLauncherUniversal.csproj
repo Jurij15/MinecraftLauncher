@@ -44,6 +44,7 @@
     <None Remove="Pages\PlayVersionPage.xaml" />
     <None Remove="Pages\SelectedVersionPage.xaml" />
     <None Remove="Pages\ServersPage.xaml" />
+    <None Remove="Pages\ServersPages\AddServerPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
     <None Remove="Pages\SetupPages\ContentPages\AuthPage.xaml" />
     <None Remove="Pages\SetupPages\ContentPages\GameSettingsPage.xaml" />
@@ -225,6 +226,9 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\ServersPages\AddServerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\ModsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
