@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
     xmlns:animations="using:CommunityToolkit.WinUI.UI.Animations"
-    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:labs="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
     <Grid CornerRadius="8,0,0,0">

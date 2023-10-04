@@ -6,7 +6,7 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:labs="using:CommunityToolkit.WinUI.Controls"
     xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
     mc:Ignorable="d" Unloaded="Page_Unloaded"
     Background="Transparent">

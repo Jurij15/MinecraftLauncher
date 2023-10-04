@@ -2,7 +2,7 @@ using CmlLib.Core;
 using CmlLib.Core.Version;
 using CmlLib.Core.VersionLoader;
 using CmlLib.Utils;
-using CommunityToolkit.Labs.WinUI;
+using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.WinUI.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

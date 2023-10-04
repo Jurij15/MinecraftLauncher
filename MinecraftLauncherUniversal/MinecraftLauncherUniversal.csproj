@@ -45,6 +45,8 @@
     <None Remove="Pages\SelectedVersionPage.xaml" />
     <None Remove="Pages\ServersPage.xaml" />
     <None Remove="Pages\ServersPages\AddServerPage.xaml" />
+    <None Remove="Pages\ServersPages\AddServerPages\CreateServerPage.xaml" />
+    <None Remove="Pages\ServersPages\AddServerPages\ImportServerPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
     <None Remove="Pages\SetupPages\ContentPages\AuthPage.xaml" />
     <None Remove="Pages\SetupPages\ContentPages\GameSettingsPage.xaml" />
@@ -79,7 +81,8 @@
   <ItemGroup>
     <PackageReference Include="CmlLib.Core" Version="3.3.7" />
     <PackageReference Include="CmlLib.Core.Installer.Forge" Version="0.0.2" />
-    <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.18" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Behaviors" Version="7.1.2" />
@@ -226,6 +229,12 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\ServersPages\AddServerPages\CreateServerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\ServersPages\AddServerPages\ImportServerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\ServersPages\AddServerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -353,7 +362,7 @@
       <HintPath>lib\MinecraftNbtWorld\MinecraftNbtWorld.dll</HintPath>
     </Reference>
     <Reference Include="MinecraftServersParser">
-      <HintPath>lib\MinecraftServersParser\MinecraftServersParser.dll</HintPath>
+      <HintPath>lib\MinecraftServerParser\MinecraftServersParser.dll</HintPath>
     </Reference>
   </ItemGroup>
 

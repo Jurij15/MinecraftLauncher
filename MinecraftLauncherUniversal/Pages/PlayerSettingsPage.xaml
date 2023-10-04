@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" NavigationCacheMode="Disabled"
     Background="Transparent"
-    xmlns:labs="using:CommunityToolkit.Labs.WinUI">
+    xmlns:labs="using:CommunityToolkit.WinUI.Controls">
 
     <Grid Margin="58, 42, 58,0" RowSpacing="3">
         <Grid.RowDefinitions>

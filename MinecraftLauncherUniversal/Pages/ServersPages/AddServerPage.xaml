@@ -6,9 +6,23 @@
     xmlns:local="using:MinecraftLauncherUniversal.Pages.ServersPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    
+    NavigationCacheMode="Disabled"
+    
     mc:Ignorable="d">
 
     <Grid Margin="58, 42, 58,0">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <controls:Segmented x:Name="SegmentedControl" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" SelectedIndex="0" SelectionChanged="Segmented_SelectionChanged">
+            <controls:SegmentedItem Content="Import"/>
+            <controls:SegmentedItem Content="Create"/>
+        </controls:Segmented>
+        <Frame x:Name="AddServerPageRootFrame" Loaded="AddServerPageRootFrame_Loaded" Grid.Row="1" Margin="4,12,4,12"/>
     </Grid>
 </Page>

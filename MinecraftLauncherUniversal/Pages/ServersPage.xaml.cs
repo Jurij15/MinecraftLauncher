@@ -14,7 +14,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
-using CommunityToolkit.Labs.WinUI;
+using CommunityToolkit.WinUI.Controls;
 using MinecraftLauncherUniversal.Core;
 using WinUIEx.Messaging;
 using Windows.UI.Popups;
@@ -30,6 +30,7 @@ using CmlLib.Core.Mojang;
 using MinecraftLauncherUniversal.Core.Server;
 using MinecraftLauncherUniversal.Controls;
 using Serilog;
+using MinecraftLauncherUniversal.Pages.ServersPages;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -50,6 +51,21 @@ namespace MinecraftLauncherUniversal.Pages
             this.InitializeComponent();
         }
 
+        bool ServerAlreadyExists(string GUID)
+        {
+            bool ReturnValue = false;
+
+            foreach (ServerCardControl item in ItemsPanel.Items)
+            {
+                if (item.ServerClass.Json.GUID == GUID)
+                {
+                    ReturnValue = true; break;
+                }
+            }
+
+            return false;
+        }
+
         private async void AddToolbarBtn_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new ContentDialog();
@@ -61,7 +77,9 @@ namespace MinecraftLauncherUniversal.Pages
 
             dialog.Closed += Dialog_Closed;
 
-            await dialog.ShowAsync();
+            //await dialog.ShowAsync();
+
+            NavigationService.Navigate(typeof(AddServerPage), "Add Server", false);
         }
 
         private void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
@@ -105,7 +123,10 @@ namespace MinecraftLauncherUniversal.Pages
                 control.ServerCurrentPlayers = minestat.CurrentPlayers;
                 control.ServerTotalPlayers = minestat.MaximumPlayers;
 
-                ItemsPanel.Items.Add(control);
+                if (!ServerAlreadyExists(json.GUID))
+                {
+                    ItemsPanel.Items.Add(control);
+                }
 
                 await Task.Delay(100); //wait for the server to appear
             }

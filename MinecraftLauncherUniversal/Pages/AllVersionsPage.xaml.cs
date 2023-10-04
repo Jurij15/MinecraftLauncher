@@ -1,4 +1,4 @@
-using CommunityToolkit.Labs.WinUI;
+using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.WinUI.UI.Animations;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
