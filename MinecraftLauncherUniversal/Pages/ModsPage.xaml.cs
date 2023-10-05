@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Managers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,15 @@ namespace MinecraftLauncherUniversal.Pages
         public ModsPage()
         {
             this.InitializeComponent();
+        }
+
+        private void List_Loaded(object sender, RoutedEventArgs e)
+        {
+            ModsManager manager = new ModsManager();
+            foreach (var item in manager.GetAllModFilesNames())
+            {
+                List.Items.Add(item);
+            }
         }
     }
 }

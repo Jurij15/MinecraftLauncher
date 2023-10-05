@@ -9,6 +9,6 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <ListView x:Name="List" Loaded="List_Loaded"/>
     </Grid>
 </Page>
