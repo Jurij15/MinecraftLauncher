@@ -46,22 +46,38 @@ namespace MinecraftLauncherUniversal.Pages.ServersPages.AddServerPages
             this.DataContext = this;
         }
 
-        private void MinecraftServerssPanel_Loaded(object sender, RoutedEventArgs e)
+        private async void MinecraftServerssPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            Servers = new List<Server>();
-            ServerParser parser = new ServerParser(MinecraftPath.WindowsDefaultPath);
-
-            foreach ( var item in parser.GetServers())
+            if (File.Exists(Path.Combine(MinecraftPath.WindowsDefaultPath, "servers.dat")))
             {
-                Server s = new Server();
-                s.Name = item.Name;
-                s.IP = item.IP;
-                s.mServer = item;
-                
-                Servers.Add(s);
-            }
+                Servers = new List<Server>();
+                ServerParser parser = new ServerParser(MinecraftPath.WindowsDefaultPath);
 
-            MinecraftServerssPanel.ItemsSource = Servers;
+                foreach (var item in parser.GetServers())
+                {
+                    Server s = new Server();
+                    s.Name = item.Name;
+                    s.IP = item.IP;
+                    s.mServer = item;
+
+                    Servers.Add(s);
+                }
+
+                MinecraftServerssPanel.ItemsSource = Servers;
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.XamlRoot = Globals.MainGridXamlRoot;
+                dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+
+                dialog.Title = "Add Server";
+                dialog.Content = new Dialogs.AddServerDialog(dialog);
+
+                dialog.Closed += Dialog_Closed;
+
+                await dialog.ShowAsync();
+            }
         }
 
         private void MinecraftServerssPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -119,6 +135,11 @@ namespace MinecraftLauncherUniversal.Pages.ServersPages.AddServerPages
 
             await Task.Delay(400);
 
+            NavigationService.Navigate(typeof(ServersPage), "Servers", true);
+        }
+
+        private void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
+        {
             NavigationService.Navigate(typeof(ServersPage), "Servers", true);
         }
     }
