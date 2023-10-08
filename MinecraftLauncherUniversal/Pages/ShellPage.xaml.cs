@@ -135,7 +135,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void MainNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            string content = ((Microsoft.UI.Xaml.Controls.NavigationViewItem)sender.SelectedItem).Content.ToString();
+            //string content = ((Microsoft.UI.Xaml.Controls.NavigationViewItem)sender.SelectedItem).Content.ToString();
             if (args.IsSettingsSelected)
             {
                 Navigate(typeof(SettingsPage), "Settings", true);

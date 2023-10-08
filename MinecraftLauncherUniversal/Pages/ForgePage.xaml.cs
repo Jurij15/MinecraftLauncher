@@ -101,6 +101,7 @@ namespace MinecraftLauncherUniversal.Pages
         {
             PickedMinecraftVersion = ((ComboBox)sender).SelectedItem.ToString();
 
+            ForgeLoadingRing.Visibility = Visibility.Visible;
             ForgeVersionLoader loader = new ForgeVersionLoader(new System.Net.Http.HttpClient());
             var versions = await loader.GetForgeVersions(PickedMinecraftVersion);
             Thread.Sleep(100);
@@ -115,6 +116,8 @@ namespace MinecraftLauncherUniversal.Pages
             MinecraftVersionCard.IsEnabled = false;
             ForgeVersionCard.IsEnabled = true;
             PlayCard.IsEnabled = false;
+
+            ForgeLoadingRing.Visibility = Visibility.Collapsed;
         }
 
         private void ForgeVersionGoBack_Click(object sender, RoutedEventArgs e)

@@ -36,7 +36,7 @@
                       Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                       BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
                     <StackPanel VerticalAlignment="Center">
-                        <Border Margin="0,0,0,12" MaxHeight="70" MaxWidth="70" CornerRadius="4">
+                        <Border Margin="0,0,0,12" MaxHeight="85" MaxWidth="85" CornerRadius="4">
                             <Image x:Name="MCImg" x:FieldModifier="public" Source="/Assets/MinecraftPlayIcon.png"/>
                         </Border>
                         <TextBlock x:Name="MinecraftVersionBlock" HorizontalAlignment="Center" Margin="0,0,0,4" Style="{ThemeResource TitleTextBlockStyle}"/>

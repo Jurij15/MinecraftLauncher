@@ -28,7 +28,10 @@
         <labs:SettingsCard x:Name="MinecraftVersionCard" Grid.Row="2" Margin="0,4,0,0"
                            Header="Minecraft Version"
                            >
-            <ComboBox x:Name="MCVersionsBox" ItemsSource="{x:Bind versions}" SelectionChanged="ComboBox_SelectionChanged"/>
+            <StackPanel Orientation="Horizontal" Spacing="4">
+                <ProgressRing x:Name="ForgeLoadingRing" IsIndeterminate="True" Visibility="Collapsed"/>
+                <ComboBox x:Name="MCVersionsBox" ItemsSource="{x:Bind versions}" SelectionChanged="ComboBox_SelectionChanged"/>
+            </StackPanel>
         </labs:SettingsCard>
         <labs:SettingsCard x:Name="ForgeVersionCard" Grid.Row="3" Margin="0,4,0,0"
                            Header="Forge Version" IsEnabled="False"

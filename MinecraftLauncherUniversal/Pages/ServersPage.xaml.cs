@@ -43,7 +43,7 @@ namespace MinecraftLauncherUniversal.Pages
     public sealed partial class ServersPage : Page
     {
         ServerCardControl _storedCard;
-        bool _isPageUnloading = false;
+        bool _isPageUnloaded = false;
 
         bool _guidsLoaded = true;
         public ServersPage()
@@ -59,11 +59,12 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 if (item.ServerClass.Json.GUID == GUID)
                 {
-                    ReturnValue = true; break;
+                    ReturnValue = true;
+                    break;
                 }
             }
 
-            return false;
+            return ReturnValue;
         }
 
         private async void AddToolbarBtn_Click(object sender, RoutedEventArgs e)
@@ -100,32 +101,39 @@ namespace MinecraftLauncherUniversal.Pages
             foreach (string guid in guids)
             {
                 ServerJson json = manager.GetServerJson(guid);
-                MineStat minestat = await Task.Run(() => ServersHelper.GetServer(json.ServerIP, json.ServerPort, 2));
-                bool stat = ServersHelper.IsServerUp(minestat);
-
-                ServerClass Class = new ServerClass();
-                Class.Json = json;
-                Class.MineStat = minestat;
-                Class.State = (Controls.ServerCardControl.ServerState)Convert.ToInt32(stat);
-
-                ServerCardControl control = new ServerCardControl();
-                control.ServerName = json.ServerName;
-                control.ServerStatus = Class.State;
-                control.ServerClass = Class;
-                control.ServerMOTD = minestat.Stripped_Motd;
-
-                control.PointerPressed += VersionCardControl_PointerPressed;
-                control.Loaded += ServerCardControl_Loaded;
-
-                control.Width = 320;
-                control.Height = 70;
-
-                control.ServerCurrentPlayers = minestat.CurrentPlayers;
-                control.ServerTotalPlayers = minestat.MaximumPlayers;
-
-                if (!ServerAlreadyExists(json.GUID))
+                MineStat minestat = null;
+                if (!_isPageUnloaded)
                 {
-                    ItemsPanel.Items.Add(control);
+                    minestat = await Task.Run(() => ServersHelper.GetServer(json.ServerIP, json.ServerPort, 2));
+                }
+                if (minestat != null)
+                {
+                    bool stat = ServersHelper.IsServerUp(minestat);
+
+                    ServerClass Class = new ServerClass();
+                    Class.Json = json;
+                    Class.MineStat = minestat;
+                    Class.State = (Controls.ServerCardControl.ServerState)Convert.ToInt32(stat);
+
+                    ServerCardControl control = new ServerCardControl();
+                    control.ServerName = json.ServerName;
+                    control.ServerStatus = Class.State;
+                    control.ServerClass = Class;
+                    control.ServerMOTD = minestat.Stripped_Motd;
+
+                    control.PointerPressed += VersionCardControl_PointerPressed;
+                    control.Loaded += ServerCardControl_Loaded;
+
+                    control.Width = 320;
+                    control.Height = 70;
+
+                    control.ServerCurrentPlayers = minestat.CurrentPlayers;
+                    control.ServerTotalPlayers = minestat.MaximumPlayers;
+
+                    if (!ServerAlreadyExists(json.GUID))
+                    {
+                        ItemsPanel.Items.Add(control);
+                    }
                 }
 
                 await Task.Delay(100); //wait for the server to appear
@@ -237,11 +245,12 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            _isPageUnloaded = false;
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            _isPageUnloading = true;
+            _isPageUnloaded = true;
         }
 
         private void VersionCardControl_PointerPressed(object sender, PointerRoutedEventArgs e)
