@@ -280,6 +280,31 @@ namespace MinecraftLauncherUniversal.Pages
                 PlayVersionPage.PlayServerClass = control.ServerClass;
                 NavigationService.NavigateSuppressedAnim(typeof(PlayVersionPage), "Play " + version, false, false);
             }
+            else
+            {
+                //shift was pressed, show the context menu
+
+                MenuFlyout flyout = new MenuFlyout();
+                
+                MenuFlyoutItem edititem = new MenuFlyoutItem();
+                edititem.Text = "Edit";
+                FontIcon editicon = new FontIcon();
+                editicon.Glyph = "\uE70F";
+                edititem.Icon = editicon;
+
+                MenuFlyoutItem deleteitem = new MenuFlyoutItem();
+                deleteitem.Text = "Delete";
+                FontIcon deleteicon = new FontIcon();
+                deleteicon.Glyph = "\uE74D";
+                deleteitem.Icon = deleteicon;
+
+                flyout.Items.Add(edititem);
+                flyout.Items.Add(new MenuFlyoutSeparator());
+                flyout.Items.Add(deleteitem);
+
+                flyout.ShouldConstrainToRootBounds = false;
+                flyout.ShowAt(control, new FlyoutShowOptions() { Placement = FlyoutPlacementMode.Auto});
+            }
         }
 
         private void ServerCardControl_Loaded(object sender, RoutedEventArgs e)
