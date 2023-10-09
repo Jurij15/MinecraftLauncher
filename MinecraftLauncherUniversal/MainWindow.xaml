@@ -27,7 +27,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="ButtonsPanel" Grid.Column="0" Grid.Row="0" Margin="9,7,0,0" Orientation="Horizontal">
+            <StackPanel x:Name="ButtonsPanel" Grid.Column="0" Grid.Row="0" Margin="9,6,0,0" Orientation="Horizontal">
                 <StackPanel.ChildrenTransitions>
                     <RepositionThemeTransition/>
                 </StackPanel.ChildrenTransitions>
