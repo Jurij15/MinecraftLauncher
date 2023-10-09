@@ -10,77 +10,69 @@
     xmlns:styles="using:MinecraftLauncherUniversal" Closed="WindowEx_Closed"
     xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
     mc:Ignorable="d">
-    <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded" Background="Transparent">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-                <RepositionThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
+    <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded" Background="Transparent"
+          SizeChanged="RootGrid_SizeChanged">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="AppTitleBar" Background="Transparent" Visibility="Visible" Margin="86,0,0,0" IsHitTestVisible="True" Canvas.ZIndex="2" Grid.Column="1">
-            <Grid.OpacityTransition>
-                <ScalarTransition Duration="0:0:0.083" />
-            </Grid.OpacityTransition>
-            <TextBlock
-        x:Name="WindowTitle"
-        Grid.Column="3"
-        Margin="10,1,0,0"
-        VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-        FontFamily="Segoe UI Variable Text"
-                Style="{StaticResource CaptionTextBlockStyle}"
-        FontSize="12"
-        Text="Minecraft Launcher" />
-        </Grid>
-        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left"  Margin="9,4,0,0">
+        <Grid x:Name="TitleBar">
             <Grid.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition/>
-                    <RepositionThemeTransition/>
-                </TransitionCollection>
+                <RepositionThemeTransition/>
             </Grid.ChildrenTransitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="AppTitlePaneButton" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left"
-                     Grid.Column="0" Click="AppTitlePaneButton_Click">
-                <Button.Content>
-                    <AnimatedIcon Height="17" Margin="-3,0,-3,0">
-                        <AnimatedIcon.Source>
-                            <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource/>
-                        </AnimatedIcon.Source>
-                        <AnimatedIcon.FallbackIconSource>
-                            <SymbolIconSource Symbol="OpenPane"/>
-                        </AnimatedIcon.FallbackIconSource>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="ButtonsPanel" Grid.Column="0" Grid.Row="0" Margin="9,7,0,0" Orientation="Horizontal">
+                <StackPanel.ChildrenTransitions>
+                    <RepositionThemeTransition/>
+                </StackPanel.ChildrenTransitions>
+                <Button x:Name="AppTitlePaneButton" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left"
+                 Grid.Column="0" Click="AppTitlePaneButton_Click">
+                    <Button.Content>
+                        <AnimatedIcon Height="17" Margin="-3,0,-3,0">
+                            <AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource/>
+                            </AnimatedIcon.Source>
+                            <AnimatedIcon.FallbackIconSource>
+                                <SymbolIconSource Symbol="OpenPane"/>
+                            </AnimatedIcon.FallbackIconSource>
 
-                    </AnimatedIcon>
-                </Button.Content>
-            </Button>
-            <Button x:Name="AppTitleBackButton" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"
-                     Grid.Column="1" Margin="4,0,0,0" Visibility="Collapsed">
-                <Button.Content>
-                    <AnimatedIcon Height="17" Margin="-3,0,-3,0">
-                        <AnimatedIcon.Source>
-                            <animatedvisuals:AnimatedBackVisualSource/>
-                        </AnimatedIcon.Source>
-                        <AnimatedIcon.FallbackIconSource>
-                            <SymbolIconSource Symbol="Back"/>
-                        </AnimatedIcon.FallbackIconSource>
+                        </AnimatedIcon>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="AppTitleBackButton" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"
+                 Grid.Column="1" Margin="4,0,0,0" Visibility="Collapsed">
+                    <Button.Content>
+                        <AnimatedIcon Height="17" Margin="-3,0,-3,0">
+                            <AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedBackVisualSource/>
+                            </AnimatedIcon.Source>
+                            <AnimatedIcon.FallbackIconSource>
+                                <SymbolIconSource Symbol="Back"/>
+                            </AnimatedIcon.FallbackIconSource>
 
-                    </AnimatedIcon>
-                </Button.Content>
-            </Button>
+                        </AnimatedIcon>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+            <Grid x:Name="AppTitleBar" Grid.Column="1" Grid.Row="0" Margin="8,0,0,0">
+                <TextBlock
+    x:Name="WindowTitle"
+    Grid.Column="3"
+    Margin="10,1,0,0"
+    VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+    FontFamily="Segoe UI Variable Text"
+            Style="{StaticResource CaptionTextBlockStyle}"
+    FontSize="12"
+    Text="Minecraft Launcher" />
+            </Grid>
         </Grid>
-
-        <Frame  Grid.Row="1" Canvas.ZIndex="0" Grid.Column="1" x:Name="MainWindowRootFrame" Loaded="MainWindowRootFrame_Loaded"/>
+        <Frame  Grid.Row="1" Canvas.ZIndex="0" x:Name="MainWindowRootFrame" Loaded="MainWindowRootFrame_Loaded"/>
     </Grid>
 </windowex:WindowEx>

@@ -136,5 +136,10 @@ namespace MinecraftLauncherUniversal
             Log.Verbose("Will navigate to StartupPage");
             MainWindowFrame.Navigate(typeof(StartupPage));
         }
+
+        private void RootGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SetTitleBar(AppTitleBar);//every time the buttons are reoredered, the titlebar drag region is set
+        }
     }
 }
