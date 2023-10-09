@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Managers;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,19 @@ namespace MinecraftLauncherUniversal.Pages
         private void List_Loaded(object sender, RoutedEventArgs e)
         {
             ModsManager manager = new ModsManager();
-            foreach (var item in manager.GetAllModFilesNames())
+            foreach (var item in manager.GetAllMods())
             {
-                List.Items.Add(item);
+                ListViewItem litem = new ListViewItem();
+                litem.Tag = item;
+                litem.Content = item.ModName;
+
+                List.Items.Add(litem);
             }
+        }
+
+        private void List_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ModNameBox.Text = ((List.SelectedItem as ListViewItem).Tag as McMod).ModName;
         }
     }
 }

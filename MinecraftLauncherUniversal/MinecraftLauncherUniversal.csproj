@@ -99,6 +99,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="Tommy" Version="3.1.2" />
     <PackageReference Include="WinUIEx" Version="2.3.1" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -159,6 +160,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\HomeBanners\HomeBanner3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\HomeBanners\servers-banner.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\MCLogoNew.png">

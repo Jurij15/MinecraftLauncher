@@ -8,7 +8,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <ListView x:Name="List" Loaded="List_Loaded"/>
+    <Grid Margin="58, 42, 58,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="List" Loaded="List_Loaded" Grid.Column="0" SelectionChanged="List_SelectionChanged"/>
+        <Grid Padding="24" x:Name="ServerDetailsPane" Grid.Column="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" CornerRadius="8">
+            <TextBlock Text="Select a mod to begin" x:Name="StartMessage" Style="{ThemeResource BodyTextBlockStyle}" Visibility="Collapsed"/>
+            <StackPanel Spacing="4" x:Name="ServerDetails">
+                <TextBox x:Name="ModNameBox" Header="Server Name" IsReadOnly="True"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

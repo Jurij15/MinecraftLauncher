@@ -56,39 +56,10 @@
                                 </Border>
                             </Border>
                         </FlipViewItem>
-                        <FlipViewItem Visibility="Collapsed">
+                        <FlipViewItem Visibility="Visible">
                             <Border CornerRadius="8" Grid.Row="0">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="/Assets/1.17.1-banner.jpg"
-                    Stretch="UniformToFill"/>
-                                </Border.Background>
-                                <Border CornerRadius="8">
-                                    <Border.Background>
-                                        <RadialGradientBrush>
-                                            <GradientStop Offset="0" Color="#1F000000" />
-                                            <GradientStop Offset="1" Color="#4F000000" />
-                                        </RadialGradientBrush>
-                                    </Border.Background>
-                                    <Grid>
-                                        <Grid.Background>
-                                            <media:BackdropBlurBrush Amount="2.50"/>
-                                        </Grid.Background>
-                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                                            <TextBlock Text="OptiFine 1.17.1" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                            <TextBlock Text="Popular version" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,0" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
-                                            <Button Background="Transparent" x:Name="PlayOptifine" Click="PlayOptifine_Click" VerticalAlignment="Center" Margin="48,4,2,0" HorizontalAlignment="Left">
-                                                <SymbolIcon Symbol="Play"/>
-                                            </Button>
-                                        </StackPanel>
-                                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="2,2,2,2" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                                    </Grid>
-                                </Border>
-                            </Border>
-                        </FlipViewItem>
-                        <FlipViewItem Visibility="Collapsed">
-                            <Border CornerRadius="8" Grid.Row="0">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="/Assets/thumb.png"
+                                    <ImageBrush ImageSource="/Assets/HomeBanners/servers-banner.png"
                     Stretch="UniformToFill"/>
                                 </Border.Background>
                                 <Border CornerRadius="8" >
@@ -100,13 +71,12 @@
                                     </Border.Background>
                                     <Grid>
                                         <Grid.Background>
-                                            <media:BackdropBlurBrush Amount="5.60"/>
+                                            <media:BackdropBlurBrush Amount="2.60"/>
                                         </Grid.Background>
-                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                                            <TextBlock Text="V2 Development" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                            <TextBlock Text="Explore the development of the Launcher!" FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
+                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <TextBlock Text="Servers" FontWeight="Medium" FontSize="36" Margin="16,8,8,8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                                         </StackPanel>
-                                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="2,2,2,2" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                                        
                                     </Grid>
                                 </Border>
                             </Border>
