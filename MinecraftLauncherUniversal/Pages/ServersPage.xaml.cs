@@ -159,18 +159,24 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void Deleteitem_Click(object sender, RoutedEventArgs e)
         {
-            SplitButton btn = null;
-            MenuFlyoutItem button = sender as MenuFlyoutItem;
-            ServerJson json = button.Tag as ServerJson;
-            foreach (SettingsCard item in ItemsPanel.Items)
+            MenuFlyoutItem btn  = (sender as MenuFlyoutItem);
+            ServerJson json = btn.Tag as ServerJson;
+
+            ServerCardControl control = null; 
+
+            foreach (ServerCardControl item in ItemsPanel.Items)
             {
-                ServerJson j = item.Tag as ServerJson;
-                if (j.GUID == json.GUID)
+                if (item.ServerClass.Json.GUID == json.GUID)
                 {
-                    btn = item.Content as SplitButton;
+                    control = item;
+                    break;
                 }
             }
 
+            if (control == null)
+            {
+                return;
+            }
             if (btn == null)
             {
                 return;
@@ -186,7 +192,7 @@ namespace MinecraftLauncherUniversal.Pages
             text.Style = Application.Current.Resources["CaptionTextBlockStyle"] as Style;
 
             Button confirm = new Button();
-            confirm.Tag = button.Tag;
+            confirm.Tag = json;
             confirm.Content = "Yes";
             confirm.Click += Confirm_Click;
 
@@ -194,8 +200,8 @@ namespace MinecraftLauncherUniversal.Pages
             content.Children.Add(confirm);
 
             flyout.Content = content;
-
-            flyout.ShowAt(btn, new FlyoutShowOptions() { Placement = FlyoutPlacementMode.Bottom, ShowMode = FlyoutShowMode.Auto });
+            flyout.SystemBackdrop = new MicaBackdrop();
+            flyout.ShowAt(control, new FlyoutShowOptions() { Placement = FlyoutPlacementMode.Auto, ShowMode = FlyoutShowMode.Auto });
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
@@ -270,11 +276,11 @@ namespace MinecraftLauncherUniversal.Pages
                 var playersanimation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardServerplayersConnectedAnimation", _storedCard.PlayersStatsPanel);
 
                 //idk if this is better or not
-                animation.Configuration = new GravityConnectedAnimationConfiguration();
-                badgeanimation.Configuration = new GravityConnectedAnimationConfiguration();
-                nameanimation.Configuration = new GravityConnectedAnimationConfiguration();
-                motdanimation.Configuration = new GravityConnectedAnimationConfiguration();
-                playersanimation.Configuration = new GravityConnectedAnimationConfiguration();
+                animation.Configuration = new BasicConnectedAnimationConfiguration();
+                badgeanimation.Configuration = new BasicConnectedAnimationConfiguration();
+                nameanimation.Configuration = new BasicConnectedAnimationConfiguration();
+                motdanimation.Configuration = new BasicConnectedAnimationConfiguration();
+                playersanimation.Configuration = new BasicConnectedAnimationConfiguration();
 
                 PlayVersionPage.IsPlayingServer = true;
                 PlayVersionPage.PlayServerClass = control.ServerClass;
@@ -288,15 +294,19 @@ namespace MinecraftLauncherUniversal.Pages
                 
                 MenuFlyoutItem edititem = new MenuFlyoutItem();
                 edititem.Text = "Edit";
+                edititem.Tag = control.ServerClass.Json;
                 FontIcon editicon = new FontIcon();
                 editicon.Glyph = "\uE70F";
                 edititem.Icon = editicon;
+                edititem.Click += Edititem_Click;
 
                 MenuFlyoutItem deleteitem = new MenuFlyoutItem();
                 deleteitem.Text = "Delete";
+                deleteitem.Tag = control.ServerClass.Json;
                 FontIcon deleteicon = new FontIcon();
                 deleteicon.Glyph = "\uE74D";
                 deleteitem.Icon = deleteicon;
+                deleteitem.Click += Deleteitem_Click;
 
                 flyout.Items.Add(edititem);
                 flyout.Items.Add(new MenuFlyoutSeparator());
@@ -305,6 +315,20 @@ namespace MinecraftLauncherUniversal.Pages
                 flyout.ShouldConstrainToRootBounds = false;
                 flyout.ShowAt(control, new FlyoutShowOptions() { Placement = FlyoutPlacementMode.Auto});
             }
+        }
+
+        private async void Edititem_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.XamlRoot = Globals.MainGridXamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+
+            dialog.Title = "Edit "+ ((sender as MenuFlyoutItem).Tag as ServerJson).ServerName;
+            dialog.Content = new Dialogs.EditServerDialog(dialog, (sender as MenuFlyoutItem).Tag as ServerJson);
+
+            dialog.Closed += Dialog_Closed;
+
+            await dialog.ShowAsync();
         }
 
         private void ServerCardControl_Loaded(object sender, RoutedEventArgs e)

@@ -62,10 +62,24 @@ namespace MinecraftLauncherUniversal.Managers
             File.Delete(ServersRootDir+Guid+".json");
         }
 
-        public void GetServersFromMinecraftSaveFile()
+        public async Task EditServer(ServerJson Json)
         {
-            ///TL;DR
-            ///Get all minecraft servers from servers.dat, to import them into here
+            if (!Directory.Exists(ServersRootDir))
+            {
+                Directory.CreateDirectory(ServersRootDir);
+            }
+            var json = JsonConvert.SerializeObject(Json);
+
+            if (File.Exists(ServersRootDir + Json.GUID + ".json"))
+            {
+                File.Delete(ServersRootDir + Json.GUID + ".json");
+            }
+
+            using (StreamWriter sw = File.CreateText(ServersRootDir + Json.GUID + ".json"))
+            {
+                await sw.WriteAsync(json);
+                sw.Close();
+            }
         }
     }
 }

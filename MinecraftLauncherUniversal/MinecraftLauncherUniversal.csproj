@@ -27,6 +27,7 @@
     <None Remove="Controls\VersionCardControl.xaml" />
     <None Remove="Dialogs\AddServerDialog.xaml" />
     <None Remove="Dialogs\AdvancedPlayerSettingsDialogContent.xaml" />
+    <None Remove="Dialogs\EditServerDialog.xaml" />
     <None Remove="Dialogs\QuickPlayDialogContent.xaml" />
     <None Remove="Dialogs\SimpleLoadingDialog.xaml" />
     <None Remove="Dialogs\WelcomeSetupDialog.xaml" />
@@ -229,6 +230,9 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Dialogs\EditServerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\ServersPages\AddServerPages\CreateServerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
