@@ -9,12 +9,14 @@ namespace MinecraftLauncherUniversal.Core
 {
     public class McMod
     {
-        public string ModName;
-        public string ModVersion;
-        public string ModID;
-        public string ModAuthor;
-        public string ModLicense;
+        public string ModName;//
+        public string ModVersion;//
+        public string ModID; //
+        public string ModAuthors;//
+        public string ModLicense;//
+        public string ModDisplayURL;//
+        public string ModIssueTrackerUrl;//
 
-        public string ModDescription;
+        public string ModDescription;//
     }
 }

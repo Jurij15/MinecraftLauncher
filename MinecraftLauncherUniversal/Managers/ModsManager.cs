@@ -49,13 +49,30 @@ namespace MinecraftLauncherUniversal.Managers
                                 TomlTable table = TOML.Parse(reader);
 
                                 McMod mod = new McMod();
-                                mod.ModLicense = table["license"];
 
-                                mod.ModID = table["modId"];
-                                mod.ModVersion = table["version"];
-                                mod.ModName = table["displayName"];
-                                mod.ModAuthor = table["authors"];
-                                mod.ModDescription = table["description"];
+                                mod.ModAuthors = table["authors"];
+                                mod.ModLicense = table["license"];
+                                mod.ModDisplayURL = table["displayURL"];
+                                mod.ModIssueTrackerUrl = table["issueTrackerURL"];
+
+                                TomlArray modstable = table["mods"].AsArray;
+                                foreach (var moditem in modstable)
+                                {
+                                    if (moditem.GetType() == typeof(TomlTable))
+                                    {
+                                        TomlTable modtable = (TomlTable)moditem;
+
+                                        mod.ModID = modtable["modId"];
+                                        mod.ModVersion = modtable["version"];
+                                        mod.ModName = modtable["displayName"];
+                                        mod.ModDescription = modtable["description"];
+
+                                        if (mod.ModAuthors == null) //authors are in the mods table
+                                        {
+                                            mod.ModAuthors = modtable["authors"];
+                                        }
+                                    }
+                                }
 
                                 mods.Add(mod);
                             }

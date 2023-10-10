@@ -13,11 +13,46 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="List" Loaded="List_Loaded" Grid.Column="0" SelectionChanged="List_SelectionChanged"/>
-        <Grid Padding="24" x:Name="ServerDetailsPane" Grid.Column="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" CornerRadius="8">
-            <TextBlock Text="Select a mod to begin" x:Name="StartMessage" Style="{ThemeResource BodyTextBlockStyle}" Visibility="Collapsed"/>
-            <StackPanel Spacing="4" x:Name="ServerDetails">
-                <TextBox x:Name="ModNameBox" Header="Server Name" IsReadOnly="True"/>
+        <ListView x:Name="List" Loaded="List_Loaded" Grid.Column="0" SelectionChanged="List_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Mod">
+                    <StackPanel Spacing="2" Margin="2" Tag="{x:Bind ModClass, Mode=OneWay}">
+                        <TextBlock x:Name="ModNameBlock" Text="{x:Bind Name, Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+                        <TextBlock x:Name="ModVersionlock" Text="{x:Bind Version, Mode=OneWay}" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Padding="24" x:Name="ServerDetailsPane" Margin="0,0,0,12" Grid.Column="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" CornerRadius="8">
+            <Grid.ChildrenTransitions>
+                <ContentThemeTransition/>
+            </Grid.ChildrenTransitions>
+            <TextBlock Text="Select a mod to begin" x:Name="StartMessage" Style="{ThemeResource BodyTextBlockStyle}" Visibility="Visible"/>
+            <StackPanel Spacing="4" x:Name="ServerDetails" Visibility="Collapsed">
+                <TextBlock IsTextSelectionEnabled="True" Style="{ThemeResource SubtitleTextBlockStyle}" x:Name="ModNameBlock"/>
+                <StackPanel x:Name="ModLinksPanel" Spacing="4" Margin="2,8,2,8" Orientation="Horizontal">
+                    <HyperlinkButton x:Name="displayURLBtn" Visibility="Collapsed" Content="Mod Url"/>
+                    <HyperlinkButton x:Name="issueTrackerURLBtn" Visibility="Collapsed" Content="Issue Tracking"/>
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel.ChildrenTransitions>
+                        <ContentThemeTransition/>
+                    </StackPanel.ChildrenTransitions>
+                    <TextBlock Text="ID"/>
+                    <TextBlock IsTextSelectionEnabled="True" x:Name="ModIDBlock" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,4,0,16"/>
+                    
+                    <TextBlock Text="Version"/>
+                    <TextBlock IsTextSelectionEnabled="True" x:Name="ModVersionBlock" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,4,0,16"/>
+
+                    <TextBlock Text="Authors"/>
+                    <TextBlock IsTextSelectionEnabled="True" x:Name="ModAuthorsBlock" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,4,0,16"/>
+
+                    <TextBlock Text="License"/>
+                    <TextBlock IsTextSelectionEnabled="True" x:Name="ModLicenseBlock" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,4,0,16"/>
+
+                    <TextBlock Text="Description"/>
+                    <TextBlock IsTextSelectionEnabled="True" x:Name="ModDescriptionBlock" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,4,0,16"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>
