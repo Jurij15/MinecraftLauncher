@@ -19,6 +19,7 @@ using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -454,6 +455,54 @@ namespace MinecraftLauncherUniversal.Pages
         {
             GameModeBlock.Text = PlayServerClass.MineStat.Gamemode;
             LatencyBlock.Text = PlayServerClass.MineStat.Latency.ToString() + " ms";
+        }
+
+        private void ImageList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ScreenshotBackgroundGrid.Visibility = Visibility.Visible;
+        }
+
+        private void ImageList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ImageList_Loaded(object sender, RoutedEventArgs e)
+        {
+            //load all screenshots
+            if (Directory.Exists(System.IO.Path.Combine(MinecraftPath.WindowsDefaultPath, "screenshots")))
+            {
+                List<string> AllImages = Directory.GetFiles(System.IO.Path.Combine(MinecraftPath.WindowsDefaultPath, "screenshots")).ToList<string>();
+                if (AllImages.Count != 0)
+                {
+                    //user has screenshots
+
+                    /*
+                    foreach (var item in AllImages)
+                    {
+                        Image img = new Image();
+                        img.Tag = item;
+
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.UriSource = new Uri(item);
+
+                        img.Source = bitmapImage;
+
+                        ImageList.Items.Add(img);
+                    }
+                    */
+
+                    ImageList.ItemsSource = AllImages;
+                }
+
+                //Debug.Assert(AllImages.Count > 0, "No Images Found, but there should be some", "idk");
+            }
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //add anims for screenshots
+            ScreenshotBackgroundGrid.Visibility = Visibility.Collapsed;
         }
     }
 }
