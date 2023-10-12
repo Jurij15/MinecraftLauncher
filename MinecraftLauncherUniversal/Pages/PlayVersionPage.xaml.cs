@@ -19,6 +19,8 @@ using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.Entity.Core.Mapping;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -457,9 +459,58 @@ namespace MinecraftLauncherUniversal.Pages
             LatencyBlock.Text = PlayServerClass.MineStat.Latency.ToString() + " ms";
         }
 
+        GridViewItem _storedImageItem;
         private void ImageList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            ConnectedAnimation animation = null;
+
+            // Get the collection item corresponding to the clicked item.
+            if (ImageList.ContainerFromItem(e.ClickedItem) is GridViewItem container)
+            {
+                // Stash the clicked item for use later. We'll need it when we connect back from the detailpage.
+                _storedImageItem = container;
+
+                // Prepare the connected animation.
+                // Notice that the stored item is passed in, as well as the name of the connected element. 
+                // The animation will actually start on the Detailed info page.
+                animation = ImageList.PrepareConnectedAnimation("forwardScAnimation", container.Content, "connectedItem");
+                animation.Configuration = new DirectConnectedAnimationConfiguration();
+                animation.Completed += Anim_Completed;
+
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.UriSource = new Uri(container.Content.ToString());
+
+                ScreenshotImage.Source = bitmapImage;
+
+                if (Globals.MainWindow.WindowState == WindowState.Maximized)
+                {
+                    ScreenshotImage.MaxWidth = 1600;
+                    ScreenshotImage.MaxHeight = 900;
+                }
+                else
+                {
+                    ScreenshotImage.MaxWidth = 1024;
+                    ScreenshotImage.MaxHeight = 576;
+                }
+
+                container.Visibility = Visibility.Collapsed;
+            }
+
             ScreenshotBackgroundGrid.Visibility = Visibility.Visible;
+
+            animation.TryStart(ScreenshotImage);
+        }
+
+        private void Anim_Completed(ConnectedAnimation sender, object args)
+        {
+            //ScreenshotImage.Visibility = Visibility.Collapsed;
+            /*
+                         BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.UriSource = new Uri((ImageList.ItemsSource as List<string>)[ImageList.SelectedIndex].ToString());
+
+            ScreenshotImage.Source = bitmapImage;
+            */
+            //ScreenshotImage.Visibility = Visibility.Visible;
         }
 
         private void ImageList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -492,17 +543,57 @@ namespace MinecraftLauncherUniversal.Pages
                     }
                     */
 
-                    ImageList.ItemsSource = AllImages;
+            ImageList.ItemsSource = AllImages;
                 }
 
                 //Debug.Assert(AllImages.Count > 0, "No Images Found, but there should be some", "idk");
+            }
+            else
+            {
+                GalleryView.Visibility = Visibility.Collapsed;
             }
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             //add anims for screenshots
+
+            var animation = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("backSCAnim", ScreenshotImage);
+            animation.Configuration = new DirectConnectedAnimationConfiguration();
+
+            animation.TryStart(_storedImageItem);
+
+            _storedImageItem.Visibility = Visibility.Visible;
+
             ScreenshotBackgroundGrid.Visibility = Visibility.Collapsed;
+
+            //ScreenshotImage.Source = null;
+        }
+
+        private void ScreenshotImage_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ScreenshotImage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Globals.MainWindow.WindowState == WindowState.Maximized)
+            {
+                ScreenshotImage.MaxWidth = 1600;
+                ScreenshotImage.MaxHeight = 900;
+            }
+            else
+            {
+                ScreenshotImage.MaxWidth = 1024;
+                ScreenshotImage.MaxHeight = 576;
+            }
+        }
+
+        private void ScreenshotBackgroundGrid_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                CloseBtn_Click(null, null);
+            }
         }
     }
 }

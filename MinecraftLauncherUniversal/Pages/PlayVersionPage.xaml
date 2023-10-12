@@ -309,13 +309,14 @@
                                 x:Name="GalleryView"
                                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                CornerRadius="8">
+                                CornerRadius="4">
                                 <TextBlock
-                                    Margin="12,6,6,6"
-                                    Style="{ThemeResource BodyTextBlockStyle}"
+                                    Margin="24,12,6,6"
+                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
                                     Text="Screenshots" />
-                                <ListView
+                                <GridView
                                     x:Name="ImageList"
+                                    Margin="24,0,24,0"
                                     IsItemClickEnabled="True"
                                     ItemClick="ImageList_ItemClick"
                                     Loaded="ImageList_Loaded"
@@ -324,23 +325,24 @@
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                     ScrollViewer.VerticalScrollMode="Disabled"
                                     SelectionChanged="ImageList_SelectionChanged"
-                                    SelectionMode="Single">
-                                    <ListView.ItemsPanel>
+                                    SelectionMode="Single"
+                                    ShowsScrollingPlaceholders="True">
+                                    <GridView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <ItemsStackPanel Orientation="Horizontal" />
                                         </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
+                                    </GridView.ItemsPanel>
+                                    <GridView.ItemTemplate>
                                         <DataTemplate>
-                                            <RelativePanel Margin="0,10,0,20">
-                                                <Image
-                                                    MaxWidth="250"
-                                                    MaxHeight="250"
-                                                    Source="{Binding}" />
-                                            </RelativePanel>
+                                            <Image
+                                                x:Name="connectedItem"
+                                                MaxWidth="250"
+                                                MaxHeight="250"
+                                                Margin="0,10,0,20"
+                                                Source="{Binding}" />
                                         </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
+                                    </GridView.ItemTemplate>
+                                </GridView>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -348,7 +350,10 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="ScreenshotBackgroundGrid" Visibility="Collapsed">
+        <Grid
+            x:Name="ScreenshotBackgroundGrid"
+            KeyDown="ScreenshotBackgroundGrid_KeyDown"
+            Visibility="Collapsed">
             <Grid.Background>
                 <SolidColorBrush Opacity="0.8" Color="{ThemeResource SystemChromeAltHighColor}" />
             </Grid.Background>
@@ -368,6 +373,13 @@
                 Click="CloseBtn_Click">
                 <FontIcon Glyph="&#xE8BB;" />
             </Button>
+            <Image
+                x:Name="ScreenshotImage"
+                Grid.Row="1"
+                MaxWidth="1024"
+                MaxHeight="576"
+                Loaded="ScreenshotImage_Loaded"
+                SizeChanged="ScreenshotImage_SizeChanged" />
         </Grid>
     </Grid>
 </Page>

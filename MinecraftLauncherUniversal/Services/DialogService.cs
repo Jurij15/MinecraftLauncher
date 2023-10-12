@@ -29,6 +29,20 @@ namespace MinecraftLauncherUniversal.Services
             await dialog.ShowAsync();
         }
 
+        public static async void C_ShowSimpleDialog(string message, string title = "")
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.XamlRoot = Globals.MainGridXamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = title;
+            dialog.Content = message;
+
+            dialog.CloseButtonText = "OK";
+            dialog.CloseButtonClick += Dialog_CloseButtonClick;
+
+            await dialog.ShowAsync();
+        }
+
         private static void Dialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             sender.Hide();
