@@ -470,6 +470,9 @@ namespace MinecraftLauncherUniversal.Pages
                 // Stash the clicked item for use later. We'll need it when we connect back from the detailpage.
                 _storedImageItem = container;
 
+                ImageList.ScrollIntoView(_storedImageItem);
+                ImageList.UpdateLayout();
+
                 // Prepare the connected animation.
                 // Notice that the stored item is passed in, as well as the name of the connected element. 
                 // The animation will actually start on the Detailed info page.
@@ -562,6 +565,9 @@ namespace MinecraftLauncherUniversal.Pages
             animation.Configuration = new DirectConnectedAnimationConfiguration();
 
             animation.TryStart(_storedImageItem);
+
+            ImageList.ScrollIntoView(_storedImageItem);
+            ImageList.UpdateLayout();
 
             _storedImageItem.Visibility = Visibility.Visible;
 
