@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -9,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
+using WinUIEx;
 using static ICSharpCode.SharpZipLib.Zip.ZipEntryFactory;
 
 namespace MinecraftLauncherUniversal.Services
@@ -47,6 +50,7 @@ namespace MinecraftLauncherUniversal.Services
             {
                 frameworkElement.RequestedTheme = theme;
             }
+
             SetCapitionButtonColorForWin10();
         }
 

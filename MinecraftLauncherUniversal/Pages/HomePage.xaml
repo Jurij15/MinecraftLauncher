@@ -146,7 +146,7 @@
                         <labs:SettingsCard
                             x:Name="PlayOptifineCard"
                             Click="PlayOptifineCard_Click"
-                            Header="Play OptiFine"
+                            Header="Play Forge"
                             IsClickEnabled="True" />
                         <labs:SettingsCard
                             x:Name="ChangeUsernameCard"

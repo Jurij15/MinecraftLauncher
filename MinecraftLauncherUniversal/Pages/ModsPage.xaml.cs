@@ -1,3 +1,4 @@
+using CmlLib.Core;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -11,6 +12,7 @@ using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -123,6 +125,11 @@ namespace MinecraftLauncherUniversal.Pages
             ModAuthorsBlock.Text = mod.ModAuthors;
             ModLicenseBlock.Text = mod.ModLicense;
             ModDescriptionBlock.Text = mod.ModDescription;
+        }
+
+        private void OpenModsDirBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe", Directory.GetFiles(Path.Combine(MinecraftPath.WindowsDefaultPath, "mods")));
         }
     }
 }

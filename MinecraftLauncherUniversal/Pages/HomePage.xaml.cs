@@ -168,7 +168,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void PlayOptifineCard_Click(object sender, RoutedEventArgs e)
         {
-            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2];
+            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[6];
             //NavigationService.Navigate(typeof(OptiFinePage), "OptiFine", true);
         }
 

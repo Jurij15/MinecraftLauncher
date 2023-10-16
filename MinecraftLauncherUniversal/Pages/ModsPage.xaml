@@ -13,30 +13,47 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
-        <ListView
-            x:Name="List"
-            Grid.Column="0"
-            Loaded="List_Loaded"
-            SelectionChanged="List_SelectionChanged">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Mod">
-                    <StackPanel
-                        Margin="2"
-                        Spacing="2"
-                        Tag="{x:Bind ModClass, Mode=OneWay}">
-                        <TextBlock
-                            x:Name="ModNameBlock"
-                            Style="{ThemeResource BodyStrongTextBlockStyle}"
-                            Text="{x:Bind Name, Mode=OneWay}" />
-                        <TextBlock
-                            x:Name="ModVersionlock"
-                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                            Style="{ThemeResource CaptionTextBlockStyle}"
-                            Text="{x:Bind Version, Mode=OneWay}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <CommandBar
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                DefaultLabelPosition="Right">
+                <AppBarButton
+                    x:Name="OpenModsDirBtn"
+                    Click="OpenModsDirBtn_Click"
+                    Icon="OpenLocal"
+                    Label="Open Folder"
+                    LabelPosition="Default" />
+            </CommandBar>
+            <ListView
+                x:Name="List"
+                Grid.Row="1"
+                Loaded="List_Loaded"
+                SelectionChanged="List_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Mod">
+                        <StackPanel
+                            Margin="2"
+                            Spacing="2"
+                            Tag="{x:Bind ModClass, Mode=OneWay}">
+                            <TextBlock
+                                x:Name="ModNameBlock"
+                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind Name, Mode=OneWay}" />
+                            <TextBlock
+                                x:Name="ModVersionlock"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{ThemeResource CaptionTextBlockStyle}"
+                                Text="{x:Bind Version, Mode=OneWay}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
         <Grid
             x:Name="ServerDetailsPane"
             Grid.Column="1"

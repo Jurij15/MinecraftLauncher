@@ -78,7 +78,7 @@
                 </StackPanel>
             </labs:SettingsCard>
 
-            <labs:SettingsCard x:Name="PlayPageBackgroundCard" Margin="0,3,0,0"
+            <labs:SettingsCard x:Name="PlayPageBackgroundCard" Margin="0,3,0,0" Visibility="Visible"
               Grid.Row="5"
               Loaded="PlayPageBackgroundCard_Loaded"
               Header="Play Page Background"
