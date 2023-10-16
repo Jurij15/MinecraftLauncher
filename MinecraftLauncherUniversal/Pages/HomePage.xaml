@@ -1,32 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="MinecraftLauncherUniversal.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded" NavigationCacheMode="Enabled"
     xmlns:labs="using:CommunityToolkit.WinUI.Controls"
-    xmlns:media="using:CommunityToolkit.WinUI.UI.Media">
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
+    Loaded="Page_Loaded"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
 
     <ScrollViewer>
-        <Grid Margin="56, 4, 58,0">
+        <Grid Margin="56,4,58,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
-                <FlipView x:Name="Gallery" Height="270" SelectionChanged="Gallery_SelectionChanged">
+                <FlipView
+                    x:Name="Gallery"
+                    Height="270"
+                    SelectionChanged="Gallery_SelectionChanged">
                     <FlipView.Items>
                         <FlipViewItem>
-                            <Border CornerRadius="8" Grid.Row="0">
+                            <Border Grid.Row="0" CornerRadius="8">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="/Assets/HomeBanners/HomeBanner1.jpg"
-                    Stretch="UniformToFill"/>
+                                    <ImageBrush ImageSource="/Assets/HomeBanners/HomeBanner1.jpg" Stretch="UniformToFill" />
                                 </Border.Background>
                                 <Border CornerRadius="8">
                                     <!--
@@ -45,38 +49,31 @@
                                     </Border.Background>
                                     <Grid>
                                         <Grid.Background>
-                                            <media:BackdropBlurBrush Amount="1.50" IsEnabled="False"/>
+                                            <media:BackdropBlurBrush Amount="1.50" IsEnabled="False" />
                                         </Grid.Background>
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                                            <TextBlock Text="Minecraft Launcher" FontWeight="Medium" FontSize="36" Margin="48,50,50,4" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                            <TextBlock Text="Unique. Modern. Simple." FontSize="28" HorizontalAlignment="Left" Margin="48,4,50,50" VerticalAlignment="Center" Foreground="#B7FFFFFF"/>
+                                            <TextBlock
+                                                Margin="48,50,50,4"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="36"
+                                                FontWeight="Medium"
+                                                Foreground="White"
+                                                Text="Minecraft Launcher" />
+                                            <TextBlock
+                                                Margin="48,4,50,50"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="28"
+                                                Foreground="#B7FFFFFF"
+                                                Text="Unique. Modern. Simple." />
                                         </StackPanel>
-                                        <TextBlock Text="Made by Jurij15" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="2,2,2,2" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                                    </Grid>
-                                </Border>
-                            </Border>
-                        </FlipViewItem>
-                        <FlipViewItem Visibility="Visible">
-                            <Border CornerRadius="8" Grid.Row="0">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="/Assets/HomeBanners/servers-banner.png"
-                    Stretch="UniformToFill"/>
-                                </Border.Background>
-                                <Border CornerRadius="8" >
-                                    <Border.Background>
-                                        <RadialGradientBrush>
-                                            <GradientStop Offset="0" Color="#1F000000" />
-                                            <GradientStop Offset="1" Color="#4F000000" />
-                                        </RadialGradientBrush>
-                                    </Border.Background>
-                                    <Grid>
-                                        <Grid.Background>
-                                            <media:BackdropBlurBrush Amount="2.60"/>
-                                        </Grid.Background>
-                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                                            <TextBlock Text="Servers" FontWeight="Medium" FontSize="36" Margin="16,8,8,8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                        </StackPanel>
-                                        
+                                        <TextBlock
+                                            Margin="2,2,2,2"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                            Text="Made by Jurij15" />
                                     </Grid>
                                 </Border>
                             </Border>
@@ -84,14 +81,23 @@
                     </FlipView.Items>
                 </FlipView>
 
-                <PipsPager x:Name="HomeHeader" SelectedIndexChanged="HomeHeader_SelectedIndexChanged" Loaded="HomeHeader_Loaded" SelectedPageIndex="{x:Bind Path=Gallery.SelectedIndex, Mode=TwoWay}" PreviousButtonVisibility="VisibleOnPointerOver" NextButtonVisibility="VisibleOnPointerOver"
-                               HorizontalAlignment="Center"
-        Margin="0, 12, 0, 0" ></PipsPager>
+                <PipsPager
+                    x:Name="HomeHeader"
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Center"
+                    Loaded="HomeHeader_Loaded"
+                    NextButtonVisibility="VisibleOnPointerOver"
+                    PreviousButtonVisibility="VisibleOnPointerOver"
+                    SelectedIndexChanged="HomeHeader_SelectedIndexChanged"
+                    SelectedPageIndex="{x:Bind Path=Gallery.SelectedIndex, Mode=TwoWay}" />
             </StackPanel>
-            <Grid x:Name="HomeContent" Grid.Row="3" Loaded="HomeContent_Loaded">
+            <Grid
+                x:Name="HomeContent"
+                Grid.Row="3"
+                Loaded="HomeContent_Loaded">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="0,0,2,0">
                     <StackPanel.ChildrenTransitions>
@@ -100,14 +106,24 @@
                             <EntranceThemeTransition IsStaggeringEnabled="True" />
                         </TransitionCollection>
                     </StackPanel.ChildrenTransitions>
-                    <TextBlock Text="Messages" Margin="0,0,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                    <StackPanel Spacing="2" Margin="0,2,0,0">
-                        <InfoBar Title="GitHub" IsOpen="True" IsClosable="False">
+                    <TextBlock
+                        Margin="0,0,0,0"
+                        FontSize="12"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Messages" />
+                    <StackPanel Margin="0,2,0,0" Spacing="2">
+                        <InfoBar
+                            Title="GitHub"
+                            IsClosable="False"
+                            IsOpen="True">
                             <InfoBar.ActionButton>
-                                <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="Click Here"/>
+                                <HyperlinkButton Content="Click Here" NavigateUri="https://github.com/Jurij15/MinecraftLauncher" />
                             </InfoBar.ActionButton>
                         </InfoBar>
-                        <InfoBar x:Name="UpdatesInfoBar" IsClosable="False" IsOpen="True"/>
+                        <InfoBar
+                            x:Name="UpdatesInfoBar"
+                            IsClosable="False"
+                            IsOpen="True" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Spacing="2">
@@ -117,16 +133,39 @@
                             <EntranceThemeTransition IsStaggeringEnabled="True" />
                         </TransitionCollection>
                     </StackPanel.ChildrenTransitions>
-                    <TextBlock Text="Actions" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Actions" />
                     <StackPanel Grid.Column="1" Spacing="2">
-                        <labs:SettingsCard Header="Select a Version" IsClickEnabled="True" x:Name="PlayVersionCard" Click="PlayVersionCard_Click"/>
-                        <labs:SettingsCard Header="Play OptiFine" IsClickEnabled="True" x:Name="PlayOptifineCard" Click="PlayOptifineCard_Click"/>
-                        <labs:SettingsCard Header="Change Your username" IsClickEnabled="True" x:Name="ChangeUsernameCard" Click="ChangeUsernameCard_Click"/>
+                        <labs:SettingsCard
+                            x:Name="PlayVersionCard"
+                            Click="PlayVersionCard_Click"
+                            Header="Select a Version"
+                            IsClickEnabled="True" />
+                        <labs:SettingsCard
+                            x:Name="PlayOptifineCard"
+                            Click="PlayOptifineCard_Click"
+                            Header="Play OptiFine"
+                            IsClickEnabled="True" />
+                        <labs:SettingsCard
+                            x:Name="ChangeUsernameCard"
+                            Click="ChangeUsernameCard_Click"
+                            Header="Change Your username"
+                            IsClickEnabled="True" />
                     </StackPanel>
                 </StackPanel>
 
             </Grid>
-            <GridView x:Name="ItemsPanel" Visibility="Collapsed" Grid.Row="4" BorderBrush="Transparent" SizeChanged="ItemsPanel_SizeChanged" CanDragItems="False" CanReorderItems="False" Header="Recently Played">
+            <GridView
+                x:Name="ItemsPanel"
+                Grid.Row="4"
+                BorderBrush="Transparent"
+                CanDragItems="False"
+                CanReorderItems="False"
+                Header="Recently Played"
+                SizeChanged="ItemsPanel_SizeChanged"
+                Visibility="Collapsed">
                 <GridView.ItemContainerTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition IsStaggeringEnabled="True" />
@@ -138,11 +177,10 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="GridViewItem">
                                     <ListViewItemPresenter
-                SelectedBackground="Transparent"
-                SelectedPointerOverBackground="Transparent"
-                PressedBackground="Transparent"
-                SelectedPressedBackground="Transparent"
-                />
+                                        PressedBackground="Transparent"
+                                        SelectedBackground="Transparent"
+                                        SelectedPointerOverBackground="Transparent"
+                                        SelectedPressedBackground="Transparent" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

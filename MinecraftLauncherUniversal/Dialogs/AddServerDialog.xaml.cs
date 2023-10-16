@@ -30,7 +30,7 @@ namespace MinecraftLauncherUniversal.Dialogs
         string _serverName;
         string _serverIP;
         string _serverVersion;
-        string _serverPort;
+        string _serverPort = "25565";
 
         ContentDialog _dialog;
         public AddServerDialog(ContentDialog PresenterDialog)

@@ -186,6 +186,8 @@ namespace MinecraftLauncherUniversal.Pages
             //BitmapImage bitmapImage = new BitmapImage();
             //bitmapImage.UriSource = new Uri("ms-appx:///"+ "/Assets/MinecraftPlayIcon.png", UriKind.Absolute);
             //MCImg.Source = bitmapImage;
+
+            ContentGrid.Visibility = Visibility.Visible;
         }
 
         private async void Background_Loaded(object sender, RoutedEventArgs e)
@@ -293,12 +295,13 @@ namespace MinecraftLauncherUniversal.Pages
         private ProgressRing DownloadProgressRing;
         async void DownloadBefore()
         {
+            PlayerSettingsCard.IsEnabled = false;
             DownloadButton.IsEnabled = false;
             StatusBox.Text = "Downloading...";
             int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
 
             ProgressRing r = new ProgressRing();
-            r.IsIndeterminate = true;
+            r.IsIndeterminate = false;
             DownloadProgressRing = r;
 
             if (IsPlayingForge)
@@ -327,6 +330,7 @@ namespace MinecraftLauncherUniversal.Pages
             StatusBox.Text = "Ready to Play";
 
             NotificationService.SendSimpleToast("Download Complete", "Minecraft " + Globals.CurrentVersion + " is ready to play!", 1.5);
+            PlayerSettingsCard.IsEnabled = true;
         }
 
         async void OnProgressChanged(int value)
@@ -339,6 +343,8 @@ namespace MinecraftLauncherUniversal.Pages
         {
             bool bSucess = false;
             int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
+
+            PlayerSettingsCard.IsEnabled = false;
 
             ProgressRing r = new ProgressRing();
             r.IsIndeterminate = true;
@@ -408,6 +414,8 @@ namespace MinecraftLauncherUniversal.Pages
 
                 PlayButton.IsEnabled = true;
             }
+
+            PlayerSettingsCard.IsEnabled = true;
         }
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)

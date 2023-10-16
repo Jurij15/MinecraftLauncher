@@ -15,7 +15,7 @@ namespace MinecraftLauncherUniversal.Core
         //PROPERTIES
         public ElementTheme Theme = ElementTheme.Default;
         public bool Sound = false;
-        public bool ShowImageBackgroundInPlayPage = true;
+        public bool ShowImageBackgroundInPlayPage = false;
 
         public int MemoryAllocationInGB = 2;
         public bool Fullscreen = true;

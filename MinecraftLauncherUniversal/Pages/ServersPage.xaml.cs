@@ -121,7 +121,8 @@ namespace MinecraftLauncherUniversal.Pages
                     control.ServerClass = Class;
                     control.ServerMOTD = minestat.Stripped_Motd;
 
-                    control.PointerPressed += VersionCardControl_PointerPressed;
+                    control.RightTapped += Control_RightTapped;
+                    control.PointerReleased += VersionCardControl_PointerPressed;
                     control.Loaded += ServerCardControl_Loaded;
 
                     control.Width = 320;
@@ -155,6 +156,48 @@ namespace MinecraftLauncherUniversal.Pages
             await Task.Delay(50);//wait for servers to show
 
             _guidsLoaded = true;
+        }
+
+        bool ShowContextMenu = false;
+        private void Control_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            //shift was pressed, show the context menu
+            ServerCardControl control = (ServerCardControl)sender;
+            if (control != null)
+            {
+                ShowContextMenu = true;
+                MenuFlyout flyout = new MenuFlyout();
+
+                MenuFlyoutItem edititem = new MenuFlyoutItem();
+                edititem.Text = "Edit";
+                edititem.Tag = control.ServerClass.Json;
+                FontIcon editicon = new FontIcon();
+                editicon.Glyph = "\uE70F";
+                edititem.Icon = editicon;
+                edititem.Click += Edititem_Click;
+
+                MenuFlyoutItem deleteitem = new MenuFlyoutItem();
+                deleteitem.Text = "Delete";
+                deleteitem.Tag = control.ServerClass.Json;
+                FontIcon deleteicon = new FontIcon();
+                deleteicon.Glyph = "\uE74D";
+                deleteitem.Icon = deleteicon;
+                deleteitem.Click += Deleteitem_Click;
+
+                flyout.Items.Add(edititem);
+                flyout.Items.Add(new MenuFlyoutSeparator());
+                flyout.Items.Add(deleteitem);
+
+                flyout.ShouldConstrainToRootBounds = false;
+                flyout.ShowAt(control, new FlyoutShowOptions() { Placement = FlyoutPlacementMode.Auto });
+
+                flyout.Closed += Flyout_Closed;
+            }
+        }
+
+        private void Flyout_Closed(object sender, object e)
+        {
+            ShowContextMenu = false;
         }
 
         private void Deleteitem_Click(object sender, RoutedEventArgs e)
@@ -259,11 +302,13 @@ namespace MinecraftLauncherUniversal.Pages
             _isPageUnloaded = true;
         }
 
-        private void VersionCardControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private async void VersionCardControl_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            await Task.Delay(100);
             ServerCardControl control = (ServerCardControl)sender;
-            if (control != null && e.KeyModifiers != Windows.System.VirtualKeyModifiers.Shift)
+            if (control != null && e.KeyModifiers != Windows.System.VirtualKeyModifiers.Shift && !ShowContextMenu)
             {
+                //MessageBox.Show(ShowContextMenu.ToString());
                 string version = control.ServerClass.Json.ServerVersion;
 
                 Globals.CurrentVersion = version;
