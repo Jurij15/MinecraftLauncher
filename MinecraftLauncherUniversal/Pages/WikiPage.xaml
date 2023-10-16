@@ -1,37 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="MinecraftLauncherUniversal.Pages.WikiPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    NavigationCacheMode="Required">
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
 
-    <Grid Margin="58, 12, 58,0">
+    <Grid Margin="58,12,58,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <CommandBar x:Name="ToolBar" Grid.Row="0" DefaultLabelPosition="Right" Grid.Column="0" HorizontalAlignment="Left">
-            <AppBarButton x:Name="BackToolbarBtn" Icon="Back" Click="BackToolbarBtn_Click"/>
-            <AppBarButton x:Name="ForwardToolbarBtn" Icon="Forward" Click="ForwardToolbarBtn_Click"/>
-            <AppBarButton x:Name="RefreshToolbarBtn" Label="" Icon="Refresh" Click="RefreshToolbarBtn_Click"/>
-            <AppBarSeparator/>
-            <AppBarButton x:Name="HomeToolbarBtn" Label="Home" Icon="Home" Click="HomeToolbarBtn_Click"/>
-            <AppBarSeparator/>
+        <CommandBar
+            x:Name="ToolBar"
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            DefaultLabelPosition="Right">
+            <AppBarButton
+                x:Name="BackToolbarBtn"
+                Click="BackToolbarBtn_Click"
+                Icon="Back" />
+            <AppBarButton
+                x:Name="ForwardToolbarBtn"
+                Click="ForwardToolbarBtn_Click"
+                Icon="Forward" />
+            <AppBarButton
+                x:Name="RefreshToolbarBtn"
+                Click="RefreshToolbarBtn_Click"
+                Icon="Refresh"
+                Label="" />
+            <AppBarSeparator />
+            <AppBarButton
+                x:Name="HomeToolbarBtn"
+                Click="HomeToolbarBtn_Click"
+                Icon="Home"
+                Label="Home" />
+            <AppBarSeparator />
             <AppBarElementContainer VerticalAlignment="Center">
-                <AutoSuggestBox x:Name="UrlBox" MinWidth="250" QuerySubmitted="UrlBox_QuerySubmitted" ToolTipService.ToolTip="Page URL" QueryIcon="Copy" TextChanged="UrlBox_TextChanged"/>
+                <AutoSuggestBox
+                    x:Name="UrlBox"
+                    MinWidth="250"
+                    QueryIcon="Copy"
+                    QuerySubmitted="UrlBox_QuerySubmitted"
+                    TextChanged="UrlBox_TextChanged"
+                    ToolTipService.ToolTip="Page URL" />
             </AppBarElementContainer>
         </CommandBar>
-        <AutoSuggestBox Margin="4,0,0,0" Visibility="Collapsed" x:Name="SearchBox" QueryIcon="Find" PlaceholderText="Search" Grid.Row="0" Grid.Column="1" Width="250"/>
-        <Border Grid.Row="1" Grid.ColumnSpan="2" CornerRadius="4">
-            <WebView2 x:Name="WebView" Loaded="WebView_Loaded" NavigationCompleted="WebView_NavigationCompleted"/>
+        <ProgressRing
+            x:Name="loadingRing"
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="4,0,0,0"
+            Visibility="Collapsed" />
+        <Border
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            CornerRadius="4">
+            <WebView2
+                x:Name="WebView"
+                Loaded="WebView_Loaded"
+                NavigationCompleted="WebView_NavigationCompleted"
+                NavigationStarting="WebView_NavigationStarting" />
         </Border>
     </Grid>
 </Page>

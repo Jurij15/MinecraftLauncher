@@ -1,133 +1,199 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="MinecraftLauncherUniversal.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:labs="using:CommunityToolkit.WinUI.Controls"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
-    mc:Ignorable="d" Unloaded="Page_Unloaded"
-    Background="Transparent">
-    <ScrollViewer Margin="58, 42, 58,26">
+    Background="Transparent"
+    Unloaded="Page_Unloaded"
+    mc:Ignorable="d">
+    <ScrollViewer Margin="58,42,58,26">
         <Grid x:Name="RGrid">
+            <Grid.Transitions>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                    <EntranceThemeTransition IsStaggeringEnabled="True" />
+                </TransitionCollection>
+            </Grid.Transitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ChildrenTransitions>
                 <RepositionThemeTransition />
             </Grid.ChildrenTransitions>
-            <TextBlock Text="Appearance and behavior" Margin="0,0,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="0"/>
-            <labs:SettingsCard x:Name="ThemeCard" Header="Theme" Description="Change app theme" Grid.Row="1" Margin="0,3,0,0">
+            <TextBlock
+                Grid.Row="0"
+                Margin="0,0,0,4"
+                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                Text="Appearance and behavior" />
+            <labs:SettingsCard
+                x:Name="ThemeCard"
+                Grid.Row="1"
+                Margin="0,3,0,0"
+                Description="Change app theme"
+                Header="Theme">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE790;"/>
+                    <FontIcon Glyph="&#xE790;" />
                 </labs:SettingsCard.HeaderIcon>
                 <Grid>
                     <ComboBox x:Name="ThemesCombo" SelectionChanged="ThemesCombo_SelectionChanged">
-                        <ComboBoxItem Content="Dark" x:Name="DarkItem"/>
-                        <ComboBoxItem Content="Light" x:Name="LightItem"/>
+                        <ComboBoxItem x:Name="DarkItem" Content="Dark" />
+                        <ComboBoxItem x:Name="LightItem" Content="Light" />
                     </ComboBox>
                 </Grid>
             </labs:SettingsCard>
-            <labs:SettingsCard x:Name="BackdropCard" Margin="0,3,0,0" Visibility="Collapsed"
-                   Grid.Row="2"
-                   Header="Backdrop"
-                   Description="Change Backdrops (BETA)">
+            <labs:SettingsCard
+                x:Name="BackdropCard"
+                Grid.Row="2"
+                Margin="0,3,0,0"
+                Description="Change Backdrops (BETA)"
+                Header="Backdrop"
+                Visibility="Collapsed">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xEB42;"/>
+                    <FontIcon Glyph="&#xEB42;" />
                 </labs:SettingsCard.HeaderIcon>
-                <ComboBox x:Name="BackdropCombo" SelectionChanged="BackdropCombo_SelectionChanged"/>
+                <ComboBox x:Name="BackdropCombo" SelectionChanged="BackdropCombo_SelectionChanged" />
             </labs:SettingsCard>
-            <labs:SettingsCard x:Name="SoundCard" Margin="0,3,0,0"
-                    Grid.Row="3"
-                    Header="Sound"
-                    Description="Enable sound effects while using the app">
+            <labs:SettingsCard
+                x:Name="SoundCard"
+                Grid.Row="3"
+                Margin="0,3,0,0"
+                Description="Enable sound effects while using the app"
+                Header="Sound">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8D6;"/>
+                    <FontIcon Glyph="&#xE8D6;" />
                 </labs:SettingsCard.HeaderIcon>
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <ToggleSwitch x:Name="SoundToggle" OnContent="On" OffContent="Off" IsOn="False" Toggled="SoundToggle_Toggled" IsEnabled="True"/>
+                    <ToggleSwitch
+                        x:Name="SoundToggle"
+                        IsEnabled="True"
+                        IsOn="False"
+                        OffContent="Off"
+                        OnContent="On"
+                        Toggled="SoundToggle_Toggled" />
                 </StackPanel>
             </labs:SettingsCard>
 
-            <labs:SettingsCard x:Name="DownloadRateLimitCard" Margin="0,3,0,0"
-              Grid.Row="4"
-              Loaded="DownloadRateLimitCard_Loaded"
-              Header="Download Rate Limit"
-              Description="Change how many connections will be used to download Minecraft">
+            <labs:SettingsCard
+                x:Name="DownloadRateLimitCard"
+                Grid.Row="4"
+                Margin="0,3,0,0"
+                Description="Change how many connections will be used to download Minecraft"
+                Header="Download Rate Limit"
+                Loaded="DownloadRateLimitCard_Loaded">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xEBD3;"/>
+                    <FontIcon Glyph="&#xEBD3;" />
                 </labs:SettingsCard.HeaderIcon>
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <NumberBox SpinButtonPlacementMode="Hidden" x:Name="DownloadConnectionLimitBox" ValueChanged="DownloadConnectionLimitBox_ValueChanged"/>
+                    <NumberBox
+                        x:Name="DownloadConnectionLimitBox"
+                        SpinButtonPlacementMode="Hidden"
+                        ValueChanged="DownloadConnectionLimitBox_ValueChanged" />
                 </StackPanel>
             </labs:SettingsCard>
 
-            <labs:SettingsCard x:Name="PlayPageBackgroundCard" Margin="0,3,0,0" Visibility="Visible"
-              Grid.Row="5"
-              Loaded="PlayPageBackgroundCard_Loaded"
-              Header="Play Page Background"
-              Description="If on, an image will be used for the background">
+            <labs:SettingsCard
+                x:Name="PlayPageBackgroundCard"
+                Grid.Row="5"
+                Margin="0,3,0,0"
+                Description="If on, an image will be used for the background"
+                Header="Play Page Background"
+                Loaded="PlayPageBackgroundCard_Loaded"
+                Visibility="Visible">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE81E;"/>
+                    <FontIcon Glyph="&#xE81E;" />
                 </labs:SettingsCard.HeaderIcon>
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <ToggleSwitch x:Name="PlayPageBackgroundToggle" OnContent="On" OffContent="Off" Toggled="PlayPageBackgroundToggle_Toggled" IsEnabled="True"/>
+                    <ToggleSwitch
+                        x:Name="PlayPageBackgroundToggle"
+                        IsEnabled="True"
+                        OffContent="Off"
+                        OnContent="On"
+                        Toggled="PlayPageBackgroundToggle_Toggled" />
                 </StackPanel>
             </labs:SettingsCard>
 
-            <TextBlock Text="Advanced" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="6"/>
+            <TextBlock
+                Grid.Row="6"
+                Margin="0,16,0,4"
+                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                Text="Advanced" />
 
-            <labs:SettingsCard x:Name="ResetAppCard" Visibility="Visible" Margin="0,3,0,0"
-              Grid.Row="7"
-              Header="Reset App"
-              Description="This will require app restart!">
+            <labs:SettingsCard
+                x:Name="ResetAppCard"
+                Grid.Row="7"
+                Margin="0,3,0,0"
+                Description="This will require app restart!"
+                Header="Reset App"
+                Visibility="Visible">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xED10;"/>
+                    <FontIcon Glyph="&#xED10;" />
                 </labs:SettingsCard.HeaderIcon>
-                <Button x:Name="ResetAppBtn" Background="Red" Content="Reset">
+                <Button
+                    x:Name="ResetAppBtn"
+                    Background="Red"
+                    Content="Reset">
                     <Button.Flyout>
                         <Flyout ShouldConstrainToRootBounds="False">
                             <Flyout.SystemBackdrop>
-                                <MicaBackdrop Kind="Base"/>
+                                <MicaBackdrop Kind="Base" />
                             </Flyout.SystemBackdrop>
                             <StackPanel Background="Transparent">
-                                <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All settings will be reset. Are you sure?" Margin="0,0,0,12" />
+                                <TextBlock
+                                    Margin="0,0,0,12"
+                                    Style="{ThemeResource BaseTextBlockStyle}"
+                                    Text="All settings will be reset. Are you sure?" />
                                 <Button Click="ResetAppBtn_Click" Content="Yes, reset my app" />
                             </StackPanel>
                         </Flyout>
                     </Button.Flyout>
                 </Button>
             </labs:SettingsCard>
-            <labs:SettingsCard x:Name="ConsoleCard" Visibility="Visible" Margin="0,3,0,0"
-              Grid.Row="8"
-              Header="Debug Console"
-              Description="Enable or disable a simple debug console">
+            <labs:SettingsCard
+                x:Name="ConsoleCard"
+                Grid.Row="8"
+                Margin="0,3,0,0"
+                Description="Enable or disable a simple debug console"
+                Header="Debug Console"
+                Visibility="Visible">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xEBE8;"/>
+                    <FontIcon Glyph="&#xEBE8;" />
                 </labs:SettingsCard.HeaderIcon>
             </labs:SettingsCard>
 
-            <TextBlock Text="Related" Margin="0,16,0,4" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Row="9"/>
+            <TextBlock
+                Grid.Row="9"
+                Margin="0,16,0,4"
+                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                Text="Related" />
 
-            <labs:SettingsCard IsClickEnabled="True" Header="Player Settings" Description="Username" Click="HyperlinkButton_Click" Grid.Row="10" Margin="0,3,0,0">
+            <labs:SettingsCard
+                Grid.Row="10"
+                Margin="0,3,0,0"
+                Click="HyperlinkButton_Click"
+                Description="Username"
+                Header="Player Settings"
+                IsClickEnabled="True">
                 <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xEF58;"/>
+                    <FontIcon Glyph="&#xEF58;" />
                 </labs:SettingsCard.HeaderIcon>
             </labs:SettingsCard>
         </Grid>

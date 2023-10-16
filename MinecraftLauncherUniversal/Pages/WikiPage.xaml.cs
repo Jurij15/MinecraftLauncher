@@ -67,6 +67,8 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 ForwardToolbarBtn.IsEnabled = true;
             }
+
+            loadingRing.Visibility = Visibility.Collapsed;
         }
 
         private void UrlBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -85,6 +87,7 @@ namespace MinecraftLauncherUniversal.Pages
             tip.Target = UrlBox;
             tip.PreferredPlacement = TeachingTipPlacementMode.Bottom;
             //tip.IsOpen =true; //this crashes it for some reason
+
         }
 
         private void BackToolbarBtn_Click(object sender, RoutedEventArgs e)
@@ -101,6 +104,11 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 WebView.CoreWebView2.GoForward();
             }
+        }
+
+        private void WebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            loadingRing.Visibility = Visibility.Visible;
         }
     }
 }
