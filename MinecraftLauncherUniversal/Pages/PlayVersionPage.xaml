@@ -92,7 +92,7 @@
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal"
                                 Visibility="Collapsed">
-                                <Border Width="8" Height="8">
+                                <Border Visibility="Collapsed">
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xE946;" />
                                 </Border>
                                 <TextBlock
