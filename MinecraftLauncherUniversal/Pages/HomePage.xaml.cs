@@ -27,6 +27,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Shell;
 using WinUIEx;
+using static MinecraftLauncherUniversal.Services.NavigationService;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -77,7 +78,11 @@ namespace MinecraftLauncherUniversal.Pages
 
             ItemsPanel.Items.Clear();
 
-            NavigationService.Navigate(typeof(SelectedVersionPage), "Play " + Version, false);
+            Globals.MainNavigation.SelectedItem = Globals.MainNavigation.MenuItems[2];
+            Navigate(typeof(AllVersionsPage), "Select a Version", true);
+
+            PlayVersionPage.IsSearchedForAVersion = true;
+            Navigate(typeof(PlayVersionPage), "Play", false, false);
         }
 
         private void HomeHeader_SelectedIndexChanged(PipsPager sender, PipsPagerSelectedIndexChangedEventArgs args)

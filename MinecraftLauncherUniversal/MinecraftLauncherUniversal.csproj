@@ -22,16 +22,13 @@
   <ItemGroup>
     <None Remove="Assets\minecraft-icon.ico" />
     <None Remove="Assets\PlayPage\background-playpage.png" />
-    <None Remove="ContentWindows\ConsoleStyledWindow.xaml" />
     <None Remove="Controls\ForgeVersionCardControl.xaml" />
     <None Remove="Controls\ServerCardControl.xaml" />
     <None Remove="Controls\VersionCardControl.xaml" />
     <None Remove="Dialogs\AddServerDialog.xaml" />
     <None Remove="Dialogs\AdvancedPlayerSettingsDialogContent.xaml" />
     <None Remove="Dialogs\EditServerDialog.xaml" />
-    <None Remove="Dialogs\QuickPlayDialogContent.xaml" />
     <None Remove="Dialogs\SimpleLoadingDialog.xaml" />
-    <None Remove="Dialogs\WelcomeSetupDialog.xaml" />
     <None Remove="Dialogs\WelcomeV2DialogContent.xaml" />
     <None Remove="Pages\AboutPage.xaml" />
     <None Remove="Pages\AllVersionsPage.xaml" />
@@ -40,7 +37,6 @@
     <None Remove="Pages\ModsPage.xaml" />
     <None Remove="Pages\PlayerSettingsPage.xaml" />
     <None Remove="Pages\PlayVersionPage.xaml" />
-    <None Remove="Pages\SelectedVersionPage.xaml" />
     <None Remove="Pages\ServersPage.xaml" />
     <None Remove="Pages\ServersPages\AddServerPage.xaml" />
     <None Remove="Pages\ServersPages\AddServerPages\CreateServerPage.xaml" />
@@ -271,9 +267,6 @@
     <Page Update="Pages\WorldsPages\AllWorldsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="ContentWindows\ConsoleStyledWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Update="Windows\ConsoleDesignWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,21 +288,10 @@
     <None Update="Profiles.db">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <Page Update="Dialogs\WelcomeSetupDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Update="Dialogs\SimpleLoadingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Dialogs\QuickPlayDialogContent.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Update="Dialogs\AdvancedPlayerSettingsDialogContent.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Pages\SelectedVersionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

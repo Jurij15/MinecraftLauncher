@@ -1,32 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="MinecraftLauncherUniversal.Dialogs.WelcomeV2DialogContent"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MinecraftLauncherUniversal.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MinecraftLauncherUniversal.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="This is the second release of the new, redesigned launcher, made completely in WinUI3/Windows App SDK. Many bugs and issues have been fixed." FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>
-            <TextBlock TextWrapping="WrapWholeWords" Margin="0,12,0,0">
-                Here is a quick rundown of new things:
-                <LineBreak/>
-                    -Many UI updates
-                <LineBreak/>
-                    -Added servers, a handy way to join servers right from the launcher
-                <LineBreak/>
-                    -Improved performance
-            </TextBlock>
-            <TextBlock TextWrapping="WrapWholeWords" Margin="0,4,0,0">
-                But here are some things that have been removed:
-                <LineBreak/>
-                    -Profiles
-                <LineBreak/>
-                    -(TEMPORARY) OptiFine (This will be added back in the next update)
-            </TextBlock>
+            <TextBlock
+                FontWeight="SemiBold"
+                Text="This is the second release of the new, redesigned launcher, made completely in WinUI3/Windows App SDK. Many bugs and issues have been fixed."
+                TextWrapping="WrapWholeWords" />
+            <TextBlock Margin="0,12,0,0" TextWrapping="WrapWholeWords">
+                Here is a quick rundown of new things:<LineBreak />
+                -Many UI updates<LineBreak />
+                -Added servers, a handy way to join servers right from the launcher<LineBreak />
+                -Improved performance</TextBlock>
+            <TextBlock Margin="0,4,0,0" TextWrapping="WrapWholeWords">
+                But here are some things that have been removed:<LineBreak />
+                -Profiles<LineBreak />
+                -(TEMPORARY) OptiFine (This will be added back in the next update)</TextBlock>
         </StackPanel>
     </Grid>
 </Page>

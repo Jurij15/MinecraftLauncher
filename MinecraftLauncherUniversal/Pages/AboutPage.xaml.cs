@@ -5,7 +5,6 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using MinecraftLauncherUniversal.ContentWindows;
 using MinecraftLauncherUniversal.Dialogs;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Services;
@@ -78,12 +77,6 @@ namespace MinecraftLauncherUniversal.Pages
             loaddialog.DefaultButton = ContentDialogButton.Close;
 
             loaddialog.ShowAsync();
-        }
-
-        private void OpenConsoleStyledWindow_Click(object sender, RoutedEventArgs e)
-        {
-            ConsoleStyledWindow window = new ConsoleStyledWindow();
-            window.Show();
         }
     }
 }

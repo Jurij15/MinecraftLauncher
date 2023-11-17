@@ -148,10 +148,6 @@ namespace MinecraftLauncherUniversal.Pages
             {
                 Navigate(typeof(AllVersionsPage), "Select a Version", true);
             }
-            if (args.SelectedItemContainer == OptifineItem)
-            {
-                Navigate(typeof(OptiFinePage), "OptiFine", true);
-            }
             if (args.SelectedItemContainer == AboutItem)
             {
                 Navigate(typeof(AboutPage), "About", true);

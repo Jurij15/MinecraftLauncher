@@ -49,21 +49,6 @@ namespace MinecraftLauncherUniversal.Services
         }
 
 
-        public static async void ShowWelcomeSetupDialog()
-        {
-            Log.Verbose($"Showing the welcome dialog");
-            ContentDialog dialog = new ContentDialog();
-            dialog.XamlRoot = Globals.MainGridXamlRoot;
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            //dialog.Title = "Welcome";
-            dialog.Content = new WelcomeSetupDialog(dialog);
-
-            //dialog.CloseButtonText = "OK";
-            //dialog.CloseButtonClick += Dialog_CloseButtonClick;
-
-            await dialog.ShowAsync();
-        }
-
         public static ContentDialog CreateContentDialog(string Title, object Content)
         {
             Log.Verbose($"Creating a contentdialog with title: {Title}");

@@ -1,5 +1,6 @@
 ﻿using CmlLib.Core;
 using CmlLib.Core.VersionLoader;
+using MinecraftLauncherUniversal.Managers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,50 +50,17 @@ namespace MinecraftLauncherUniversal.Helpers
             return RetVal;
         }
 
-        public static string[] GetAllInstalledVersions()
-        {
-            List<string> RetVal = new List<string>();
-
-            var path = new MinecraftPath();
-            LocalVersionLoader l = new LocalVersionLoader(path);
-
-            var versions = l.GetVersionMetadatas();
-            foreach (var item in versions)
-            {
-                // show all version names
-                // use this version name in CreateProcessAsync method.
-                RetVal.Add(item.Name);
-            }
-
-            return RetVal.ToArray();
-        }
-
         public static bool bIsVersionInstalled(string VersionName)
         {
             bool ret = false;
 
-            List<string> Installedversions = GetAllInstalledVersions().ToList();
-
-            foreach (var version in Installedversions)
+            foreach (var version in VersionManager.AllVersionsGlobal)
             {
                 if (version == VersionName)
                 {
                     ret = true;
                     break;
                 }
-            }
-
-            Installedversions.Clear();
-
-            return ret;
-        }
-
-        public static bool bVersionSupportsSkins(string VersionName)
-        {
-            bool ret = false;
-            if (VersionName.Contains("ForgeOptiFine 1.17.1"))
-            {
-                ret = true;
             }
 
             return ret;

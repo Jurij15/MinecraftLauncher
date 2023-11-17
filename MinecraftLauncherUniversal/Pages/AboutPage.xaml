@@ -1,56 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="MinecraftLauncherUniversal.Pages.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.WinUI.Controls"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Disabled"
-        xmlns:labs="using:CommunityToolkit.WinUI.Controls"
     xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
-    Background="Transparent">
+    Background="Transparent"
+    NavigationCacheMode="Disabled"
+    mc:Ignorable="d">
 
-    <Grid Margin="58, 42, 58,0" CanBeScrollAnchor="True" RowSpacing="2">
+    <Grid
+        Margin="58,42,58,0"
+        CanBeScrollAnchor="True"
+        RowSpacing="2">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
-            <RepositionThemeTransition/>
+            <RepositionThemeTransition />
         </Grid.ChildrenTransitions>
-        <labs:SettingsExpander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True" Header="MinecraftLauncher" Description="by Jurij15">
+        <labs:SettingsExpander
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            Description="by Jurij15"
+            Header="MinecraftLauncher"
+            IsExpanded="True">
             <labs:SettingsExpander.HeaderIcon>
-                <ImageIcon Source="/Assets/LogoNew.png"/>
+                <ImageIcon Source="/Assets/LogoNew.png" />
             </labs:SettingsExpander.HeaderIcon>
             <labs:SettingsExpander.Content>
-                <TextBlock FontWeight="Normal" FontSize="13" x:Name="VersionBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                <TextBlock
+                    x:Name="VersionBox"
+                    FontSize="13"
+                    FontWeight="Normal"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
             </labs:SettingsExpander.Content>
             <labs:SettingsExpander.Items>
-                <labs:SettingsCard Header="Updates" Description="Check for updates" 
-              Grid.Row="3">
+                <labs:SettingsCard
+                    Grid.Row="3"
+                    Description="Check for updates"
+                    Header="Updates">
                     <labs:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE777;"/>
+                        <FontIcon Glyph="&#xE777;" />
                     </labs:SettingsCard.HeaderIcon>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button Content="Check For Updates" x:Name="CheckForUpdatesBtn" Click="CheckForUpdatesBtn_Click">
+                        <Button
+                            x:Name="CheckForUpdatesBtn"
+                            Click="CheckForUpdatesBtn_Click"
+                            Content="Check For Updates">
                             <Button.Flyout>
                                 <Flyout x:Name="UpdateFlyout">
                                     <StackPanel Orientation="Horizontal">
-                                        <FontIcon Glyph="&#xE777;" x:Name="UpdateIcon" Visibility="Collapsed"/>
-                                        <FontIcon Glyph="&#xE8D8;" x:Name="CannotUpdateIcon" Visibility="Collapsed"/>
-                                        <FontIcon Glyph="&#xE73E;" x:Name="NoUpdatesIcon" Visibility="Collapsed"/>
+                                        <FontIcon
+                                            x:Name="UpdateIcon"
+                                            Glyph="&#xE777;"
+                                            Visibility="Collapsed" />
+                                        <FontIcon
+                                            x:Name="CannotUpdateIcon"
+                                            Glyph="&#xE8D8;"
+                                            Visibility="Collapsed" />
+                                        <FontIcon
+                                            x:Name="NoUpdatesIcon"
+                                            Glyph="&#xE73E;"
+                                            Visibility="Collapsed" />
                                         <StackPanel Margin="4,0,0,0">
-                                            <TextBlock x:Name="StatusBox" Style="{ThemeResource BaseTextBlockStyle}"/>
-                                            <TextBlock x:Name="AditionalStuffBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                            <TextBlock x:Name="StatusBox" Style="{ThemeResource BaseTextBlockStyle}" />
+                                            <TextBlock x:Name="AditionalStuffBox" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                                         </StackPanel>
                                     </StackPanel>
                                 </Flyout>
@@ -61,36 +89,58 @@
                 <labs:SettingsCard>
                     <labs:SettingsCard.Header>
                         <StackPanel Grid.Row="0" HorizontalAlignment="Left">
-                            <TextBlock Text="This project is not affiliated with Mojang or Microsoft in any way." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
-                            <TextBlock Text="Artwork copyright goes to its respective owners." FontStyle="Italic" FontSize="13" Margin="0,0,0,4"/>
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                FontSize="13"
+                                FontStyle="Italic"
+                                Text="This project is not affiliated with Mojang or Microsoft in any way." />
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                FontSize="13"
+                                FontStyle="Italic"
+                                Text="Artwork copyright goes to its respective owners." />
                             <StackPanel Orientation="Horizontal">
-                                <HyperlinkButton NavigateUri="https://github.com/Jurij15/MinecraftLauncher" Content="GitHub"/>
-                                <HyperlinkButton x:Name="NewsLink" Click="NewsLink_Click" Content="Show News"/>
+                                <HyperlinkButton Content="GitHub" NavigateUri="https://github.com/Jurij15/MinecraftLauncher" />
+                                <HyperlinkButton
+                                    x:Name="NewsLink"
+                                    Click="NewsLink_Click"
+                                    Content="Show News" />
                             </StackPanel>
                         </StackPanel>
                     </labs:SettingsCard.Header>
                     <labs:SettingsCard.Content>
                         <StackPanel Grid.Row="0" HorizontalAlignment="Right">
-                            <TextBlock Text="Open source libraries used:" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
-                            <HyperlinkButton NavigateUri="https://github.com/CmlLib/CmlLib.Core" Content="CmlLib.Core"/>
+                            <TextBlock Foreground="{ThemeResource TextFillColorPrimaryBrush}" Text="Open source libraries used:" />
+                            <HyperlinkButton Content="CmlLib.Core" NavigateUri="https://github.com/CmlLib/CmlLib.Core" />
                         </StackPanel>
                     </labs:SettingsCard.Content>
                 </labs:SettingsCard>
             </labs:SettingsExpander.Items>
         </labs:SettingsExpander>
-        <labs:SettingsExpander HorizontalAlignment="Stretch" Grid.Row="2" HorizontalContentAlignment="Stretch" IsExpanded="False" Header="Minecraft" Description="by Mojang">
+        <labs:SettingsExpander
+            Grid.Row="2"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            Description="by Mojang"
+            Header="Minecraft"
+            IsExpanded="False">
             <labs:SettingsExpander.HeaderIcon>
-                <ImageIcon Source="/Assets/minecraft-icon.jpg" Height="40" Width="40" Margin="0,0,8,0"/>
+                <ImageIcon
+                    Width="40"
+                    Height="40"
+                    Margin="0,0,8,0"
+                    Source="/Assets/minecraft-icon.jpg" />
             </labs:SettingsExpander.HeaderIcon>
             <labs:SettingsExpander.Items>
                 <labs:SettingsCard>
                     <labs:SettingsCard.Header>
-                        <HyperlinkButton NavigateUri="https://www.minecraft.net/en-us" ToolTipService.ToolTip="Click To Visit!" Content="Official Site"/>
+                        <HyperlinkButton
+                            Content="Official Site"
+                            NavigateUri="https://www.minecraft.net/en-us"
+                            ToolTipService.ToolTip="Click To Visit!" />
                     </labs:SettingsCard.Header>
                 </labs:SettingsCard>
             </labs:SettingsExpander.Items>
         </labs:SettingsExpander>
-
-        <Button x:Name="OpenConsoleStyledWindow" Visibility="Collapsed" Click="OpenConsoleStyledWindow_Click" Content="Open Console Styled Window" Grid.Row="4" Margin="0,4,0,0"/>
     </Grid>
 </Page>

@@ -9,15 +9,11 @@ namespace MinecraftLauncherUniversal.Interop
 {
     public class MessageBox
     {
-        public enum Options
-        {
-            OK
-        }
-        public static void Show(string Content, string Title = null, Options Options = Options.OK)
+        public static void Show(string Content, string Title = null)
         {
             [DllImport("user32.dll")]
             static extern int MessageBox(IntPtr hWind, String text, String caption, int options);
-            MessageBox(IntPtr.Zero, Content, Title, Convert.ToInt32(Options));
+            MessageBox(IntPtr.Zero, Content, Title, 1);
         }
     }
 }
