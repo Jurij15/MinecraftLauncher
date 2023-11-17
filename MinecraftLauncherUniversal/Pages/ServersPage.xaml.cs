@@ -148,7 +148,7 @@ namespace MinecraftLauncherUniversal.Pages
                 text.Style = Application.Current.Resources["BodyTextBlockStyle"] as Style;
 
                 ItemsPanel.Items.Add(text);
-
+                LoadingStatus.Visibility = Visibility.Collapsed;
                 return;
             }
 

@@ -73,7 +73,8 @@
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
                                             Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                                            Text="Made by Jurij15" />
+                                            Text="Made by Jurij15"
+                                            Visibility="Collapsed" />
                                     </Grid>
                                 </Border>
                             </Border>
@@ -112,6 +113,12 @@
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Text="Messages" />
                     <StackPanel Margin="0,2,0,0" Spacing="2">
+                        <StackPanel.ChildrenTransitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition />
+                                <EntranceThemeTransition IsStaggeringEnabled="True" />
+                            </TransitionCollection>
+                        </StackPanel.ChildrenTransitions>
                         <InfoBar
                             Title="GitHub"
                             IsClosable="False"

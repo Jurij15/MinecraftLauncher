@@ -10,11 +10,13 @@ using Microsoft.UI.Xaml.Navigation;
 using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Interop;
 using MinecraftLauncherUniversal.Managers;
+using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -48,6 +50,14 @@ namespace MinecraftLauncherUniversal.Pages
         private void List_Loaded(object sender, RoutedEventArgs e)
         {
             ModList = new List<Mod>();
+
+            if (!Directory.Exists(Path.Combine(MinecraftPath.WindowsDefaultPath, "mods")))
+            {
+                NoModsFoundInfoBar.IsOpen = true;
+                StartMessage.Visibility = Visibility.Collapsed;
+                ModsGrid.Visibility = Visibility.Collapsed;
+                return;
+            }
 
             ModsManager manager = new ModsManager();
             foreach (var item in manager.GetAllMods())
@@ -130,6 +140,11 @@ namespace MinecraftLauncherUniversal.Pages
         private void OpenModsDirBtn_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("explorer.exe", Directory.GetFiles(Path.Combine(MinecraftPath.WindowsDefaultPath, "mods")));
+        }
+
+        private void RefreshPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(ModsPage), "Mods", true, true);
         }
     }
 }

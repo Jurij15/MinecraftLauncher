@@ -9,11 +9,33 @@
     mc:Ignorable="d">
 
     <Grid Margin="58,42,58,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <InfoBar
+            x:Name="NoModsFoundInfoBar"
+            Title="Mods not found!"
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            IsOpen="False"
+            Message=".minecraft/mods directory not found"
+            Severity="Informational">
+            <InfoBar.ActionButton>
+                <Button
+                    x:Name="RefreshPageBtn"
+                    Click="RefreshPageBtn_Click"
+                    Content="Refresh" />
+            </InfoBar.ActionButton>
+        </InfoBar>
+        <Grid
+            x:Name="ModsGrid"
+            Grid.Row="1"
+            Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -56,6 +78,7 @@
         </Grid>
         <Grid
             x:Name="ServerDetailsPane"
+            Grid.Row="1"
             Grid.Column="1"
             Margin="0,0,0,12"
             Padding="24"
@@ -87,6 +110,7 @@
                         x:Name="displayURLBtn"
                         Content="Mod Url"
                         Visibility="Collapsed" />
+                    <AppBarSeparator/>
                     <HyperlinkButton
                         x:Name="issueTrackerURLBtn"
                         Content="Issue Tracking"

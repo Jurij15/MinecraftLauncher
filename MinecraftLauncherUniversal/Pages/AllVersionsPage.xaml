@@ -46,7 +46,8 @@
                 <DataTemplate>
                     <custom:VersionCardControl x:Name="TemplateCard"
                         Margin="4"
-                        Width="255"
+                        MinWidth="200"
+                        MaxWidth="255"
                         Version="{Binding Version}"
                         VersionInstalledState="{Binding VersionInstalledState}" 
                         PointerReleased="VersionCardControl_PointerPressed"/>

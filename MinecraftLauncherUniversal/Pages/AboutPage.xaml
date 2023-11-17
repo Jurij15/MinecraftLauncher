@@ -24,6 +24,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.ChildrenTransitions>
+            <RepositionThemeTransition/>
+        </Grid.ChildrenTransitions>
         <labs:SettingsExpander HorizontalAlignment="Stretch" Grid.Row="1" HorizontalContentAlignment="Stretch" IsExpanded="True" Header="MinecraftLauncher" Description="by Jurij15">
             <labs:SettingsExpander.HeaderIcon>
                 <ImageIcon Source="/Assets/LogoNew.png"/>

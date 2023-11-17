@@ -25,6 +25,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Shell;
 using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,

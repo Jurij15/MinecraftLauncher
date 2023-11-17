@@ -304,6 +304,8 @@ namespace MinecraftLauncherUniversal.Pages
             r.IsIndeterminate = false;
             DownloadProgressRing = r;
 
+            DownloadButton.Content = DownloadProgressRing;
+
             if (IsPlayingForge)
             {
                 PlayCore core = new PlayCore(Globals.CurrentVersion.Remove(0, 6), memooryinmb, Globals.Settings.Fullscreen, Globals.Settings.CustomUUID, Globals.Settings.CustomAccessToken);
