@@ -234,5 +234,17 @@ namespace MinecraftLauncherUniversal.Pages
 
             SettingsJson.SaveSettings();
         }
+
+        private void MinimizeOnLaunchCard_Loaded(object sender, RoutedEventArgs e)
+        {
+            (sender as ToggleSwitch).IsOn = Globals.Settings.MinimizeOnLaunch;
+        }
+
+        private void MinimizeOnLaunchToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            Globals.Settings.MinimizeOnLaunch = (sender as ToggleSwitch).IsOn;
+
+            SettingsJson.SaveSettings();
+        }
     }
 }

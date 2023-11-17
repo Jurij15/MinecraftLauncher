@@ -404,7 +404,10 @@ namespace MinecraftLauncherUniversal.Pages
                 MinecraftLaunchedInfo.IsOpen = true;
                 PlayButton.IsEnabled = true;
 
-                Globals.MainWindow.Minimize();
+                if (Globals.Settings.MinimizeOnLaunch)
+                {
+                    Globals.MainWindow.Minimize();
+                }
                 NotificationService.SendSimpleToast("Launched", "Minecraft " + Globals.CurrentVersion + " launched successfully!", 1.5);
             }
             else

@@ -137,15 +137,35 @@
                 </StackPanel>
             </labs:SettingsCard>
 
-            <TextBlock
+            <labs:SettingsCard
+                x:Name="MinimizeOnLaunchCard"
                 Grid.Row="6"
+                Margin="0,3,0,0"
+                Description="If on, launcher will minimize when Minecraft launches"
+                Header="Minimize On Launch">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE921;" />
+                </labs:SettingsCard.HeaderIcon>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ToggleSwitch
+                        x:Name="MinimizeOnLaunchToggle"
+                        IsEnabled="True"
+                        Loaded="MinimizeOnLaunchCard_Loaded"
+                        OffContent="Off"
+                        OnContent="On"
+                        Toggled="MinimizeOnLaunchToggle_Toggled" />
+                </StackPanel>
+            </labs:SettingsCard>
+
+            <TextBlock
+                Grid.Row="7"
                 Margin="0,16,0,4"
                 Style="{ThemeResource BodyStrongTextBlockStyle}"
                 Text="Advanced" />
 
             <labs:SettingsCard
                 x:Name="ResetAppCard"
-                Grid.Row="7"
+                Grid.Row="8"
                 Margin="0,3,0,0"
                 Description="This will require app restart!"
                 Header="Reset App"
@@ -175,24 +195,24 @@
             </labs:SettingsCard>
             <labs:SettingsCard
                 x:Name="ConsoleCard"
-                Grid.Row="8"
+                Grid.Row="9"
                 Margin="0,3,0,0"
                 Description="Enable or disable a simple debug console"
                 Header="Debug Console"
-                Visibility="Visible">
+                Visibility="Collapsed">
                 <labs:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEBE8;" />
                 </labs:SettingsCard.HeaderIcon>
             </labs:SettingsCard>
 
             <TextBlock
-                Grid.Row="9"
+                Grid.Row="10"
                 Margin="0,16,0,4"
                 Style="{ThemeResource BodyStrongTextBlockStyle}"
                 Text="Player Settings" />
 
             <labs:SettingsCard
-                Grid.Row="10"
+                Grid.Row="11"
                 Margin="0,3,0,0"
                 Click="HyperlinkButton_Click"
                 Description="Username"
@@ -208,7 +228,7 @@
             <!--  Things that were previously on a seperate page  -->
             <labs:SettingsCard
                 x:Name="UsernameCard"
-                Grid.Row="11"
+                Grid.Row="12"
                 Margin="0,3,0,0"
                 Description="This username will be used In-Game"
                 Header="Username">
@@ -223,7 +243,7 @@
             </labs:SettingsCard>
             <labs:SettingsCard
                 x:Name="MemoryAllocationCard"
-                Grid.Row="12"
+                Grid.Row="13"
                 Margin="0,3,0,0"
                 Description="Limit of memory (RAM) that Minecraft can use"
                 Header="Memory Allocation">
@@ -237,7 +257,7 @@
             </labs:SettingsCard>
             <labs:SettingsCard
                 x:Name="FullecreenCard"
-                Grid.Row="13"
+                Grid.Row="14"
                 Margin="0,3,0,0"
                 Description="Change weather the game will go to fullscreen on launch"
                 Header="Fullscreen">
@@ -249,7 +269,7 @@
                     <FontIcon Glyph="&#xE740;" />
                 </labs:SettingsCard.HeaderIcon>
             </labs:SettingsCard>
-            <Grid Grid.Row="14" Margin="2">
+            <Grid Grid.Row="15" Margin="2">
                 <Button
                     x:Name="AdvancedDialogBtn"
                     HorizontalAlignment="Right"
