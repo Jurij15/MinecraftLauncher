@@ -15,6 +15,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml.Media.Animation;
+using System.CodeDom;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,7 +34,7 @@ namespace MinecraftLauncherUniversal.Pages.SetupPages
         {
             this.InitializeComponent();
 
-            ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.MicaAlt);
+            ThemeService.BackdropExtension.SetBackdrop(ThemeService.BackdropExtension.Backdrop.Mica);
             MainWindow.TitleBarPaneToggleButton.Visibility = Visibility.Collapsed;
             
             transitionInfo = new SlideNavigationTransitionInfo();
@@ -69,7 +70,10 @@ namespace MinecraftLauncherUniversal.Pages.SetupPages
             }
             else
             {
+                //what if we do not restart
                 Globals.RestartApp();
+
+                //MainWindow.MainWindowFrame.Navigate(typeof(ShellPage), null, new DrillInNavigationTransitionInfo());
             }
             
         }

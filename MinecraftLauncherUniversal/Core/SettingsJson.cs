@@ -13,6 +13,7 @@ namespace MinecraftLauncherUniversal.Core
     public class SettingsJson
     {
         //PROPERTIES
+        public string LauncherVersion = Globals.VersionString;
         public ElementTheme Theme = ElementTheme.Default;
         public bool Sound = false;
         public bool ShowImageBackgroundInPlayPage = false;

@@ -347,6 +347,7 @@ namespace MinecraftLauncherUniversal.Pages
             int memooryinmb = Globals.Settings.MemoryAllocationInGB * 1024;
 
             PlayerSettingsCard.IsEnabled = false;
+            VersionSettingsExpander.IsEnabled = false;
 
             ProgressRing r = new ProgressRing();
             r.IsIndeterminate = true;
@@ -421,6 +422,7 @@ namespace MinecraftLauncherUniversal.Pages
             }
 
             PlayerSettingsCard.IsEnabled = true;
+            VersionSettingsExpander.IsEnabled = true;
         }
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)

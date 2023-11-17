@@ -54,9 +54,9 @@ namespace MinecraftLauncherUniversal.Helpers
         {
             bool ret = false;
 
-            foreach (var version in VersionManager.AllVersionsGlobal)
+            foreach (var version in new LocalVersionLoader(new MinecraftPath()).GetVersionMetadatas())
             {
-                if (version == VersionName)
+                if (version.Name == VersionName)
                 {
                     ret = true;
                     break;

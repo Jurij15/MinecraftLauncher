@@ -56,6 +56,7 @@ namespace MinecraftLauncherUniversal.Pages
                 NoModsFoundInfoBar.IsOpen = true;
                 StartMessage.Visibility = Visibility.Collapsed;
                 ModsGrid.Visibility = Visibility.Collapsed;
+                ServerDetailsPane.Visibility = Visibility.Collapsed;
                 return;
             }
 

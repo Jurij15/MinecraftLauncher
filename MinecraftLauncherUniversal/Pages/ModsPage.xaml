@@ -22,6 +22,7 @@
             Title="Mods not found!"
             Grid.Row="0"
             Grid.ColumnSpan="2"
+            IsClosable="False"
             IsOpen="False"
             Message=".minecraft/mods directory not found"
             Severity="Informational">
@@ -110,7 +111,7 @@
                         x:Name="displayURLBtn"
                         Content="Mod Url"
                         Visibility="Collapsed" />
-                    <AppBarSeparator/>
+                    <AppBarSeparator />
                     <HyperlinkButton
                         x:Name="issueTrackerURLBtn"
                         Content="Issue Tracking"
