@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>MinecraftLauncherUniversal</RootNamespace>
     <Platforms>x86;x64;ARM64</Platforms>
@@ -9,10 +9,11 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
-	<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-	<PackageIcon>LogoNew.png</PackageIcon>
-	<ApplicationIcon>Assets\LogoNew.ico</ApplicationIcon>
-	<ApplicationManifest>app.manifest</ApplicationManifest>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <PackageIcon>LogoNew.png</PackageIcon>
+    <ApplicationIcon>Assets\LogoNew.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+	  <UseRidGraph>True</UseRidGraph>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\LogoNew.png" />
@@ -60,7 +61,6 @@
     <None Remove="Pages\WorldsPages\AllWorldsPage.xaml" />
     <None Remove="Styles\BreadcrumbBar.xaml" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -70,7 +70,6 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="OptiFine\ForgeOptiFine.zip" />
     <EmbeddedResource Include="OptiFine\OfflineSkins.zip">
@@ -78,9 +77,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OptiFine\OptiFine.zip" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="CmlLib.Core" Version="3.3.7" />
+    <PackageReference Include="CmlLib.Core" Version="3.3.8" />
     <PackageReference Include="CmlLib.Core.Installer.Forge" Version="0.0.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
@@ -91,19 +89,18 @@
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Media" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Media" Version="7.1.2" />
     <PackageReference Include="fNbt" Version="0.6.4" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230913002" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
     <PackageReference Include="MineStat" Version="3.1.2" />
-    <PackageReference Include="Serilog" Version="3.0.1" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="Tommy" Version="3.1.2" />
-    <PackageReference Include="WinUIEx" Version="2.3.1" />
+    <PackageReference Include="WinUIEx" Version="2.3.3" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
-
   <!-- 
     Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
     Tools extension to be activated for this project even if the Windows App SDK Nuget
@@ -373,7 +370,6 @@
       <HintPath>lib\MinecraftServerParser\MinecraftServersParser.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <!-- 
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
     Explorer "Package and Publish" context menu entry to be enabled for this project even if 
