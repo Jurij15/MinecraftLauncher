@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MInecraftLauncherInstaller (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MInecraftLauncherInstaller (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

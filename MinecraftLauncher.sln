@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftLauncher", "Minecr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftLauncherUniversal", "MinecraftLauncherUniversal\MinecraftLauncherUniversal.csproj", "{DF5ABE03-06AE-4B7C-8131-5BD1F8F93BDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MInecraftLauncherInstaller", "MInecraftLauncherInstaller\MInecraftLauncherInstaller.csproj", "{490A4D09-800E-47A3-B839-85E56090C85D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,36 @@ Global
 		{DF5ABE03-06AE-4B7C-8131-5BD1F8F93BDD}.Release|x86.ActiveCfg = Release|x86
 		{DF5ABE03-06AE-4B7C-8131-5BD1F8F93BDD}.Release|x86.Build.0 = Release|x86
 		{DF5ABE03-06AE-4B7C-8131-5BD1F8F93BDD}.Release|x86.Deploy.0 = Release|x86
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|Any CPU.Build.0 = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|Any CPU.Deploy.0 = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|ARM.ActiveCfg = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|ARM.Build.0 = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|ARM.Deploy.0 = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|ARM64.Build.0 = Debug|ARM64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|x64.ActiveCfg = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|x64.Build.0 = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|x64.Deploy.0 = Debug|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|x86.ActiveCfg = Debug|x86
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|x86.Build.0 = Debug|x86
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Debug|x86.Deploy.0 = Debug|x86
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|Any CPU.ActiveCfg = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|Any CPU.Build.0 = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|Any CPU.Deploy.0 = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|ARM.ActiveCfg = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|ARM.Build.0 = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|ARM.Deploy.0 = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|ARM64.ActiveCfg = Release|ARM64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|ARM64.Build.0 = Release|ARM64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|ARM64.Deploy.0 = Release|ARM64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|x64.ActiveCfg = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|x64.Build.0 = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|x64.Deploy.0 = Release|x64
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|x86.ActiveCfg = Release|x86
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|x86.Build.0 = Release|x86
+		{490A4D09-800E-47A3-B839-85E56090C85D}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
