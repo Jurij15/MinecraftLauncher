@@ -67,11 +67,11 @@ namespace MinecraftLauncherUniversal
 
         public static async void ResetApp(bool bSendNotification)
         {
-            Directory.Delete(RootDir, true);
+            foreach (var item in Directory.GetFiles(RootDir))
+            {
+                File.Delete(item);
+            }
             if (bSendNotification) { NotificationService.SendSimpleToast("MinecraftLauncher was reset", "Restart was required to complete", 1.9); }
-
-            //CustomProfileDataManager manager = new CustomProfileDataManager();
-            //manager.DeleteProfile();
 
             RestartApp();
         }

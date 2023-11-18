@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
@@ -104,7 +105,7 @@ namespace MInecraftLauncherInstaller
 
             UpdateStatusHeader("Downloading...");
             UpdateProgressBar(0);
-            await DownloadAndExtractFileAsync(InstallProgress, "https://github.com/Jurij15/MinecraftLauncher/raw/master/docs/api/latestVersion.zip", Paths.RootLauncherDir);
+            await DownloadAndExtractFileAsync(InstallProgress, "https://github.com/Jurij15/MinecraftLauncher/raw/master/docs/api/latestVersion.zip", Paths.LauncherDir);
 
             UpdateStatusHeader("Done");
             InstallProgress.Visibility = Visibility.Collapsed;
@@ -117,46 +118,24 @@ namespace MInecraftLauncherInstaller
         //thanks chatgpt
         public async Task DownloadAndExtractFileAsync(ProgressBar progressBar, string DownloadUrl, string ExtractedDirectoryName)
         {
-            using (HttpClient httpClient = new HttpClient())
+            using (WebClient webClient = new WebClient())
             {
-                // Download the file
-                var response = await httpClient.GetAsync(new Uri(DownloadUrl), HttpCompletionOption.ResponseHeadersRead);
-                response.EnsureSuccessStatusCode();
-
-                // Get the total size of the content to calculate progress
-                long totalBytes = response.Content.Headers.ContentLength ?? -1;
-
-                using (var contentStream = await response.Content.ReadAsStreamAsync())
+                // Subscribe to the DownloadProgressChanged event to track the progress
+                webClient.DownloadProgressChanged += (sender, e) =>
                 {
-                    // Create a temporary file to store the downloaded content
-                    var tempFile = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "temp.zip");
+                    UpdateProgressBar(progressBar, e.TotalBytesToReceive, e.BytesReceived);
+                };
 
-                    using (var fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write, FileShare.None))
-                    {
-                        // Buffer for reading and writing
-                        byte[] buffer = new byte[8192];
-                        int bytesRead;
-                        long totalBytesRead = 0;
+                // Download the file asynchronously
+                var tempFile = Path.Combine(Paths.RootLauncherDir, "temp.zip");
+                await webClient.DownloadFileTaskAsync(new Uri(DownloadUrl), tempFile);
 
-                        // Download and write to the temporary file
-                        while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await fileStream.WriteAsync(buffer, 0, bytesRead);
+                // Extract the contents to the specified directory
+                var extractionPath = ExtractedDirectoryName;
+                ZipFile.ExtractToDirectory(tempFile, extractionPath);
 
-                            // Update progress
-                            totalBytesRead += bytesRead;
-                            UpdateProgressBar(progressBar, totalBytes, totalBytesRead);
-                        }
-                    }
-                    UpdateProgressBar(true);
-                    UpdateStatusHeader("Extracting...");
-                    // Extract the contents to the specified directory
-                    var extractionPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, ExtractedDirectoryName);
-                    ZipFile.ExtractToDirectory(tempFile, extractionPath);
-
-                    // Clean up: delete the temporary file
-                    File.Delete(tempFile);
-                }
+                // Clean up: delete the temporary file
+                File.Delete(tempFile);
             }
         }
 

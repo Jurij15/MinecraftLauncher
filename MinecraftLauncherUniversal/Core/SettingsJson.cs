@@ -31,7 +31,7 @@ namespace MinecraftLauncherUniversal.Core
         {
             var json = JsonConvert.SerializeObject(Globals.Settings);
 
-            if (!Directory.Exists(Globals.RootDir))
+            if (!File.Exists(Globals.SettingsFile))
             {
                 Globals.bIsFirstTimeRun = true;
                 Directory.CreateDirectory(Globals.RootDir);
