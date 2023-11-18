@@ -13,7 +13,7 @@ namespace MinecraftLauncherUniversal.Managers
 {
     public class ServersManager
     {
-        public static string ServersRootDir = Globals.RootDir + "Servers\\";
+        public static string ServersRootDir = Path.Combine(Globals.RootDir, "Servers\\");
 
         public async Task<string> AddServer(ServerJson Json)
         {

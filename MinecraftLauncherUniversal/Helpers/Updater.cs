@@ -1,6 +1,7 @@
 ﻿using CmlLib.Core.VersionMetadata;
 using Microsoft.UI.Xaml;
 using MinecraftLauncherUniversal.Enums;
+using MinecraftLauncherUniversal.Pages;
 using MinecraftLauncherUniversal.Services;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,9 @@ namespace MinecraftLauncherUniversal.Helpers
         {
             string RetVal = string.Empty;
 
-            if (File.Exists("Settings/VersionTemp"))
+            if (File.Exists(Path.Combine(Globals.RootDir, "VersionTemp")))
             {
-                File.Delete("Settings/VersionTemp");
+                File.Delete(Path.Combine(Globals.RootDir, "VersionTemp"));
             }
 
             Uri uri = new Uri("https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestVersion.txt");
@@ -35,7 +36,7 @@ namespace MinecraftLauncherUniversal.Helpers
                 {
                     using (var s = client.GetStreamAsync(uri))
                     {
-                        using (var fs = new FileStream("Settings/VersionTemp", FileMode.OpenOrCreate))
+                        using (var fs = new FileStream(Path.Combine(Globals.RootDir, "VersionTemp"), FileMode.OpenOrCreate))
                         {
                             s.Result.CopyTo(fs);
                         }
@@ -48,7 +49,7 @@ namespace MinecraftLauncherUniversal.Helpers
                 return null;
             }
 
-            RetVal = File.ReadAllText("Settings/VersionTemp");
+            RetVal = File.ReadAllText(Path.Combine(Globals.RootDir, "VersionTemp"));
             return RetVal;
         }
 

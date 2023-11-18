@@ -77,6 +77,8 @@ namespace MInecraftLauncherInstaller
 
             UpdateStatusHeader("Ready to install");
             UpdateProgressBar(0);
+
+            InstallPathBox.Text = Paths.LauncherDir;
         }
 
         private void AboutAppBtn_Click(object sender, RoutedEventArgs e)
