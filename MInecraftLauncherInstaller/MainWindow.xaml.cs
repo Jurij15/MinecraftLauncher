@@ -109,6 +109,13 @@ namespace MInecraftLauncherInstaller
             UpdateProgressBar(0);
             await DownloadAndExtractFileAsync(InstallProgress, "https://github.com/Jurij15/MinecraftLauncher/raw/master/docs/api/latestVersion.zip", Paths.LauncherDir);
 
+            if (Convert.ToBoolean(CreateDesktopShortcutCheck.IsChecked))
+            {
+                UpdateStatusHeader("Creating Shortcut...");
+                await Task.Delay(1000);
+                CreateDesktopShortcut(Paths.MinecraftLauncherExecutablePath);
+            }
+
             UpdateStatusHeader("Done");
             InstallProgress.Visibility = Visibility.Collapsed;
 
@@ -131,6 +138,9 @@ namespace MInecraftLauncherInstaller
                 // Download the file asynchronously
                 var tempFile = Path.Combine(Paths.RootLauncherDir, "temp.zip");
                 await webClient.DownloadFileTaskAsync(new Uri(DownloadUrl), tempFile);
+
+                UpdateProgressBar(true);
+                UpdateStatusHeader("Extracting...");
 
                 // Extract the contents to the specified directory
                 var extractionPath = ExtractedDirectoryName;
@@ -155,10 +165,39 @@ namespace MInecraftLauncherInstaller
             }
         }
 
-        private void OpenBtn_Click(object sender, RoutedEventArgs e)
+        private async void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Paths.MinecraftLauncherExecutablePath);
+            UpdateStatusHeader("Opening...");
+            await Task.Delay(4000);
+
             Process.GetCurrentProcess().Kill();
+        }
+
+        static void CreateDesktopShortcut(string executablePath)
+        {
+            try
+            {
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                string shortcutPath = Path.Combine(desktopPath, "ShortcutName.lnk");
+
+                // Create a shortcut file
+                using (StreamWriter writer = new StreamWriter(shortcutPath))
+                {
+                    writer.Write("[InternetShortcut]\r\n");
+                    writer.Write("URL=file:///" + executablePath.Replace('\\', '/') + "\r\n");
+                    writer.Write("IconFile=" + executablePath + "\r\n");
+                    writer.Write("IconIndex=0\r\n");
+                    writer.Write("IDList=\r\n");
+                    writer.Flush();
+                }
+
+                Console.WriteLine("Shortcut created successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating shortcut: {ex.Message}");
+            }
         }
     }
 }
