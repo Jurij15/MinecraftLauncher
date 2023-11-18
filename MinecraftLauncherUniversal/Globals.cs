@@ -6,6 +6,7 @@ using MinecraftLauncherUniversal.Core;
 using MinecraftLauncherUniversal.Helpers;
 using MinecraftLauncherUniversal.Managers;
 using MinecraftLauncherUniversal.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,12 +24,27 @@ namespace MinecraftLauncherUniversal
 {
     public class Globals
     {
-        public static string RootDir = "Settings/";
+        public static string RootDir = GetRootDir();
         public static string SettingsFile = RootDir+"settings.json";
         public static string RecentBuildsFile = RootDir + "recents";
         public static int DownloadRateLimit = 1024;
         public static bool bIsFirstTimeRun = false;
         public static HashSet<string> Recents = new HashSet<string>();
+
+        private static string GetRootDir()
+        {
+            string returnval = "Settings/";
+            if (File.Exists(Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), "MinecraftLauncher", "Settings", "launcherConfig.json")))
+            {
+                InstallerConfigJson json = JsonConvert.DeserializeObject<InstallerConfigJson>(File.ReadAllText(Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), "MinecraftLauncher", "Settings", "launcherConfig.json")));
+                if (!json.RunAsPortable)
+                {
+                    returnval = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), "MinecraftLauncher", "Settings");
+                }
+            }
+
+            return returnval;
+        }
 
         public static string CurrentVersion {  get; set; }  
 

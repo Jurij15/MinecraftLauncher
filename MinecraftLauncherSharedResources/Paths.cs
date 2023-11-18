@@ -16,5 +16,19 @@ namespace MinecraftLauncherSharedResources
         public static string InstallerDir = Path.Combine(RootLauncherDir, "Installer");
 
         public static string MinecraftLauncherExecutablePath = Path.Combine(LauncherDir, "MinecraftLauncherUniversal.exe");
+        public static string MinecraftLauncherInstallerConfig = Path.Combine(SettingsDir, "launcherConfig.json");
+        public static string GetMinecraftLauncherSettingsFileText(bool IsPortable)
+        {
+            if (IsPortable)
+            {
+                return File.ReadAllText(Path.Combine(LauncherDir, "Settings", "settings.json"));
+            }
+            else
+            {
+                return File.ReadAllText(Path.Combine(SettingsDir, "settings.json"));
+            }
+
+            return null;
+        }
     }
 }

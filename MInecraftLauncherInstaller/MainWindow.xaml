@@ -91,7 +91,14 @@
                             IsReadOnly="True"
                             PlaceholderText="path here"
                             ToolTipService.ToolTip="Install Path cannot be changed at this time" />
-                        <CheckBox x:Name="CreateDesktopShortcutCheck" Content="Create desktop shortcut" />
+                        <CheckBox
+                            x:Name="CreateDesktopShortcutCheck"
+                            Content="Create desktop shortcut"
+                            IsChecked="True" />
+                        <CheckBox
+                            x:Name="RunAsPortableCheck"
+                            Content="Run as portable"
+                            IsChecked="False" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -112,6 +119,7 @@
                     <Button
                         x:Name="InstallBtn"
                         Width="140"
+                        Click="InstallBtn_Click"
                         Content="Install"
                         Style="{ThemeResource AccentButtonStyle}"
                         Visibility="Collapsed" />
@@ -125,6 +133,13 @@
                         x:Name="UpdateBtn"
                         Width="140"
                         Content="Update"
+                        Style="{ThemeResource AccentButtonStyle}"
+                        Visibility="Collapsed" />
+                    <Button
+                        x:Name="OpenBtn"
+                        Width="140"
+                        Click="OpenBtn_Click"
+                        Content="Open"
                         Style="{ThemeResource AccentButtonStyle}"
                         Visibility="Collapsed" />
                 </StackPanel>
