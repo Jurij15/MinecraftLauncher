@@ -13,7 +13,7 @@ namespace MinecraftLauncherUniversal.Interop
         {
             [DllImport("user32.dll")]
             static extern int MessageBox(IntPtr hWind, String text, String caption, int options);
-            MessageBox(IntPtr.Zero, Content, Title, 1);
+            MessageBox(IntPtr.Zero, Content, Title, 0);
         }
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="MinecraftLauncherUniversal.Pages.NewsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MinecraftLauncherUniversal.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Margin="58,42,58,0" Loaded="Grid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <InfoBar
+            x:Name="PreReleaseVersionInfoBar"
+            Title="PreRelease Version"
+            Grid.Row="0"
+            Margin="0,0,0,2"
+            IsClosable="False"
+            IsOpen="False"
+            Message="You are running a Pre-Release version of the launcher. Patch notes might not be updated yet!" />
+        <RichEditBox
+            x:Name="PathchNotesBox"
+            Grid.Row="1"
+            AllowFocusOnInteraction="False"
+            IsReadOnly="False"
+            Loaded="PathchNotesBox_Loaded" />
+    </Grid>
+</Page>

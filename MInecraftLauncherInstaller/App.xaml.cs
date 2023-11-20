@@ -33,6 +33,7 @@ namespace MInecraftLauncherInstaller
         public App()
         {
             this.InitializeComponent();
+            //RequestedTheme = ApplicationTheme.Light;
         }
 
         /// <summary>

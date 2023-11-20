@@ -190,5 +190,11 @@ namespace MinecraftLauncherUniversal.Pages
             base.OnNavigatedTo(e);
             NavigationService.ChangeBreadcrumbVisibility(false);
         }
+
+        private void OpenPatchNotesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(AboutPage), "About", true);
+            NavigationService.Navigate(typeof(NewsPage), "What's new in " + Globals.VersionString, false);
+        }
     }
 }

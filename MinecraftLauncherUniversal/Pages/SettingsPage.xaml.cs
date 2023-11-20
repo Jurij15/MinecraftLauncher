@@ -66,8 +66,6 @@ namespace MinecraftLauncherUniversal.Pages
             ThemesCombo.SelectedIndex = (int)Globals.Settings.Theme;
 
             InitFinished = true;
-
-            UsernameSettingsBox.Text = Globals.Settings.Username;
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
@@ -180,35 +178,6 @@ namespace MinecraftLauncherUniversal.Pages
             }
 
             SettingsJson.SaveSettings();
-        }
-
-
-        //these were previously on a seperate page
-
-        private void UsernameSettingsBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Globals.Settings.Username = UsernameSettingsBox.Text;
-            SettingsJson.SaveSettings();
-        }
-
-        private async void AdvancedDialogBtn_Click(object sender, RoutedEventArgs e)
-        {
-            SolidColorBrush transparentBrush = new SolidColorBrush(Colors.Transparent);
-
-            ContentDialog dialog = new ContentDialog();
-            dialog.XamlRoot = Globals.MainGridXamlRoot;
-            dialog.Title = "Advanced Settings";
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            dialog.Content = new AdvancedPlayerSettingsDialogContent(dialog);
-            //dialog.Background = transparentBrush;
-
-            dialog.CloseButtonText = "Exit";
-
-            dialog.PrimaryButtonText = "Save";
-
-            dialog.DefaultButton = ContentDialogButton.Close;
-
-            await dialog.ShowAsync();
         }
 
         private void MemoryBox_Loaded(object sender, RoutedEventArgs e)

@@ -218,64 +218,11 @@
                 Description="Username"
                 Header="Player Settings"
                 IsClickEnabled="True"
-                Visibility="Collapsed">
+                Visibility="Visible">
                 <labs:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEF58;" />
                 </labs:SettingsCard.HeaderIcon>
             </labs:SettingsCard>
-
-
-            <!--  Things that were previously on a seperate page  -->
-            <labs:SettingsCard
-                x:Name="UsernameCard"
-                Grid.Row="12"
-                Margin="0,3,0,0"
-                Description="This username will be used In-Game"
-                Header="Username">
-                <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8AC;" />
-                </labs:SettingsCard.HeaderIcon>
-                <TextBox
-                    x:Name="UsernameSettingsBox"
-                    Margin="0,2,0,2"
-                    PlaceholderText="Username"
-                    TextChanged="UsernameSettingsBox_TextChanged" />
-            </labs:SettingsCard>
-            <labs:SettingsCard
-                x:Name="MemoryAllocationCard"
-                Grid.Row="13"
-                Margin="0,3,0,0"
-                Description="Limit of memory (RAM) that Minecraft can use"
-                Header="Memory Allocation">
-                <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE96A;" />
-                </labs:SettingsCard.HeaderIcon>
-                <NumberBox
-                    x:Name="MemoryBox"
-                    Loaded="MemoryBox_Loaded"
-                    ValueChanged="MemoryBox_ValueChanged" />
-            </labs:SettingsCard>
-            <labs:SettingsCard
-                x:Name="FullecreenCard"
-                Grid.Row="14"
-                Margin="0,3,0,0"
-                Description="Change weather the game will go to fullscreen on launch"
-                Header="Fullscreen">
-                <ToggleSwitch
-                    x:Name="FullscreenCheck"
-                    Loaded="FullscreenCheck_Loaded"
-                    Toggled="FullscreenCheck_Toggled" />
-                <labs:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE740;" />
-                </labs:SettingsCard.HeaderIcon>
-            </labs:SettingsCard>
-            <Grid Grid.Row="15" Margin="2">
-                <Button
-                    x:Name="AdvancedDialogBtn"
-                    HorizontalAlignment="Right"
-                    Click="AdvancedDialogBtn_Click"
-                    Content="Advanced" />
-            </Grid>
         </Grid>
     </ScrollViewer>
 </Page>

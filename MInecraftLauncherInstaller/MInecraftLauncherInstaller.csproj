@@ -12,9 +12,25 @@
     <EnableMsixTooling>true</EnableMsixTooling>
 	  <UseRidGraph>True</UseRidGraph>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	  <PackageIcon>LogoNew.png</PackageIcon>
+	  <ApplicationIcon>Assets\minecraft-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\LogoNew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\minecraft-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>f935dc20-1cf0-11d0-adb9-00c04fd58a0b</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -48,8 +64,13 @@
     <ProjectReference Include="..\MinecraftLauncherSharedResources\MinecraftLauncherSharedResources.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\minecraft-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="Assets\LogoNew.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

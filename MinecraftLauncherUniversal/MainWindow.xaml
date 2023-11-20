@@ -1,78 +1,119 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <windowex:WindowEx
     x:Class="MinecraftLauncherUniversal.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MinecraftLauncherUniversal"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MinecraftLauncherUniversal"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    xmlns:styles="using:MinecraftLauncherUniversal" Closed="WindowEx_Closed"
-    xmlns:windowex="using:WinUIEx" IsTitleBarVisible="True"
+    xmlns:styles="using:MinecraftLauncherUniversal"
+    xmlns:windowex="using:WinUIEx"
+    Closed="WindowEx_Closed"
+    IsTitleBarVisible="True"
     mc:Ignorable="d">
-    <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded" Background="Transparent"
-          SizeChanged="RootGrid_SizeChanged">
+    <Grid
+        x:Name="RootGrid"
+        Background="Transparent"
+        Loaded="RootGrid_Loaded"
+        SizeChanged="RootGrid_SizeChanged">
         <Grid.RowDefinitions>
-            <RowDefinition Height="48"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid x:Name="TitleBar">
             <Grid.ChildrenTransitions>
-                <RepositionThemeTransition/>
+                <RepositionThemeTransition />
             </Grid.ChildrenTransitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel x:Name="ButtonsPanel" Grid.Column="0" Grid.Row="0" Margin="9,6,0,0" Orientation="Horizontal">
+            <StackPanel
+                x:Name="ButtonsPanel"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="9,6,0,0"
+                Orientation="Horizontal">
                 <StackPanel.ChildrenTransitions>
-                    <RepositionThemeTransition/>
+                    <RepositionThemeTransition />
                 </StackPanel.ChildrenTransitions>
-                <Button x:Name="AppTitlePaneButton" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left"
-                 Grid.Column="0" Click="AppTitlePaneButton_Click">
+                <Button
+                    x:Name="AppTitlePaneButton"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="AppTitlePaneButton_Click">
                     <Button.Content>
                         <AnimatedIcon Height="17" Margin="-3,0,-3,0">
                             <AnimatedIcon.Source>
-                                <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource/>
+                                <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
                             </AnimatedIcon.Source>
                             <AnimatedIcon.FallbackIconSource>
-                                <SymbolIconSource Symbol="OpenPane"/>
+                                <SymbolIconSource Symbol="OpenPane" />
                             </AnimatedIcon.FallbackIconSource>
 
                         </AnimatedIcon>
                     </Button.Content>
                 </Button>
-                <Button x:Name="AppTitleBackButton" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"
-                 Grid.Column="1" Margin="4,0,0,0" Visibility="Collapsed">
+                <Button
+                    x:Name="AppTitleBackButton"
+                    Grid.Column="1"
+                    Margin="4,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Visibility="Collapsed">
                     <Button.Content>
                         <AnimatedIcon Height="17" Margin="-3,0,-3,0">
                             <AnimatedIcon.Source>
-                                <animatedvisuals:AnimatedBackVisualSource/>
+                                <animatedvisuals:AnimatedBackVisualSource />
                             </AnimatedIcon.Source>
                             <AnimatedIcon.FallbackIconSource>
-                                <SymbolIconSource Symbol="Back"/>
+                                <SymbolIconSource Symbol="Back" />
                             </AnimatedIcon.FallbackIconSource>
 
                         </AnimatedIcon>
                     </Button.Content>
                 </Button>
             </StackPanel>
-            <Grid x:Name="AppTitleBar" Grid.Column="1" Grid.Row="0" Margin="8,0,0,0">
+            <Grid
+                x:Name="AppTitleBar"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="8,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    x:Name="AppIcon"
+                    Grid.Column="0"
+                    Margin="0,3,0,0"
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center" />
                 <TextBlock
-    x:Name="WindowTitle"
-    Grid.Column="3"
-    Margin="10,1,0,0"
-    VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-    FontFamily="Segoe UI Variable Text"
-            Style="{StaticResource CaptionTextBlockStyle}"
-    FontSize="12"
-    Text="Minecraft Launcher" />
+                    x:Name="WindowTitle"
+                    Grid.Column="1"
+                    Margin="10,1,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontFamily="Segoe UI Variable Text"
+                    FontSize="12"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="Minecraft Launcher" />
             </Grid>
         </Grid>
-        <Frame  Grid.Row="1" Canvas.ZIndex="0" x:Name="MainWindowRootFrame" Loaded="MainWindowRootFrame_Loaded"/>
+        <Frame
+            x:Name="MainWindowRootFrame"
+            Grid.Row="1"
+            Canvas.ZIndex="0"
+            Loaded="MainWindowRootFrame_Loaded" />
     </Grid>
 </windowex:WindowEx>

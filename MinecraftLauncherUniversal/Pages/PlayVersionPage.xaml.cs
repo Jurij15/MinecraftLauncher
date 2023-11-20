@@ -64,7 +64,7 @@ namespace MinecraftLauncherUniversal.Pages
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             MainWindow.TitleBarGoBackButton.Visibility = Visibility.Visible;
             MainWindow.TitleBarGoBackButton.Click += TitleBarGoBackButton_Click;
@@ -187,6 +187,8 @@ namespace MinecraftLauncherUniversal.Pages
             //bitmapImage.UriSource = new Uri("ms-appx:///"+ "/Assets/MinecraftPlayIcon.png", UriKind.Absolute);
             //MCImg.Source = bitmapImage;
 
+            //wait for anims to complete
+            await Task.Delay(200);
             ContentGrid.Visibility = Visibility.Visible;
         }
 
@@ -238,6 +240,7 @@ namespace MinecraftLauncherUniversal.Pages
             //reset the values
             IsPlayingNormalVersion = false;
             IsPlayingServer = false;
+            IsSearchedForAVersion = false;
             PlayServerClass = null;
         }
 
@@ -284,6 +287,7 @@ namespace MinecraftLauncherUniversal.Pages
                 IsPlayingForge = false;
                 PlayServerClass = null;
                 ForgeVersion = null;
+                IsSearchedForAVersion = false;
             }
         }
 

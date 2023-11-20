@@ -33,6 +33,8 @@ using Windows.UI;
 using WinUIEx;
 using WinUIEx.Messaging;
 using static MinecraftLauncherUniversal.Services.NavigationService;
+using Microsoft.UI.Xaml.Media.Imaging;
+using CommunityToolkit.WinUI.Helpers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -95,6 +97,18 @@ namespace MinecraftLauncherUniversal
                 .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Verbose)
                 .CreateLogger();
             Log.Information("MinecraftLauncher by Jurij15, Version: " + Globals.VersionString);
+
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.UriSource = new Uri("ms-appx:///" + "Assets/LogoNew.png");
+            AppIcon.Source = bitmapImage;
+
+            CommunityToolkit.WinUI.Helpers.ThemeListener listener = new CommunityToolkit.WinUI.Helpers.ThemeListener();
+            listener.ThemeChanged += Listener_ThemeChanged;
+        }
+
+        private void Listener_ThemeChanged(CommunityToolkit.WinUI.Helpers.ThemeListener sender)
+        {
+            Log.Information("Theme changed");
         }
 
         private async void RootGrid_Loaded(object sender, RoutedEventArgs e)

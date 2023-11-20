@@ -76,7 +76,9 @@ namespace MinecraftLauncherUniversal.Pages
 
             loaddialog.DefaultButton = ContentDialogButton.Close;
 
-            loaddialog.ShowAsync();
+            //loaddialog.ShowAsync();
+
+            NavigationService.Navigate(typeof(NewsPage), "What's new in " + Globals.VersionString, false);
         }
     }
 }

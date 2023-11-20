@@ -21,6 +21,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using WinUIEx;
+using IWshRuntimeLibrary;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,7 +33,7 @@ namespace MInecraftLauncherInstaller
     /// </summary>
     public sealed partial class MainWindow : WinUIEx.WindowEx
     {
-        string LauncherVersion = "1.0-DEV";
+        string LauncherVersion = "1.0";
         void UpdateProgressBar(bool Indeterminate)
         {
             InstallProgress.IsIndeterminate = Indeterminate;
@@ -47,6 +48,41 @@ namespace MInecraftLauncherInstaller
         {
             InstallProgressHeader.Header = Header;
         }
+
+        public static string GetLatestVersionStringFromGitHub()
+        {
+            string RetVal = string.Empty;
+
+            if (System.IO.File.Exists(Path.Combine(Paths.RootAppDataPath, "VersionTemp")))
+            {
+                System.IO.File.Delete(Path.Combine(Paths.RootAppDataPath, "VersionTemp"));
+            }
+
+            Uri uri = new Uri("https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/api/latestVersion.txt");
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync(uri))
+                    {
+                        using (var fs = new FileStream(Path.Combine(Paths.RootAppDataPath, "VersionTemp"), FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                        }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                //DialogService.ShowSimpleDialog("Error", "An error occured while checking for updates");
+                return null;
+            }
+
+            RetVal = System.IO.File.ReadAllText(Path.Combine(Paths.RootAppDataPath, "VersionTemp"));
+            System.IO.File.Delete(Path.Combine(Paths.RootAppDataPath, "VersionTemp"));
+            return RetVal;
+        }
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -54,12 +90,9 @@ namespace MInecraftLauncherInstaller
             this.Title = "MinecraftLauncher - Installer";
 
             AppWindow.Resize(new Windows.Graphics.SizeInt32(650, 440));
-            AppWindow.IsShownInSwitchers = false;
 
             this.ExtendsContentIntoTitleBar = true;
             this.SetTitleBar(AppTitleBar);
-
-            AppWindow.TitleBar.IconShowOptions = Microsoft.UI.Windowing.IconShowOptions.HideIconAndSystemMenu;
 
             this.IsMaximizable = false;
             this.SetIsMaximizable(false);
@@ -79,6 +112,11 @@ namespace MInecraftLauncherInstaller
             UpdateProgressBar(0);
 
             InstallPathBox.Text = Paths.LauncherDir;
+
+            VersionBox.Text = LauncherVersion;
+            VersionBlock.Text = GetLatestVersionStringFromGitHub();
+
+            this.SetIcon("Assets\\LogoNew.png");
         }
 
         private void AboutAppBtn_Click(object sender, RoutedEventArgs e)
@@ -99,7 +137,7 @@ namespace MInecraftLauncherInstaller
             Directory.CreateDirectory(Paths.SettingsDir);
             Directory.CreateDirectory(Paths.InstallerDir);
 
-            using (StreamWriter sw = File.CreateText(Paths.MinecraftLauncherInstallerConfig))
+            using (StreamWriter sw = System.IO.File.CreateText(Paths.MinecraftLauncherInstallerConfig))
             {
                 sw.WriteLine(JsonConvert.SerializeObject(new InstallerConfigJson() { RunAsPortable = Convert.ToBoolean(RunAsPortableCheck.IsChecked) }));
                 sw.Close();
@@ -147,7 +185,7 @@ namespace MInecraftLauncherInstaller
                 ZipFile.ExtractToDirectory(tempFile, extractionPath);
 
                 // Clean up: delete the temporary file
-                File.Delete(tempFile);
+                System.IO.File.Delete(tempFile);
             }
         }
 
@@ -176,10 +214,11 @@ namespace MInecraftLauncherInstaller
 
         static void CreateDesktopShortcut(string executablePath)
         {
+            /*
             try
             {
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                string shortcutPath = Path.Combine(desktopPath, "ShortcutName.lnk");
+                string shortcutPath = Path.Combine(desktopPath, "MinecraftLauncher.lnk");
 
                 // Create a shortcut file
                 using (StreamWriter writer = new StreamWriter(shortcutPath))
@@ -197,6 +236,20 @@ namespace MInecraftLauncherInstaller
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating shortcut: {ex.Message}");
+            }
+            */
+            try
+            {
+                object shDesktop = (object)"Desktop";
+                WshShell shell = new WshShell();
+                string shortcutAddress = (string)shell.SpecialFolders.Item(ref shDesktop) + @"\Minecraft Launcher.lnk";
+                IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
+                shortcut.TargetPath = Paths.MinecraftLauncherExecutablePath;
+                shortcut.Save();
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
     }
