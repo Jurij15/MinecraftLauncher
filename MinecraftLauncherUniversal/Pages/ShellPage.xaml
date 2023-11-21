@@ -44,7 +44,7 @@
 </NavigationView.Resources>-->
             <NavigationView.Resources>
                 <ResourceDictionary x:Name="MainNavigationDisableContentBackgroundDictionary">
-                    <Thickness x:Key="NavigationViewHeaderMargin">56,14,0,0</Thickness>
+                    <Thickness x:Key="NavigationViewHeaderMargin">56,12,0,0</Thickness>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
                     <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{StaticResource NavigationViewExpandedPaneBackground}" />
                 </ResourceDictionary>

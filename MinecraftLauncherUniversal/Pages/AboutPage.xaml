@@ -122,7 +122,21 @@
                     <labs:SettingsCard.Header>
                         <StackPanel HorizontalAlignment="Left">
                             <TextBlock Foreground="{ThemeResource TextFillColorPrimaryBrush}" Text="Open source libraries used:" />
-                            <HyperlinkButton Content="CmlLib.Core" NavigateUri="https://github.com/CmlLib/CmlLib.Core" />
+                            <GridView
+                                HorizontalContentAlignment="Stretch"
+                                IsItemClickEnabled="False"
+                                SelectionMode="None">
+                                <HyperlinkButton Content="CmlLib.Core" NavigateUri="https://github.com/CmlLib/CmlLib.Core" />
+                                <HyperlinkButton Content="fNBT" NavigateUri="https://github.com/mstefarov/fNbt" />
+                                <HyperlinkButton Content="MineStat" NavigateUri="https://github.com/FragLand/minestat" />
+                                <HyperlinkButton Content="Serilog" NavigateUri="https://github.com/serilog/serilog" />
+                                <HyperlinkButton Content="Tommy" NavigateUri="https://github.com/dezhidki/Tommy" />
+                                <HyperlinkButton Content="WinUIEx" NavigateUri="https://github.com/dotMorten/WinUIEx" />
+                                <HyperlinkButton
+                                    HorizontalAlignment="Stretch"
+                                    Content="Windows Community Toolkit"
+                                    NavigateUri="https://github.com/CommunityToolkit/Windows" />
+                            </GridView>
                         </StackPanel>
                     </labs:SettingsCard.Header>
                 </labs:SettingsCard>
