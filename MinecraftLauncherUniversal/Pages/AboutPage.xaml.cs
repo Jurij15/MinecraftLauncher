@@ -63,21 +63,8 @@ namespace MinecraftLauncherUniversal.Pages
             }
         }
 
-        private void NewsLink_Click(object sender, RoutedEventArgs e)
+        private void OpenNewsCard_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog loaddialog = new ContentDialog();
-            loaddialog.XamlRoot = this.Content.XamlRoot;
-            loaddialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            loaddialog.Title = "Welcome to MinecraftLauncher V2.1!";
-            loaddialog.Content = new WelcomeV2DialogContent();
-
-            loaddialog.CloseButtonText = "OK";
-            loaddialog.CloseButtonClick += (sender, args) => { loaddialog.Hide(); };
-
-            loaddialog.DefaultButton = ContentDialogButton.Close;
-
-            //loaddialog.ShowAsync();
-
             NavigationService.Navigate(typeof(NewsPage), "What's new in " + Globals.VersionString, false);
         }
     }

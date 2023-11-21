@@ -86,6 +86,16 @@
                         </Button>
                     </StackPanel>
                 </labs:SettingsCard>
+                <labs:SettingsCard
+                    x:Name="OpenNewsCard"
+                    Click="OpenNewsCard_Click"
+                    Description="Check out what's new!"
+                    Header="News"
+                    IsClickEnabled="True">
+                    <labs:SettingsCard.HeaderIcon>
+                        <SymbolIcon Symbol="Read" />
+                    </labs:SettingsCard.HeaderIcon>
+                </labs:SettingsCard>
                 <labs:SettingsCard>
                     <labs:SettingsCard.Header>
                         <StackPanel Grid.Row="0" HorizontalAlignment="Left">
@@ -101,21 +111,22 @@
                                 Text="Artwork copyright goes to its respective owners." />
                             <StackPanel Orientation="Horizontal">
                                 <HyperlinkButton Content="GitHub" NavigateUri="https://github.com/Jurij15/MinecraftLauncher" />
-                                <HyperlinkButton
-                                    x:Name="NewsLink"
-                                    Click="NewsLink_Click"
-                                    Content="Show News" />
                             </StackPanel>
                         </StackPanel>
                     </labs:SettingsCard.Header>
-                    <labs:SettingsCard.Content>
-                        <StackPanel Grid.Row="0" HorizontalAlignment="Right">
+                    <labs:SettingsCard.Content />
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+            <labs:SettingsExpander.ItemsFooter>
+                <labs:SettingsCard>
+                    <labs:SettingsCard.Header>
+                        <StackPanel HorizontalAlignment="Left">
                             <TextBlock Foreground="{ThemeResource TextFillColorPrimaryBrush}" Text="Open source libraries used:" />
                             <HyperlinkButton Content="CmlLib.Core" NavigateUri="https://github.com/CmlLib/CmlLib.Core" />
                         </StackPanel>
-                    </labs:SettingsCard.Content>
+                    </labs:SettingsCard.Header>
                 </labs:SettingsCard>
-            </labs:SettingsExpander.Items>
+            </labs:SettingsExpander.ItemsFooter>
         </labs:SettingsExpander>
         <labs:SettingsExpander
             Grid.Row="2"
