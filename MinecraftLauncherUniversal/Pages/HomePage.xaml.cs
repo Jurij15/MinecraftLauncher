@@ -193,7 +193,7 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void OpenPatchNotesBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(typeof(AboutPage), "About", true);
+            NavigationService.MainNavigation.SelectedItem = Globals.AboutMenuItem;
             NavigationService.Navigate(typeof(NewsPage), "What's new in " + Globals.VersionString, false);
         }
     }

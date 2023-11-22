@@ -34,6 +34,8 @@ namespace MinecraftLauncherUniversal
         public static bool bIsFirstTimeRun = false;
         public static HashSet<string> Recents = new HashSet<string>();
 
+        public static NavigationViewItem AboutMenuItem;
+
         private static string GetRootDir()
         {
             string returnval = "Settings/";

@@ -36,6 +36,7 @@ namespace MinecraftLauncherUniversal.Pages
             Globals.MainFrame = RootFrame;
             Globals.MainNavigationBreadcrumb = MainBreadcrumb;
             Globals.MainNavigation = MainNavigation;
+            Globals.AboutMenuItem = AboutItem;
 
 
             InitializeNavigationService(MainNavigation, MainBreadcrumb, RootFrame);
