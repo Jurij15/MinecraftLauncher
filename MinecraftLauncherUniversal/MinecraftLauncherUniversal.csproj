@@ -53,6 +53,7 @@
     <None Remove="Pages\WikiPage.xaml" />
     <None Remove="Pages\WorldsPages\AllWorldsPage.xaml" />
     <None Remove="Styles\BreadcrumbBar.xaml" />
+    <None Remove="Styles\RichEditBox.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -220,6 +221,9 @@
     <None Update="Assets\MinecraftPlayIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Styles\RichEditBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\NewsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

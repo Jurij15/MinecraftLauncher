@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -39,7 +40,11 @@ namespace MinecraftLauncherUniversal.Pages
 
         private void PathchNotesBox_Loaded(object sender, RoutedEventArgs e)
         {
-            PathchNotesBox.Document.SetText(Microsoft.UI.Text.TextSetOptions.FormatRtf, File.ReadAllText("Assets\\UpdatePatchNotes.rtf"));
+            //await Task.Delay(200);
+            PathchNotesBox.AllowFocusOnInteraction = true;
+            PathchNotesBox.IsReadOnly = false;
+            PathchNotesBox.Document.SetText(Microsoft.UI.Text.TextSetOptions.FormatRtf, File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "UpdatePatchNotes.rtf")));
+            PathchNotesBox.AllowFocusOnInteraction = false;
             PathchNotesBox.IsReadOnly = true;
         }
 

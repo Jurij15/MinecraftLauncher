@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Application
     x:Class="MinecraftLauncherUniversal.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,14 +8,15 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="/Styles/RichEditBox.xaml" />
                 <ResourceDictionary Source="/Styles/BreadcrumbBar.xaml" />
-                <!-- Other merged dictionaries here -->
+                <!--  Other merged dictionaries here  -->
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
-            <SolidColorBrush x:Key="WindowCaptionBackground" Color="Transparent"/>
-            <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled" Color="Transparent"/>
+            <!--  Other app resources here  -->
+            <SolidColorBrush x:Key="WindowCaptionBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled" Color="Transparent" />
             <Style TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontFamily" Value="Segoe UI" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

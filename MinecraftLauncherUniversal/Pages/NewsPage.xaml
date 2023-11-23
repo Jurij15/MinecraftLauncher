@@ -24,8 +24,9 @@
         <RichEditBox
             x:Name="PathchNotesBox"
             Grid.Row="1"
-            AllowFocusOnInteraction="False"
-            IsReadOnly="False"
-            Loaded="PathchNotesBox_Loaded" />
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            Loaded="PathchNotesBox_Loaded"
+            RequestedTheme="Dark"
+            Style="{StaticResource RichEditBoxDefaultTabStyle}" />
     </Grid>
 </Page>
