@@ -53,7 +53,7 @@ namespace MinecraftLauncherUniversal
 
         public static string CurrentVersion {  get; set; }  
 
-        public static string VersionString = "2.1-PR";
+        public static string VersionString = "2.1";
 
         public static bool ToastFailedInit = false;
 
