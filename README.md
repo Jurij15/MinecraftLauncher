@@ -1,7 +1,7 @@
 # MinecraftLauncher
 A simple Minecraft launcher (Codename HybridCraft) made using [CmlLib](https://github.com/CmlLib/CmlLib.Core) on .NET 7
 
-![heroImg](https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/images/Demo2.0.png)
+![heroImg](https://raw.githubusercontent.com/Jurij15/MinecraftLauncher/master/docs/images/Demo2.1.png)
 
 Current Latest version: 2.0
 
