@@ -29,6 +29,16 @@ namespace MinecraftLauncherUniversal.Pages
     /// </summary>
     public sealed partial class ShellPage : Page
     {
+        public static void CollapseNavigationViewPane()
+        {
+            Globals.MainNavigation.IsPaneOpen = false;
+        }
+
+        public static void OpenNavigationViewPane()
+        {
+            Globals.MainNavigation.IsPaneOpen = true;
+        }
+
         public ShellPage()
         {
             this.InitializeComponent();

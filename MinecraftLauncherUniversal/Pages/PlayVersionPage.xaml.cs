@@ -190,6 +190,10 @@ namespace MinecraftLauncherUniversal.Pages
             //wait for anims to complete
             await Task.Delay(200);
             ContentGrid.Visibility = Visibility.Visible;
+
+            //wait for anim to complete
+            await Task.Delay(200);
+            ShellPage.CollapseNavigationViewPane();
         }
 
         private async void Background_Loaded(object sender, RoutedEventArgs e)
@@ -209,7 +213,7 @@ namespace MinecraftLauncherUniversal.Pages
         }
 
         bool BackButtonPressed = false;
-        private void TitleBarGoBackButton_Click(object sender, RoutedEventArgs e)
+        private async void TitleBarGoBackButton_Click(object sender, RoutedEventArgs e)
         {
             BackButtonPressed = true;
             //this is only meant for AllVersionsPage and servers
@@ -242,9 +246,13 @@ namespace MinecraftLauncherUniversal.Pages
             IsPlayingServer = false;
             IsSearchedForAVersion = false;
             PlayServerClass = null;
+
+            //wait for anim to complete
+            await Task.Delay(200);
+            ShellPage.OpenNavigationViewPane();
         }
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected async override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             MainWindow.TitleBarGoBackButton.Visibility = Visibility.Collapsed;
             MainWindow.TitleBarGoBackButton.Click -= TitleBarGoBackButton_Click;
@@ -289,6 +297,9 @@ namespace MinecraftLauncherUniversal.Pages
                 ForgeVersion = null;
                 IsSearchedForAVersion = false;
             }
+
+            await Task.Delay(200);
+            ShellPage.OpenNavigationViewPane();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
