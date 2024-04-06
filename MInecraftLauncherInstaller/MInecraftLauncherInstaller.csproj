@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>MInecraftLauncherInstaller</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -14,11 +14,11 @@
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 	  <PackageIcon>LogoNew.png</PackageIcon>
 	  <ApplicationIcon>Assets\minecraft-icon.ico</ApplicationIcon>
+	  <WindowsPackageType>None</WindowsPackageType>
+	  <SelfContained>true</SelfContained>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Assets\LogoNew.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Remove="Assets\LogoNew.png" />
     <None Remove="Assets\minecraft-icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +44,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.WinUI.Controls.HeaderedControls" Version="8.0.230907" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231115000" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.HeaderedControls" Version="8.0.240109" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="WinUIEx" Version="2.3.3" />
+    <PackageReference Include="WinUIEx" Version="2.3.4" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -67,11 +67,11 @@
     <Resource Include="Assets\minecraft-icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Assets\LogoNew.png">
+    <Content Update="Assets\LogoNew.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
+    </Content>
   </ItemGroup>
 
   <!-- 

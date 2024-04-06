@@ -47,7 +47,7 @@
                     Margin="8"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Source="Assets/LogoNew.png" />
+                    Source="/Assets/LogoNew.png" />
                 <Grid Grid.Column="0" HorizontalAlignment="Left">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

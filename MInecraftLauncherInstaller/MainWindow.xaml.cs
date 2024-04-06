@@ -33,7 +33,7 @@ namespace MInecraftLauncherInstaller
     /// </summary>
     public sealed partial class MainWindow : WinUIEx.WindowEx
     {
-        string LauncherVersion = "1.0";
+        string LauncherVersion = "1.1";
         void UpdateProgressBar(bool Indeterminate)
         {
             InstallProgress.IsIndeterminate = Indeterminate;
