@@ -10,7 +10,7 @@ Current Latest version: 2.1
 ## Portable
 Download the portable executable in the [Releases](https://github.com/Jurij15/MinecraftLauncher/releases?latest) section and extract the ZIP
 ## Installer
-Download the installer in [Releases](https://github.com/Jurij15/MinecraftLauncher/releases?latest), extract the ZIP, run the installer (you can delete the installer folder after installed)
+Download the installer in [Releases](https://github.com/Jurij15/MinecraftLauncher/releases?latest) and run the installer (you can delete the installer after installed)
 
 # Features
 - Play any Minecraft version (Alpha/Beta/Releases)
